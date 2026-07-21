@@ -41,9 +41,57 @@ const DoubtSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
+/* ---------- mentorship ---------- */
+
+const MentorSchema = new mongoose.Schema({
+  email: { type: String, unique: true, required: true },
+  name: String,
+  branch: String,
+  year: String,
+  topics: [String],
+  note: String,
+  status: { type: String, enum: ['pending', 'verified', 'rejected'], default: 'pending' },
+  createdAt: { type: Date, default: Date.now }
+});
+
+const ThreadSchema = new mongoose.Schema({
+  askerEmail: { type: String, required: true },
+  topic: { type: String, required: true },
+  question: { type: String, required: true },
+  status: { type: String, enum: ['open', 'claimed', 'resolved'], default: 'open' },
+  mentorEmail: String,
+  messages: [{
+    from: { type: String, enum: ['fresher', 'senior'] },
+    text: String,
+    at: { type: Date, default: Date.now }
+  }],
+  rating: Number,
+  isPublic: { type: Boolean, default: false },
+  claimedAt: Date,
+  resolvedAt: Date,
+  createdAt: { type: Date, default: Date.now }
+});
+
+const VisitSchema = new mongoose.Schema({
+  path: String,
+  visitorId: String,
+  email: String,
+  createdAt: { type: Date, default: Date.now }
+});
+
+const PresenceSchema = new mongoose.Schema({
+  visitorId: { type: String, unique: true },
+  email: String,
+  lastSeen: { type: Date, default: Date.now }
+});
+
 module.exports = {
   User: mongoose.model('User', UserSchema),
+  Visit: mongoose.model('Visit', VisitSchema),
+  Presence: mongoose.model('Presence', PresenceSchema),
   FAQ: mongoose.model('FAQ', FAQSchema),
   Subject: mongoose.model('Subject', SubjectSchema),
-  Doubt: mongoose.model('Doubt', DoubtSchema)
+  Doubt: mongoose.model('Doubt', DoubtSchema),
+  Mentor: mongoose.model('Mentor', MentorSchema),
+  Thread: mongoose.model('Thread', ThreadSchema)
 };

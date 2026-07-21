@@ -5,7 +5,9 @@ const cors = require('cors');
 const session = require('express-session');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const { User, FAQ, Subject, Doubt } = require('./models');
+const crypto = require('crypto');
+const { User, FAQ, Subject, Doubt, Mentor, Thread, Visit, Presence } = require('./models');
+const { sendMail, sendMailMany } = require('./mailer');
 
 const app = express();
 const FRONTEND = process.env.FRONTEND_URL || 'http://localhost:3000';
@@ -65,9 +67,18 @@ passport.deserializeUser(async (id, done) => {
 
 const isAdminEmail = email => !!email && ADMINS.includes(String(email).toLowerCase());
 
+// Only the server can produce a valid token for an email, since it needs SESSION_SECRET.
+// The browser cannot forge this by editing a header in devtools.
+function makeAdminToken(email) {
+  return crypto.createHmac('sha256', process.env.SESSION_SECRET || 'dev_secret')
+    .update(String(email).toLowerCase())
+    .digest('hex');
+}
+
 const requireAdmin = (req, res, next) => {
-  const email = req.headers['x-user-email'] || (req.user && req.user.email);
-  if (!isAdminEmail(email)) {
+  const email = String(req.headers['x-user-email'] || '').toLowerCase();
+  const token = req.headers['x-admin-token'];
+  if (!isAdminEmail(email) || !token || token !== makeAdminToken(email)) {
     return res.status(403).json({ message: 'This account does not have admin access.' });
   }
   next();
@@ -89,6 +100,9 @@ app.get('/auth/google/callback',
       email: req.user.email,
       name: req.user.name || ''
     });
+    if (isAdminEmail(req.user.email)) {
+      params.set('adminToken', makeAdminToken(req.user.email));
+    }
     res.redirect(FRONTEND + '/?' + params.toString());
   }
 );
@@ -221,6 +235,381 @@ app.patch('/api/doubts/:id/upvote', async (req, res) => {
   }
 });
 
+/* ---------------- Mentorship ---------------- */
+
+const TOPICS = ['Academics', 'Hostel', 'Societies', 'Placements', 'General'];
+
+// who am I - is this email a mentor, and what is their status
+app.get('/api/mentors/me', async (req, res) => {
+  try {
+    const email = String(req.query.email || '').toLowerCase();
+    if (!email) return res.json({ mentor: null });
+    res.json({ mentor: await Mentor.findOne({ email }) });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// apply to become a senior
+app.post('/api/mentors/apply', async (req, res) => {
+  try {
+    const email = String(req.body.email || '').toLowerCase();
+    if (!email) return res.status(400).json({ message: 'Sign in first' });
+
+    const existing = await Mentor.findOne({ email });
+    if (existing) return res.status(400).json({ message: 'You have already applied' });
+
+    const topics = (req.body.topics || []).filter(t => TOPICS.includes(t));
+    if (topics.length === 0) {
+      return res.status(400).json({ message: 'Pick at least one topic you can help with' });
+    }
+
+    const mentor = await Mentor.create({
+      email,
+      name: req.body.name,
+      branch: req.body.branch,
+      year: req.body.year,
+      topics,
+      note: req.body.note
+    });
+    res.status(201).json(mentor);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+app.get('/api/mentors/pending', requireAdmin, async (req, res) => {
+  try {
+    res.json(await Mentor.find({ status: 'pending' }).sort({ createdAt: -1 }));
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+app.get('/api/mentors/verified', requireAdmin, async (req, res) => {
+  try {
+    res.json(await Mentor.find({ status: 'verified' }).sort({ createdAt: -1 }));
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+app.patch('/api/mentors/:id/status', requireAdmin, async (req, res) => {
+  try {
+    const status = req.body.status;
+    if (!['verified', 'rejected'].includes(status)) {
+      return res.status(400).json({ message: 'Invalid status' });
+    }
+    const mentor = await Mentor.findByIdAndUpdate(req.params.id, { status }, { new: true });
+
+    if (status === 'verified') {
+      sendMail(
+        mentor.email,
+        'You are now a verified senior on FreshStart',
+        'Your application has been approved.\n\nOpen FreshStart and go to the Guidance tab to see questions waiting for a senior.\n\n' + FRONTEND
+      );
+    }
+    res.json(mentor);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// fresher asks a question
+app.post('/api/threads', async (req, res) => {
+  try {
+    const askerEmail = String(req.body.email || '').toLowerCase();
+    if (!askerEmail) return res.status(400).json({ message: 'Sign in first' });
+
+    const topic = req.body.topic;
+    if (!TOPICS.includes(topic)) {
+      return res.status(400).json({ message: 'Pick a topic' });
+    }
+
+    const question = String(req.body.question || '').trim();
+    if (!question) {
+      return res.status(400).json({ message: 'Write your question first' });
+    }
+
+    const thread = await Thread.create({ askerEmail, topic, question });
+
+    // notify every verified senior who covers this topic
+    const mentors = await Mentor.find({ status: 'verified', topics: topic });
+    sendMailMany(
+      mentors.map(m => m.email),
+      'New ' + topic + ' question on FreshStart',
+      'A fresher just asked a question under ' + topic + '.\n\n"' +
+      question.slice(0, 200) + (question.length > 200 ? '...' : '') +
+      '"\n\nOpen the Guidance tab to claim it.\n\n' + FRONTEND
+    );
+
+    res.status(201).json({ _id: thread._id });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// threads I asked
+app.get('/api/threads/mine', async (req, res) => {
+  try {
+    const email = String(req.query.email || '').toLowerCase();
+    if (!email) return res.json([]);
+    res.json(await Thread.find({ askerEmail: email }).sort({ createdAt: -1 }));
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// unclaimed questions matching a verified senior's topics
+app.get('/api/threads/pool', async (req, res) => {
+  try {
+    const email = String(req.query.email || '').toLowerCase();
+    const mentor = await Mentor.findOne({ email, status: 'verified' });
+    if (!mentor) return res.status(403).json({ message: 'Not a verified senior' });
+
+    const threads = await Thread.find({ status: 'open', topic: { $in: mentor.topics } })
+      .sort({ createdAt: 1 });
+    res.json(threads);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// threads I claimed
+app.get('/api/threads/claimed', async (req, res) => {
+  try {
+    const email = String(req.query.email || '').toLowerCase();
+    res.json(await Thread.find({ mentorEmail: email }).sort({ createdAt: -1 }));
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// claim a question
+app.patch('/api/threads/:id/claim', async (req, res) => {
+  try {
+    const email = String(req.body.email || '').toLowerCase();
+    const mentor = await Mentor.findOne({ email, status: 'verified' });
+    if (!mentor) return res.status(403).json({ message: 'Not a verified senior' });
+
+    // atomic - only succeeds if still open, so two seniors cannot claim the same thread
+    const thread = await Thread.findOneAndUpdate(
+      { _id: req.params.id, status: 'open' },
+      { status: 'claimed', mentorEmail: email, claimedAt: new Date() },
+      { new: true }
+    );
+    if (!thread) return res.status(400).json({ message: 'Someone else already claimed this one' });
+
+    sendMail(
+      thread.askerEmail,
+      'A verified senior picked up your question',
+      'A verified senior has taken up your question on FreshStart and will reply shortly.\n\n' + FRONTEND
+    );
+
+    res.json(thread);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// single thread - only the asker, the assigned mentor, or an admin can open it
+app.get('/api/threads/:id', async (req, res) => {
+  try {
+    const email = String(req.query.email || '').toLowerCase();
+    const thread = await Thread.findById(req.params.id);
+    if (!thread) return res.status(404).json({ message: 'Not found' });
+
+    const allowed =
+      thread.askerEmail === email ||
+      thread.mentorEmail === email ||
+      isAdminEmail(email) ||
+      thread.isPublic;
+
+    if (!allowed) return res.status(403).json({ message: 'Not your thread' });
+
+    const role = thread.askerEmail === email ? 'fresher'
+      : thread.mentorEmail === email ? 'senior'
+      : 'viewer';
+
+    res.json({ thread, role });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// post a message into a thread
+app.post('/api/threads/:id/message', async (req, res) => {
+  try {
+    const email = String(req.body.email || '').toLowerCase();
+    const text = String(req.body.text || '').trim();
+    if (!text) return res.status(400).json({ message: 'Write something first' });
+
+    const thread = await Thread.findById(req.params.id);
+    if (!thread) return res.status(404).json({ message: 'Not found' });
+    if (thread.status === 'resolved') {
+      return res.status(400).json({ message: 'This thread is closed' });
+    }
+
+    let from;
+    if (thread.askerEmail === email) from = 'fresher';
+    else if (thread.mentorEmail === email) from = 'senior';
+    else return res.status(403).json({ message: 'Not your thread' });
+
+    thread.messages.push({ from, text });
+    await thread.save();
+
+    if (from === 'senior') {
+      sendMail(
+        thread.askerEmail,
+        'Your question has a new reply',
+        'A verified senior replied to your question on FreshStart.\n\n' + FRONTEND
+      );
+    } else if (thread.mentorEmail) {
+      sendMail(
+        thread.mentorEmail,
+        'New reply on a thread you claimed',
+        'The fresher replied on a thread you are helping with.\n\n' + FRONTEND
+      );
+    }
+
+    res.json(thread);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// fresher closes the thread and rates it
+app.patch('/api/threads/:id/resolve', async (req, res) => {
+  try {
+    const email = String(req.body.email || '').toLowerCase();
+    const thread = await Thread.findById(req.params.id);
+    if (!thread) return res.status(404).json({ message: 'Not found' });
+    if (thread.askerEmail !== email) {
+      return res.status(403).json({ message: 'Only the person who asked can close this' });
+    }
+
+    const rating = Number(req.body.rating);
+    thread.status = 'resolved';
+    thread.resolvedAt = new Date();
+    if (rating >= 1 && rating <= 5) thread.rating = rating;
+    await thread.save();
+    res.json(thread);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// fresher chooses to make the conversation public
+app.patch('/api/threads/:id/publish', async (req, res) => {
+  try {
+    const email = String(req.body.email || '').toLowerCase();
+    const thread = await Thread.findById(req.params.id);
+    if (!thread) return res.status(404).json({ message: 'Not found' });
+    if (thread.askerEmail !== email) {
+      return res.status(403).json({ message: 'Only the person who asked can publish this' });
+    }
+    thread.isPublic = !!req.body.isPublic;
+    await thread.save();
+    res.json(thread);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// public archive of resolved conversations
+app.get('/api/threads/public/all', async (req, res) => {
+  try {
+    const query = { isPublic: true, status: 'resolved' };
+    if (req.query.topic && req.query.topic !== 'all') query.topic = req.query.topic;
+    const threads = await Thread.find(query)
+      .select('topic question messages rating resolvedAt')
+      .sort({ resolvedAt: -1 });
+    res.json(threads);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// admin - every thread, plus the ones nobody has claimed in 12 hours
+app.get('/api/admin/threads', requireAdmin, async (req, res) => {
+  try {
+    res.json(await Thread.find().sort({ createdAt: -1 }).limit(100));
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+app.get('/api/admin/unclaimed', requireAdmin, async (req, res) => {
+  try {
+    const cutoff = new Date(Date.now() - 12 * 60 * 60 * 1000);
+    res.json(await Thread.find({ status: 'open', createdAt: { $lt: cutoff } }).sort({ createdAt: 1 }));
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+/* ---------------- Tracking ---------------- */
+
+app.post('/api/track/visit', async (req, res) => {
+  try {
+    const { visitorId, email, path } = req.body;
+    if (!visitorId) return res.json({ ok: true });
+    await Visit.create({ visitorId, email, path });
+    await Presence.findOneAndUpdate(
+      { visitorId },
+      { email, lastSeen: new Date() },
+      { upsert: true }
+    );
+    res.json({ ok: true });
+  } catch (err) {
+    res.json({ ok: true }); // tracking must never break the app
+  }
+});
+
+app.post('/api/track/heartbeat', async (req, res) => {
+  try {
+    const { visitorId, email } = req.body;
+    if (!visitorId) return res.json({ ok: true });
+    await Presence.findOneAndUpdate(
+      { visitorId },
+      { email, lastSeen: new Date() },
+      { upsert: true }
+    );
+    res.json({ ok: true });
+  } catch (err) {
+    res.json({ ok: true });
+  }
+});
+
+app.get('/api/admin/analytics', requireAdmin, async (req, res) => {
+  try {
+    const dayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+    const activeCutoff = new Date(Date.now() - 2 * 60 * 1000); // active in last 2 min
+
+    const [totalVisits, visitsToday, uniqueVisitorIds, activeNow, topPagesRaw] = await Promise.all([
+      Visit.countDocuments(),
+      Visit.countDocuments({ createdAt: { $gte: dayAgo } }),
+      Visit.distinct('visitorId'),
+      Presence.countDocuments({ lastSeen: { $gte: activeCutoff } }),
+      Visit.aggregate([
+        { $group: { _id: '$path', count: { $sum: 1 } } },
+        { $sort: { count: -1 } },
+        { $limit: 6 }
+      ])
+    ]);
+
+    res.json({
+      totalVisits,
+      visitsToday,
+      uniqueVisitors: uniqueVisitorIds.length,
+      activeNow,
+      topPages: topPagesRaw.map(p => ({ path: p._id || 'unknown', count: p.count }))
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 /* ---------------- Stats ---------------- */
 
 app.get('/api/stats', requireAdmin, async (req, res) => {
@@ -230,7 +619,11 @@ app.get('/api/stats', requireAdmin, async (req, res) => {
       subjects: await Subject.countDocuments(),
       answered: await Doubt.countDocuments({ status: 'answered' }),
       pending: await Doubt.countDocuments({ status: 'pending' }),
-      users: await User.countDocuments()
+      users: await User.countDocuments(),
+      mentorsPending: await Mentor.countDocuments({ status: 'pending' }),
+      mentorsVerified: await Mentor.countDocuments({ status: 'verified' }),
+      threadsOpen: await Thread.countDocuments({ status: 'open' }),
+      threadsResolved: await Thread.countDocuments({ status: 'resolved' })
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
