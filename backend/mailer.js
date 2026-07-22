@@ -1,36 +1,40 @@
-const nodemailer = require('nodemailer');
+// Uses Brevo's HTTPS API instead of SMTP, because Railway's free/hobby plan
+// blocks outbound SMTP ports (25, 465, 587) entirely. HTTPS (port 443) is not blocked.
 
-const HOST = process.env.EMAIL_HOST || 'smtp-relay.brevo.com';
-const PORT = Number(process.env.EMAIL_PORT) || 587;
-const USER = process.env.EMAIL_USER;
-const PASS = process.env.EMAIL_PASS;
+const API_KEY = process.env.BREVO_API_KEY;
+const FROM_EMAIL = process.env.EMAIL_FROM;
 
-let transporter = null;
-
-if (USER && PASS) {
-  transporter = nodemailer.createTransport({
-    host: HOST,
-    port: PORT,
-    secure: false, // STARTTLS on port 587
-    auth: { user: USER, pass: PASS }
-  });
-  console.log('Email notifications enabled via ' + HOST);
+if (API_KEY && FROM_EMAIL) {
+  console.log('Email notifications enabled via Brevo HTTPS API');
 } else {
   console.log('Email not configured - notifications will be skipped');
 }
 
 /**
- * Sends an email. Never throws - a failed email must not break a request.
+ * Sends an email via Brevo's transactional email API. Never throws - a failed
+ * email must not break a request.
  */
 async function sendMail(to, subject, body) {
-  if (!transporter || !to) return;
+  if (!API_KEY || !FROM_EMAIL || !to) return;
   try {
-    await transporter.sendMail({
-      from: 'FreshStart <' + (process.env.EMAIL_FROM || USER) + '>',
-      to,
-      subject,
-      text: body
+    const res = await fetch('https://api.brevo.com/v3/smtp/email', {
+      method: 'POST',
+      headers: {
+        'accept': 'application/json',
+        'api-key': API_KEY,
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        sender: { name: 'FreshStart', email: FROM_EMAIL },
+        to: [{ email: to }],
+        subject,
+        textContent: body
+      })
     });
+    if (!res.ok) {
+      const text = await res.text();
+      console.error('Brevo API error:', res.status, text);
+    }
   } catch (err) {
     console.error('Email failed:', err.message);
   }
