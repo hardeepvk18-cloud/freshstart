@@ -1,16 +1,20 @@
 const nodemailer = require('nodemailer');
 
-const FROM = process.env.EMAIL_USER;
+const HOST = process.env.EMAIL_HOST || 'smtp-relay.brevo.com';
+const PORT = Number(process.env.EMAIL_PORT) || 587;
+const USER = process.env.EMAIL_USER;
 const PASS = process.env.EMAIL_PASS;
 
 let transporter = null;
 
-if (FROM && PASS) {
+if (USER && PASS) {
   transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: { user: FROM, pass: PASS }
+    host: HOST,
+    port: PORT,
+    secure: false, // STARTTLS on port 587
+    auth: { user: USER, pass: PASS }
   });
-  console.log('Email notifications enabled');
+  console.log('Email notifications enabled via ' + HOST);
 } else {
   console.log('Email not configured - notifications will be skipped');
 }
@@ -22,7 +26,7 @@ async function sendMail(to, subject, body) {
   if (!transporter || !to) return;
   try {
     await transporter.sendMail({
-      from: 'FreshStart <' + FROM + '>',
+      from: 'FreshStart <' + (process.env.EMAIL_FROM || USER) + '>',
       to,
       subject,
       text: body

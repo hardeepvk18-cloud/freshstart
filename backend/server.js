@@ -223,6 +223,15 @@ app.patch('/api/doubts/:id/reply', requireAdmin, async (req, res) => {
   }
 });
 
+app.delete('/api/doubts/:id', requireAdmin, async (req, res) => {
+  try {
+    await Doubt.findByIdAndDelete(req.params.id);
+    res.json({ ok: true });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
 app.patch('/api/doubts/:id/upvote', async (req, res) => {
   try {
     res.json(await Doubt.findByIdAndUpdate(

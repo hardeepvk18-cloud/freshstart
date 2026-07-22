@@ -276,7 +276,7 @@ function SubjectDetail({ code, user, go }) {
         {(subject.topics || []).map(t => <span className="tag" key={t}>{t}</span>)}
       </div>
 
-      <div className="sec-title">How to actually pass it</div>
+      <div className="sec-title">How to score well</div>
       {(user || subject.pool === 'A') ? (
         <div className="list">
           {(subject.tips || []).map((tip, i) => (
@@ -449,6 +449,15 @@ function Admin({ user }) {
     load();
   };
 
+  const deleteDoubt = async id => {
+    if (!window.confirm('Delete this doubt permanently?')) return;
+    await fetch(API + '/api/doubts/' + id, {
+      method: 'DELETE',
+      headers: Auth.adminHeaders(user.email)
+    });
+    load();
+  };
+
   const decideMentor = async (id, status) => {
     await fetch(API + '/api/mentors/' + id + '/status', {
       method: 'PATCH',
@@ -535,7 +544,10 @@ function Admin({ user }) {
                   onChange={e => setReplies({ ...replies, [d._id]: e.target.value })}
                 />
               </label>
-              <button className="btn btn-sm" onClick={() => sendReply(d._id)}>Publish answer</button>
+              <div style={{ display: 'flex', gap: '.6rem' }}>
+                <button className="btn btn-sm" onClick={() => sendReply(d._id)}>Publish answer</button>
+                <button className="btn btn-sm btn-ghost" onClick={() => deleteDoubt(d._id)}>Delete</button>
+              </div>
             </div>
           ))}
         </div>
@@ -1006,14 +1018,13 @@ export default function App() {
       fetch(API + url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ visitorId, email: user ? user.email : undefined, path: page })
+        body: JSON.stringify({ visitorId, email: user ? user.email : undefined, path: window.location.pathname })
       }).catch(() => {});
     };
     ping('/api/track/visit');
     const timer = setInterval(() => ping('/api/track/heartbeat'), 30000);
     return () => clearInterval(timer);
-    
-  }, [page]);
+  }, []);
 
   useEffect(() => {
     if (!user) { setIsAdmin(false); return; }
