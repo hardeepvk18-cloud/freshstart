@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "https://freshstart-backend-production.up.railway.app/api/:path*" },
+    { "source": "/auth/:path*", "destination": "https://freshstart-backend-production.up.railway.app/auth/:path*" }
+  ]
+}
