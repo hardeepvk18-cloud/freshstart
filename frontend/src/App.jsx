@@ -391,6 +391,7 @@ function Admin({ user }) {
   const [denied, setDenied] = useState(false);
   const [mentorApps, setMentorApps] = useState([]);
   const [analytics, setAnalytics] = useState(null);
+  const [logins, setLogins] = useState([]);
   const [answered, setAnswered] = useState([]);
 
   const load = useCallback(() => {
@@ -423,6 +424,11 @@ function Admin({ user }) {
     fetch(API + '/api/admin/analytics', { headers })
       .then(r => r.ok ? r.json() : null)
       .then(d => { if (d) setAnalytics(d); })
+      .catch(() => {});
+
+    fetch(API + '/api/admin/logins', { headers })
+      .then(r => r.ok ? r.json() : [])
+      .then(d => setLogins(Array.isArray(d) ? d : []))
       .catch(() => {});
   }, [user]);
 
@@ -508,6 +514,24 @@ function Admin({ user }) {
             </div>
           )}
         </>
+      )}
+
+      <div className="sec-title">Logged-in users</div>
+      {logins.length === 0 ? (
+        <div className="empty">Nobody has signed in yet.</div>
+      ) : (
+        <div className="list">
+          {logins.map(l => (
+            <div className="card" key={l.email}>
+              <h4>{l.email}</h4>
+              <div className="tags" style={{ marginTop: '.6rem' }}>
+                {l.active && <span className="tag ok"><span className="live" style={{ marginRight: '.35rem' }}></span>Active now</span>}
+                <span className="tag">First seen: {new Date(l.firstSeen).toLocaleString()}</span>
+                <span className="tag">Last seen: {new Date(l.lastSeen).toLocaleString()}</span>
+              </div>
+            </div>
+          ))}
+        </div>
       )}
 
       <div className="sec-title">Senior applications</div>

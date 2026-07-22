@@ -82,6 +82,7 @@ const VisitSchema = new mongoose.Schema({
 const PresenceSchema = new mongoose.Schema({
   visitorId: { type: String, unique: true },
   email: String,
+  firstSeen: { type: Date, default: Date.now },
   lastSeen: { type: Date, default: Date.now }
 });
 

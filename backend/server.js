@@ -566,7 +566,7 @@ app.post('/api/track/visit', async (req, res) => {
     await Visit.create({ visitorId, email, path });
     await Presence.findOneAndUpdate(
       { visitorId },
-      { email, lastSeen: new Date() },
+      { $set: { email, lastSeen: new Date() }, $setOnInsert: { firstSeen: new Date() } },
       { upsert: true }
     );
     res.json({ ok: true });
@@ -581,7 +581,7 @@ app.post('/api/track/heartbeat', async (req, res) => {
     if (!visitorId) return res.json({ ok: true });
     await Presence.findOneAndUpdate(
       { visitorId },
-      { email, lastSeen: new Date() },
+      { $set: { email, lastSeen: new Date() }, $setOnInsert: { firstSeen: new Date() } },
       { upsert: true }
     );
     res.json({ ok: true });
@@ -614,6 +614,24 @@ app.get('/api/admin/analytics', requireAdmin, async (req, res) => {
       activeNow,
       topPages: topPagesRaw.map(p => ({ path: p._id || 'unknown', count: p.count }))
     });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// every distinct email that has ever signed in, most recently active first
+app.get('/api/admin/logins', requireAdmin, async (req, res) => {
+  try {
+    const activeCutoff = new Date(Date.now() - 2 * 60 * 1000);
+    const logins = await Presence.find({ email: { $exists: true, $ne: null } })
+      .select('email firstSeen lastSeen')
+      .sort({ lastSeen: -1 });
+    res.json(logins.map(l => ({
+      email: l.email,
+      firstSeen: l.firstSeen,
+      lastSeen: l.lastSeen,
+      active: l.lastSeen >= activeCutoff
+    })));
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
