@@ -794,6 +794,9 @@ function Guidance({ user, go }) {
   const [claimed, setClaimed] = useState([]);
   const [form, setForm] = useState({ topic: '', question: '' });
   const [msg, setMsg] = useState('');
+  const [editingTopics, setEditingTopics] = useState(false);
+  const [topicDraft, setTopicDraft] = useState([]);
+  const [topicMsg, setTopicMsg] = useState('');
 
   const load = useCallback(() => {
     if (!user) { setLoaded(true); return; }
@@ -862,6 +865,30 @@ function Guidance({ user, go }) {
 
   const isVerified = mentor && mentor.status === 'verified';
 
+  const startEditTopics = () => {
+    setTopicDraft(mentor.topics || []);
+    setEditingTopics(true);
+  };
+
+  const toggleDraftTopic = t => {
+    setTopicDraft(d => d.includes(t) ? d.filter(x => x !== t) : [...d, t]);
+  };
+
+  const saveTopics = async () => {
+    if (topicDraft.length === 0) { setTopicMsg('Pick at least one topic.'); return; }
+    const res = await fetch(API + '/api/mentors/me/topics', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: user.email, topics: topicDraft })
+    });
+    const data = await res.json();
+    if (!res.ok) { setTopicMsg(data.message); return; }
+    setMentor(data);
+    setEditingTopics(false);
+    setTopicMsg('');
+    load();
+  };
+
   return (
     <div className="wrap">
       <h2>Talk to a senior</h2>
@@ -880,6 +907,34 @@ function Guidance({ user, go }) {
       {/* ---- verified senior view ---- */}
       {isVerified && (
         <>
+          <div className="card" style={{ marginBottom: '2rem' }}>
+            <h4>Your topics</h4>
+            {!editingTopics ? (
+              <>
+                <div className="tags" style={{ marginTop: '.8rem', marginBottom: '1rem' }}>
+                  {(mentor.topics || []).map(t => <span className="tag" key={t}>{t}</span>)}
+                </div>
+                <button className="btn btn-sm btn-ghost" onClick={startEditTopics}>Edit topics</button>
+              </>
+            ) : (
+              <>
+                <p className="sub" style={{ marginTop: '.8rem', marginBottom: '.7rem' }}>Which topics can you help with?</p>
+                <div className="filters">
+                  {TOPICS.map(t => (
+                    <button key={t} className={'chip' + (topicDraft.includes(t) ? ' on' : '')} onClick={() => toggleDraftTopic(t)}>
+                      {t}
+                    </button>
+                  ))}
+                </div>
+                <div style={{ display: 'flex', gap: '.6rem', marginTop: '1rem' }}>
+                  <button className="btn btn-sm" onClick={saveTopics}>Save</button>
+                  <button className="btn btn-sm btn-ghost" onClick={() => setEditingTopics(false)}>Cancel</button>
+                </div>
+              </>
+            )}
+            {topicMsg && <p className="note">{topicMsg}</p>}
+          </div>
+
           <div className="sec-title">Questions waiting for a senior</div>
           {pool.length === 0 ? (
             <div className="empty">Nothing waiting right now.</div>

@@ -324,6 +324,26 @@ app.patch('/api/mentors/:id/status', requireAdmin, async (req, res) => {
   }
 });
 
+// a senior updates their own topic coverage - no admin needed, they can only touch their own record
+app.patch('/api/mentors/me/topics', async (req, res) => {
+  try {
+    const email = String(req.body.email || '').toLowerCase();
+    const topics = (req.body.topics || []).filter(t => TOPICS.includes(t));
+    if (!email) return res.status(400).json({ message: 'Sign in first' });
+    if (topics.length === 0) return res.status(400).json({ message: 'Pick at least one topic' });
+
+    const mentor = await Mentor.findOneAndUpdate(
+      { email },
+      { topics },
+      { new: true }
+    );
+    if (!mentor) return res.status(404).json({ message: 'No senior profile found for this account' });
+    res.json(mentor);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
 // fresher asks a question
 app.post('/api/threads', async (req, res) => {
   try {
