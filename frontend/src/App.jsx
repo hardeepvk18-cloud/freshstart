@@ -391,6 +391,7 @@ function Admin({ user }) {
   const [denied, setDenied] = useState(false);
   const [mentorApps, setMentorApps] = useState([]);
   const [analytics, setAnalytics] = useState(null);
+  const [answered, setAnswered] = useState([]);
 
   const load = useCallback(() => {
     if (!user) return;
@@ -407,6 +408,11 @@ function Admin({ user }) {
     fetch(API + '/api/doubts/pending', { headers })
       .then(r => r.ok ? r.json() : [])
       .then(d => setPending(Array.isArray(d) ? d : []))
+      .catch(() => {});
+
+    fetch(API + '/api/doubts')
+      .then(r => r.ok ? r.json() : [])
+      .then(d => setAnswered(Array.isArray(d) ? d : []))
       .catch(() => {});
 
     fetch(API + '/api/mentors/pending', { headers })
@@ -548,6 +554,22 @@ function Admin({ user }) {
                 <button className="btn btn-sm" onClick={() => sendReply(d._id)}>Publish answer</button>
                 <button className="btn btn-sm btn-ghost" onClick={() => deleteDoubt(d._id)}>Delete</button>
               </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div className="sec-title">Answered doubts</div>
+      {answered.length === 0 ? (
+        <div className="empty">Nothing answered yet.</div>
+      ) : (
+        <div className="list">
+          {answered.map(d => (
+            <div className="card" key={d._id}>
+              <h4>{d.title}</h4>
+              {d.description && <p style={{ marginBottom: '.7rem' }}>{d.description}</p>}
+              <p style={{ marginBottom: '.9rem' }}><b style={{ color: '#8d86ff' }}>Answer: </b>{d.answer}</p>
+              <button className="btn btn-sm btn-ghost" onClick={() => deleteDoubt(d._id)}>Delete</button>
             </div>
           ))}
         </div>
