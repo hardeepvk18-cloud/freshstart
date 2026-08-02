@@ -81,6 +81,15 @@ function Home({ go }) {
           already survived it. Built for TIET first year students.
         </p>
 
+        <a
+          href="https://instagram.com/hardeep___0100"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="insta-contact"
+        >
+          <span>📸</span> If you need any help, you can contact me
+        </a>
+
         <div className="mini-grid">
           <div className="mini" onClick={() => go('subjects')}><i>📚</i><h4>Subjects</h4><p>Pool A and B</p></div>
           <div className="mini" onClick={() => go('faqs')}><i>❓</i><h4>FAQs</h4><p>Real answers</p></div>
@@ -100,15 +109,6 @@ function Home({ go }) {
         <div className="hero-btns">
           <button className="btn btn-lg btn-ghost" onClick={() => go('faqs')}>Browse the guide</button>
         </div>
-
-        <a
-          href="https://instagram.com/hardeep___0100"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="insta-contact"
-        >
-          <span>📸</span> Need help or found a bug? Connect on Instagram
-        </a>
       </div>
     </div>
   );
