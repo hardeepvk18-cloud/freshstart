@@ -308,18 +308,23 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
   align-items: center;
   gap: .5rem;
   margin: .3rem 0 2.2rem;
-  padding: .6rem 1.2rem;
+  padding: .6rem 1.3rem;
   border-radius: 50px;
-  background: rgba(255, 255, 255, .05);
-  border: 1px solid rgba(255, 255, 255, .12);
-  color: #b0a8d8;
+  background: linear-gradient(135deg, rgba(240, 74, 138, .18), rgba(255, 158, 87, .18));
+  border: 1px solid rgba(240, 74, 138, .4);
+  color: #ff9ec0;
   font-size: .85rem;
-  font-weight: 500;
-  text-decoration: none;
-  transition: transform .25s cubic-bezier(.34, 1.56, .64, 1), border-color .25s, color .25s;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 158, 199, .5);
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: transform .25s cubic-bezier(.34, 1.56, .64, 1), border-color .25s, background .25s, color .25s;
 }
 .insta-contact:hover {
   transform: translateY(-2px);
-  border-color: rgba(108, 99, 255, .45);
+  border-color: rgba(240, 74, 138, .8);
+  background: linear-gradient(135deg, rgba(240, 74, 138, .3), rgba(255, 158, 87, .3));
   color: #fff;
+  text-decoration-color: #fff;
 }
