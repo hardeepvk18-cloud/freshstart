@@ -301,3 +301,25 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
 .senior-cta-go { color: #8d86ff; font-weight: 600; font-size: .92rem; }
 
 @media (max-width: 640px) { .senior-cta-in { padding: 1.6rem 1.3rem; } }
+
+/* ---------- instagram contact link ---------- */
+.insta-contact {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  margin-top: 1.6rem;
+  padding: .6rem 1.2rem;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid rgba(255, 255, 255, .12);
+  color: #b0a8d8;
+  font-size: .85rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: transform .25s cubic-bezier(.34, 1.56, .64, 1), border-color .25s, color .25s;
+}
+.insta-contact:hover {
+  transform: translateY(-2px);
+  border-color: rgba(108, 99, 255, .45);
+  color: #fff;
+}

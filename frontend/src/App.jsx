@@ -100,6 +100,15 @@ function Home({ go }) {
         <div className="hero-btns">
           <button className="btn btn-lg btn-ghost" onClick={() => go('faqs')}>Browse the guide</button>
         </div>
+
+        <a
+          href="https://instagram.com/hardeep___0100"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="insta-contact"
+        >
+          <span>📸</span> Need help or found a bug? Connect on Instagram
+        </a>
       </div>
     </div>
   );
