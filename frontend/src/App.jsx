@@ -81,20 +81,20 @@ function Home({ go }) {
           already survived it. Built for TIET first year students.
         </p>
 
-        <a
-          href="https://instagram.com/hardeep___0100"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="insta-contact"
-        >
-          <span>📸</span> If you need any help, you can contact me
-        </a>
-
         <div className="mini-grid">
           <div className="mini" onClick={() => go('subjects')}><i>📚</i><h4>Subjects</h4><p>Pool A and B</p></div>
           <div className="mini" onClick={() => go('faqs')}><i>❓</i><h4>FAQs</h4><p>Real answers</p></div>
           <div className="mini" onClick={() => go('doubts')}><i>💬</i><h4>Doubts</h4><p>Ask anonymously</p></div>
-          <div className="mini" onClick={() => go('subjects')}><i>💡</i><h4>Tips</h4><p>What toppers do</p></div>
+          <div className="mini" onClick={() => go('pyq')}><i>📊</i><h4>PYQ Guides</h4><p>What repeats in MSTs</p></div>
+        </div>
+
+        <div className="senior-cta" onClick={() => go('pyq')} style={{ marginBottom: '1.2rem' }}>
+          <div className="senior-cta-in">
+            <span className="live">new</span>
+            <h3>PYQ analysis guides for 9 subjects</h3>
+            <p>We read every past MST paper of each subject and counted the marks. See which topics repeat, the questions asked each year, a verified formula sheet, the mistakes that cost marks, and the full papers to practise on.</p>
+            <span className="senior-cta-go">Open the guides &rarr;</span>
+          </div>
         </div>
 
         <div className="senior-cta" onClick={() => go('guidance')}>
@@ -242,6 +242,82 @@ function Subjects({ user, go }) {
   );
 }
 
+const GUIDES = [
+  { code: 'UCB009', name: 'Chemistry', pool: 'A', papers: 4, note: 'Spectroscopy carried 77% of marks across four papers' },
+  { code: 'UES013', name: 'Electrical & Electronics', pool: 'A', papers: 5, note: 'Nodal analysis and Thevenin appeared in all five papers' },
+  { code: 'UMA010', name: 'Mathematics I', pool: 'A', papers: 3, note: 'Five topics appeared in every paper — 72% of marks' },
+  { code: 'UEN008', name: 'Energy & Environment', pool: 'A', papers: 5, note: 'BOD/COD numericals in every paper since Oct 2024' },
+  { code: 'UES103', name: 'C Programming', pool: 'A', papers: 5, note: 'The paper now tests reading code, not writing it' },
+  { code: 'UMA004', name: 'Mathematics II', pool: 'B', papers: 3, note: 'Mar 2026 repeated 7 of 9 parts from Mar 2025' },
+  { code: 'UPH013', name: 'Physics', pool: 'B', papers: 4, note: 'Five topics in all four papers — 79% of marks' },
+  { code: 'UES102', name: 'Manufacturing Processes', pool: 'B', papers: 5, note: 'A CNC program in every paper, always Question 1(a)' },
+  { code: 'PHU003', name: 'Professional Communication', pool: 'B', papers: 2, note: '3 of 5 questions in 2025 repeated 2024 topics' }
+];
+const GUIDE_CODES = GUIDES.map(g => g.code);
+
+function GuideCard({ g, i }) {
+  return (
+    <a
+      className="card clickable"
+      href={'/guides/' + g.code + '.html'}
+      target="_blank"
+      rel="noopener noreferrer"
+      key={g.code}
+      style={{ animationDelay: i * 0.06 + 's', textDecoration: 'none', display: 'block' }}
+    >
+      <h3>{g.name}</h3>
+      <p>{g.code} · Pool {g.pool} · built from {g.papers} MST papers</p>
+      <p style={{ marginTop: '.6rem', color: '#8d86ff', fontSize: '.9rem' }}>{g.note}</p>
+      <div className="tags" style={{ marginTop: '.9rem' }}>
+        <span className="tag">Must-do topics</span>
+        <span className="tag">Formula sheet</span>
+        <span className="tag">Common mistakes</span>
+        <span className="tag">Full papers</span>
+      </div>
+    </a>
+  );
+}
+
+function PyqGuides() {
+  return (
+    <div className="wrap">
+      <h2>PYQ analysis guides</h2>
+      <p className="sub">
+        Every guide is built from the actual MST papers of that subject — not guesswork. We counted the
+        marks question by question to show which topics keep repeating, how they were asked each year,
+        and where students lose easy marks.
+      </p>
+
+      <div className="highlight">
+        <span>&#128202;</span>
+        <div>
+          <b>What's inside every guide</b>
+          <p>
+            Must-do topics ranked by how often they came up · a repeated-topics heatmap · every past
+            question sorted by topic and year · a verified formula sheet · common mistakes · a
+            one-evening plan · and the full past papers.
+          </p>
+        </div>
+      </div>
+
+      <div className="sec-title">Pool A</div>
+      <div className="grid">
+        {GUIDES.filter(g => g.pool === 'A').map((g, i) => <GuideCard g={g} i={i} key={g.code} />)}
+      </div>
+
+      <div className="sec-title">Pool B</div>
+      <div className="grid">
+        {GUIDES.filter(g => g.pool === 'B').map((g, i) => <GuideCard g={g} i={i} key={g.code} />)}
+      </div>
+
+      <p className="note" style={{ marginTop: '1.6rem' }}>
+        Each guide says which papers it was built from. Syllabus changes every now and then, so
+        cross-check the topic list against your own MST syllabus before planning.
+      </p>
+    </div>
+  );
+}
+
 function SubjectDetail({ code, user, go }) {
   const [subject, setSubject] = useState(null);
   const [missing, setMissing] = useState(false);
@@ -279,6 +355,30 @@ function SubjectDetail({ code, user, go }) {
           Detention risk: {subject.detain}
         </span>
       </div>
+
+      {GUIDE_CODES.includes(subject.code) && (
+        <a
+          href={'/guides/' + subject.code + '.html'}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: 'flex', alignItems: 'center', gap: '.9rem',
+            padding: '1rem 1.2rem', marginBottom: '1.8rem',
+            borderRadius: '14px', textDecoration: 'none',
+            background: 'linear-gradient(135deg, rgba(108,99,255,.16), rgba(14,110,110,.16))',
+            border: '1px solid rgba(108,99,255,.4)', color: '#fff'
+          }}
+        >
+          <span style={{ fontSize: '1.5rem' }}>&#128202;</span>
+          <span style={{ flex: 1 }}>
+            <b style={{ display: 'block', fontSize: '1rem' }}>PYQ analysis guide</b>
+            <span style={{ fontSize: '.85rem', color: '#b0a8d8' }}>
+              Which topics repeat, formula sheet, common mistakes and full past papers
+            </span>
+          </span>
+          <span style={{ fontSize: '1.2rem', color: '#8d86ff' }}>&rarr;</span>
+        </a>
+      )}
 
       <div className="sec-title">What you will study</div>
       <div className="tags">
@@ -1171,6 +1271,7 @@ export default function App() {
         </button>
 
         <div className="nav-links">
+          <button className={'nav-link' + (page === 'pyq' ? ' on' : '')} onClick={() => go('pyq')}>PYQ Guides</button>
           <button className={'nav-link' + (page === 'faqs' ? ' on' : '')} onClick={() => go('faqs')}>FAQs</button>
           <button className={'nav-link' + (page.startsWith('subject') ? ' on' : '')} onClick={() => go('subjects')}>Subjects</button>
           <button className={'nav-link' + (page === 'doubts' ? ' on' : '')} onClick={() => go('doubts')}>Doubts</button>
@@ -1191,6 +1292,7 @@ export default function App() {
       </nav>
 
       {page === 'home' && <Home go={go} />}
+      {page === 'pyq' && <PyqGuides />}
       {page === 'faqs' && <FAQs user={user} />}
       {page === 'subjects' && <Subjects user={user} go={go} />}
       {page === 'subject' && <SubjectDetail code={subjectCode} user={user} go={go} />}

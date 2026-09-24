@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>UCB009 Chemistry — MST PYQ Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #EEF2F2;
+    --paper: #FFFFFF;
+    --ink: #16232D;
+    --ink-soft: #4A5A63;
+    --line: #DCE3E4;
+    --teal: #0E6E6E;
+    --teal-deep: #0A5252;
+    --teal-wash: #E4F1EF;
+    --amber: #A8791F;
+    --amber-wash: #FBF1DD;
+    --rose: #9B4444;
+    --rose-wash: #FBEEEE;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    line-height: 1.55;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .wrap { max-width: 800px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+
+  .kicker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--teal-deep);
+    letter-spacing: 0.03em;
+    margin-bottom: 0.9rem;
+  }
+  h1 {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    font-size: clamp(1.9rem, 5vw, 2.6rem);
+    line-height: 1.15;
+    margin: 0 0 0.6rem;
+    letter-spacing: -0.01em;
+  }
+  .subtitle { color: var(--ink-soft); font-size: 1.02rem; max-width: 60ch; margin: 0 0 1.6rem; }
+
+  .disclaimer {
+    background: var(--amber-wash);
+    border: 1px solid #E9D6A8;
+    border-radius: 10px;
+    padding: 0.9rem 1.1rem;
+    font-size: 0.87rem;
+    color: #7A5A0E;
+    margin-bottom: 2.4rem;
+  }
+  .disclaimer b { color: #5C4308; }
+
+  /* table of contents */
+  .toc {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 1.3rem 1.5rem;
+    margin-bottom: 2.6rem;
+  }
+  .toc-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; color: var(--ink-soft); letter-spacing: 0.03em; margin-bottom: 0.7rem; }
+  .toc ol { margin: 0; padding-left: 1.3rem; }
+  .toc li { margin-bottom: 0.4rem; font-size: 0.94rem; }
+  .toc a { color: var(--teal-deep); text-decoration: none; font-weight: 500; }
+  .toc a:hover { text-decoration: underline; }
+
+  .hero-stat {
+    background: var(--teal);
+    color: #fff;
+    border-radius: 14px;
+    padding: 1.8rem 1.9rem;
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: baseline;
+    gap: 1.1rem;
+    flex-wrap: wrap;
+  }
+  .hero-stat .num { font-family: 'Source Serif 4', serif; font-weight: 700; font-size: 3.4rem; line-height: 1; }
+  .hero-stat p { margin: 0; font-size: 1rem; max-width: 40ch; color: #DFF3F0; }
+  .hero-stat p b { color: #fff; }
+
+  /* SECTION SHELL — every major section gets a numbered badge + divider so sections are unmistakably separate */
+  .section-block {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 2rem 2rem 2.2rem;
+    margin-bottom: 2.2rem;
+  }
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-bottom: 0.4rem;
+  }
+  .section-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+    background: var(--teal);
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  h2 { font-family: 'Source Serif 4', serif; font-size: 1.5rem; font-weight: 600; margin: 0; color: var(--ink); }
+  .section-note { color: var(--ink-soft); font-size: 0.94rem; margin: 0.6rem 0 1.6rem; }
+
+  /* topic weightage bars */
+  .bar-row { display: grid; grid-template-columns: 168px 1fr 52px; align-items: center; gap: 0.9rem; margin-bottom: 0.85rem; }
+  .bar-label { font-size: 0.94rem; font-weight: 500; }
+  .bar-track { background: var(--line); border-radius: 6px; height: 14px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 6px; }
+  .bar-pct { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; text-align: right; color: var(--ink-soft); }
+
+  .paper-table { width: 100%; border-collapse: collapse; background: var(--paper); border-radius: 10px; overflow: hidden; border: 1px solid var(--line); font-size: 0.88rem; }
+  .paper-table th, .paper-table td { padding: 0.65rem 0.85rem; text-align: left; border-bottom: 1px solid var(--line); }
+  .paper-table th { font-weight: 600; color: var(--ink-soft); font-size: 0.76rem; background: #FAFBFB; }
+  .paper-table tr:last-child td { border-bottom: none; }
+  .paper-table td.num { font-family: 'IBM Plex Mono', monospace; }
+
+  /* topic deep-dive card */
+  .topic-card {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    margin-bottom: 1.6rem;
+    overflow: hidden;
+  }
+  .topic-card-head {
+    background: var(--teal-wash);
+    padding: 0.9rem 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .topic-card-head h3 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--teal-deep); font-family: 'Source Serif 4', serif; }
+  .freq-tag { font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; color: var(--teal-deep); background: #fff; border: 1px solid #BEDEDB; padding: 0.15rem 0.6rem; border-radius: 20px; }
+  .topic-card-body { padding: 1.1rem 1.2rem 1.3rem; }
+
+  .yr-q { margin-bottom: 0.9rem; padding-bottom: 0.9rem; border-bottom: 1px dashed var(--line); }
+  .yr-q:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .yr-tag { font-family: 'IBM Plex Mono', monospace; font-size: 0.76rem; color: #fff; background: var(--ink-soft); padding: 0.1rem 0.5rem; border-radius: 5px; margin-right: 0.5rem; }
+  .yr-q .q-text { font-size: 0.92rem; margin-top: 0.4rem; }
+
+  .yt-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.9rem;
+    font-size: 0.85rem;
+    color: var(--rose);
+    text-decoration: none;
+    font-weight: 500;
+    border-top: 1px solid var(--line);
+    padding-top: 0.8rem;
+    width: 100%;
+  }
+  .yt-link:hover { text-decoration: underline; }
+
+  /* formula cards */
+  .formula-group { margin-bottom: 1.6rem; }
+  .formula-group h4 { font-size: 0.98rem; font-weight: 600; margin: 0 0 0.7rem; color: var(--teal-deep); font-family: 'Source Serif 4', serif; }
+  .formula-card { background: #FAFBFB; border: 1px solid var(--line); border-left: 3px solid var(--teal); border-radius: 8px; padding: 0.85rem 1.1rem; margin-bottom: 0.6rem; }
+  .formula-card .expr { font-family: 'IBM Plex Mono', monospace; font-size: 1rem; color: var(--ink); margin-bottom: 0.25rem; }
+  .formula-card .note { font-size: 0.85rem; color: var(--ink-soft); }
+  .verified-tag { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.76rem; font-family: 'IBM Plex Mono', monospace; color: var(--teal-deep); background: var(--teal-wash); padding: 0.2rem 0.6rem; border-radius: 20px; margin-bottom: 1.2rem; }
+
+  .watch-item { display: flex; gap: 0.8rem; padding: 0.95rem 0; border-bottom: 1px solid var(--line); }
+  .watch-item:last-child { border-bottom: none; }
+  .watch-mark { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--amber-wash); color: var(--amber); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; font-family: 'IBM Plex Mono', monospace; }
+  .watch-body b { display: block; margin-bottom: 0.15rem; font-size: 0.96rem; }
+  .watch-body span { color: var(--ink-soft); font-size: 0.9rem; }
+
+  /* bloom's insight */
+  .insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+  .insight-box { background: #FAFBFB; border: 1px solid var(--line); border-radius: 10px; padding: 1rem 1.1rem; }
+  .insight-box .big { font-family: 'Source Serif 4', serif; font-size: 1.8rem; font-weight: 700; color: var(--teal-deep); }
+  .insight-box .lbl { font-size: 0.82rem; color: var(--ink-soft); margin-top: 0.2rem; }
+
+  .priority-box { background: var(--rose-wash); border: 1px solid #EBC9C9; border-radius: 16px; padding: 1.6rem 1.8rem; margin-bottom: 2.2rem; }
+  .priority-list { margin: 0.6rem 0 0; padding-left: 1.2rem; }
+  .priority-list li { margin-bottom: 0.55rem; font-size: 0.96rem; }
+  .priority-list li b { color: var(--rose); }
+
+
+  .yt-list { border-top: 1px solid var(--line); margin-top: 0.9rem; padding-top: 0.8rem; }
+  .yt-list-title { font-size: 0.78rem; font-family: 'IBM Plex Mono', monospace; color: var(--ink-soft); margin-bottom: 0.5rem; }
+  .yt-list a { display: block; font-size: 0.87rem; color: var(--rose); text-decoration: none; font-weight: 500; padding: 0.3rem 0; }
+  .yt-list a:hover { text-decoration: underline; }
+  .yt-list a span.covers { color: var(--ink-soft); font-weight: 400; }
+  .oneshot { background: var(--rose-wash); border: 1px solid #EBC9C9; border-radius: 12px; padding: 1.1rem 1.3rem; margin-bottom: 1.6rem; }
+  .oneshot b { display: block; margin-bottom: 0.4rem; font-size: 0.96rem; }
+  .oneshot p { margin: 0 0 0.6rem; font-size: 0.86rem; color: var(--ink-soft); }
+
+  .paper-card { border: 1px solid var(--line); border-radius: 12px; margin-top: 1.4rem; overflow: hidden; }
+  .paper-card-head { background: #FAFBFB; border-bottom: 1px solid var(--line); padding: 0.9rem 1.2rem; }
+  .paper-card-head h3 { margin: 0 0 0.3rem; font-family: 'Source Serif 4', serif; font-size: 1.1rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .chip-s { font-family: 'IBM Plex Mono', monospace; font-size: 0.74rem; background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 0.12rem 0.55rem; color: var(--ink-soft); }
+  .paper-card-body { padding: 1rem 1.2rem 1.2rem; }
+  .mini-label { font-size: 0.8rem; font-weight: 600; color: var(--ink-soft); margin: 0.2rem 0 0.4rem; }
+  .stack { display: flex; height: 12px; border-radius: 6px; overflow: hidden; margin-bottom: 0.35rem; }
+  .stack div { height: 100%; }
+  .stack-legend { font-size: 0.8rem; color: var(--ink-soft); margin-bottom: 0.9rem; }
+  .stack-legend span { margin-right: 0.8rem; white-space: nowrap; }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 0.3rem; }
+  .paper-card ul { margin: 0.3rem 0 0; padding-left: 1.1rem; }
+  .paper-card li { font-size: 0.9rem; margin-bottom: 0.35rem; }
+  .trend-box { background: var(--teal-wash); border: 1px solid #BEDEDB; border-radius: 12px; padding: 1.1rem 1.3rem; margin-top: 1.6rem; }
+  .trend-box > b { display: block; margin-bottom: 0.4rem; color: var(--teal-deep); }
+  .trend-box li b { color: var(--ink); }
+  .trend-box ul { margin: 0; padding-left: 1.1rem; }
+  .trend-box li { font-size: 0.9rem; margin-bottom: 0.35rem; }
+
+  .qp { border: 1px solid var(--line); border-radius: 12px; margin-top: 1.6rem; overflow: hidden; }
+  .qp-head { background: var(--ink); color: #fff; padding: 0.9rem 1.2rem; }
+  .qp-head h3 { margin: 0; font-family: 'Source Serif 4', serif; font-size: 1.1rem; }
+  .qp-head p { margin: 0.2rem 0 0; font-size: 0.82rem; color: #C9D3D8; }
+  .qp-note { font-size: 0.82rem; color: var(--ink-soft); padding: 0.8rem 1.2rem; border-bottom: 1px solid var(--line); background: #FAFBFB; }
+  .qp-scroll { overflow-x: auto; }
+  .qp table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 560px; }
+  .qp th, .qp td { padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  .qp th { font-size: 0.75rem; color: var(--ink-soft); font-weight: 600; background: #fff; }
+  .qp td.q { width: 62%; }
+  .qp td.m { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; white-space: nowrap; }
+  .qp tr.qstart td { border-top: 2px solid var(--line); }
+  @media print { .section-block, .qp, .paper-card, .topic-card { break-inside: avoid-page; } }
+
+  .heat-scroll { overflow-x: auto; }
+  .heat { width: 100%; border-collapse: separate; border-spacing: 4px; font-size: 0.86rem; min-width: 520px; }
+  .heat th { font-size: 0.75rem; color: var(--ink-soft); font-weight: 600; padding: 0.3rem; text-align: center; }
+  .heat th.rowh { text-align: left; }
+  .heat td { text-align: center; padding: 0.55rem 0.3rem; border-radius: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; }
+  .heat td.topic { text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-weight: 500; font-size: 0.88rem; background: none; padding-left: 0; }
+  .heat td.freq { background: none; color: var(--ink-soft); }
+  .heat td.zero { background: #F1F4F4; color: #B8C3C6; }
+  .heat-legend { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--ink-soft); margin-top: 0.9rem; flex-wrap: wrap; }
+  .heat-legend .sw { width: 22px; height: 12px; border-radius: 3px; display: inline-block; }
+  .mistake-item { display: flex; gap: 0.8rem; padding: 0.9rem 0; border-bottom: 1px solid var(--line); }
+  .mistake-item:last-child { border-bottom: none; }
+  .mistake-mark { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--rose-wash); color: var(--rose); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; }
+  .mistake-body b { display: block; margin-bottom: 0.15rem; font-size: 0.95rem; }
+  .mistake-body span { color: var(--ink-soft); font-size: 0.9rem; }
+  .mistake-body em { font-style: normal; color: var(--teal-deep); font-weight: 500; }
+
+  .must-item { border: 1px solid var(--line); border-radius: 12px; padding: 1rem 1.15rem; margin-bottom: 0.8rem; }
+  .must-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.8rem; }
+  .must-top h3 { margin: 0; font-family: 'Source Serif 4', serif; font-size: 1.06rem; }
+  .chance { flex-shrink: 0; font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.65rem; border-radius: 20px; white-space: nowrap; }
+  .chance.vh { background: var(--teal); color: #fff; }
+  .chance.hi { background: var(--teal-wash); color: var(--teal-deep); border: 1px solid #BEDEDB; }
+  .chance.cp { background: var(--amber-wash); color: #7A5A0E; border: 1px solid #E9D6A8; }
+  .must-stats { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.6rem 0 0.55rem; }
+  .must-dots { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.55rem; }
+  .must-dots span { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.74rem; color: var(--ink-soft); }
+  .must-dots i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .must-dots i.on { background: var(--teal); }
+  .must-dots i.off { background: #fff; border: 1.5px solid #C5CFD2; }
+  .must-prep { font-size: 0.9rem; color: var(--ink); }
+  .must-prep b { color: var(--teal-deep); }
+  .must-key { display: flex; flex-wrap: wrap; gap: 0.8rem; font-size: 0.82rem; color: var(--ink-soft); margin-bottom: 1.2rem; }
+  footer { border-top: 1px solid var(--line); padding-top: 1.6rem; font-size: 0.85rem; color: var(--ink-soft); }
+
+  @media (max-width: 480px) {
+    .bar-row { grid-template-columns: 108px 1fr 40px; gap: 0.55rem; }
+    .bar-label { font-size: 0.82rem; }
+    .hero-stat { padding: 1.4rem 1.3rem; }
+    .hero-stat .num { font-size: 2.6rem; }
+    .section-block { padding: 1.5rem 1.2rem 1.7rem; }
+    .insight-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">FRESHSTART · SUBJECT GUIDE</div>
+  <h1>UCB009 — Chemistry<br>MST Question Paper Analysis</h1>
+  <p class="subtitle">Built from four actual MST papers — March 2024, October 2024, March 2025, and October 2025. Every number, question, and formula below traces back to something actually printed on those papers.</p>
+
+  <div class="disclaimer">
+    <b>Before you rely on this:</b> this analysis reflects the syllabus as it stood across these four papers. If your current semester's syllabus has added or dropped a topic, the weightage below will shift accordingly — always cross-check against this year's official syllabus first.
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">CONTENTS</div>
+    <ol><li><a href="#s1">Must-do topics — highest chance of coming</a></li><li><a href="#s2">Year-wise paper analysis</a></li><li><a href="#s3">Repeated-topics heatmap</a></li><li><a href="#s4">Topic deep-dive — every repeated question, by year</a></li><li><a href="#s5">Formula sheet</a></li><li><a href="#s6">Common mistakes that lose marks</a></li><li><a href="#s7">If you only have one evening</a></li><li><a href="#s8">How to actually prepare</a></li><li><a href="#s9">Full question papers</a></li></ol>
+  </div>
+
+  <div class="hero-stat">
+    <div class="num">77%</div>
+    <p><b>Spectroscopy alone</b> has carried roughly three out of every four marks across the last four MSTs. If you read one section of this guide properly, make it that one — but note the most recent paper (Oct 2025) broke this pattern (see Section 2).</p>
+  </div>
+  <div class="section-block" id="s1" style="border:2px solid var(--teal);">
+    <div class="section-head"><div class="section-num">1</div><h2>Must-do topics — highest chance of coming</h2></div>
+    <p class="section-note">Every topic worth preparing, ranked by how reliably it has come up across the four papers. "Chance" here comes only from how often each topic appeared in past MSTs — it is not a guarantee about this year's paper.</p>
+    <div class="must-key"><span><span class="chance vh">Very high</span> asked in every paper</span><span><span class="chance hi">High</span> asked in most papers</span><span><span class="chance cp">Check portion</span> big in the latest paper, but depends on your MST syllabus</span></div>
+    <div class="must-item">
+      <div class="must-top"><h3>Beer-Lambert's Law</h3><span class="chance vh">Very high</span></div>
+      <div class="must-stats"><span class="chip-s">Asked in 4 of 4 papers</span><span class="chip-s">7 questions</span><span class="chip-s">27 marks in total</span><span class="chip-s">Last asked: Oct 2025</span></div>
+      <div class="must-dots"><span><i class="on"></i>Mar 2024</span><span><i class="on"></i>Oct 2024</span><span><i class="on"></i>Mar 2025</span><span><i class="on"></i>Oct 2025</span></div>
+      <div class="must-prep"><b>Prepare:</b> State and derive the law with the A-vs-c and T-vs-c graphs, and practise the numerical — find ε, c, or % absorption from %T.</div>
+    </div><div class="must-item">
+      <div class="must-top"><h3>UV-Vis: chromophore, transitions, λmax</h3><span class="chance hi">High</span></div>
+      <div class="must-stats"><span class="chip-s">Asked in 3 of 4 papers</span><span class="chip-s">7 questions</span><span class="chip-s">22 marks in total</span><span class="chip-s">Last asked: Mar 2025</span></div>
+      <div class="must-dots"><span><i class="on"></i>Mar 2024</span><span><i class="on"></i>Oct 2024</span><span><i class="on"></i>Mar 2025</span><span><i class="off"></i>Oct 2025</span></div>
+      <div class="must-prep"><b>Prepare:</b> Chromophore and auxochrome with examples, red vs. blue shift (aniline in acid, p-nitrophenol in base), and electronic transitions for a given molecule.</div>
+    </div><div class="must-item">
+      <div class="must-top"><h3>IR spectroscopy</h3><span class="chance hi">High</span></div>
+      <div class="must-stats"><span class="chip-s">Asked in 3 of 4 papers</span><span class="chip-s">7 questions</span><span class="chip-s">22 marks in total</span><span class="chip-s">Last asked: Mar 2025</span></div>
+      <div class="must-dots"><span><i class="on"></i>Mar 2024</span><span><i class="on"></i>Oct 2024</span><span><i class="on"></i>Mar 2025</span><span><i class="off"></i>Oct 2025</span></div>
+      <div class="must-prep"><b>Prepare:</b> Hooke's law and the wavenumber numerical, 3N − 5 / 3N − 6 vibrational modes, and the condition for a molecule to be IR-active.</div>
+    </div><div class="must-item">
+      <div class="must-top"><h3>AAS / AES / ICP-AES</h3><span class="chance hi">High</span></div>
+      <div class="must-stats"><span class="chip-s">Asked in 3 of 4 papers</span><span class="chip-s">5 questions</span><span class="chip-s">20 marks in total</span><span class="chip-s">Last asked: Mar 2025</span></div>
+      <div class="must-dots"><span><i class="on"></i>Mar 2024</span><span><i class="on"></i>Oct 2024</span><span><i class="on"></i>Mar 2025</span><span><i class="off"></i>Oct 2025</span></div>
+      <div class="must-prep"><b>Prepare:</b> Principle of AAS, differences between AAS and AES/FES as a table, advantages of ICP-AES, and what happens when the sample reaches the flame.</div>
+    </div><div class="must-item">
+      <div class="must-top"><h3>Spectroscopy basics</h3><span class="chance hi">High</span></div>
+      <div class="must-stats"><span class="chip-s">Asked in 3 of 4 papers</span><span class="chip-s">5 questions</span><span class="chip-s">15 marks in total</span><span class="chip-s">Last asked: Oct 2025</span></div>
+      <div class="must-dots"><span><i class="off"></i>Mar 2024</span><span><i class="on"></i>Oct 2024</span><span><i class="on"></i>Mar 2025</span><span><i class="on"></i>Oct 2025</span></div>
+      <div class="must-prep"><b>Prepare:</b> Order of the EM spectrum, atomic vs. molecular spectra, and quick numericals with E = hc/λ and c = νλ.</div>
+    </div><div class="must-item">
+      <div class="must-top"><h3>Jablonski diagram &amp; fluorescence</h3><span class="chance hi">High</span></div>
+      <div class="must-stats"><span class="chip-s">Asked in 3 of 4 papers</span><span class="chip-s">4 questions</span><span class="chip-s">14 marks in total</span><span class="chip-s">Last asked: Mar 2025</span></div>
+      <div class="must-dots"><span><i class="on"></i>Mar 2024</span><span><i class="on"></i>Oct 2024</span><span><i class="on"></i>Mar 2025</span><span><i class="off"></i>Oct 2025</span></div>
+      <div class="must-prep"><b>Prepare:</b> A fully labelled Jablonski diagram, and fluorescence vs. phosphorescence — wavelength and intensity.</div>
+    </div><div class="must-item">
+      <div class="must-top"><h3>Water chemistry</h3><span class="chance cp">Check portion</span></div>
+      <div class="must-stats"><span class="chip-s">Asked in 2 of 4 papers</span><span class="chip-s">4 questions</span><span class="chip-s">21 marks in total</span><span class="chip-s">Last asked: Oct 2025</span></div>
+      <div class="must-dots"><span><i class="on"></i>Mar 2024</span><span><i class="off"></i>Oct 2024</span><span><i class="off"></i>Mar 2025</span><span><i class="on"></i>Oct 2025</span></div>
+      <div class="must-prep"><b>Prepare:</b> EDTA hardness numerical with the boiled-sample step, alkalinity, ion exchange with regeneration, electrodialysis, and bleaching powder.</div><div class="must-prep" style="margin-top:0.35rem;color:var(--ink-soft)">Worth 15 marks in the latest paper — prepare it fully if it's in your MST portion.</div>
+    </div><div class="must-item">
+      <div class="must-top"><h3>Polymers</h3><span class="chance cp">Check portion</span></div>
+      <div class="must-stats"><span class="chip-s">Asked in 1 of 4 papers</span><span class="chip-s">3 questions</span><span class="chip-s">15 marks in total</span><span class="chip-s">Last asked: Oct 2025</span></div>
+      <div class="must-dots"><span><i class="off"></i>Mar 2024</span><span><i class="off"></i>Oct 2024</span><span><i class="off"></i>Mar 2025</span><span><i class="on"></i>Oct 2025</span></div>
+      <div class="must-prep"><b>Prepare:</b> M̄n / M̄w / PDI numerical, tacticity with drawings, conducting polymers and doping, and biodegradable polymers.</div><div class="must-prep" style="margin-top:0.35rem;color:var(--ink-soft)">Appeared only in the latest paper, but for 15 marks — check whether it's in your MST portion.</div>
+    </div>
+  </div>
+
+  <div class="section-block" id="s2">
+    <div class="section-head"><div class="section-num">2</div><h2>Year-wise paper analysis</h2></div>
+    <p class="section-note">Each paper on its own — what it covered, how hard it was, and what was different about it. Newest first.</p>
+    <table class="paper-table">
+      <tr><th>Paper</th><th>Spectroscopy</th><th>Water Chem.</th><th>Polymers</th><th>L3 (apply) share</th></tr>
+      <tr><td>Oct 2025</td><td class="num">10 / 40</td><td class="num">15 / 40</td><td class="num">15 / 40</td><td class="num">75%</td></tr>
+      <tr><td>Mar 2025</td><td class="num">40 / 40</td><td class="num">—</td><td class="num">—</td><td class="num">40%</td></tr>
+      <tr><td>Oct 2024</td><td class="num">40 / 40</td><td class="num">—</td><td class="num">—</td><td class="num">45%</td></tr>
+      <tr><td>Mar 2024</td><td class="num">30 / 36</td><td class="num">6 / 36</td><td class="num">—</td><td class="num">44%</td></tr>
+    </table>
+    
+    <div class="paper-card">
+      <div class="paper-card-head"><h3>October 2025 — most recent</h3><div class="chips"><span class="chip-s">Oct 13, 2025</span><span class="chip-s">40 marks</span><span class="chip-s">4 questions</span><span class="chip-s">2 hours</span></div></div>
+      <div class="paper-card-body">
+        <div class="mini-label">Topic split (marks)</div>
+        <div class="stack"><div style="width:37.5%;background:var(--rose);"></div><div style="width:37.5%;background:var(--amber);"></div><div style="width:25.0%;background:var(--teal);"></div></div><div class="stack-legend"><span><i class="dot" style="background:var(--rose)"></i>Polymers 15</span><span><i class="dot" style="background:var(--amber)"></i>Water 15</span><span><i class="dot" style="background:var(--teal)"></i>Spectroscopy 10</span></div>
+        <div class="mini-label">Difficulty split (marks) — L1 recall · L2 understand · L3 apply</div>
+        <div class="stack"><div style="width:12.5%;background:#9FC9C5;"></div><div style="width:12.5%;background:#5A9E98;"></div><div style="width:75.0%;background:#0A5252;"></div></div><div class="stack-legend"><span><i class="dot" style="background:#9FC9C5"></i>L1 5</span><span><i class="dot" style="background:#5A9E98"></i>L2 5</span><span><i class="dot" style="background:#0A5252"></i>L3 30</span></div>
+        <div class="mini-label">What stood out</div>
+        <ul><li><b>Broke the pattern completely.</b> Spectroscopy dropped to just 10 marks; polymers and water chemistry together took 30.</li><li>The most application-heavy paper of the four — 30 of 40 marks were L3 (apply / calculate / justify).</li><li>Three numericals: M̄n / M̄w / PDI, EDTA hardness, and Beer-Lambert (ε and % absorption).</li><li>Only 4 questions, each worth 10 marks and split into 2–3 sub-parts — long, multi-step questions.</li><li>New question types: arranging the EM spectrum by wavelength, and a true/false on whether white light obeys Beer-Lambert's Law.</li></ul>
+      </div>
+    </div>
+    <div class="paper-card">
+      <div class="paper-card-head"><h3>March 2025</h3><div class="chips"><span class="chip-s">Mar 4, 2025</span><span class="chip-s">40 marks</span><span class="chip-s">5 questions</span><span class="chip-s">Semester 2</span></div></div>
+      <div class="paper-card-body">
+        <div class="mini-label">Topic split (marks)</div>
+        <div class="stack"><div style="width:100.0%;background:var(--teal);"></div></div><div class="stack-legend"><span><i class="dot" style="background:var(--teal)"></i>Spectroscopy 40</span></div>
+        <div class="mini-label">Difficulty split (marks) — L1 recall · L2 understand · L3 apply</div>
+        <div class="stack"><div style="width:30.0%;background:#9FC9C5;"></div><div style="width:30.0%;background:#5A9E98;"></div><div style="width:40.0%;background:#0A5252;"></div></div><div class="stack-legend"><span><i class="dot" style="background:#9FC9C5"></i>L1 12</span><span><i class="dot" style="background:#5A9E98"></i>L2 12</span><span><i class="dot" style="background:#0A5252"></i>L3 16</span></div>
+        <div class="mini-label">What stood out</div>
+        <ul><li>All 40 marks from spectroscopy — no polymers, no water chemistry.</li><li>The most theory-heavy paper: principles, differences, graphs, and justification questions.</li><li>Only one small numerical — Beer-Lambert concentration from ε and %T (about 2 marks).</li><li>AAS vs. Flame Emission asked as <b>four</b> differences — the biggest version of this recurring question.</li><li>Electronic transitions for water, 1,3-butadiene and acetone, with symmetry-forbidden ones identified — a full 4-mark drawing question.</li></ul>
+      </div>
+    </div>
+    <div class="paper-card">
+      <div class="paper-card-head"><h3>October 2024</h3><div class="chips"><span class="chip-s">Oct 18, 2024</span><span class="chip-s">40 marks</span><span class="chip-s">5 questions</span><span class="chip-s">2 pages</span></div></div>
+      <div class="paper-card-body">
+        <div class="mini-label">Topic split (marks)</div>
+        <div class="stack"><div style="width:100.0%;background:var(--teal);"></div></div><div class="stack-legend"><span><i class="dot" style="background:var(--teal)"></i>Spectroscopy 40</span></div>
+        <div class="mini-label">Difficulty split (marks) — L1 recall · L2 understand · L3 apply</div>
+        <div class="stack"><div style="width:27.5%;background:#9FC9C5;"></div><div style="width:27.5%;background:#5A9E98;"></div><div style="width:45.0%;background:#0A5252;"></div></div><div class="stack-legend"><span><i class="dot" style="background:#9FC9C5"></i>L1 11</span><span><i class="dot" style="background:#5A9E98"></i>L2 11</span><span><i class="dot" style="background:#0A5252"></i>L3 18</span></div>
+        <div class="mini-label">What stood out</div>
+        <ul><li>All 40 marks from spectroscopy, and the most calculation-heavy of the spectroscopy papers.</li><li>Constants (c, h, k<sub>B</sub>) printed at the top of the paper — a signal that several numericals are coming.</li><li>Five separate calculations: energy gap + population ratio, wavelength from frequency, % absorption at 4× concentration, vibrational modes, and the HCl wavenumber.</li><li>Reasoning-style UV questions: identify compounds A and B from their λmax, and predict the blue shift in aniline on adding acid.</li><li>IR got a full 8-mark question — the largest IR share across all four papers.</li><li>This paper printed its own Bloom's chart: L1 11, L2 11, L3 18 — matches the split shown here.</li></ul>
+      </div>
+    </div>
+    <div class="paper-card">
+      <div class="paper-card-head"><h3>March 2024</h3><div class="chips"><span class="chip-s">Mar 22, 2024</span><span class="chip-s">36 marks</span><span class="chip-s">6 questions</span><span class="chip-s">2 hours</span></div></div>
+      <div class="paper-card-body">
+        <div class="mini-label">Topic split (marks)</div>
+        <div class="stack"><div style="width:83.3%;background:var(--teal);"></div><div style="width:16.7%;background:var(--amber);"></div></div><div class="stack-legend"><span><i class="dot" style="background:var(--teal)"></i>Spectroscopy 30</span><span><i class="dot" style="background:var(--amber)"></i>Water 6</span></div>
+        <div class="mini-label">Difficulty split (marks) — L1 recall · L2 understand · L3 apply</div>
+        <div class="stack"><div style="width:38.9%;background:#9FC9C5;"></div><div style="width:16.7%;background:#5A9E98;"></div><div style="width:44.4%;background:#0A5252;"></div></div><div class="stack-legend"><span><i class="dot" style="background:#9FC9C5"></i>L1 14</span><span><i class="dot" style="background:#5A9E98"></i>L2 6</span><span><i class="dot" style="background:#0A5252"></i>L3 16</span></div>
+        <div class="mini-label">What stood out</div>
+        <ul><li>The only 36-mark paper, with the most questions (6) — shorter, one-concept questions.</li><li>Three numericals: Beer-Lambert ε (4), vibrational degrees of freedom for CO₂/H₂O (3), and water hardness in ppm (6).</li><li>The water-hardness numerical came as a full standalone 6-mark question.</li><li>Easy definition marks: Beer-Lambert's Law, chromophore and auxochrome.</li></ul>
+      </div>
+    </div>
+    
+    <div class="trend-box">
+      <b>What changes across the four papers</b>
+      <ul>
+        <li><b>Weigh the latest paper most.</b> Oct 2025 moved away from pure spectroscopy toward polymers and water chemistry — check whether your current MST portion includes them.</li>
+        <li><b>Application questions are the biggest share.</b> L3 marks went 44% → 45% → 40% → 75%. Across all four papers, 80 of 156 marks (51%) needed you to apply a concept, not just recall it.</li>
+        <li><b>Fewer but bigger questions.</b> Question count went 6 → 5 → 5 → 4 while marks stayed at 36–40.</li>
+        <li><b>October papers carry more numericals</b> than March papers — both October papers had at least three calculations.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-block" id="s3">
+    <div class="section-head"><div class="section-num">3</div><h2>Repeated-topics heatmap</h2></div>
+    <p class="section-note">Every topic across all four papers at a glance. Spectroscopy basics = EM spectrum, atomic vs. molecular spectra, and energy/wavelength calculations.</p>
+    <div class="heat-scroll"><table class="heat">
+      <tr><th class="rowh">Topic</th><th>Mar 2024<br><span style="font-weight:400">/36</span></th><th>Oct 2024<br><span style="font-weight:400">/40</span></th><th>Mar 2025<br><span style="font-weight:400">/40</span></th><th>Oct 2025<br><span style="font-weight:400">/40</span></th><th>Asked in</th></tr>
+      <tr><td class="topic">Beer-Lambert's Law</td><td style="background:rgba(14,110,110,0.49);color:var(--ink)" title="6 of 36 marks">6</td><td style="background:rgba(14,110,110,0.56);color:#fff" title="8 of 40 marks">8</td><td style="background:rgba(14,110,110,0.56);color:#fff" title="8 of 40 marks">8</td><td style="background:rgba(14,110,110,0.40);color:var(--ink)" title="5 of 40 marks">5</td><td class="freq">4/4</td></tr><tr><td class="topic">UV-Vis: chromophore, transitions, λmax</td><td style="background:rgba(14,110,110,0.49);color:var(--ink)" title="6 of 36 marks">6</td><td style="background:rgba(14,110,110,0.56);color:#fff" title="8 of 40 marks">8</td><td style="background:rgba(14,110,110,0.56);color:#fff" title="8 of 40 marks">8</td><td class="zero">—</td><td class="freq">3/4</td></tr><tr><td class="topic">IR spectroscopy</td><td style="background:rgba(14,110,110,0.49);color:var(--ink)" title="6 of 36 marks">6</td><td style="background:rgba(14,110,110,0.56);color:#fff" title="8 of 40 marks">8</td><td style="background:rgba(14,110,110,0.56);color:#fff" title="8 of 40 marks">8</td><td class="zero">—</td><td class="freq">3/4</td></tr><tr><td class="topic">AAS / AES / ICP-AES</td><td style="background:rgba(14,110,110,0.49);color:var(--ink)" title="6 of 36 marks">6</td><td style="background:rgba(14,110,110,0.45);color:var(--ink)" title="6 of 40 marks">6</td><td style="background:rgba(14,110,110,0.56);color:#fff" title="8 of 40 marks">8</td><td class="zero">—</td><td class="freq">3/4</td></tr><tr><td class="topic">Jablonski / fluorescence</td><td style="background:rgba(14,110,110,0.49);color:var(--ink)" title="6 of 36 marks">6</td><td style="background:rgba(14,110,110,0.34);color:var(--ink)" title="4 of 40 marks">4</td><td style="background:rgba(14,110,110,0.34);color:var(--ink)" title="4 of 40 marks">4</td><td class="zero">—</td><td class="freq">3/4</td></tr><tr><td class="topic">Spectroscopy basics</td><td class="zero">—</td><td style="background:rgba(14,110,110,0.45);color:var(--ink)" title="6 of 40 marks">6</td><td style="background:rgba(14,110,110,0.34);color:var(--ink)" title="4 of 40 marks">4</td><td style="background:rgba(14,110,110,0.40);color:var(--ink)" title="5 of 40 marks">5</td><td class="freq">3/4</td></tr><tr><td class="topic">Water chemistry</td><td style="background:rgba(14,110,110,0.49);color:var(--ink)" title="6 of 36 marks">6</td><td class="zero">—</td><td class="zero">—</td><td style="background:rgba(14,110,110,0.95);color:#fff" title="15 of 40 marks">15</td><td class="freq">2/4</td></tr><tr><td class="topic">Polymers</td><td class="zero">—</td><td class="zero">—</td><td class="zero">—</td><td style="background:rgba(14,110,110,0.95);color:#fff" title="15 of 40 marks">15</td><td class="freq">1/4</td></tr>
+    </table></div>
+    <div class="heat-legend">Darker = bigger share of that paper's marks · number = marks
+      <span class="sw" style="background:rgba(14,110,110,0.2)"></span><span class="sw" style="background:rgba(14,110,110,0.5)"></span><span class="sw" style="background:rgba(14,110,110,0.9)"></span>
+      · <span class="sw" style="background:#F1F4F4"></span> not asked</div>
+  </div>
+
+  <div class="section-block" id="s4">
+    <div class="section-head"><div class="section-num">4</div><h2>Topic deep-dive — every repeated question, by year</h2></div>
+    <p class="section-note">Every sub-topic below, with the actual question asked in each paper it appeared in, plus one video per topic that covers the concept behind those exact questions. The marks come from the PPTs, tutorials, and PYQs — see "How to actually prepare".</p>
+
+    <div class="oneshot">
+      <b>Short on time? Start with these full spectroscopy one-shots</b>
+      <p>Made for AKTU's engineering chemistry, which overlaps heavily with TIET's spectroscopy portion. Skip the stereochemistry/isomerism/NMR parts — those aren't in these MSTs.</p>
+      <div class="yt-list" style="border-top:none; margin-top:0; padding-top:0;">
+          <a href="https://www.youtube.com/watch?v=I4JsD4Hu1-M" target="_blank" rel="noopener noreferrer">▶ Engineering Chemistry Unit 2 One Shot — Spectroscopy (AKTU, with PYQs) <span class="covers">— full spectroscopy in one video</span></a>
+          <a href="https://www.youtube.com/watch?v=EXOkyzM4530" target="_blank" rel="noopener noreferrer">▶ Spectroscopy — AKTU important questions with all numericals <span class="covers">— Beer-Lambert, UV, IR numericals</span></a>
+      </div>
+    </div>
+
+    <div class="topic-card">
+      <div class="topic-card-head"><h3>Beer-Lambert's Law (numerical)</h3><span class="freq-tag">4 / 4 papers</span></div>
+      <div class="topic-card-body">
+        <div class="yr-q"><span class="yr-tag">OCT 2025</span><div class="q-text">A 0.003 M [Co(NH₃)₆]³⁺ solution absorbs 25% of incident light at 500 nm (path length 1 cm). Calculate the molar extinction coefficient and the % absorption for a 0.02 M solution.</div></div>
+        <div class="yr-q"><span class="yr-tag">MAR 2025</span><div class="q-text">Derive Beer's Law and draw the graphs for absorbance vs. concentration and transmittance vs. concentration. Separately: ε = 1200 L·mol⁻¹cm⁻¹, T = 90%, path length 1 cm — find the concentration, and state two limitations of Beer's Law.</div></div>
+        <div class="yr-q"><span class="yr-tag">OCT 2024</span><div class="q-text">State and derive Beer's Law. A solution transmits 60% of incident light — find the % absorption if concentration is increased four-fold.</div></div>
+        <div class="yr-q"><span class="yr-tag">MAR 2024</span><div class="q-text">Define Beer-Lambert's Law. Given absorbance = 0.372, path length 1 cm, concentration 2.1 mM — calculate the molar absorption coefficient.</div></div>
+        <div class="yt-list">
+          <div class="yt-list-title">WATCH IN THIS ORDER</div>
+          <a href="https://www.youtube.com/watch?v=ENLBogI1xc8" target="_blank" rel="noopener noreferrer">▶ Beer-Lambert's Law and its derivation (Hindi) <span class="covers">— derivation + graphs (Mar 2025, Oct 2024)</span></a>
+          <a href="https://www.youtube.com/watch?v=tUNBmDAJXv4" target="_blank" rel="noopener noreferrer">▶ Lambert-Beer Law numericals — Engineering Chemistry (AKTU) <span class="covers">— find ε, c, %T (all 4 papers)</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-card">
+      <div class="topic-card-head"><h3>AAS / AES / ICP-AES</h3><span class="freq-tag">3 / 4 papers</span></div>
+      <div class="topic-card-body">
+        <div class="yr-q"><span class="yr-tag">MAR 2025</span><div class="q-text">Differentiate between atomic and molecular absorption spectra. Describe the principle of AAS and list four differences between AAS and Flame Emission Spectroscopy. Explain why sodium and barium give different flame colours, and give two advantages of ICP-AES.</div></div>
+        <div class="yr-q"><span class="yr-tag">OCT 2024</span><div class="q-text">Two differences between ICP-AES and FES. Principle of AAS and two limitations; two differences between AAS and AES.</div></div>
+        <div class="yr-q"><span class="yr-tag">MAR 2024</span><div class="q-text">Write the sequence of events once the sample solution is aspirated onto the flame in AES. Two advantages of ICP-AES over flame photometry.</div></div>
+        <div class="yt-list">
+          <div class="yt-list-title">WATCH IN THIS ORDER</div>
+          <a href="https://www.youtube.com/watch?v=2LeUkiI1ow0" target="_blank" rel="noopener noreferrer">▶ Atomic Emission Spectroscopy / Flame Photometry (Hindi) <span class="covers">— what happens when sample is aspirated into the flame (Mar 2024)</span></a>
+          <a href="https://www.youtube.com/watch?v=tVULJAiEiaw" target="_blank" rel="noopener noreferrer">▶ Atomic Absorption Spectroscopy — principle &amp; applications <span class="covers">— AAS principle and limitations (Mar 2025, Oct 2024)</span></a>
+          <a href="https://www.youtube.com/watch?v=Mnbye_dwWWU" target="_blank" rel="noopener noreferrer">▶ ICP-AES — e-lecture series <span class="covers">— ICP-AES advantages over flame methods</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-card">
+      <div class="topic-card-head"><h3>Chromophore / Auxochrome / Electronic Transitions</h3><span class="freq-tag">3 / 4 papers</span></div>
+      <div class="topic-card-body">
+        <div class="yr-q"><span class="yr-tag">MAR 2025</span><div class="q-text">Define chromophore with examples. How does the absorption maximum of p-nitrophenol change in alkaline medium? Draw all possible electronic transitions and identify symmetry-forbidden ones for water, 1,3-butadiene, and acetone.</div></div>
+        <div class="yr-q"><span class="yr-tag">OCT 2024</span><div class="q-text">Define λmax. Between benzene and aniline, which shows a blue shift on adding acid? Two compounds absorb at ~180 nm and ~220 nm respectively (one with one double bond, one with two conjugated double bonds) — identify each and draw the comparative MO diagram with HOMO-LUMO transitions.</div></div>
+        <div class="yr-q"><span class="yr-tag">MAR 2024</span><div class="q-text">Define chromophore and auxochrome. Draw the structures of benzene, phenol, and aniline and label the chromophore/auxochrome in each.</div></div>
+        <div class="yt-list">
+          <div class="yt-list-title">WATCH IN THIS ORDER</div>
+          <a href="https://www.youtube.com/watch?v=uPw8tHkju08" target="_blank" rel="noopener noreferrer">▶ UV-Visible Spectroscopy Part 1 — AKTU Digital Education <span class="covers">— electronic transitions, λmax</span></a>
+          <a href="https://www.youtube.com/watch?v=pND9LOSCUCw" target="_blank" rel="noopener noreferrer">▶ Chromophore, auxochrome &amp; spectral shifts <span class="covers">— red/blue shift, benzene/phenol/aniline type questions</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-card">
+      <div class="topic-card-head"><h3>Jablonski Diagram / Fluorescence &amp; Phosphorescence</h3><span class="freq-tag">3 / 4 papers</span></div>
+      <div class="topic-card-body">
+        <div class="yr-q"><span class="yr-tag">MAR 2025</span><div class="q-text">True or false, with justification: "Phosphorescence has a lower wavelength and higher intensity compared to fluorescence."</div></div>
+        <div class="yr-q"><span class="yr-tag">OCT 2024</span><div class="q-text">A molecule is photo-excited, loses energy through a non-radiative spin-forbidden transition, then undergoes radiative emission — name every process taking place and represent them on an energy diagram.</div></div>
+        <div class="yr-q"><span class="yr-tag">MAR 2024</span><div class="q-text">Depict and name all photophysical processes in the Jablonski diagram. Will fluorescence occur at the same, longer, or shorter wavelength compared to absorption from S₀→S₂? Justify.</div></div>
+        <div class="yt-list">
+          <div class="yt-list-title">WATCH IN THIS ORDER</div>
+          <a href="https://www.youtube.com/watch?v=xVz7DppjzQc" target="_blank" rel="noopener noreferrer">▶ Fluorescence &amp; phosphorescence — Jablonski diagram <span class="covers">— every process named on the diagram (all 3 papers)</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-card">
+      <div class="topic-card-head"><h3>IR Spectroscopy</h3><span class="freq-tag">3 / 4 papers</span></div>
+      <div class="topic-card-body">
+        <div class="yr-q"><span class="yr-tag">MAR 2025</span><div class="q-text">Write Hooke's Law for IR spectroscopy and explain which terms affect vibrational frequency for C-N vs. C=N, and C-H vs. C-D. State the essential condition for a molecule to be IR-active, and check hydrogen, benzene, and water against it.</div></div>
+        <div class="yr-q"><span class="yr-tag">OCT 2024</span><div class="q-text">Why is the x-axis of an IR spectrum expressed in wavenumber? Differentiate hydrogen bonding in ortho- vs. para-hydroxybenzoic acid using IR. Calculate vibrational modes for acetylene and water. H³⁵Cl has a force constant of 480 N/m — calculate the fundamental vibrational frequency.</div></div>
+        <div class="yr-q"><span class="yr-tag">MAR 2024</span><div class="q-text">Classify all possible vibrational modes in a polyatomic molecule. Calculate the vibrational degrees of freedom for CO₂ and H₂O.</div></div>
+        <div class="yt-list">
+          <div class="yt-list-title">WATCH IN THIS ORDER</div>
+          <a href="https://www.youtube.com/watch?v=katHIw8Amho" target="_blank" rel="noopener noreferrer">▶ IR Spectroscopy — Hooke's law (Hindi, Chemistry Untold) <span class="covers">— Hooke's law, force constant, reduced mass</span></a>
+          <a href="https://www.youtube.com/watch?v=7NYD50u7Hpo" target="_blank" rel="noopener noreferrer">▶ Calculation of vibrational modes <span class="covers">— 3N−5 / 3N−6 for CO₂, H₂O, acetylene</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-card">
+      <div class="topic-card-head"><h3>Water Hardness (EDTA titration)</h3><span class="freq-tag">2 / 4 papers</span></div>
+      <div class="topic-card-body">
+        <div class="yr-q"><span class="yr-tag">OCT 2025</span><div class="q-text">Which of CaCl₂, Mg(HCO₃)₂, MgSO₄, and KOH cause alkalinity in water? A 100 mL water sample needs 13.5 mL of 0.02 M EDTA before boiling and 6 mL after boiling — calculate total, permanent, and temporary hardness. Also: justify with equations why bleaching powder removes microbial contamination, and explain electrodialysis.</div></div>
+        <div class="yr-q"><span class="yr-tag">MAR 2024</span><div class="q-text">100 mL hard water needs 15 mL of 0.05 M EDTA. After boiling and filtering, 100 mL of the filtrate needs 5 mL of 0.05 M EDTA — calculate total, permanent, and temporary hardness in ppm.</div></div>
+        <div class="yt-list">
+          <div class="yt-list-title">WATCH IN THIS ORDER</div>
+          <a href="https://www.youtube.com/watch?v=x1Hki9LhmAo" target="_blank" rel="noopener noreferrer">▶ Hardness of water by EDTA — Lec 8 (RGPV B.Tech 1st year) <span class="covers">— principle, EBT, formula</span></a>
+          <a href="https://www.youtube.com/watch?v=znBofpotxK8" target="_blank" rel="noopener noreferrer">▶ Hardness of water by EDTA — Lec 9 (RGPV B.Tech 1st year) <span class="covers">— continuation of EDTA method</span></a>
+          <a href="https://www.youtube.com/watch?v=x8OBVQVGXDM" target="_blank" rel="noopener noreferrer">▶ Ion exchange — Ekeeda <span class="covers">— cation/anion resin, regeneration (Oct 2025)</span></a>
+          <a href="https://www.youtube.com/watch?v=9cgBXWu4Xcw" target="_blank" rel="noopener noreferrer">▶ Electrodialysis — Ekeeda <span class="covers">— working principle with diagram (Oct 2025)</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-card">
+      <div class="topic-card-head"><h3>Polymers</h3><span class="freq-tag">1 / 4 papers</span></div>
+      <div class="topic-card-body">
+        <div class="yr-q"><span class="yr-tag">OCT 2025</span><div class="q-text">Between Polypropylene and Nylon-2-Nylon-6, which is biodegradable and why? Given 50 molecules of MW 10², 200 of MW 10³, and 100 of MW 10⁴ — calculate Mₙ, Mw, and PDI. Define tacticity — which of polyethylene, polystyrene, and PTFE show it, and draw all possible configurations. Separately: why do conducting polymers need doping, and what are two applications?</div></div>
+        <div class="yt-list">
+          <div class="yt-list-title">WATCH IN THIS ORDER</div>
+          <a href="https://www.youtube.com/watch?v=hKMnnwICyT8" target="_blank" rel="noopener noreferrer">▶ Tacticity — isotactic, syndiotactic, atactic (Anna University) <span class="covers">— definition + drawing all three (Oct 2025)</span></a>
+          <a href="https://www.youtube.com/watch?v=Cffz9lKhnt8" target="_blank" rel="noopener noreferrer">▶ Average molecular weights &amp; PDI <span class="covers">— Mn, Mw, PDI numerical (Oct 2025)</span></a>
+          <a href="https://www.youtube.com/watch?v=1dG0PmKFsQA" target="_blank" rel="noopener noreferrer">▶ Conducting polymers — mechanism in polyacetylene <span class="covers">— why doping is needed, p-doping (Oct 2025)</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-block" id="s5">
+    <div class="section-head"><div class="section-num">5</div><h2>Formula sheet</h2></div>
+    <p class="section-note">Only the formulas these four papers actually required — each one checked against the standard form before being listed here.</p>
+    <span class="verified-tag">✓ cross-checked against standard chemistry references</span>
+
+    <div class="formula-group">
+      <h4>Spectroscopy</h4>
+      <div class="formula-card"><div class="expr">A = ε · c · l</div><div class="note">Beer-Lambert's Law. A = absorbance, ε = molar extinction coefficient (L·mol⁻¹cm⁻¹), c = concentration (mol/L), l = path length (cm). The single most-tested formula in this subject — appeared in all four papers.</div></div>
+      <div class="formula-card"><div class="expr">A = log₁₀(I₀ / I) = log₁₀(1 / T)</div><div class="note">Links absorbance to transmittance (T). Papers often give %T and expect a conversion (T = %T / 100) before applying Beer-Lambert.</div></div>
+      <div class="formula-card"><div class="expr">% Absorption = 100 − % Transmittance</div><div class="note">When a question asks for "% absorption" (not absorbance), this is the final step. Oct 2024 pattern: find A from %T, scale A with concentration (A ∝ c), convert back to %T, then subtract from 100.</div></div>
+      <div class="formula-card"><div class="expr">% Absorption = 100 − % Transmittance</div><div class="note">The simple version used when a question asks for "% absorption" directly from a transmittance value, rather than the full absorbance (A). Don't confuse this with the log-based formula above — papers use both, in different questions.</div></div>
+      <div class="formula-card"><div class="expr">c = ν · λ</div><div class="note">Speed of light = frequency × wavelength. Needed whenever a question gives a frequency (e.g. a broadcast frequency in kHz/Hz) and asks for the corresponding wavelength.</div></div>
+      <div class="formula-card"><div class="expr">c = ν · λ &nbsp;→&nbsp; λ = c / ν</div><div class="note">Speed of light = frequency × wavelength (c = 3 × 10⁸ m/s). Needed for the Oct 2024 radio-station question (1368 kHz → wavelength). Convert kHz to Hz first (× 10³).</div></div>
+      <div class="formula-card"><div class="expr">E = hc / λ = hν</div><div class="note">Energy of a photon. Used for energy-gap calculations, e.g. the sodium-atom absorption question.</div></div>
+      <div class="formula-card"><div class="expr">N* / N₀ = (g* / g₀) · e^(−ΔE / k_BT)</div><div class="note">Boltzmann population ratio between excited and ground states — paired with the energy-gap formula above.</div></div>
+      <div class="formula-card"><div class="expr">ν̃ = (1 / 2πc) · √(k / μ), &nbsp; μ = m₁m₂ / (m₁+m₂)</div><div class="note">IR vibrational wavenumber (Hooke's Law model). μ is the reduced mass in kg. Use c = 3 × 10¹⁰ <b>cm/s</b> (not m/s) so the answer comes out in cm⁻¹. Check: the Oct 2024 H³⁵Cl data gives ≈ 2885 cm⁻¹.</div></div>
+      <div class="formula-card"><div class="expr">Vibrational modes: 3N − 5 (linear), 3N − 6 (non-linear)</div><div class="note">Asked directly for CO₂, H₂O, and acetylene. Confirm whether the molecule is linear before picking the formula.</div></div>
+    </div>
+
+    <div class="formula-group">
+      <h4>Water Chemistry</h4>
+      <div class="formula-card"><div class="expr">Hardness (ppm as CaCO₃) = (V<sub>EDTA</sub> × M<sub>EDTA</sub> × 100 × 1000) / V<sub>sample</sub></div><div class="note">The 100 comes from the molar mass of CaCO₃ (g/mol); the 1000 converts grams to milligrams. Every EDTA question in these papers uses this exact structure — raw sample first, boiled sample second.</div></div>
+      <div class="formula-card"><div class="expr">Temporary hardness = Total hardness − Permanent hardness</div><div class="note">Total comes from the unboiled sample's titration, permanent from the boiled sample's. This subtraction is easy, guaranteed marks — don't skip writing it out.</div></div>
+    </div>
+
+    <div class="formula-group">
+      <h4>Polymers</h4>
+      <div class="formula-card"><div class="expr">M̄n = ΣNᵢMᵢ / ΣNᵢ</div><div class="note">Number-average molecular weight.</div></div>
+      <div class="formula-card"><div class="expr">M̄w = ΣNᵢMᵢ² / ΣNᵢMᵢ</div><div class="note">Weight-average molecular weight — note the extra power of Mᵢ compared to M̄n.</div></div>
+      <div class="formula-card"><div class="expr">PDI = M̄w / M̄n</div><div class="note">Polydispersity index. Always ≥ 1; asked directly after the two averages above in the Oct 2025 paper.</div></div>
+    </div>
+  </div>
+
+  <div class="section-block" id="s6">
+    <div class="section-head"><div class="section-num">6</div><h2>Common mistakes that lose marks</h2></div>
+    <p class="section-note">Specific traps these four papers set — each one costs easy marks.</p>
+    <div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>Putting %T straight into the log</b><span>60% transmittance means T = 0.60. Convert first, then use A = log(1/T). <em>Oct 2024, Mar 2025</em></span></div></div><div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>Confusing absorbance with % absorption</b><span>"% absorption" = 100 − %T. It is not A × 100. <em>Oct 2024, Oct 2025</em></span></div></div><div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>Wrong concentration units</b><span>2.1 mM = 2.1 × 10⁻³ M. ε in L mol⁻¹ cm⁻¹ needs c in mol/L and l in cm. <em>Mar 2024</em></span></div></div><div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>Assuming Beer-Lambert works for white light</b><span>The law holds only for monochromatic light, so the Oct 2025 statement is false. <em>Oct 2025</em></span></div></div><div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>Getting phosphorescence backwards</b><span>Phosphorescence comes from the lower triplet state, so it is at a longer wavelength and is weaker than fluorescence — the Mar 2025 statement is false. <em>Mar 2025</em></span></div></div><div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>Saying fluorescence matches the absorbed wavelength</b><span>Emission happens from S₁ even after S₀→S₂ absorption, so fluorescence is at a longer wavelength. <em>Mar 2024</em></span></div></div><div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>Linear vs. non-linear in 3N − 5 / 3N − 6</b><span>CO₂ and acetylene are linear (4 and 7 modes); H₂O is non-linear (3 modes). <em>Mar 2024, Oct 2024</em></span></div></div><div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>IR wavenumber in the wrong unit</b><span>Using c = 3 × 10⁸ m/s gives m⁻¹, not cm⁻¹. Use 3 × 10¹⁰ cm/s. <em>Oct 2024</em></span></div></div><div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>Skipping or reversing the boiled-sample step</b><span>Total hardness comes from the unboiled sample, permanent from the boiled one; temporary = total − permanent. <em>Mar 2024, Oct 2025</em></span></div></div><div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>Mixing up hardness and alkalinity</b><span>CaCl₂ and MgSO₄ cause hardness, not alkalinity. Alkalinity comes from HCO₃⁻, CO₃²⁻ and OH⁻ — so Mg(HCO₃)₂ and KOH. <em>Oct 2025</em></span></div></div><div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>Saying every polymer shows tacticity</b><span>Tacticity needs an asymmetric carbon in the repeat unit — one carrying two different groups, like the –C₆H₅ side group in polystyrene. Polyethylene (all H) and PTFE (all F) have none, so they show no tacticity. <em>Oct 2025</em></span></div></div><div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>Swapping M̄n and M̄w</b><span>M̄w has Mᵢ² in the numerator. PDI = M̄w/M̄n is always ≥ 1 — if you get less than 1, you've swapped them. <em>Oct 2025</em></span></div></div><div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>Unlabelled Jablonski diagram</b><span>Name every process, and draw internal conversion and intersystem crossing as non-radiative (wavy) arrows. <em>Mar 2024, Oct 2024</em></span></div></div>
+  </div>
+
+  <div class="priority-box" id="s7">
+    <div class="section-head"><div class="section-num">7</div><h2>If you only have one evening</h2></div>
+    <ol class="priority-list">
+      <li><b>Beer-Lambert's Law numerical</b> — practice 3-4 variations (given A find c, given %T find ε, etc). Appeared in 4/4 papers.</li>
+      <li><b>AAS / AES / ICP-AES comparison table</b> — memorise as a table, not paragraphs.</li>
+      <li><b>Water hardness (EDTA) numerical</b> — the two-titration structure, both formulas.</li>
+      <li><b>Jablonski diagram</b> — practice drawing it once, fully labelled, from memory.</li>
+      <li>If time is left: chromophore/auxochrome definitions with one example each (benzene, phenol, aniline keep showing up), and the IR-active criterion.</li>
+    </ol>
+  </div>
+
+  <div class="section-block" id="s8" style="border:2px solid var(--teal);">
+    <div class="section-head"><div class="section-num">8</div><h2>How to actually prepare</h2></div>
+    <p class="section-note">The single most important advice in this guide.</p>
+    <div class="watch-item"><div class="watch-mark">1</div><div class="watch-body"><b>The paper is PPT-based</b><span>Questions come straight from the faculty lecture slides. Go through the PPTs properly — definitions, diagrams, and examples on the slides are exactly what gets asked.</span></div></div>
+    <div class="watch-item"><div class="watch-mark">2</div><div class="watch-body"><b>Tutorial questions are very important</b><span>Numericals in the MST closely follow the tutorial sheets. Every tutorial question you solve is direct practice for the paper.</span></div></div>
+    <div class="watch-item"><div class="watch-mark">3</div><div class="watch-body"><b>Last moment: tutorials + PYQs</b><span>In the final hours before the exam, stop reading theory. Solve the tutorial questions and the PYQ questions listed in Section 4 — that's where the marks are.</span></div></div>
+  </div>
+
+  <div class="section-block" id="s9">
+    <div class="section-head"><div class="section-num">9</div><h2>Full question papers</h2></div>
+    <p class="section-note">All four papers in full, typed out from the originals — newest first. Try one as a timed mock (2 hours) before looking at the analysis above.</p>
+    
+    <div class="qp">
+      <div class="qp-head"><h3>MST — October 13, 2025</h3><p>UCB009: Chemistry · BE/BTech (Semester-1) · Time: 2 hours · Max. marks: 40</p></div>
+      <div class="qp-note">Note: There are four questions, and all are compulsory. Attempt all parts of a question in one place. Use structures and diagrams wherever necessary. Be brief and to the point. Assume any missing data. Use of a calculator is allowed. Mention the attempted question's page number on the first page of the answer sheet.</div>
+      <div class="qp-scroll"><table>
+        <tr><th>Q</th><th>Part</th><th>Question</th><th>Marks</th><th>CO</th><th>BL</th></tr>
+        <tr class="qstart"><td class="m">1</td><td class="m">(a)</td><td class="q">Between Polypropylene and Nylon-2-Nylon-6, which one is a biodegradable polymer and why?<br>If there are 50 polymer molecules of molecular weight 10², 200 polymer molecules of molecular weight 10³, and 100 molecules of molecular weight 10⁴, calculate M̄n, M̄w, and PDI.</td><td class="m">2+3</td><td class="m">CO4</td><td class="m">L3</td></tr><tr><td class="m"></td><td class="m">(b)</td><td class="q">Define tacticity. Among polyethylene, polystyrene, and polytetrafluoroethylene, which polymer(s) will show tacticity? Draw and name all three possible configurations for that/those polymer(s).</td><td class="m">1+1+3</td><td class="m">CO4</td><td class="m">L2</td></tr><tr class="qstart"><td class="m">2</td><td class="m">(a)</td><td class="q">Among CaCl₂, Mg(HCO₃)₂, MgSO₄, and KOH, which salts are responsible for alkalinity in water?<br>A 100 mL water sample required 13.5 mL of 0.02 M EDTA for titration with EBT indicator. The same sample after boiling required 6 mL of 0.02 M EDTA. Calculate total hardness, permanent hardness, and temporary hardness.</td><td class="m">1+4</td><td class="m">CO3</td><td class="m">L3</td></tr><tr><td class="m"></td><td class="m">(b)</td><td class="q">Justify the following statement using suitable chemical equations: <i>"Bleaching powder is used to remove microbial contamination from the water for domestic use."</i><br>Explain the working principle of electrodialysis with a suitable diagram.</td><td class="m">2+3</td><td class="m">CO3</td><td class="m">L3</td></tr><tr class="qstart"><td class="m">3</td><td class="m">(a)</td><td class="q">Why do conducting polymers need to be doped? Draw the mechanism of conduction in p-doped polymers with suitable chemical structures. Give two important applications of conducting polymers.</td><td class="m">1+2+2</td><td class="m">CO4</td><td class="m">L1</td></tr><tr><td class="m"></td><td class="m">(b)</td><td class="q">A water sample contains 500 ppm of CaCl₂. Write the chemical equations separately for the removal of CaCl₂ and the regeneration process of the resins. Why is hard water passed through cation-exchange resin first?</td><td class="m">3+2</td><td class="m">CO3</td><td class="m">L3</td></tr><tr class="qstart"><td class="m">4</td><td class="m">(a)</td><td class="q">Arrange the following lights of the electromagnetic spectrum in order of decreasing wavelength: (a) X-rays, (b) Radio waves, (c) Infrared waves, (d) Gamma rays.<br>Draw the probable absorption spectra of the ethane molecule and the sodium atom with X and Y axes clearly marked.<br>Which radiations are detected in absorption and emission spectroscopy, respectively?</td><td class="m">1+2+2</td><td class="m">CO1</td><td class="m">L3</td></tr><tr><td class="m"></td><td class="m">(b)</td><td class="q">Mention whether the following statement is true or false. Justify your answer briefly: <i>"A sample irradiated with white light follows Lambert-Beer's Law."</i><br>A 0.003 M solution of [Co(NH₃)₆]³⁺ absorbs 25% of the incident light of 500 nm if the path length is 1 cm. Calculate the molar extinction coefficient and the percent absorption for a 0.02 M solution.</td><td class="m">2+3</td><td class="m">CO1</td><td class="m">L3</td></tr>
+      </table></div>
+    </div>
+    <div class="qp">
+      <div class="qp-head"><h3>MST — March 4, 2025</h3><p>UCB009/UCB008: Chemistry/Applied Chemistry · BE/BTech (Semester-2) · Time: 2 hours · Max. marks: 40</p></div>
+      <div class="qp-note">Note: There are five questions, and all are compulsory. Use structures and diagrams wherever necessary. Attempt all parts of a question in one place. Be brief and to the point. Assume any missing data. Use of a calculator is allowed. Mention the attempted question's page number on the first page of the answer sheet.</div>
+      <div class="qp-scroll"><table>
+        <tr><th>Q</th><th>Part</th><th>Question</th><th>Marks</th><th>CO</th><th>BL</th></tr>
+        <tr class="qstart"><td class="m">1</td><td class="m">(a)</td><td class="q">Define spectroscopy. Differentiate between the atomic and molecular absorption spectra and why this difference exists.</td><td class="m">1+3</td><td class="m">CO1</td><td class="m">L1</td></tr><tr><td class="m"></td><td class="m">(b)</td><td class="q">Describe the principle of Atomic Absorption Spectroscopy (AAS). List four differences between Atomic Absorption Spectroscopy (AAS) and Flame Emission Spectroscopy.</td><td class="m">2+2</td><td class="m">CO1</td><td class="m">L1</td></tr><tr class="qstart"><td class="m">2</td><td class="m">(a)</td><td class="q">Explain why sodium salt and barium salt give different colors in the flame. Write any two advantages of Inductively Coupled Plasma Atomic Emission Spectroscopy (ICP-AES).</td><td class="m">2+2</td><td class="m">CO1</td><td class="m">L2</td></tr><tr><td class="m"></td><td class="m">(b)</td><td class="q">Mention whether the following statement is true or false with suitable justification: <i>"Phosphorescence has a lower wavelength and higher intensity compared to fluorescence."</i></td><td class="m">1+3</td><td class="m">CO1</td><td class="m">L3</td></tr><tr class="qstart"><td class="m">3</td><td class="m">(a)</td><td class="q">Derive Beer's Law. Draw the well-labeled graph obtained in the following cases: (i) Absorbance vs. concentration, (ii) Transmittance vs. concentration.</td><td class="m">2+2</td><td class="m">CO1</td><td class="m">L1</td></tr><tr><td class="m"></td><td class="m">(b)</td><td class="q">The molar extinction coefficient of the iron phenanthroline complex is 1200 L mol⁻¹ cm⁻¹, and the transmittance is 90%. Calculate the concentration of the complex if the path length is 1 cm.<br>Write two limitations of Beer's Law.</td><td class="m">2+2</td><td class="m">CO1</td><td class="m">L3</td></tr><tr class="qstart"><td class="m">4</td><td class="m">(a)</td><td class="q">Define chromophore with suitable examples. How does the absorption maximum of p-nitrophenol change upon adding it to an alkaline medium? Explain with a suitable chemical reaction.</td><td class="m">1+3</td><td class="m">CO1</td><td class="m">L3</td></tr><tr><td class="m"></td><td class="m">(b)</td><td class="q">Draw all the possible electronic transitions and identify symmetry-forbidden electronic transitions separately for the following compounds: (i) Water (ii) 1,3-Butadiene (iii) Acetone</td><td class="m">4</td><td class="m">CO1</td><td class="m">L2</td></tr><tr class="qstart"><td class="m">5</td><td class="m">(a)</td><td class="q">Write the mathematical expression of Hooke's law applicable to IR spectroscopy and describe each term clearly. Based on this expression, explain which of these terms will affect the vibrational frequency of (i) C–N vs C=N (ii) C–H vs C–D bonds.</td><td class="m">2+2</td><td class="m">CO1</td><td class="m">L3</td></tr><tr><td class="m"></td><td class="m">(b)</td><td class="q">What is the essential condition for a molecule to be IR-active? Which of the following molecules will be IR active? Give reason. (i) Hydrogen (ii) Benzene (iii) Water</td><td class="m">1+3</td><td class="m">CO1</td><td class="m">L2</td></tr>
+      </table></div>
+    </div>
+    <div class="qp">
+      <div class="qp-head"><h3>MST — October 18, 2024</h3><p>UCB009/UCB008: Chemistry/Applied Chemistry · BE/BTech (I Semester) · Time: 2 hours · Max. marks: 40</p></div>
+      <div class="qp-note">Note: There are five questions, and all are compulsory. Use structures and diagrams wherever necessary. Attempt all parts of a question in one place. Be brief and to the point. Assume any missing data. Use of calculator is allowed. Mention the attempted question's page number on the first page of the answer sheet.<br><b>Given:</b> c = 3×10⁸ m/s, h = 6.63×10⁻³⁴ Js, k<sub>B</sub> = 1.38×10⁻²³ JK⁻¹mol⁻¹ (as printed).</div>
+      <div class="qp-scroll"><table>
+        <tr><th>Q</th><th>Part</th><th>Question</th><th>Marks</th><th>CO</th><th>BL</th></tr>
+        <tr class="qstart"><td class="m">1</td><td class="m">(a)</td><td class="q">Write any two differences between ICP-AES and FES.</td><td class="m">2</td><td class="m">CO1</td><td class="m">L1</td></tr><tr><td class="m"></td><td class="m"></td><td class="q">Sodium atom absorbs at 589 nm. Calculate the energy gap between the ground and the excited state. At a temperature of 2900 K, what is the ratio of excited state to ground state population (N*/N₀)? Given that A = 2.</td><td class="m">2</td><td class="m">CO1</td><td class="m">L3</td></tr><tr><td class="m"></td><td class="m">(b)</td><td class="q">Write the principle of atomic absorption spectroscopy (AAS) and any two limitations. Also, write any two differences between AAS and AES.</td><td class="m">2+2</td><td class="m">CO1</td><td class="m">L1</td></tr><tr class="qstart"><td class="m">2</td><td class="m">(a)</td><td class="q">Draw two separate representative electronic spectra of sodium atoms and ethylene molecules. Briefly justify why you observe such a difference between the spectra.</td><td class="m">2</td><td class="m">CO1</td><td class="m">L2</td></tr><tr><td class="m"></td><td class="m">(b)</td><td class="q">The Vividh Bharati station of All India Radio, Delhi, broadcasts on a frequency of 1368 kHz. Calculate the wavelength of the electromagnetic radiation emitted by the transmitter.</td><td class="m">2</td><td class="m">CO1</td><td class="m">L3</td></tr><tr><td class="m"></td><td class="m"></td><td class="q">Read the following statement carefully: <i>"A molecule is photo-excited by radiation of a specific wavelength to the first excited state, loses energy through a non-radiative spin-forbidden transition, and then undergoes a radiative emission."</i> Mention how many processes are taking place and name all of them. Represent ONLY these processes using a suitable energy diagram.</td><td class="m">2+2</td><td class="m">CO1</td><td class="m">L2</td></tr><tr class="qstart"><td class="m">3</td><td class="m">(a)</td><td class="q">State Beer's law and derive the corresponding equation.</td><td class="m">1+3</td><td class="m">CO1</td><td class="m">L1</td></tr><tr><td class="m"></td><td class="m">(b)</td><td class="q">Solution X transmits 60% of the incident light of a particular wavelength. What will be the percentage of absorption if the concentration is increased to four times the initial under identical conditions?</td><td class="m">4</td><td class="m">CO1</td><td class="m">L3</td></tr><tr class="qstart"><td class="m">4</td><td class="m">(a)</td><td class="q">Define λmax.</td><td class="m">1</td><td class="m">CO1</td><td class="m">L1</td></tr><tr><td class="m"></td><td class="m"></td><td class="q">Among benzene and aniline, which one will show a blue shift in the absorption maximum upon the addition of an acid? Briefly justify.</td><td class="m">3</td><td class="m">CO1</td><td class="m">L2</td></tr><tr><td class="m"></td><td class="m">(b)</td><td class="q">You have been given two compounds, 'A' and 'B'. One of them absorbs at ~180 nm, whereas another absorbs at ~220 nm. One of them contains one double bond, and the other one contains two conjugated double bonds. On the basis of these data, identify 'A' and 'B' with justification. Draw the comparative molecular orbital diagram of both compounds and show the HOMO-LUMO transitions.</td><td class="m">2+2</td><td class="m">CO1</td><td class="m">L3</td></tr><tr class="qstart"><td class="m">5</td><td class="m">(a)</td><td class="q">Why is the x-axis of an IR spectrum expressed in wavenumber?</td><td class="m">2</td><td class="m">CO1</td><td class="m">L2</td></tr><tr><td class="m"></td><td class="m"></td><td class="q">How can we differentiate the type of hydrogen bonding between <i>ortho</i>- and <i>para</i>-hydroxybenzoic acid using IR spectroscopy?</td><td class="m">2</td><td class="m">CO1</td><td class="m">L3</td></tr><tr><td class="m"></td><td class="m">(b)</td><td class="q">Calculate the number of vibrational modes for acetylene and water.<br>¹H³⁵Cl has a force constant (k) value of 480 N m⁻¹. Calculate the fundamental vibrational frequency (in wavenumber). Given: m<sub>H</sub> = 1.67×10⁻²⁷ kg and m<sub>Cl</sub> = 58.45×10⁻²⁷ kg.</td><td class="m">2+2</td><td class="m">CO1</td><td class="m">L3</td></tr>
+      </table></div>
+    </div>
+    <div class="qp">
+      <div class="qp-head"><h3>MST — March 22, 2024</h3><p>UCB009/UCB008: Chemistry/Applied Chemistry · BE/BTech · Time: 2 hours · Max. marks: 36</p></div>
+      <div class="qp-note">Note: All questions are compulsory. Use structures and diagrams wherever necessary to get full credit. Be brief and to the point. Assume any missing data suitably. Use of a calculator is allowed. Mention the page number of the attempted question on the first page of the answer sheet.</div>
+      <div class="qp-scroll"><table>
+        <tr><th>Q</th><th>Part</th><th>Question</th><th>Marks</th><th>CO</th><th>BL</th></tr>
+        <tr class="qstart"><td class="m">1</td><td class="m"></td><td class="q">Write the sequence of events once the sample solution is aspirated onto the flame in Atomic Emission Spectroscopy.<br>Write any two advantages of ICP-AES over flame photometry.</td><td class="m">4+2</td><td class="m">CO1</td><td class="m">L1</td></tr><tr class="qstart"><td class="m">2</td><td class="m"></td><td class="q">Define Beer-Lambert's Law.</td><td class="m">2</td><td class="m">CO1</td><td class="m">L1</td></tr><tr><td class="m"></td><td class="m"></td><td class="q">In a lab, an unknown sample solution has been analyzed that shows an absorbance of 0.372. If the path length is 1 cm and the sample concentration is 2.1 mM, calculate the molar absorption coefficient of the sample.</td><td class="m">4</td><td class="m">CO1</td><td class="m">L3</td></tr><tr class="qstart"><td class="m">3</td><td class="m"></td><td class="q">Define Chromophore and Auxochrome.</td><td class="m">3</td><td class="m">CO1</td><td class="m">L1</td></tr><tr><td class="m"></td><td class="m"></td><td class="q">Draw the structure of each of the following molecules and identify/label Chromophore and Auxochrome: Benzene, Phenol, Aniline.</td><td class="m">3</td><td class="m">CO1</td><td class="m">L2</td></tr><tr class="qstart"><td class="m">4</td><td class="m"></td><td class="q">Classify all possible vibrational modes in a polyatomic molecule.</td><td class="m">3</td><td class="m">CO1</td><td class="m">L2</td></tr><tr><td class="m"></td><td class="m"></td><td class="q">Calculate the number of vibrational degrees of freedom for CO₂ and H₂O.</td><td class="m">3</td><td class="m">CO1</td><td class="m">L3</td></tr><tr class="qstart"><td class="m">5</td><td class="m"></td><td class="q">Depict and name all photophysical processes in the Jablonski diagram.</td><td class="m">3</td><td class="m">CO1</td><td class="m">L1</td></tr><tr><td class="m"></td><td class="m"></td><td class="q">State whether fluorescence will occur at the same, longer, or shorter wavelength compared to absorption from S₀→S₂. Briefly justify.</td><td class="m">3</td><td class="m">CO1</td><td class="m">L3</td></tr><tr class="qstart"><td class="m">6</td><td class="m"></td><td class="q">A 100 ml sample of hard water required 15 ml of 0.05 M EDTA solution for the titration using EBT as an indicator. Another 100 ml of water from the same source was boiled and the precipitate was removed by filtration. The filtrate required 5 ml of 0.05 M EDTA for titration. Calculate the total, permanent, and temporary hardness of the water sample in ppm.</td><td class="m">6</td><td class="m">CO3</td><td class="m">L3</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <footer>
+    Compiled directly from four TIET UCB009 MST papers (Mar 2024 → Oct 2025). No fabricated content — every number, question, and formula above traces back to an actual paper. Stuck on something here? Ask in Doubts or grab a verified senior in Guidance.
+  </footer>
+
+</div>
+</body>
+</html>

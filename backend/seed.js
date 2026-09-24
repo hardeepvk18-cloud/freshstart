@@ -66,7 +66,7 @@ const subjects = [
     ]
   },
   {
-    code: 'UPH001', name: 'Physics I', credits: 4.5, pool: 'B', ltp: '3-1-2',
+    code: 'UPH013', name: 'Physics I', credits: 4.5, pool: 'B', ltp: '3-1-2',
     attendance: 'Medium strictness', detain: 'Medium',
     topics: ['Sound Waves', 'EM Waves', 'Interference & Diffraction', 'Polarization', 'Quantum Mechanics', 'Laser'],
     tips: [
