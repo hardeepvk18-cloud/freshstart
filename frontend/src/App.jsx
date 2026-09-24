@@ -271,6 +271,12 @@ const GUIDE_CODES = GUIDES.map(g => g.code);
 // one free sample subject per pool — everything else needs a Thapar sign-in
 const OPEN_CODES = ['UEN008', 'UES102'];
 
+// the guides that are open without a sign-in come first in their pool
+function sortGuides(list, user) {
+  if (user) return list;
+  return [...list].sort((a, b) => (OPEN_CODES.includes(b.code) ? 1 : 0) - (OPEN_CODES.includes(a.code) ? 1 : 0));
+}
+
 function GuideCard({ g, i, user }) {
   const open = user || OPEN_CODES.includes(g.code);
   const inner = (
@@ -291,7 +297,15 @@ function GuideCard({ g, i, user }) {
     return (
       <div className="card" key={g.code} style={{ animationDelay: i * 0.06 + 's', opacity: .72 }}>
         {inner}
-        <p className="note" style={{ marginTop: '.8rem' }}>Sign in with your Thapar email to open this guide.</p>
+        <p
+          style={{
+            marginTop: '.9rem', padding: '.55rem .8rem', borderRadius: '10px',
+            background: 'rgba(108, 99, 255, .12)', border: '1px solid rgba(108, 99, 255, .35)',
+            color: '#4f48c4', fontSize: '.85rem', fontWeight: 600
+          }}
+        >
+          🔒 Sign in with your Thapar email to open this guide
+        </p>
       </div>
     );
   }
@@ -342,12 +356,12 @@ function PyqGuides({ user }) {
 
       <div className="sec-title">Pool A</div>
       <div className="grid">
-        {GUIDES.filter(g => g.pool === 'A').map((g, i) => <GuideCard g={g} i={i} user={user} key={g.code} />)}
+        {sortGuides(GUIDES.filter(g => g.pool === 'A'), user).map((g, i) => <GuideCard g={g} i={i} user={user} key={g.code} />)}
       </div>
 
       <div className="sec-title">Pool B</div>
       <div className="grid">
-        {GUIDES.filter(g => g.pool === 'B').map((g, i) => <GuideCard g={g} i={i} user={user} key={g.code} />)}
+        {sortGuides(GUIDES.filter(g => g.pool === 'B'), user).map((g, i) => <GuideCard g={g} i={i} user={user} key={g.code} />)}
       </div>
 
       <p className="note" style={{ marginTop: '1.6rem' }}>
