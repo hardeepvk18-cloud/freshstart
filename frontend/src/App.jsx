@@ -264,7 +264,7 @@ function GuideCard({ g, i, user }) {
     <>
       <h3>{g.name}{open ? '' : ' 🔒'}</h3>
       <p>{g.code} · Pool {g.pool} · built from {g.papers} MST papers</p>
-      <p style={{ marginTop: '.6rem', color: '#8d86ff', fontSize: '.9rem' }}>{g.note}</p>
+      <p style={{ marginTop: '.6rem', color: '#5b54d6', fontSize: '.9rem' }}>{g.note}</p>
       <div className="tags" style={{ marginTop: '.9rem' }}>
         <span className="tag">Must-do topics</span>
         <span className="tag">Formula sheet</span>
@@ -389,18 +389,18 @@ function SubjectDetail({ code, user, go }) {
             display: 'flex', alignItems: 'center', gap: '.9rem',
             padding: '1rem 1.2rem', marginBottom: '1.8rem',
             borderRadius: '14px', textDecoration: 'none',
-            background: 'linear-gradient(135deg, rgba(108,99,255,.16), rgba(14,110,110,.16))',
-            border: '1px solid rgba(108,99,255,.4)', color: '#fff'
+            background: 'linear-gradient(135deg, rgba(108,99,255,.10), rgba(14,110,110,.10))',
+            border: '1px solid rgba(108,99,255,.35)', color: '#1A2230'
           }}
         >
           <span style={{ fontSize: '1.5rem' }}>&#128202;</span>
           <span style={{ flex: 1 }}>
             <b style={{ display: 'block', fontSize: '1rem' }}>PYQ analysis guide</b>
-            <span style={{ fontSize: '.85rem', color: '#b0a8d8' }}>
+            <span style={{ fontSize: '.85rem', color: '#5A6472' }}>
               Which topics repeat, formula sheet, common mistakes and full past papers
             </span>
           </span>
-          <span style={{ fontSize: '1.2rem', color: '#8d86ff' }}>&rarr;</span>
+          <span style={{ fontSize: '1.2rem', color: '#5b54d6' }}>&rarr;</span>
         </a>
       )}
 
@@ -505,7 +505,7 @@ function Doubts() {
           {doubts.map((d, i) => (
             <div className="card" key={d._id} style={{ animationDelay: i * 0.05 + 's' }}>
               <h4>{d.title}</h4>
-              <p><b style={{ color: '#8d86ff' }}>Answer: </b>{d.answer}</p>
+              <p><b style={{ color: '#5b54d6' }}>Answer: </b>{d.answer}</p>
               <div className="tags">
                 <button className="chip" onClick={() => upvote(d._id)}>Helpful · {d.upvotes || 0}</button>
               </div>
@@ -725,7 +725,7 @@ function Admin({ user }) {
             <div className="card" key={d._id}>
               <h4>{d.title}</h4>
               {d.description && <p style={{ marginBottom: '.7rem' }}>{d.description}</p>}
-              <p style={{ marginBottom: '.9rem' }}><b style={{ color: '#8d86ff' }}>Answer: </b>{d.answer}</p>
+              <p style={{ marginBottom: '.9rem' }}><b style={{ color: '#5b54d6' }}>Answer: </b>{d.answer}</p>
               <button className="btn btn-sm btn-ghost" onClick={() => deleteDoubt(d._id)}>Delete</button>
             </div>
           ))}
@@ -1313,8 +1313,8 @@ export default function App() {
           style={{
             position: 'relative', zIndex: 20, margin: '1rem auto 0', maxWidth: '900px',
             padding: '.9rem 1.2rem', borderRadius: '12px', cursor: 'pointer',
-            background: 'rgba(155,68,68,.18)', border: '1px solid rgba(155,68,68,.5)',
-            color: '#ffc9c9', fontSize: '.9rem'
+            background: '#FBEEEE', border: '1px solid #E4B9B9',
+            color: '#9B4444', fontSize: '.9rem'
           }}
         >
           {loginError}
