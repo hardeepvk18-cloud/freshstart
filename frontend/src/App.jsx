@@ -195,7 +195,7 @@ function Subjects({ user, go }) {
       .finally(() => setLoading(false));
   }, [pool]);
 
-  const locked = pool === 'B' && !user;
+
 
   return (
     <div className="wrap">
@@ -207,17 +207,16 @@ function Subjects({ user, go }) {
 
       <div className="filters">
         <button className={'chip' + (pool === 'A' ? ' on' : '')} onClick={() => setPool('A')}>Pool A</button>
-        <button className={'chip' + (pool === 'B' ? ' on' : '')} onClick={() => setPool('B')}>
-          Pool B{user ? '' : ' 🔒'}
-        </button>
+        <button className={'chip' + (pool === 'B' ? ' on' : '')} onClick={() => setPool('B')}>Pool B</button>
       </div>
 
-      {locked ? (
-        <LoginGate
-          title="Pool B is locked"
-          text="Sign in to open the Pool B subject guides and the topper tips for every subject."
-        />
-      ) : loading ? <Spinner /> : (
+      {!user && (
+        <p className="note" style={{ marginBottom: '1.2rem' }}>
+          {OPEN_CODES.map(c => (subjects.find(s2 => s2.code === c) || {}).name).filter(Boolean).join(' and ') || 'One subject per pool'} is open to everyone as a sample. Sign in with your Thapar email to open the rest.
+        </p>
+      )}
+
+      {loading ? <Spinner /> : (
         <div className="grid">
           {subjects.map((s, i) => (
             <div
@@ -226,7 +225,7 @@ function Subjects({ user, go }) {
               style={{ animationDelay: i * 0.06 + 's' }}
               onClick={() => go('subject', s.code)}
             >
-              <h3>{s.name}</h3>
+              <h3>{s.name}{(!user && !OPEN_CODES.includes(s.code)) ? ' 🔒' : ''}</h3>
               <p>{s.code} · {s.credits} credits · L-T-P {s.ltp}</p>
               <div className="tags">
                 <span className="tag">Attendance: {s.attendance}</span>
@@ -255,7 +254,34 @@ const GUIDES = [
 ];
 const GUIDE_CODES = GUIDES.map(g => g.code);
 
-function GuideCard({ g, i }) {
+// one free sample subject per pool — everything else needs a Thapar sign-in
+const OPEN_CODES = ['UEN008', 'UES102'];
+
+function GuideCard({ g, i, user }) {
+  const open = user || OPEN_CODES.includes(g.code);
+  const inner = (
+    <>
+      <h3>{g.name}{open ? '' : ' 🔒'}</h3>
+      <p>{g.code} · Pool {g.pool} · built from {g.papers} MST papers</p>
+      <p style={{ marginTop: '.6rem', color: '#8d86ff', fontSize: '.9rem' }}>{g.note}</p>
+      <div className="tags" style={{ marginTop: '.9rem' }}>
+        <span className="tag">Must-do topics</span>
+        <span className="tag">Formula sheet</span>
+        <span className="tag">Common mistakes</span>
+        <span className="tag">Full papers</span>
+      </div>
+    </>
+  );
+
+  if (!open) {
+    return (
+      <div className="card" key={g.code} style={{ animationDelay: i * 0.06 + 's', opacity: .72 }}>
+        {inner}
+        <p className="note" style={{ marginTop: '.8rem' }}>Sign in with your Thapar email to open this guide.</p>
+      </div>
+    );
+  }
+
   return (
     <a
       className="card clickable"
@@ -265,20 +291,12 @@ function GuideCard({ g, i }) {
       key={g.code}
       style={{ animationDelay: i * 0.06 + 's', textDecoration: 'none', display: 'block' }}
     >
-      <h3>{g.name}</h3>
-      <p>{g.code} · Pool {g.pool} · built from {g.papers} MST papers</p>
-      <p style={{ marginTop: '.6rem', color: '#8d86ff', fontSize: '.9rem' }}>{g.note}</p>
-      <div className="tags" style={{ marginTop: '.9rem' }}>
-        <span className="tag">Must-do topics</span>
-        <span className="tag">Formula sheet</span>
-        <span className="tag">Common mistakes</span>
-        <span className="tag">Full papers</span>
-      </div>
+      {inner}
     </a>
   );
 }
 
-function PyqGuides() {
+function PyqGuides({ user }) {
   return (
     <div className="wrap">
       <h2>PYQ analysis guides</h2>
@@ -287,6 +305,13 @@ function PyqGuides() {
         marks question by question to show which topics keep repeating, how they were asked each year,
         and where students lose easy marks.
       </p>
+
+      {!user && (
+        <p className="note" style={{ marginBottom: '1.2rem' }}>
+          The Energy &amp; Environment and Manufacturing Processes guides are open to everyone as a sample.
+          Sign in with your Thapar email to open the other seven.
+        </p>
+      )}
 
       <div className="highlight">
         <span>&#128202;</span>
@@ -302,12 +327,12 @@ function PyqGuides() {
 
       <div className="sec-title">Pool A</div>
       <div className="grid">
-        {GUIDES.filter(g => g.pool === 'A').map((g, i) => <GuideCard g={g} i={i} key={g.code} />)}
+        {GUIDES.filter(g => g.pool === 'A').map((g, i) => <GuideCard g={g} i={i} user={user} key={g.code} />)}
       </div>
 
       <div className="sec-title">Pool B</div>
       <div className="grid">
-        {GUIDES.filter(g => g.pool === 'B').map((g, i) => <GuideCard g={g} i={i} key={g.code} />)}
+        {GUIDES.filter(g => g.pool === 'B').map((g, i) => <GuideCard g={g} i={i} user={user} key={g.code} />)}
       </div>
 
       <p className="note" style={{ marginTop: '1.6rem' }}>
@@ -386,7 +411,7 @@ function SubjectDetail({ code, user, go }) {
       </div>
 
       <div className="sec-title">How to score well</div>
-      {(user || subject.pool === 'A') ? (
+      {(user || OPEN_CODES.includes(subject.code)) ? (
         <div className="list">
           {(subject.tips || []).map((tip, i) => (
             <div className="card" key={i} style={{ animationDelay: i * 0.06 + 's' }}>
@@ -397,7 +422,7 @@ function SubjectDetail({ code, user, go }) {
       ) : (
         <LoginGate
           title="Tips are locked"
-          text={'Sign in to read what worked for people who scored well in ' + subject.name + '.'}
+          text={'Sign in with your Thapar email to read what worked for people who scored well in ' + subject.name + '.'}
         />
       )}
     </div>
@@ -1206,10 +1231,15 @@ export default function App() {
   const [subjectCode, setSubjectCode] = useState(null);
   const [user, setUser] = useState(Auth.get());
   const [isAdmin, setIsAdmin] = useState(false);
+  const [loginError, setLoginError] = useState('');
 
   // handle the OAuth redirect: /?email=...&name=...
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
+    if (params.get('error') === 'thapar_only') {
+      setLoginError('Please sign in with your @thapar.edu college email — other accounts are not allowed.');
+      window.history.replaceState({}, '', window.location.pathname);
+    }
     const email = params.get('email');
     if (email) {
       const name = params.get('name') || '';
@@ -1264,6 +1294,20 @@ export default function App() {
         <div className="orb orb3" />
       </div>
 
+      {loginError && (
+        <div
+          onClick={() => setLoginError('')}
+          style={{
+            position: 'relative', zIndex: 20, margin: '1rem auto 0', maxWidth: '900px',
+            padding: '.9rem 1.2rem', borderRadius: '12px', cursor: 'pointer',
+            background: 'rgba(155,68,68,.18)', border: '1px solid rgba(155,68,68,.5)',
+            color: '#ffc9c9', fontSize: '.9rem'
+          }}
+        >
+          {loginError}
+        </div>
+      )}
+
       <nav className="nav">
         <button className="brand" onClick={() => go('home')}>
           <h1>FreshStart</h1>
@@ -1292,7 +1336,7 @@ export default function App() {
       </nav>
 
       {page === 'home' && <Home go={go} />}
-      {page === 'pyq' && <PyqGuides />}
+      {page === 'pyq' && <PyqGuides user={user} />}
       {page === 'faqs' && <FAQs user={user} />}
       {page === 'subjects' && <Subjects user={user} go={go} />}
       {page === 'subject' && <SubjectDetail code={subjectCode} user={user} go={go} />}
