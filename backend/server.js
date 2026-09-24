@@ -42,6 +42,12 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
   }, async (accessToken, refreshToken, profile, done) => {
     try {
       const email = profile.emails[0].value.toLowerCase();
+
+      // only college accounts may sign in; the admin accounts in ADMIN_EMAILS are the exception
+      if (!email.endsWith('@thapar.edu') && !ADMINS.includes(email)) {
+        return done(null, false, { message: 'thapar_only' });
+      }
+
       let user = await User.findOne({ email });
       if (!user) {
         user = await User.create({
@@ -94,7 +100,7 @@ app.get('/auth/google', (req, res, next) => {
 });
 
 app.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: FRONTEND + '/?error=login_failed' }),
+  passport.authenticate('google', { failureRedirect: FRONTEND + '/?error=thapar_only' }),
   (req, res) => {
     const params = new URLSearchParams({
       email: req.user.email,
