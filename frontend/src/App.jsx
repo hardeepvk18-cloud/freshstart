@@ -56,13 +56,14 @@ function LoginGate({ title, text }) {
       <h3>{title}</h3>
       <p>{text}</p>
       <ul className="perks">
+        <li><b>✦</b>PYQ analysis guides for all nine subjects</li>
         <li><b>✦</b>Every FAQ, fully unlocked</li>
-        <li><b>✦</b>Pool B subject guides</li>
         <li><b>✦</b>Topper tips for all ten subjects</li>
         <li><b>✦</b>The full answered doubts archive</li>
       </ul>
       <br />
-      <button className="btn btn-lg" onClick={startLogin}>Sign in with Google</button>
+      <button className="btn btn-lg" onClick={startLogin}>Sign in with Thapar email</button>
+      <p className="note" style={{ marginTop: '.8rem' }}>Only @thapar.edu accounts can sign in.</p>
     </div>
   );
 }
@@ -77,8 +78,8 @@ function Home({ go }) {
       <div className="hero-in">
         <h2 className="hero-title">Start first year <em>knowing what to expect</em></h2>
         <p>
-          Subject guides, attendance rules, detention risk and answers from people who
-          already survived it. Built for TIET first year students.
+          PYQ analysis guides, subject guides, attendance rules, detention risk and answers from
+          people who already survived it. Sign in with your @thapar.edu email to open everything.
         </p>
 
         <div className="mini-grid">
@@ -141,7 +142,7 @@ function FAQs({ user }) {
       <h2>Frequently asked questions</h2>
       <p className="sub">The things every fresher asks in the first month.</p>
 
-      {!user && <div className="banner">Free preview. Sign in to see the full set.</div>}
+      {!user && <div className="banner">Free preview. Sign in with your Thapar email to see the full set.</div>}
 
       <input
         className="search"
@@ -174,7 +175,7 @@ function FAQs({ user }) {
       {!user && !loading && (
         <LoginGate
           title="There is more below this"
-          text="Sign in with your Google account to open the rest of the questions. It takes about ten seconds."
+          text="Sign in with your @thapar.edu email to open the rest of the questions. It takes about ten seconds."
         />
       )}
     </div>
@@ -1330,7 +1331,7 @@ export default function App() {
               <button className="btn btn-sm btn-red" onClick={logout}>Sign out</button>
             </>
           ) : (
-            <button className="btn btn-sm" onClick={startLogin}>Sign in</button>
+            <button className="btn btn-sm" onClick={startLogin}>Sign in with Thapar email</button>
           )}
         </div>
       </nav>
