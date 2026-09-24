@@ -295,7 +295,13 @@ function GuideCard({ g, i, user }) {
 
   if (!open) {
     return (
-      <div className="card" key={g.code} style={{ animationDelay: i * 0.06 + 's', opacity: .72 }}>
+      <div
+        className="card clickable"
+        key={g.code}
+        onClick={startLogin}
+        role="button"
+        style={{ animationDelay: i * 0.06 + 's', opacity: .85 }}
+      >
         {inner}
         <p
           style={{
@@ -304,7 +310,7 @@ function GuideCard({ g, i, user }) {
             color: '#4f48c4', fontSize: '.85rem', fontWeight: 600
           }}
         >
-          🔒 Sign in with your Thapar email to open this guide
+          🔒 Tap to sign in with your Thapar email and open this guide
         </p>
       </div>
     );
