@@ -1288,6 +1288,14 @@ export default function App() {
   const [loginError, setLoginError] = useState('');
   const [history, setHistory] = useState([]);
 
+  // open a section straight from a shared link, e.g. /#pyq or /#doubts
+  useEffect(() => {
+    const target = (window.location.hash || '').replace('#', '');
+    if (['pyq', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target)) {
+      setPage(target);
+    }
+  }, []);
+
   // handle the OAuth redirect: /?email=...&name=...
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -1330,6 +1338,10 @@ export default function App() {
   }, [user]);
 
   const go = (target, code) => {
+    try {
+      const hash = ['pyq', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target) ? '#' + target : '';
+      window.history.replaceState({}, '', window.location.pathname + hash);
+    } catch (e) {}
     setHistory(h => (target === page && (code || null) === subjectCode) ? h : [...h, { page, subjectCode }]);
     setPage(target);
     setSubjectCode(code || null);
