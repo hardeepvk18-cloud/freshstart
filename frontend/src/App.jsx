@@ -358,7 +358,6 @@ function SubjectDetail({ code, user, go }) {
   if (missing) {
     return (
       <div className="wrap">
-        <button className="back" onClick={() => go('subjects')}>Back to subjects</button>
         <h2>Subject not found</h2>
         <p className="sub">Run the seed script on the backend to load the subject data.</p>
       </div>
@@ -369,7 +368,6 @@ function SubjectDetail({ code, user, go }) {
 
   return (
     <div className="wrap">
-      <button className="back" onClick={() => go('subjects')}>Back to subjects</button>
       <h2>{subject.name}</h2>
       <p className="sub">
         {subject.code} · {subject.credits} credits · L-T-P {subject.ltp} · Pool {subject.pool}
@@ -760,7 +758,7 @@ function ThreadView({ id, user, go }) {
     return () => clearInterval(timer);
   }, [load]);
 
-  if (msg) return <div className="wrap"><button className="back" onClick={() => go('guidance')}>Back</button><p className="sub">{msg}</p></div>;
+  if (msg) return <div className="wrap"><p className="sub">{msg}</p></div>;
   if (!data) return <div className="wrap"><Spinner /></div>;
 
   const { thread, role } = data;
@@ -796,7 +794,6 @@ function ThreadView({ id, user, go }) {
 
   return (
     <div className="wrap">
-      <button className="back" onClick={() => go('guidance')}>Back to guidance</button>
       <h2>{thread.topic}</h2>
       <p className="sub">
         {thread.status === 'open' && 'Waiting for a verified senior to pick this up'}
@@ -1233,6 +1230,7 @@ export default function App() {
   const [user, setUser] = useState(Auth.get());
   const [isAdmin, setIsAdmin] = useState(false);
   const [loginError, setLoginError] = useState('');
+  const [history, setHistory] = useState([]);
 
   // handle the OAuth redirect: /?email=...&name=...
   useEffect(() => {
@@ -1276,15 +1274,29 @@ export default function App() {
   }, [user]);
 
   const go = (target, code) => {
+    setHistory(h => (target === page && (code || null) === subjectCode) ? h : [...h, { page, subjectCode }]);
     setPage(target);
     setSubjectCode(code || null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // one back button for the whole site — steps back through the screens you opened
+  const back = () => {
+    setHistory(h => {
+      const prev = h.length ? h[h.length - 1] : { page: 'home', subjectCode: null };
+      setPage(prev.page);
+      setSubjectCode(prev.subjectCode || null);
+      return h.slice(0, -1);
+    });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const logout = () => {
     Auth.clear();
     setUser(null);
-    go('home');
+    setHistory([]);
+    setPage('home');
+    setSubjectCode(null);
   };
 
   return (
@@ -1337,6 +1349,12 @@ export default function App() {
       </nav>
 
       {page === 'home' && <Home go={go} />}
+      {page !== 'home' && (
+        <div className="wrap" style={{ paddingBottom: 0 }}>
+          <button className="back" onClick={back}>&larr; Back</button>
+        </div>
+      )}
+
       {page === 'pyq' && <PyqGuides user={user} />}
       {page === 'faqs' && <FAQs user={user} />}
       {page === 'subjects' && <Subjects user={user} go={go} />}
