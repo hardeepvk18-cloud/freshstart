@@ -275,6 +275,17 @@
   .must-prep { font-size: 0.9rem; color: var(--ink); }
   .must-prep b { color: var(--teal-deep); }
   .must-key { display: flex; flex-wrap: wrap; gap: 0.8rem; font-size: 0.82rem; color: var(--ink-soft); margin-bottom: 1.2rem; }
+
+  .fb { border: 1px solid var(--line); border-radius: 14px; padding: 1.3rem 1.5rem; margin-top: 2.4rem; background: var(--paper); }
+  .fb h3 { margin: 0 0 .3rem; font-family: 'Source Serif 4', serif; font-size: 1.1rem; }
+  .fb p.sub2 { margin: 0 0 1rem; font-size: .88rem; color: var(--ink-soft); }
+  .fb-btns { display: flex; gap: .6rem; flex-wrap: wrap; }
+  .fb-btn { font-family: inherit; font-size: .9rem; font-weight: 600; cursor: pointer; padding: .55rem 1.1rem; border-radius: 30px; border: 1px solid var(--line); background: #fff; color: var(--ink); transition: border-color .2s, background .2s; }
+  .fb-btn:hover { border-color: var(--teal); }
+  .fb-btn.on { background: var(--teal); border-color: var(--teal); color: #fff; }
+  .fb textarea { width: 100%; margin-top: .9rem; padding: .7rem .9rem; border-radius: 10px; border: 1px solid var(--line); font-family: inherit; font-size: .9rem; resize: vertical; min-height: 70px; }
+  .fb-send { margin-top: .7rem; font-family: inherit; font-size: .88rem; font-weight: 600; cursor: pointer; padding: .5rem 1.1rem; border-radius: 30px; border: none; background: var(--teal); color: #fff; }
+  .fb-done { font-size: .9rem; color: var(--teal-deep); font-weight: 600; }
   footer { border-top: 1px solid var(--line); padding-top: 1.6rem; font-size: 0.85rem; color: var(--ink-soft); }
 
   @media (max-width: 480px) {
@@ -641,10 +652,66 @@
     </div>
   </div>
 
+
+  <div class="fb" id="fb">
+    <h3>Was this guide helpful?</h3>
+    <p class="sub2">Your answer only goes to the student who made this guide — it helps decide what to fix and what to build next.</p>
+    <div class="fb-btns">
+      <button class="fb-btn" id="fb-yes" type="button">&#128077; Yes, helpful</button>
+      <button class="fb-btn" id="fb-no" type="button">&#128078; Not really</button>
+    </div>
+    <div id="fb-more" style="display:none">
+      <textarea id="fb-text" placeholder="Anything missing or wrong? (optional)"></textarea>
+      <button class="fb-send" id="fb-send" type="button">Send</button>
+    </div>
+    <p class="fb-done" id="fb-done" style="display:none">Thanks — noted.</p>
+  </div>
+
   <footer>
     Compiled directly from four TIET UCB009 MST papers (Mar 2024 → Oct 2025). No fabricated content — every number, question, and formula above traces back to an actual paper. Stuck on something here? Ask in Doubts or grab a verified senior in Guidance.
   </footer>
 
 </div>
+
+<script>
+(function () {
+  var CODE = 'UCB009';
+  var choice = null;
+  var yes = document.getElementById('fb-yes'), no = document.getElementById('fb-no');
+  var more = document.getElementById('fb-more'), done = document.getElementById('fb-done');
+  var send = document.getElementById('fb-send'), text = document.getElementById('fb-text');
+
+  function visitorId() {
+    try {
+      var id = localStorage.getItem('fs_visitor');
+      if (!id) { id = 'v_' + Math.random().toString(36).slice(2) + Date.now(); localStorage.setItem('fs_visitor', id); }
+      return id;
+    } catch (e) { return 'anon'; }
+  }
+  function post(comment) {
+    var email; try { email = localStorage.getItem('fs_email') || undefined; } catch (e) {}
+    fetch('/api/guide-feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code: CODE, helpful: choice, comment: comment || '', visitorId: visitorId(), email: email })
+    }).catch(function () {});
+  }
+  function pick(val, btn) {
+    choice = val;
+    yes.classList.toggle('on', val === true);
+    no.classList.toggle('on', val === false);
+    more.style.display = 'block';
+    post('');
+  }
+  yes.addEventListener('click', function () { pick(true, yes); });
+  no.addEventListener('click', function () { pick(false, no); });
+  send.addEventListener('click', function () {
+    if (choice === null) return;
+    post(text.value);
+    more.style.display = 'none';
+    done.style.display = 'block';
+  });
+})();
+</script>
 </body>
 </html>

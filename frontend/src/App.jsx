@@ -540,6 +540,7 @@ function Admin({ user }) {
   const [mentorApps, setMentorApps] = useState([]);
   const [analytics, setAnalytics] = useState(null);
   const [logins, setLogins] = useState([]);
+  const [feedback, setFeedback] = useState(null);
   const [answered, setAnswered] = useState([]);
 
   const load = useCallback(() => {
@@ -567,6 +568,11 @@ function Admin({ user }) {
     fetch(API + '/api/mentors/pending', { headers })
       .then(r => r.ok ? r.json() : [])
       .then(d => setMentorApps(Array.isArray(d) ? d : []))
+      .catch(() => {});
+
+    fetch(API + '/api/admin/guide-feedback', { headers })
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d) setFeedback(d); })
       .catch(() => {});
 
     fetch(API + '/api/admin/analytics', { headers })
@@ -660,6 +666,41 @@ function Admin({ user }) {
                 <span className="tag" key={p.path}>{p.path || 'home'} · {p.count}</span>
               ))}
             </div>
+          )}
+        </>
+      )}
+
+      <div className="sec-title">PYQ guide feedback</div>
+      {!feedback || feedback.summary.length === 0 ? (
+        <div className="empty">No feedback yet.</div>
+      ) : (
+        <>
+          <div className="list">
+            {feedback.summary.map(f => (
+              <div className="card" key={f.code}>
+                <h4>{f.code}</h4>
+                <div className="tags" style={{ marginTop: '.5rem' }}>
+                  <span className="tag ok">&#128077; {f.up}</span>
+                  <span className={'tag' + (f.down ? ' warn' : '')}>&#128078; {f.down}</span>
+                  <span className="tag">{Math.round((f.up / (f.up + f.down)) * 100)}% found it helpful</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {feedback.comments.length > 0 && (
+            <>
+              <div className="sec-title">What they wrote</div>
+              <div className="list">
+                {feedback.comments.map((c, i) => (
+                  <div className="card" key={i}>
+                    <h4>{c.code} · {c.helpful ? '👍' : '👎'}</h4>
+                    <p style={{ marginTop: '.5rem' }}>{c.comment}</p>
+                    <p className="note">{c.email || 'not signed in'} · {new Date(c.createdAt).toLocaleString()}</p>
+                  </div>
+                ))}
+              </div>
+            </>
           )}
         </>
       )}

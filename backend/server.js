@@ -81,6 +81,16 @@ function makeAdminToken(email) {
     .digest('hex');
 }
 
+// feedback left at the bottom of a PYQ guide — visible only in the admin panel
+const GuideFeedback = mongoose.models.GuideFeedback || mongoose.model('GuideFeedback', new mongoose.Schema({
+  code: { type: String, required: true },
+  helpful: { type: Boolean, required: true },
+  comment: { type: String, default: '' },
+  visitorId: String,
+  email: String,
+  createdAt: { type: Date, default: Date.now }
+}));
+
 const requireAdmin = (req, res, next) => {
   const email = String(req.headers['x-user-email'] || '').toLowerCase();
   const token = req.headers['x-admin-token'];
@@ -613,6 +623,46 @@ app.post('/api/track/heartbeat', async (req, res) => {
     res.json({ ok: true });
   } catch (err) {
     res.json({ ok: true });
+  }
+});
+
+// anyone reading a guide can leave feedback
+app.post('/api/guide-feedback', async (req, res) => {
+  try {
+    const { code, helpful, comment, visitorId, email } = req.body;
+    if (!code || typeof helpful !== 'boolean') {
+      return res.status(400).json({ message: 'code and helpful are required' });
+    }
+    await GuideFeedback.create({
+      code: String(code).toUpperCase().slice(0, 12),
+      helpful,
+      comment: String(comment || '').slice(0, 600),
+      visitorId,
+      email
+    });
+    res.json({ ok: true });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// admin only: counts per guide plus the comments people left
+app.get('/api/admin/guide-feedback', requireAdmin, async (req, res) => {
+  try {
+    const all = await GuideFeedback.find().sort({ createdAt: -1 });
+    const byCode = {};
+    all.forEach(f => {
+      byCode[f.code] = byCode[f.code] || { code: f.code, up: 0, down: 0 };
+      byCode[f.code][f.helpful ? 'up' : 'down']++;
+    });
+    res.json({
+      summary: Object.values(byCode).sort((a, b) => (b.up + b.down) - (a.up + a.down)),
+      comments: all.filter(f => f.comment).slice(0, 60).map(f => ({
+        code: f.code, helpful: f.helpful, comment: f.comment, email: f.email, createdAt: f.createdAt
+      }))
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 });
 
