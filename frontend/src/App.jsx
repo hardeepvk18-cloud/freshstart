@@ -68,6 +68,19 @@ function LoginGate({ title, text }) {
   );
 }
 
+// records a guide open so the admin panel's Top pages shows which guides get used
+function trackGuideOpen(code, user) {
+  fetch(API + '/api/track/visit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      visitorId: getVisitorId(),
+      email: user ? user.email : undefined,
+      path: 'guide/' + code
+    })
+  }).catch(() => {});
+}
+
 const Spinner = () => <div className="spinner" />;
 
 /* ---------------- pages ---------------- */
@@ -289,6 +302,7 @@ function GuideCard({ g, i, user }) {
       href={'/guides/' + g.code + '.html'}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={() => trackGuideOpen(g.code, user)}
       key={g.code}
       style={{ animationDelay: i * 0.06 + 's', textDecoration: 'none', display: 'block' }}
     >
@@ -385,6 +399,7 @@ function SubjectDetail({ code, user, go }) {
           href={'/guides/' + subject.code + '.html'}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackGuideOpen(subject.code, user)}
           style={{
             display: 'flex', alignItems: 'center', gap: '.9rem',
             padding: '1rem 1.2rem', marginBottom: '1.8rem',
