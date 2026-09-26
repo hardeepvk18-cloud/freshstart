@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UES103 Solved Papers</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"></noscript>
+<style>
+:root{
+  --bg:#F4F6F9; --paper:#FFFFFF; --ink:#16202C; --ink2:#4A5866; --ink3:#77838F;
+  --line:#DCE3EB; --line2:#EDF1F5; --teal:#0F766E; --teal-bg:#E7F4F1;
+  --accent:#5b54d6; --accent-bg:#EEEDFB;
+  --warn:#B4531A; --warn-bg:#FDF2E9; --warn-line:#F0DCC6;
+  --code-bg:#1E293B; --code-ink:#E2E8F0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);
+  font-family:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  line-height:1.62;-webkit-text-size-adjust:100%}
+.wrap{max-width:840px;margin:0 auto;padding:0 16px 80px}
+
+header{padding:40px 0 26px;border-bottom:1px solid var(--line)}
+.kicker{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--teal);font-weight:600}
+h1{font-family:'Source Serif 4',Georgia,serif;font-size:32px;line-height:1.18;margin:8px 0 10px;font-weight:700}
+.sub{color:var(--ink2);font-size:15px;max-width:62ch}
+
+.note{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:10px;
+  padding:14px 16px;margin:22px 0;font-size:14px;color:#6B3D18}
+.note b{color:var(--warn)}
+
+nav.toc{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:26px 0}
+nav.toc h2{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);font-weight:600;margin-bottom:12px}
+nav.toc ul{list-style:none}
+nav.toc li{margin:9px 0;font-size:15px;color:var(--ink2)}
+nav.toc li b{color:var(--ink)}
+
+.paper{margin-top:44px}
+h2.yr{font-family:'Source Serif 4',Georgia,serif;font-size:25px;font-weight:700;padding-top:12px}
+.yr-meta{color:var(--ink3);font-size:13.5px;margin-top:4px;
+  font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace}
+
+.q{background:var(--paper);border:1px solid var(--line);border-radius:12px;
+  padding:18px 20px;margin:16px 0}
+.q-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.q-no{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-weight:600;font-size:14px;
+  color:#fff;background:var(--teal);padding:3px 9px;border-radius:6px}
+.marks{font-size:12px;color:var(--ink3);font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace}
+.method{font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--accent);background:var(--accent-bg);padding:3px 9px;border-radius:20px}
+
+.qtext{font-size:15px;color:var(--ink);padding:12px 14px;background:#FAFBFD;
+  border-left:3px solid var(--line);border-radius:6px;margin-bottom:14px}
+
+h4.step{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);
+  font-weight:600;margin:16px 0 8px}
+
+pre.code{background:var(--code-bg);color:var(--code-ink);border-radius:9px;
+  padding:14px 16px;margin:10px 0;overflow-x:auto;
+  font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:13.2px;line-height:1.65}
+pre.code .c{color:#94A3B8}
+
+.m{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:14px;line-height:1.85;
+  background:#FAFBFD;border:1px solid var(--line2);border-radius:8px;
+  padding:12px 15px;margin:9px 0;overflow-x:auto;white-space:pre}
+p{font-size:15px;margin:9px 0}
+p.why{color:var(--ink2);font-size:14.3px}
+ul.pts{list-style:none;margin:8px 0}
+ul.pts li{position:relative;padding:5px 0 5px 20px;font-size:14.5px;color:var(--ink2)}
+ul.pts li::before{content:"";position:absolute;left:4px;top:14px;width:5px;height:5px;
+  border-radius:50%;background:var(--teal)}
+ol.steps{margin:8px 0 8px 20px}
+ol.steps li{font-size:14.6px;color:var(--ink2);padding:4px 0}
+
+.ans{background:var(--teal-bg);border:1px solid #C6E4DD;border-radius:10px;
+  padding:13px 16px;margin:14px 0 2px}
+.ans .lbl{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--teal);
+  font-weight:600;margin-bottom:6px}
+.ans .val{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:14.3px;
+  line-height:1.8;color:#123F39;white-space:pre-wrap}
+
+.trap{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:10px;
+  padding:12px 16px;margin:12px 0}
+.trap b{color:var(--warn);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.trap p{color:#6B3D18;font-size:14.3px;margin:6px 0 0}
+
+table{width:100%;border-collapse:collapse;font-size:14px;margin:10px 0}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line2);vertical-align:top}
+th{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);
+  font-weight:600;border-bottom:1px solid var(--line)}
+td.mono{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:13.4px}
+
+footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:13.5px;color:var(--ink3)}
+
+.fb{border:2px solid var(--teal);border-radius:14px;padding:18px 20px;margin:34px 0 0;
+  background:var(--paper);box-shadow:0 2px 14px rgba(0,0,0,.05)}
+.fb h3{margin:0 0 6px;font-family:'Source Serif 4',Georgia,serif;font-size:19px;font-weight:700}
+.fb p.sub2{margin:0 0 14px;font-size:14.3px;color:var(--ink2)}
+.fb-btns{display:flex;gap:9px;flex-wrap:wrap}
+.fb-btn{font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;padding:9px 17px;
+  border-radius:30px;border:1px solid var(--line);background:#fff;color:var(--ink);
+  transition:border-color .2s,background .2s}
+.fb-btn:hover{border-color:var(--teal)}
+.fb-btn.on{background:var(--teal);border-color:var(--teal);color:#fff}
+.fb textarea{width:100%;margin-top:13px;padding:11px 13px;border-radius:10px;
+  border:1px solid var(--line);font-family:inherit;font-size:14px;resize:vertical;min-height:76px}
+.fb-send{margin-top:10px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;
+  padding:8px 18px;border-radius:30px;border:none;background:var(--teal);color:#fff}
+.fb-done{font-size:14.5px;color:var(--teal);font-weight:600}
+
+@media(max-width:560px){
+  h1{font-size:26px} h2.yr{font-size:21px}
+  .q{padding:15px 15px} .m,pre.code{font-size:12.6px} .ans .val{font-size:13.4px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">UES103 / UTA003 · Programming for Problem Solving · MST</div>
+  <h1>Past papers, fully solved</h1>
+  <p class="sub">Every question from the last five MST papers worked out — conversions done digit by digit, programs written out in full, and every output traced. Each program here was compiled and run to confirm it does what the answer says.</p>
+</header>
+
+<div class="note">
+  <b>Read this first:</b> these are the Mar 2024, Oct 2024, Mar 2025, Oct 2025 and Mar 2026 papers. The syllabus can change, so cross-check the topics against your own before planning.
+</div>
+
+<div class="note" style="background:#EEF1FB;border-color:#CDD6EE;color:#2E3A57">
+  <b style="color:#3D4C72">Note:</b> these solutions were made using <b>Claude Opus 5 (Anthropic's AI)</b> and then every program was compiled and run with gcc to check its output. Errors are still possible — if a step looks wrong, go with your professor, and report it in the feedback box at the bottom so it gets fixed.
+</div>
+
+<nav class="toc">
+  <h2>What keeps coming back</h2>
+  <ul>
+    <li><b>Number-system conversions</b> — unsigned binary, sign-bit notation and 2's complement. <b>All five papers</b>, always Question 1, usually 5 or 6 marks. The easiest marks in the paper.</li>
+    <li><b>Flowcharts</b> — greatest of three, HCF, bubble sort, salary calculation. <b>Four of five papers.</b></li>
+    <li><b>Output tracing</b> — being handed a short program and asked what it prints. Three of five, and it is where most marks are lost.</li>
+    <li><b>Writing a program</b> — array rotation, case flipping, binary search, a calculator. Every paper has at least one.</li>
+    <li><b>Bubble sort</b> — as a flowchart in Mar 2025, as boxes to fill in Oct 2024.</li>
+    <li><b>Finding the bugs</b> in someone else's code, and <b>filling in blanks</b> — the newer style, seen in Oct 2024 and Mar 2026.</li>
+  </ul>
+</nav>
+
+<!-- ======================= MAR 2026 ======================= -->
+<div class="paper" id="y2026">
+<h2 class="yr">March 2026</h2>
+<p class="yr-meta">09-03-2026 · 30 marks · 2 hours</p>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1</span><span class="marks">1+2+1 marks</span><span class="method">Number systems</span></div>
+  <div class="qtext">(A) Convert 1110 1001 from unsigned binary into decimal. (B) Convert 1110 1001 from 2's complement notation (8-bit binary) into decimal. (D) Convert 145 from decimal into binary.</div>
+
+  <h4 class="step">(A) Unsigned binary → decimal</h4>
+  <p class="why">Every bit carries a place value. Write the place values above the bits and add up the ones.</p>
+  <div class="m">bit     1    1    1    0    1    0    0    1
+place  128   64   32   16    8    4    2    1
+
+128 + 64 + 32 + 8 + 1 = 233</div>
+
+  <h4 class="step">(B) Same bits, read as 2's complement</h4>
+  <p class="why">The leading bit is 1, so the number is negative. Two ways to finish — both are accepted, pick one.</p>
+  <div class="m">Method 1 — subtract 2⁸:
+  233 − 256 = −23
+
+Method 2 — invert and add 1:
+  1110 1001
+  invert →  0001 0110   = 22
+  add 1  →  0001 0111   = 23
+  leading bit was 1, so the value is −23</div>
+
+  <h4 class="step">(D) 145 → binary</h4>
+  <div class="m">145 ÷ 2 = 72  remainder 1
+ 72 ÷ 2 = 36  remainder 0
+ 36 ÷ 2 = 18  remainder 0
+ 18 ÷ 2 =  9  remainder 0
+  9 ÷ 2 =  4  remainder 1
+  4 ÷ 2 =  2  remainder 0
+  2 ÷ 2 =  1  remainder 0
+  1 ÷ 2 =  0  remainder 1
+
+Read the remainders bottom to top:  1001 0001
+
+Check: 128 + 16 + 1 = 145 ✓</div>
+
+  <div class="ans">
+    <div class="lbl">Answers</div>
+    <div class="val">(A) 233        (B) −23        (D) 1001 0001</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>Parts A and B are the same eight bits — the whole question is testing whether you notice that the <i>notation</i> changes the answer. If you write 233 for both, you lose the second part entirely.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2</span><span class="marks">5 marks</span><span class="method">Write a program</span></div>
+  <div class="qtext">Write a C program to cyclically rotate an array to the right by k steps (e.g. 1, 2, 3, 4, 5 rotated by 2 becomes 4, 5, 1, 2, 3).</div>
+
+  <h4 class="step">The idea</h4>
+  <p class="why">The element at index <span class="m" style="display:inline;padding:1px 5px;border:none;background:var(--accent-bg)">i</span> must land at index <span class="m" style="display:inline;padding:1px 5px;border:none;background:var(--accent-bg)">(i + k) % n</span>. Build the answer in a second array using that one line, then copy it back.</p>
+
+<pre class="code">#include &lt;stdio.h&gt;
+
+int main() {
+    int a[100], temp[100], n, k, i;
+
+    printf("Enter number of elements: ");
+    scanf("%d", &amp;n);
+
+    printf("Enter %d elements: ", n);
+    for (i = 0; i &lt; n; i++)
+        scanf("%d", &amp;a[i]);
+
+    printf("Enter k: ");
+    scanf("%d", &amp;k);
+
+    k = k % n;                       <span class="c">/* rotating by n is the same as not rotating */</span>
+
+    for (i = 0; i &lt; n; i++)
+        temp[(i + k) % n] = a[i];    <span class="c">/* the whole rotation is this one line */</span>
+
+    for (i = 0; i &lt; n; i++)
+        a[i] = temp[i];
+
+    printf("After rotation: ");
+    for (i = 0; i &lt; n; i++)
+        printf("%d ", a[i]);
+    printf("\n");
+
+    return 0;
+}</pre>
+
+  <div class="ans">
+    <div class="lbl">Compiled and run</div>
+    <div class="val">input : 5 elements 1 2 3 4 5, k = 2
+output: After rotation: 4 5 1 2 3     ✓ matches the paper's example
+
+input : same array, k = 7
+output: After rotation: 4 5 1 2 3     ✓ the % n line handles k &gt; n</div>
+  </div>
+  <div class="trap"><b>The line that earns the extra mark</b><p><code>k = k % n;</code> — without it, a k larger than n writes past the end of the array. Examiners look for it, and it is one line.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q3</span><span class="marks">2+3 marks</span><span class="method">Syntax</span></div>
+  <div class="qtext">Write the syntax of the do-while loop and switch-case statements.</div>
+
+  <h4 class="step">do-while</h4>
+<pre class="code">do {
+    <span class="c">/* body — runs at least once */</span>
+    statements;
+} while (condition);      <span class="c">/* the semicolon here is compulsory */</span></pre>
+  <p class="why">The difference from a while loop: the condition is tested <b>after</b> the body, so a do-while always executes at least once.</p>
+
+  <h4 class="step">switch-case</h4>
+<pre class="code">switch (expression) {          <span class="c">/* must be int or char, not float */</span>
+    case constant1:
+        statements;
+        break;
+    case constant2:
+        statements;
+        break;
+    default:
+        statements;
+}</pre>
+  <div class="trap"><b>Say these two things</b><p>The semicolon after <code>while(condition)</code> in do-while, and that without <code>break</code> the control falls through into the next case. Both are marks.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q4</span><span class="marks">4 marks</span><span class="method">Flowchart</span></div>
+  <div class="qtext">Make a flowchart: accept N employees, read each Basic Salary, compute Net Salary using the given HRA/DA slabs, and output the Total Net Salary.</div>
+
+  <h4 class="step">The slabs, as a table</h4>
+  <table>
+    <tr><th>Basic</th><th>HRA</th><th>DA</th></tr>
+    <tr><td>≤ 20000</td><td>20%</td><td>50%</td></tr>
+    <tr><td>&gt; 20000 and ≤ 50000</td><td>25%</td><td>60%</td></tr>
+    <tr><td>&gt; 50000</td><td>30%</td><td>70%</td></tr>
+  </table>
+
+  <h4 class="step">The boxes, in order</h4>
+  <ol class="steps">
+    <li><b>Start</b> (oval)</li>
+    <li><b>Read N</b> (parallelogram)</li>
+    <li><b>Total = 0, i = 1</b> (rectangle)</li>
+    <li><b>Is i ≤ N?</b> (diamond) — if No, jump to step 10</li>
+    <li><b>Read Basic</b> (parallelogram)</li>
+    <li><b>Is Basic ≤ 20000?</b> (diamond) — Yes → HRA = 0.20×Basic, DA = 0.50×Basic</li>
+    <li><b>Is Basic ≤ 50000?</b> (diamond) — Yes → HRA = 0.25×Basic, DA = 0.60×Basic; No → HRA = 0.30×Basic, DA = 0.70×Basic</li>
+    <li><b>Net = Basic + HRA + DA</b> and <b>Total = Total + Net</b> (rectangle)</li>
+    <li><b>i = i + 1</b> (rectangle) — arrow back to step 4</li>
+    <li><b>Print Total</b> (parallelogram)</li>
+    <li><b>Stop</b> (oval)</li>
+  </ol>
+  <div class="trap"><b>Two things examiners check</b><p>That the loop arrow actually goes back to the <i>condition</i> diamond and not to the read box, and that the three slabs are mutually exclusive — the second diamond is only reached when Basic is already known to be above 20000, so it only needs to test ≤ 50000.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q5</span><span class="marks">2+2+2 marks</span><span class="method">Type casting</span></div>
+  <div class="qtext">For int a = 7, b = 2 and float result = a / b + (float)a / b + a / (float)b: (a) show step-by-step evaluation, (b) rewrite so the result becomes 10.50, (c) explain why type casting changes the output.</div>
+
+  <h4 class="step">(a) Term by term</h4>
+  <div class="m">Term 1:  a / b
+         both operands are int  →  integer division
+         7 / 2 = 3          (the .5 is thrown away, not rounded)
+
+Term 2:  (float)a / b
+         a is cast to 7.0, so one operand is float
+         b is promoted to 2.0  →  7.0 / 2.0 = 3.5
+
+Term 3:  a / (float)b
+         b is cast to 2.0, a is promoted to 7.0  →  3.5
+
+Sum:     3 + 3.5 + 3.5 = 10.0
+
+Output:  Result = 10.00</div>
+
+  <h4 class="step">(b) Making it 10.50</h4>
+  <p class="why">Only the first term is wrong — it loses 0.5 to integer division. Cast it as well.</p>
+  <div class="m">result = (float)a / b + (float)a / b + a / (float)b;
+
+  3.5 + 3.5 + 3.5 = 10.5   →   Result = 10.50</div>
+
+  <h4 class="step">(c) Why the cast matters</h4>
+  <p class="why">In C, the type of an operation is decided by its operands. When <b>both</b> operands of <code>/</code> are int, C performs integer division and discards the fractional part — 7/2 is 3, not 3.5. If <b>either</b> operand is float, the other is promoted to float and real division is performed. A cast changes the type of one operand, which changes which kind of division happens. Note that assigning to a <code>float</code> variable afterwards does not help: the information is already lost by then.</p>
+
+  <div class="ans">
+    <div class="lbl">Compiled and run</div>
+    <div class="val">original   → Result = 10.00
+rewritten  → Result = 10.50
+pieces     → a/b = 3   (float)a/b = 3.50   a/(float)b = 3.50</div>
+  </div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q6</span><span class="marks">6 marks</span><span class="method">Fill in the blanks</span></div>
+  <div class="qtext">Complete the program that stores four words in a 2-D character array, counts the characters in each word, and prints the word with its length. Write only the six answers, in order.</div>
+
+  <h4 class="step">Working out each blank</h4>
+  <ul class="pts">
+    <li><b>Blank 1 — rows.</b> There are four words, so 4.</li>
+    <li><b>Blank 2 — columns.</b> The longest word is ELEPHANT, 8 characters, and every string needs one more byte for the terminating <code>'\0'</code>. So the minimum is 9; 10 is the safe, conventional answer.</li>
+    <li><b>Blank 3 — loop start.</b> Array indices begin at 0.</li>
+    <li><b>Blank 4 — loop limit.</b> 4, so i runs 0, 1, 2, 3.</li>
+    <li><b>Blank 5 — inner loop start.</b> 0, counting from the first character.</li>
+    <li><b>Blank 6 — stop condition.</b> <code>'\0'</code> — the inner loop walks along the word until it hits the null terminator.</li>
+  </ul>
+
+<pre class="code">char words[<b>4</b>][<b>10</b>] = {"DOG","ELEPHANT","CAT","TIGER"};
+int i, j, len;
+
+for (i = <b>0</b>; i &lt; <b>4</b>; i++) {
+    len = 0;
+    for (j = <b>0</b>; words[i][j] != <b>'\0'</b>; j++) {
+        len++;
+    }
+    printf("Word: %s  Length: %d\n", words[i], len);
+}</pre>
+
+  <div class="ans">
+    <div class="lbl">Answer — write exactly this</div>
+    <div class="val">1.  4
+2.  10        (9 also correct — 8 letters + '\0')
+3.  0
+4.  4
+5.  0
+6.  '\0'</div>
+  </div>
+
+  <div class="ans">
+    <div class="lbl">Compiled and run</div>
+    <div class="val">Word: DOG  Length: 3
+Word: ELEPHANT  Length: 8
+Word: CAT  Length: 3
+Word: TIGER  Length: 5</div>
+  </div>
+  <div class="trap"><b>The column count is the trap</b><p>Writing 8 fails — ELEPHANT needs 8 characters <i>plus</i> the <code>'\0'</code>. Any value from 9 upward works; anything below 9 is wrong.</p></div>
+</div>
+</div>
+
+<!-- ======================= OCT 2025 ======================= -->
+<div class="paper" id="y2025o">
+<h2 class="yr">October 2025</h2>
+<p class="yr-meta">17-10-2025 · 5 × 6 = 30 marks · 2 hours</p>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1</span><span class="marks">6 marks</span><span class="method">Number systems</span></div>
+  <div class="qtext">(a) 1001 1011 unsigned binary into decimal. (b) 99 decimal into unsigned binary. (c) −99 decimal into binary using 2's complement notation.</div>
+
+  <div class="m">(a)  bit     1    0    0    1    1    0    1    1
+     place  128   64   32   16    8    4    2    1
+
+     128 + 16 + 8 + 2 + 1 = 155
+
+
+(b)  99 ÷ 2 = 49  r 1        Reading upward:  110 0011
+     49 ÷ 2 = 24  r 1        As 8 bits:      0110 0011
+     24 ÷ 2 = 12  r 0
+     12 ÷ 2 =  6  r 0        Check: 64+32+2+1 = 99 ✓
+      6 ÷ 2 =  3  r 0
+      3 ÷ 2 =  1  r 1
+      1 ÷ 2 =  0  r 1
+
+
+(c)  Start from +99      :  0110 0011
+     Invert every bit    :  1001 1100
+     Add 1               :  1001 1101
+
+     Check: 1001 1101 unsigned = 157, and 157 − 256 = −99 ✓</div>
+
+  <div class="ans">
+    <div class="lbl">Answers</div>
+    <div class="val">(a) 155        (b) 0110 0011        (c) 1001 1101</div>
+  </div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2</span><span class="marks">6 marks</span><span class="method">Array addressing</span></div>
+  <div class="qtext">(a) int B[5][6] starts at 2000 — find the address of B[3][4], sizeof(int) = 4. (b) double D[3][3] starts at 10000 — find D[1][2], sizeof(double) = 8. (c) char E[10][20] starts at 3000 — find E[7][15], sizeof(char) = 1.</div>
+
+  <h4 class="step">The one formula</h4>
+  <p class="why">C stores 2-D arrays in <b>row-major</b> order — the whole of row 0, then the whole of row 1, and so on. So to reach element [i][j] you skip i complete rows and then j more elements.</p>
+  <div class="m">Address of A[i][j] = Base + ( i × number_of_columns + j ) × size_of_one_element</div>
+
+  <div class="m">(a)  2000 + (3 × 6 + 4) × 4
+     = 2000 + (18 + 4) × 4
+     = 2000 + 22 × 4
+     = 2000 + 88  =  2088
+
+(b)  10000 + (1 × 3 + 2) × 8
+     = 10000 + 5 × 8
+     = 10000 + 40  =  10040
+
+(c)  3000 + (7 × 20 + 15) × 1
+     = 3000 + 155
+     =  3155</div>
+
+  <div class="ans">
+    <div class="lbl">Answers</div>
+    <div class="val">(a) 2088        (b) 10040        (c) 3155</div>
+  </div>
+  <div class="trap"><b>Use columns, never rows</b><p>The formula multiplies i by the number of <b>columns</b>. In part (a) that is 6, not 5. Using the row count is the single most common mistake in this question, and it appears every year.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q3</span><span class="marks">6 marks</span><span class="method">Short theory</span></div>
+  <div class="qtext">Explain: (a) similarity between the ternary operator and if-else, (b) similarity between array and string, (c) difference between break; and return 0;, (d) difference between float and double, (e) difference between {} and [], (f) difference between printf() and scanf().</div>
+
+  <ul class="pts">
+    <li><b>(a) Ternary and if-else.</b> Both choose between two paths based on a condition. <code>(cond) ? x : y</code> does in one expression what if-else does in a block. The difference: the ternary <i>returns a value</i> so it can sit inside an assignment, while if-else is a statement. Anything written with a ternary can be written with if-else, but not the reverse.</li>
+    <li><b>(b) Array and string.</b> A string <i>is</i> a character array — the same contiguous block, same indexing from 0, same name-is-the-base-address behaviour. The only difference is that a string carries a <code>'\0'</code> at the end to mark where it stops, which is why <code>strlen()</code> works without being told the size.</li>
+    <li><b>(c) break and return 0.</b> <code>break</code> leaves only the innermost loop or switch and execution continues after it. <code>return 0;</code> leaves the whole function — in <code>main()</code> that ends the program and reports success to the operating system.</li>
+    <li><b>(d) float and double.</b> Both store real numbers. float takes 4 bytes and gives about 6–7 significant digits; double takes 8 bytes and gives about 15–16. double is the default type for a decimal constant in C.</li>
+    <li><b>(e) {} and [].</b> Braces group a block of statements or supply an initialiser list. Square brackets declare an array's size and then index into it. They are unrelated — one is about grouping, the other about arrays.</li>
+    <li><b>(f) printf() and scanf().</b> printf writes formatted output to the screen and takes the values themselves. scanf reads formatted input from the keyboard and takes the <b>addresses</b> of the variables, which is why arguments need <code>&amp;</code>.</li>
+  </ul>
+  <div class="trap"><b>The &amp; is the exam point</b><p>In (f), always say that scanf needs the address. That single sentence is what the mark is for — and it is also the bug planted in the Oct 2024 debugging question.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q4</span><span class="marks">6 marks</span><span class="method">Rearrange the code</span></div>
+  <div class="qtext">Write the given jumbled lines in a proper sequence.</div>
+
+  <p class="why">Work outward: the header first, then <code>main</code>, then declarations, then input, then the logic, then the output, then the return. The <code>if (i == 0) / else</code> pair is the giveaway — the first number read must become the largest, and every later number is compared against it.</p>
+
+<pre class="code">#include &lt;stdio.h&gt;
+int main()
+{
+    int num, i, largest;
+    printf("Enter 5 numbers:\n");
+    for (i = 0; i &lt; 5; i++)
+    {
+        scanf("%d", &amp;num);
+        if (i == 0)
+            largest = num;
+        else
+            if (num &gt; largest)
+                largest = num;
+    }
+    printf("Largest number is: %d\n", largest);
+    return 0;
+}</pre>
+
+  <div class="ans">
+    <div class="lbl">Compiled and run</div>
+    <div class="val">input : 3 17 5 9 2
+output: Largest number is: 17     ✓</div>
+  </div>
+  <div class="trap"><b>Why not just set largest = 0?</b><p>Because the numbers could all be negative. Using the first input as the starting largest is the correct approach, and it is exactly why the jumbled lines include <code>if (i == 0)</code>.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q5</span><span class="marks">6 marks</span><span class="method">Output tracing</span></div>
+  <div class="qtext">What will be the output of each program? Program 1: a[5] = {1,2,3,4,5}, then a[i] = a[i] + a[4-i] for i = 0..4. Program 2: a[5] = {2,4,6,8,10}, then a[i] = a[a[i]/2 - 1] for i = 0..4.</div>
+
+  <h4 class="step">Program 1 — the array changes as you go</h4>
+  <p class="why">This is the whole point of the question. By the time i reaches 3, a[1] has already been overwritten, so you must use the <b>current</b> values, not the original ones.</p>
+  <table>
+    <tr><th>i</th><th>computation</th><th>array after</th></tr>
+    <tr><td>0</td><td class="mono">a[0] = 1 + a[4] = 1 + 5 = 6</td><td class="mono">6 2 3 4 5</td></tr>
+    <tr><td>1</td><td class="mono">a[1] = 2 + a[3] = 2 + 4 = 6</td><td class="mono">6 6 3 4 5</td></tr>
+    <tr><td>2</td><td class="mono">a[2] = 3 + a[2] = 3 + 3 = 6</td><td class="mono">6 6 6 4 5</td></tr>
+    <tr><td>3</td><td class="mono">a[3] = 4 + a[1] = 4 + <b>6</b> = 10</td><td class="mono">6 6 6 10 5</td></tr>
+    <tr><td>4</td><td class="mono">a[4] = 5 + a[0] = 5 + <b>6</b> = 11</td><td class="mono">6 6 6 10 11</td></tr>
+  </table>
+
+  <h4 class="step">Program 2 — every index maps to itself</h4>
+  <div class="m">a[i]/2 − 1  for a = {2,4,6,8,10}:
+
+  i=0:  2/2 − 1 = 0   →  a[0] = a[0] = 2
+  i=1:  4/2 − 1 = 1   →  a[1] = a[1] = 4
+  i=2:  6/2 − 1 = 2   →  a[2] = a[2] = 6
+  i=3:  8/2 − 1 = 3   →  a[3] = a[3] = 8
+  i=4: 10/2 − 1 = 4   →  a[4] = a[4] = 10
+
+Every element is assigned to itself, so nothing changes.</div>
+
+  <div class="ans">
+    <div class="lbl">Compiled and run</div>
+    <div class="val">Program 1 → 6 6 6 10 11
+Program 2 → 2 4 6 8 10</div>
+  </div>
+  <div class="trap"><b>Program 1 is designed to catch you</b><p>If you use the original array throughout you get 6 6 6 6 6 — a clean-looking answer that is wrong. Write the array out after every single step; do not do it in your head.</p></div>
+</div>
+</div>
+
+<!-- ======================= MAR 2025 ======================= -->
+<div class="paper" id="y2025m">
+<h2 class="yr">March 2025</h2>
+<p class="yr-meta">01-03-2025 · 5 × 6 = 30 marks · 2 hours</p>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1</span><span class="marks">6 marks</span><span class="method">Number systems</span></div>
+  <div class="qtext">(a) Convert +91 into binary and state the minimum bits needed. (b) Convert −69 using sign-bit notation, with minimum bits. (c) Convert −69 using 2's complement notation, with minimum bits.</div>
+
+  <div class="m">(a)  91 ÷ 2 = 45 r 1      Reading upward: 101 1011
+     45 ÷ 2 = 22 r 1
+     22 ÷ 2 = 11 r 0      Magnitude alone needs 7 bits.
+     11 ÷ 2 =  5 r 1      To show the sign, add a 0 sign bit
+      5 ÷ 2 =  2 r 1      in front:  0101 1011  →  8 bits.
+      2 ÷ 2 =  1 r 0
+      1 ÷ 2 =  0 r 1
+
+
+(b)  69 in binary = 100 0101   (7 bits)
+
+     Sign-bit notation keeps the magnitude and flips
+     only the leading bit to 1 for a negative number:
+
+         1 100 0101   →   1100 0101      minimum 8 bits
+
+
+(c)  Start from +69     :  0100 0101
+     Invert every bit   :  1011 1010
+     Add 1              :  1011 1011
+
+     Check: 1011 1011 unsigned = 187, 187 − 256 = −69 ✓
+     Minimum 8 bits.</div>
+
+  <div class="ans">
+    <div class="lbl">Answers</div>
+    <div class="val">(a) 101 1011, 7 bits for the magnitude (8 with a sign bit)
+(b) 1100 0101, 8 bits
+(c) 1011 1011, 8 bits</div>
+  </div>
+  <div class="trap"><b>Sign-bit and 2's complement are not the same</b><p>Both give an 8-bit answer here, but they are different bit patterns — 1100 0101 versus 1011 1011. The paper asks for both precisely to see whether you know the difference.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2</span><span class="marks">6 marks</span><span class="method">Output tracing</span></div>
+  <div class="qtext">(a) char A[] = "H"; printf("%d %d %d", sizeof('H'), sizeof(A), strlen(A)); (b) A while loop with a continue placed before i++.</div>
+
+  <h4 class="step">(a) Three values that are all different</h4>
+  <ul class="pts">
+    <li><code>sizeof('H')</code> — in C a character <i>constant</i> has type <b>int</b>, not char. So this is <b>4</b> (this is one of the real differences between C and C++, where it would be 1).</li>
+    <li><code>sizeof(A)</code> — A is declared as <code>char A[] = "H"</code>, so the compiler makes it a 2-element array: 'H' and the terminating '\0'. So <b>2</b>.</li>
+    <li><code>strlen(A)</code> — counts characters up to but not including the '\0'. So <b>1</b>.</li>
+  </ul>
+
+  <h4 class="step">(b) The loop never ends</h4>
+  <p class="why">Follow the control flow. <code>continue</code> jumps straight back to the condition test, skipping everything after it in the body — including <code>i++</code>. So i stays 0, the condition <code>i &lt; 5</code> stays true forever, and the two lines after continue are never reached.</p>
+  <div class="m">i = 0  →  prints "Before continue: i = 0"
+       →  continue  →  i++ is SKIPPED
+       →  test i &lt; 5  →  still true (i is still 0)
+       →  prints "Before continue: i = 0"
+       →  … forever
+
+"After continue: …" never prints.
+"Loop exited with i = …" never prints.</div>
+
+  <div class="ans">
+    <div class="lbl">Compiled and run</div>
+    <div class="val">(a)  4 2 1
+
+(b)  Before continue: i = 0
+     Before continue: i = 0
+     Before continue: i = 0
+     …  (infinite loop — the program had to be killed)</div>
+  </div>
+  <div class="trap"><b>Don't write "0 1 2 3 4"</b><p>The instinct is to assume the loop runs five times. Trace the <code>continue</code> honestly and you will see i is never incremented. Saying "infinite loop" and explaining <i>why</i> is the full answer.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q3</span><span class="marks">6 marks</span><span class="method">Flowchart</span></div>
+  <div class="qtext">Draw a flowchart for the Bubble Sort algorithm.</div>
+
+  <h4 class="step">The boxes, in order</h4>
+  <ol class="steps">
+    <li><b>Start</b></li>
+    <li><b>Read n and the array a[0..n−1]</b></li>
+    <li><b>i = 0</b></li>
+    <li><b>Is i &lt; n−1?</b> — if No, go to step 11</li>
+    <li><b>j = 0</b></li>
+    <li><b>Is j &lt; n−1−i?</b> — if No, do i = i + 1 and go back to step 4</li>
+    <li><b>Is a[j] &gt; a[j+1]?</b> — if No, go to step 9</li>
+    <li><b>Swap:</b> temp = a[j]; a[j] = a[j+1]; a[j+1] = temp</li>
+    <li><b>j = j + 1</b> — arrow back to step 6</li>
+    <li>(the outer loop continues)</li>
+    <li><b>Print the sorted array</b></li>
+    <li><b>Stop</b></li>
+  </ol>
+  <p class="why">The two nested loops are the whole algorithm: the outer one counts the passes, the inner one walks along the array comparing neighbours. The <code>n−1−i</code> in the inner condition is what makes each pass shorter, because after pass i the last i elements are already in place.</p>
+  <div class="trap"><b>Mark the swap as three boxes, not one</b><p>A swap needs a temporary variable and three assignments. Showing it as "swap a[j] and a[j+1]" in one box is usually accepted, but writing the three lines is safer and costs nothing.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q4</span><span class="marks">6 marks</span><span class="method">Short theory</span></div>
+  <div class="qtext">Briefly explain: (i) #include&lt;stdio.h&gt; (ii) math.h and string.h (iii) the brackets { }, ( ) and [ ] (iv) %c and %d (v) the semicolon and the comma (vi) comments.</div>
+
+  <ul class="pts">
+    <li><b>(i) #include&lt;stdio.h&gt;</b> — a preprocessor directive. Before compilation, the preprocessor replaces this line with the contents of the standard input/output header, which declares printf, scanf and the rest. Without it the compiler does not know what printf is.</li>
+    <li><b>(ii) math.h and string.h</b> — math.h declares the mathematical functions (sqrt, pow, sin, abs); string.h declares the string functions (strlen, strcpy, strcmp, strcat). Include whichever you use.</li>
+    <li><b>(iii) Brackets.</b> <code>{ }</code> group a block of statements, and also hold initialiser lists. <code>( )</code> hold a function's parameters and arguments, and group parts of an expression. <code>[ ]</code> declare an array's size and index into it.</li>
+    <li><b>(iv) %c and %d</b> — format specifiers. %c reads or prints one character; %d reads or prints an integer in decimal. Using the wrong one gives garbage, not an error.</li>
+    <li><b>(v) Semicolon and comma.</b> The semicolon terminates a statement. The comma separates items in a list — variables in a declaration, arguments to a function. They are not interchangeable, which is exactly the bug planted in the Oct 2024 for-loop question.</li>
+    <li><b>(vi) Comments</b> — notes for humans that the compiler removes. <code>/* … */</code> spans multiple lines; <code>// …</code> runs to the end of the line. They do not affect the program.</li>
+  </ul>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q5</span><span class="marks">6 marks</span><span class="method">Code comprehension</span></div>
+  <div class="qtext">A program adds two very large numbers stored as strings. Answer the six questions marked in the comments.</div>
+
+  <p class="why">The idea behind the whole program: an <code>int</code> tops out at about 2.1 billion, so a 10-digit number cannot be added the normal way. Storing the digits as characters and adding them column by column — exactly the way you add on paper, right to left with a carry — removes that limit.</p>
+
+  <ul class="pts">
+    <li><b>What is the purpose of i and j?</b> They are the positions of the digit currently being added in each number, starting at the <b>last</b> character of each string. Because the two numbers may have different lengths, each needs its own index, and both walk leftwards independently.</li>
+    <li><b>What is this line about?</b> <code>int digit1 = (i &gt;= 0) ? num1[i] − '0' : 0;</code> — two things at once. <code>num1[i] − '0'</code> converts the <i>character</i> '7' into the <i>number</i> 7, because digit characters sit consecutively in ASCII. And the ternary supplies a 0 once that number has run out of digits, so a shorter number is treated as if padded with leading zeros.</li>
+    <li><b>Why added '0'?</b> <code>temp[k++] = (sum % 10) + '0';</code> — the reverse conversion. <code>sum % 10</code> is a number from 0 to 9; adding '0' turns it back into the matching character so it can be stored in a char array and later printed with %s.</li>
+    <li><b>Why temp[k] = '\0'?</b> Because temp is being used as a string, and every C string must end with a null terminator. Without it, printf would run past the end of the array and print garbage.</li>
+    <li><b>Purpose of this loop?</b> <code>for (i = 0; i &lt; len3; i++) result[i] = temp[len3 − 1 − i];</code> — it reverses the digits. The addition produced them least-significant first (because it worked right to left), so they must be flipped before printing.</li>
+    <li><b>Result?</b> 9999999999 + 2222222222 = <b>12222222221</b>. Note it has 11 digits — one more than either input, which is why the carry loop condition includes <code>|| carry &gt; 0</code>.</li>
+  </ul>
+
+  <div class="ans">
+    <div class="lbl">Compiled and run</div>
+    <div class="val">Sum: 12222222221
+
+cross-check in arbitrary precision:
+9999999999 + 2222222222 = 12222222221   ✓</div>
+  </div>
+  <div class="trap"><b>The condition that carries the last mark</b><p><code>while (i &gt;= 0 || j &gt;= 0 || carry &gt; 0)</code> — the third clause is what produces the leading 1 in the answer. Drop it and 9999999999 + 2222222222 would print 2222222221, which is silently wrong.</p></div>
+</div>
+</div>
+
+<!-- ======================= OCT 2024 ======================= -->
+<div class="paper" id="y2024o">
+<h2 class="yr">October 2024</h2>
+<p class="yr-meta">21-10-2024 · 6 × 5 = 30 marks · 2 hours</p>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1</span><span class="marks">5 marks</span><span class="method">Number systems</span></div>
+  <div class="qtext">(a) 1010 0111 unsigned binary to decimal. (b) the same bits as a signed number in sign-bit representation. (c) 43 to unsigned binary. (d) −43 using sign-bit representation. (e) −43 using 2's complement.</div>
+
+  <div class="m">(a)  128 + 32 + 4 + 2 + 1 = 167
+
+
+(b)  Sign-bit representation: the leading bit is the sign,
+     the remaining 7 bits are the magnitude.
+
+     1 010 0111   →  sign = 1 (negative)
+                     magnitude = 010 0111 = 39
+
+     Value = −39
+
+
+(c)  43 ÷ 2 = 21 r 1        Reading upward: 10 1011
+     21 ÷ 2 = 10 r 1        As 8 bits:    0010 1011
+     10 ÷ 2 =  5 r 0
+      5 ÷ 2 =  2 r 1        Check: 32+8+2+1 = 43 ✓
+      2 ÷ 2 =  1 r 0
+      1 ÷ 2 =  0 r 1
+
+
+(d)  −43 sign-bit:  keep 010 1011, set the sign bit to 1
+
+         1010 1011
+
+
+(e)  −43 2's complement:
+     +43                :  0010 1011
+     invert             :  1101 0100
+     add 1              :  1101 0101
+
+     Check: 1101 0101 unsigned = 213, 213 − 256 = −43 ✓</div>
+
+  <div class="ans">
+    <div class="lbl">Answers</div>
+    <div class="val">(a) 167   (b) −39   (c) 0010 1011   (d) 1010 1011   (e) 1101 0101</div>
+  </div>
+  <div class="trap"><b>Parts (d) and (e) look similar and are not</b><p>1010 1011 versus 1101 0101 — same number, two notations. Writing the same answer twice loses a mark.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2</span><span class="marks">5 marks</span><span class="method">Flowchart</span></div>
+  <div class="qtext">Make a flowchart to calculate the highest common factor (HCF) of two positive integers.</div>
+
+  <h4 class="step">Use the Euclidean algorithm</h4>
+  <p class="why">Repeatedly replace the larger number by the remainder of dividing it by the smaller. When the remainder becomes 0, the other number is the HCF. It is far shorter to draw than checking every possible divisor.</p>
+  <ol class="steps">
+    <li><b>Start</b></li>
+    <li><b>Read a, b</b></li>
+    <li><b>Is b ≠ 0?</b> — if No, go to step 7</li>
+    <li><b>r = a % b</b></li>
+    <li><b>a = b, b = r</b></li>
+    <li>arrow back to step 3</li>
+    <li><b>Print a</b> (this is the HCF)</li>
+    <li><b>Stop</b></li>
+  </ol>
+  <div class="m">Trace for hcf(6, 8):
+
+  a=6, b=8  →  r = 6 % 8 = 6   →  a=8, b=6
+  a=8, b=6  →  r = 8 % 6 = 2   →  a=6, b=2
+  a=6, b=2  →  r = 6 % 2 = 0   →  a=2, b=0
+  b = 0, so HCF = 2            ✓ matches the paper's example</div>
+  <p class="why">Note the algorithm sorts itself out — you do not need a separate step to find which number is larger.</p>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q3</span><span class="marks">5 marks</span><span class="method">Write a program</span></div>
+  <div class="qtext">Write a C program that reads a string and flips the case of every character. "Hasta La Vista" becomes "hASTA lA vISTA".</div>
+
+  <p class="why">In ASCII, every lowercase letter sits exactly 32 above its uppercase partner ('a' is 97, 'A' is 65). So flipping case is just adding or subtracting 32 — no library function needed.</p>
+
+<pre class="code">#include &lt;stdio.h&gt;
+
+int main() {
+    char s[200];
+    int i;
+
+    printf("Enter a string: ");
+    fgets(s, sizeof(s), stdin);        <span class="c">/* fgets keeps the spaces; scanf("%s") would not */</span>
+
+    for (i = 0; s[i] != '\0'; i++) {
+        if (s[i] &gt;= 'a' &amp;&amp; s[i] &lt;= 'z')
+            s[i] = s[i] - 32;          <span class="c">/* lower → upper */</span>
+        else if (s[i] &gt;= 'A' &amp;&amp; s[i] &lt;= 'Z')
+            s[i] = s[i] + 32;          <span class="c">/* upper → lower */</span>
+    }
+
+    printf("%s", s);
+    return 0;
+}</pre>
+
+  <div class="ans">
+    <div class="lbl">Compiled and run</div>
+    <div class="val">input : Hasta La Vista
+output: hASTA lA vISTA      ✓ matches the paper's example</div>
+  </div>
+  <div class="trap"><b>scanf("%s") stops at the first space</b><p>The example has spaces in it, so <code>scanf("%s", s)</code> would read only "Hasta". Use <code>fgets</code> (or <code>scanf("%[^\n]s", s)</code>). Examiners set the example with spaces on purpose.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q4</span><span class="marks">5 marks</span><span class="method">Theory + diagram</span></div>
+  <div class="qtext">Draw a clear diagram of the life cycle of a C program and explain the role of each phase.</div>
+
+  <div class="m">   Source code (.c)
+          │
+      [ Editing ]        you write the program
+          │
+   [ Preprocessing ]     #include and #define are expanded  →  .i
+          │
+    [ Compilation ]      C code becomes assembly            →  .s
+          │
+      [ Assembly ]       assembly becomes machine code      →  .o
+          │
+       [ Linking ]       your .o + library code joined      →  a.out / .exe
+          │
+       [ Loading ]       the OS loads the executable into memory
+          │
+      [ Execution ]      the CPU runs the instructions
+          │
+     [ Termination ]     return 0 hands control back to the OS</div>
+
+  <ul class="pts">
+    <li><b>Editing</b> — writing the human-readable source in a text editor or IDE, saved as a .c file.</li>
+    <li><b>Preprocessing</b> — the preprocessor handles every line starting with #: header files are pasted in, macros are substituted, conditional blocks are resolved. No compilation has happened yet.</li>
+    <li><b>Compilation</b> — the compiler checks syntax and translates the expanded source into assembly for the target processor. Syntax errors are reported here.</li>
+    <li><b>Assembly</b> — the assembler converts assembly into machine code, producing an object file that is not yet runnable.</li>
+    <li><b>Linking</b> — the linker joins your object file with the library code you used (printf, scanf and so on) and resolves every reference, producing one executable. "Undefined reference" errors come from this stage.</li>
+    <li><b>Loading</b> — the operating system's loader copies the executable into memory and sets up its stack and heap.</li>
+    <li><b>Execution</b> — the CPU runs the instructions starting from main.</li>
+    <li><b>Termination</b> — the program returns its exit status to the operating system and its memory is reclaimed.</li>
+  </ul>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q5</span><span class="marks">5 marks</span><span class="method">Find the bugs</span></div>
+  <div class="qtext">A student's factorial program has many mistakes. Give the line numbers with corrections. Do not rewrite the whole code.</div>
+
+  <table>
+    <tr><th>Line</th><th>What is wrong</th><th>Correction</th></tr>
+    <tr><td>3</td><td class="mono">int num, factorial = num;</td><td class="mono">int num, i;<br>long long factorial = 1;</td></tr>
+    <tr><td>5</td><td class="mono">scanf("%d", factorial);</td><td class="mono">scanf("%d", &amp;num);</td></tr>
+    <tr><td>6</td><td class="mono">if (num &gt; 0) {</td><td class="mono">if (num &lt; 0) {</td></tr>
+    <tr><td>9</td><td class="mono">for (i = 1, i &lt;= num, ++i) {</td><td class="mono">for (i = 1; i &lt;= num; ++i) {</td></tr>
+    <tr><td>10</td><td class="mono">factorial = n*i;</td><td class="mono">factorial = factorial * i;</td></tr>
+    <tr><td>12</td><td class="mono">printf("Factorial = n!", factorial);</td><td class="mono">printf("Factorial = %lld\n", factorial);</td></tr>
+    <tr><td>14</td><td class="mono">return 0</td><td class="mono">return 0;</td></tr>
+  </table>
+
+  <h4 class="step">Why each one</h4>
+  <ul class="pts">
+    <li><b>3</b> — <code>num</code> is used before it has been given a value, and factorial must start at 1 for a product.</li>
+    <li><b>5</b> — scanf needs the <b>address</b> of the variable, and the variable being read is <code>num</code>, not factorial.</li>
+    <li><b>6</b> — the condition is inverted. The message inside says "negative number", so the test must be <code>num &lt; 0</code>.</li>
+    <li><b>9</b> — a for loop uses semicolons, not commas, between its three parts. Also <code>i</code> was never declared (fixed on line 3).</li>
+    <li><b>10</b> — <code>n</code> does not exist, and the running product must multiply into itself.</li>
+    <li><b>12</b> — no format specifier, so the value is never printed. <code>n!</code> is just text.</li>
+    <li><b>14</b> — missing semicolon.</li>
+  </ul>
+
+  <div class="ans">
+    <div class="lbl">Confirmed by the compiler</div>
+    <div class="val">gcc on the original code reports errors on lines 5, 9, 10, 12 and 14.
+Lines 3 and 6 are logic errors the compiler cannot see —
+line 3 uses an uninitialised variable, line 6 has the test backwards.
+
+The corrected program was compiled and run:
+  input 5  → Factorial = 120
+  input 0  → Factorial = 1
+  input −3 → Factorial of a negative number doesn't exist.</div>
+  </div>
+  <div class="trap"><b>Do not rewrite the program</b><p>The paper says so explicitly and warns that points are cut. Answer as a line-number table exactly like the one above.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q6</span><span class="marks">5 marks</span><span class="method">Bubble sort trace</span></div>
+  <div class="qtext">Complete the boxes for the Bubble Sort algorithm on 44, 33, 55, 22, 11.</div>
+
+  <h4 class="step">The full trace, swap by swap</h4>
+  <div class="m">start          :  44  33  55  22  11
+
+Iteration 1 (55 settles at the end)
+  swap 44,33   :  33  44  55  22  11
+  swap 55,22   :  33  44  22  55  11
+  swap 55,11   :  33  44  22  11  55
+
+Iteration 2 (44 settles)
+  swap 44,22   :  33  22  44  11  55
+  swap 44,11   :  33  22  11  44  55
+
+Iteration 3 (33 settles)
+  swap 33,22   :  22  33  11  44  55
+  swap 33,11   :  22  11  33  44  55
+
+Iteration 4 (22 settles)
+  swap 22,11   :  11  22  33  44  55
+
+Result         :  11  22  33  44  55</div>
+
+  <h4 class="step">End of each pass — this is what the boxes ask for</h4>
+  <table>
+    <tr><th>After iteration</th><th>Array</th><th>Now fixed</th></tr>
+    <tr><td>1</td><td class="mono">33 44 22 11 55</td><td>55</td></tr>
+    <tr><td>2</td><td class="mono">33 22 11 44 55</td><td>44, 55</td></tr>
+    <tr><td>3</td><td class="mono">22 11 33 44 55</td><td>33, 44, 55</td></tr>
+    <tr><td>4</td><td class="mono">11 22 33 44 55</td><td>all sorted</td></tr>
+  </table>
+  <p class="why">Each column inside an iteration box is the array after one swap, so iteration 1 has three columns after the starting one, iteration 2 has two, iteration 3 has two, and iteration 4 has one before the Result column.</p>
+</div>
+</div>
+
+<!-- ======================= MAR 2024 ======================= -->
+<div class="paper" id="y2024m">
+<h2 class="yr">March 2024</h2>
+<p class="yr-meta">19-03-2024 · 30 marks · 2 hours</p>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1 (a)</span><span class="marks">3 marks</span><span class="method">Flowchart</span></div>
+  <div class="qtext">Draw a flowchart to find the greatest of three numbers.</div>
+  <ol class="steps">
+    <li><b>Start</b></li>
+    <li><b>Read a, b, c</b></li>
+    <li><b>Is a &gt; b?</b> — Yes → go to step 4, No → go to step 6</li>
+    <li><b>Is a &gt; c?</b> — Yes → print a, No → print c</li>
+    <li>go to Stop</li>
+    <li><b>Is b &gt; c?</b> — Yes → print b, No → print c</li>
+    <li><b>Stop</b></li>
+  </ol>
+  <p class="why">Two comparisons are enough. Drawing three separate if boxes that each test one number against both others also works, but it is longer and easier to get wrong.</p>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1 (b)</span><span class="marks">2 marks</span><span class="method">Number systems</span></div>
+  <div class="qtext">A 4-bit binary number has 2 zeros and 2 ones. (i) List all the possible binary numbers. (ii) Convert them to decimal.</div>
+  <p class="why">Choose which 2 of the 4 positions hold the ones: C(4,2) = 6 arrangements, so there are exactly six.</p>
+  <table>
+    <tr><th>Binary</th><th>Working</th><th>Decimal</th></tr>
+    <tr><td class="mono">0011</td><td class="mono">2 + 1</td><td class="mono">3</td></tr>
+    <tr><td class="mono">0101</td><td class="mono">4 + 1</td><td class="mono">5</td></tr>
+    <tr><td class="mono">0110</td><td class="mono">4 + 2</td><td class="mono">6</td></tr>
+    <tr><td class="mono">1001</td><td class="mono">8 + 1</td><td class="mono">9</td></tr>
+    <tr><td class="mono">1010</td><td class="mono">8 + 2</td><td class="mono">10</td></tr>
+    <tr><td class="mono">1100</td><td class="mono">8 + 4</td><td class="mono">12</td></tr>
+  </table>
+  <div class="trap"><b>List all six</b><p>Missing one costs marks. Write them in increasing order as above so you can see at a glance that none is missing.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1 (c)</span><span class="marks">5 marks</span><span class="method">Write a program</span></div>
+  <div class="qtext">Write a C program to search an element in a one-dimensional array using Binary Search. Assume the array is already sorted in ascending order.</div>
+
+<pre class="code">#include &lt;stdio.h&gt;
+
+int main() {
+    int a[100], n, i, key, low, high, mid, found = 0;
+
+    printf("Enter number of elements: ");
+    scanf("%d", &amp;n);
+
+    printf("Enter %d sorted elements: ", n);
+    for (i = 0; i &lt; n; i++)
+        scanf("%d", &amp;a[i]);
+
+    printf("Enter element to search: ");
+    scanf("%d", &amp;key);
+
+    low = 0;
+    high = n - 1;
+
+    while (low &lt;= high) {
+        mid = (low + high) / 2;
+
+        if (a[mid] == key) {
+            found = 1;
+            break;
+        }
+        else if (a[mid] &lt; key)
+            low = mid + 1;         <span class="c">/* key is in the right half */</span>
+        else
+            high = mid - 1;        <span class="c">/* key is in the left half */</span>
+    }
+
+    if (found)
+        printf("Element found at position %d\n", mid + 1);
+    else
+        printf("Element not found\n");
+
+    return 0;
+}</pre>
+
+  <div class="ans">
+    <div class="lbl">Compiled and run — array 2 4 6 8 10 12</div>
+    <div class="val">search 8   → Element found at position 4
+search 2   → Element found at position 1
+search 12  → Element found at position 6
+search 7   → Element not found</div>
+  </div>
+  <div class="trap"><b>Two details worth a mark each</b><p>The loop condition must be <code>low &lt;= high</code>, not <code>&lt;</code>, or a single remaining element is never checked. And <code>mid + 1</code> is printed because array indices start at 0 but people count positions from 1.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2 (a)</span><span class="marks">5 marks</span><span class="method">Write a program</span></div>
+  <div class="qtext">Take a number from the user and generate a new number by replacing all 0s with 1s. For 201301 the result should be 211311. Store the result in a variable and print that variable.</div>
+
+  <p class="why">Peel digits off the right with <code>% 10</code>, fix each one, and rebuild the number using a place-value multiplier. Do not print as you go — the question explicitly asks for the result to be stored.</p>
+
+<pre class="code">#include &lt;stdio.h&gt;
+
+int main() {
+    int num, result = 0, place = 1, digit;
+
+    printf("Enter a number: ");
+    scanf("%d", &amp;num);
+
+    if (num == 0) {                <span class="c">/* 0 on its own becomes 1 */</span>
+        printf("New number = 1\n");
+        return 0;
+    }
+
+    while (num &gt; 0) {
+        digit = num % 10;          <span class="c">/* last digit */</span>
+        if (digit == 0)
+            digit = 1;
+        result = result + digit * place;
+        place = place * 10;
+        num = num / 10;            <span class="c">/* drop the last digit */</span>
+    }
+
+    printf("New number = %d\n", result);
+    return 0;
+}</pre>
+
+  <div class="ans">
+    <div class="lbl">Compiled and run</div>
+    <div class="val">201301 → 211311      ✓ matches the paper's example
+0      → 1
+1000   → 1111
+9      → 9</div>
+  </div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2 (b)</span><span class="marks">2 marks</span><span class="method">Ternary operator</span></div>
+  <div class="qtext">Write a program in C to find whether a number is odd or even using the ternary operator.</div>
+
+<pre class="code">#include &lt;stdio.h&gt;
+
+int main() {
+    int n;
+    printf("Enter a number: ");
+    scanf("%d", &amp;n);
+
+    (n % 2 == 0) ? printf("Even\n") : printf("Odd\n");
+
+    return 0;
+}</pre>
+
+  <div class="ans">
+    <div class="lbl">Compiled and run</div>
+    <div class="val">7 → Odd      12 → Even      0 → Even      −5 → Odd</div>
+  </div>
+  <p class="why">The question says "using the ternary operator", so an if-else scores zero however correct it is. Note that <code>n % 2 == 1</code> fails for negative numbers in C (−5 % 2 is −1), which is why testing against 0 is the safer form.</p>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2 (c)</span><span class="marks">3 marks</span><span class="method">switch-case</span></div>
+  <div class="qtext">Write a calculator using switch case with + − * /. It should run repeatedly, asking Y or N each time, and stop when the user enters N.</div>
+
+<pre class="code">#include &lt;stdio.h&gt;
+
+int main() {
+    char choice, op;
+    float a, b;
+
+    do {
+        printf("Do you want to continue (Y/N)? ");
+        scanf(" %c", &amp;choice);            <span class="c">/* the space skips the leftover newline */</span>
+        if (choice == 'N' || choice == 'n')
+            break;
+
+        printf("Enter two numbers: ");
+        scanf("%f %f", &amp;a, &amp;b);
+
+        printf("Enter operator (+ - * /): ");
+        scanf(" %c", &amp;op);
+
+        switch (op) {
+            case '+': printf("Result = %.2f\n", a + b); break;
+            case '-': printf("Result = %.2f\n", a - b); break;
+            case '*': printf("Result = %.2f\n", a * b); break;
+            case '/':
+                if (b != 0)
+                    printf("Result = %.2f\n", a / b);
+                else
+                    printf("Division by zero is not allowed\n");
+                break;
+            default:
+                printf("Invalid operator\n");
+        }
+    } while (choice == 'Y' || choice == 'y');
+
+    printf("Calculator closed.\n");
+    return 0;
+}</pre>
+
+  <div class="ans">
+    <div class="lbl">Compiled and run</div>
+    <div class="val">6 + 3   → Result = 9.00
+10 / 0  → Division by zero is not allowed
+4 * 5   → Result = 20.00
+N       → Calculator closed.</div>
+  </div>
+  <div class="trap"><b>The space in <code>scanf(" %c", ...)</code></b><p>Without that leading space, scanf reads the newline left in the buffer by the previous input and the program appears to skip a question. This single character is the difference between a program that works and one that loops strangely.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q3 (a)</span><span class="marks">5 marks</span><span class="method">2-D array insertion</span></div>
+  <div class="qtext">Take an n × m 2-D array, insert a new value at a given row and column, shifting all later values one position ahead. Trailing places in the new row are filled with 0.</div>
+
+  <p class="why">Reading the paper's own example tells you exactly what is wanted: the array is treated as one long sequence in row-major order, the new value is inserted at that linear position, everything after it slides along by one, and the result is laid back out in rows of m — which needs one extra row, padded with zeros.</p>
+
+<pre class="code">#include &lt;stdio.h&gt;
+
+int main() {
+    int a[50][50], flat[2600], n, m, i, j, r, c, val, k = 0;
+
+    printf("Enter rows and columns: ");
+    scanf("%d %d", &amp;n, &amp;m);
+
+    printf("Enter the elements:\n");
+    for (i = 0; i &lt; n; i++)
+        for (j = 0; j &lt; m; j++)
+            scanf("%d", &amp;a[i][j]);
+
+    printf("Enter row, column and value to insert: ");
+    scanf("%d %d %d", &amp;r, &amp;c, &amp;val);
+
+    int total = n * m;
+    int pos = (r - 1) * m + (c - 1);     <span class="c">/* 1-based row,col → 0-based linear index */</span>
+
+    for (i = 0; i &lt; n; i++)              <span class="c">/* flatten */</span>
+        for (j = 0; j &lt; m; j++)
+            flat[k++] = a[i][j];
+
+    for (i = total; i &gt; pos; i--)        <span class="c">/* shift right, from the back */</span>
+        flat[i] = flat[i - 1];
+    flat[pos] = val;
+    total++;
+
+    int newRows = (total + m - 1) / m;   <span class="c">/* round up */</span>
+    for (i = total; i &lt; newRows * m; i++)
+        flat[i] = 0;                     <span class="c">/* pad the last row */</span>
+
+    printf("Output:\n");
+    k = 0;
+    for (i = 0; i &lt; newRows; i++) {
+        for (j = 0; j &lt; m; j++)
+            printf("%d ", flat[k++]);
+        printf("\n");
+    }
+    return 0;
+}</pre>
+
+  <div class="ans">
+    <div class="lbl">Compiled and run — the paper's own example</div>
+    <div class="val">array 1 2 3 / 4 5 6 / 7 8 9,  insert 28 at position (2,3)
+
+Output:
+1 2 3
+4 5 28
+6 7 8
+9 0 0        ✓ exactly the output printed in the paper</div>
+  </div>
+  <div class="trap"><b>Shift from the back, not the front</b><p>The shifting loop must run downward (<code>for (i = total; i &gt; pos; i--)</code>). Running it upward overwrites each value before it has been copied, and the whole tail of the array becomes the same number.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q3 (b)</span><span class="marks">5 marks</span><span class="method">String handling</span></div>
+  <div class="qtext">Take a string with spaces and interchange only the second and third words, keeping the rest intact. "I am studying programming" becomes "I studying am programming".</div>
+
+<pre class="code">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int main() {
+    char s[200], words[50][50], temp[50];
+    int i = 0, count = 0;
+
+    printf("Enter a string: ");
+    fgets(s, sizeof(s), stdin);
+    s[strcspn(s, "\n")] = '\0';        <span class="c">/* strip the newline fgets leaves */</span>
+
+    char *tok = strtok(s, " ");        <span class="c">/* split on spaces */</span>
+    while (tok != NULL) {
+        strcpy(words[count++], tok);
+        tok = strtok(NULL, " ");
+    }
+
+    if (count &gt;= 3) {                  <span class="c">/* only swap if a third word exists */</span>
+        strcpy(temp, words[1]);
+        strcpy(words[1], words[2]);
+        strcpy(words[2], temp);
+    }
+
+    for (i = 0; i &lt; count; i++)
+        printf("%s%s", words[i], (i == count - 1) ? "\n" : " ");
+
+    return 0;
+}</pre>
+
+  <div class="ans">
+    <div class="lbl">Compiled and run</div>
+    <div class="val">"I am studying programming"  →  I studying am programming     ✓
+"one two three"              →  one three two</div>
+  </div>
+  <div class="trap"><b>Words are indexed from 0</b><p>The <b>second</b> word is <code>words[1]</code> and the <b>third</b> is <code>words[2]</code>. Swapping words[2] and words[3] is the obvious slip and produces a completely different sentence.</p></div>
+</div>
+</div>
+
+<div class="fb" id="fb">
+  <h3>Did these solutions help you?</h3>
+  <p class="sub2">These are free, made by a student for students. Two things would really help: a vote, and a line saying what was useful — or, more importantly, <b>if you found a step that looks wrong</b>. Anything you report gets checked and fixed for everyone. It only goes to the student who made this.</p>
+  <div class="fb-btns">
+    <button class="fb-btn" id="fb-yes" type="button">&#128077; Yes, it helped</button>
+    <button class="fb-btn" id="fb-no" type="button">&#128078; Not really</button>
+  </div>
+  <div id="fb-more" style="display:none">
+    <textarea id="fb-text" placeholder="What helped, or which step looks wrong? (optional, but really useful)"></textarea>
+    <button class="fb-send" id="fb-send" type="button">Send</button>
+  </div>
+  <p class="fb-done" id="fb-done" style="display:none">Thanks — this genuinely helps. Good luck in the exam.</p>
+</div>
+
+<footer>
+  <p>Solutions worked out from the Mar 2024, Oct 2024, Mar 2025, Oct 2025 and Mar 2026 UES103 / UTA003 MST papers. Every program on this page was compiled with gcc and run — the outputs shown are what the compiler actually produced, not what the answer assumed.</p>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  var CODE = 'UES103-SOL';
+  var choice = null;
+  var yes = document.getElementById('fb-yes'), no = document.getElementById('fb-no');
+  var more = document.getElementById('fb-more'), done = document.getElementById('fb-done');
+  var send = document.getElementById('fb-send'), text = document.getElementById('fb-text');
+
+  function visitorId() {
+    try {
+      var id = localStorage.getItem('fs_visitor');
+      if (!id) { id = 'v_' + Math.random().toString(36).slice(2) + Date.now(); localStorage.setItem('fs_visitor', id); }
+      return id;
+    } catch (e) { return 'anon'; }
+  }
+  function post(comment) {
+    var email; try { email = localStorage.getItem('fs_email') || undefined; } catch (e) {}
+    fetch('/api/guide-feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code: CODE, helpful: choice, comment: comment || '', visitorId: visitorId(), email: email })
+    }).catch(function () {});
+  }
+  function pick(val) {
+    choice = val;
+    yes.classList.toggle('on', val === true);
+    no.classList.toggle('on', val === false);
+    more.style.display = 'block';
+    post('');
+  }
+  yes.addEventListener('click', function () { pick(true); });
+  no.addEventListener('click', function () { pick(false); });
+  send.addEventListener('click', function () {
+    if (choice === null) return;
+    post(text.value);
+    more.style.display = 'none';
+    done.style.display = 'block';
+  });
+})();
+</script>
+</body>
+</html>
