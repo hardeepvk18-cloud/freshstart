@@ -6,7 +6,7 @@
 <title>UCB009 Chemistry — MST PYQ Analysis</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap"></noscript>
 <style>
   :root {
     --bg: #EEF2F2;
@@ -28,7 +28,7 @@
     margin: 0;
     background: var(--bg);
     color: var(--ink);
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.55;
     padding-top: env(safe-area-inset-top, 0px);
     padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -36,14 +36,14 @@
   .wrap { max-width: 800px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
 
   .kicker {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
     font-size: 0.78rem;
     color: var(--teal-deep);
     letter-spacing: 0.03em;
     margin-bottom: 0.9rem;
   }
   h1 {
-    font-family: 'Source Serif 4', serif;
+    font-family: 'Source Serif 4', Georgia, serif;
     font-weight: 700;
     font-size: clamp(1.9rem, 5vw, 2.6rem);
     line-height: 1.15;
@@ -71,7 +71,7 @@
     padding: 1.3rem 1.5rem;
     margin-bottom: 2.6rem;
   }
-  .toc-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; color: var(--ink-soft); letter-spacing: 0.03em; margin-bottom: 0.7rem; }
+  .toc-title { font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; font-size: 0.78rem; color: var(--ink-soft); letter-spacing: 0.03em; margin-bottom: 0.7rem; }
   .toc ol { margin: 0; padding-left: 1.3rem; }
   .toc li { margin-bottom: 0.4rem; font-size: 0.94rem; }
   .toc a { color: var(--teal-deep); text-decoration: none; font-weight: 500; }
@@ -88,7 +88,7 @@
     gap: 1.1rem;
     flex-wrap: wrap;
   }
-  .hero-stat .num { font-family: 'Source Serif 4', serif; font-weight: 700; font-size: 3.4rem; line-height: 1; }
+  .hero-stat .num { font-family: 'Source Serif 4', Georgia, serif; font-weight: 700; font-size: 3.4rem; line-height: 1; }
   .hero-stat p { margin: 0; font-size: 1rem; max-width: 40ch; color: #DFF3F0; }
   .hero-stat p b { color: #fff; }
 
@@ -107,7 +107,7 @@
     margin-bottom: 0.4rem;
   }
   .section-num {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
     font-size: 0.85rem;
     font-weight: 600;
     color: #fff;
@@ -117,7 +117,7 @@
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
   }
-  h2 { font-family: 'Source Serif 4', serif; font-size: 1.5rem; font-weight: 600; margin: 0; color: var(--ink); }
+  h2 { font-family: 'Source Serif 4', Georgia, serif; font-size: 1.5rem; font-weight: 600; margin: 0; color: var(--ink); }
   .section-note { color: var(--ink-soft); font-size: 0.94rem; margin: 0.6rem 0 1.6rem; }
 
   /* topic weightage bars */
@@ -125,13 +125,13 @@
   .bar-label { font-size: 0.94rem; font-weight: 500; }
   .bar-track { background: var(--line); border-radius: 6px; height: 14px; overflow: hidden; }
   .bar-fill { height: 100%; border-radius: 6px; }
-  .bar-pct { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; text-align: right; color: var(--ink-soft); }
+  .bar-pct { font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; font-size: 0.85rem; text-align: right; color: var(--ink-soft); }
 
   .paper-table { width: 100%; border-collapse: collapse; background: var(--paper); border-radius: 10px; overflow: hidden; border: 1px solid var(--line); font-size: 0.88rem; }
   .paper-table th, .paper-table td { padding: 0.65rem 0.85rem; text-align: left; border-bottom: 1px solid var(--line); }
   .paper-table th { font-weight: 600; color: var(--ink-soft); font-size: 0.76rem; background: #FAFBFB; }
   .paper-table tr:last-child td { border-bottom: none; }
-  .paper-table td.num { font-family: 'IBM Plex Mono', monospace; }
+  .paper-table td.num { font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; }
 
   /* topic deep-dive card */
   .topic-card {
@@ -149,13 +149,13 @@
     flex-wrap: wrap;
     gap: 0.5rem;
   }
-  .topic-card-head h3 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--teal-deep); font-family: 'Source Serif 4', serif; }
-  .freq-tag { font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; color: var(--teal-deep); background: #fff; border: 1px solid #BEDEDB; padding: 0.15rem 0.6rem; border-radius: 20px; }
+  .topic-card-head h3 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--teal-deep); font-family: 'Source Serif 4', Georgia, serif; }
+  .freq-tag { font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; font-size: 0.78rem; color: var(--teal-deep); background: #fff; border: 1px solid #BEDEDB; padding: 0.15rem 0.6rem; border-radius: 20px; }
   .topic-card-body { padding: 1.1rem 1.2rem 1.3rem; }
 
   .yr-q { margin-bottom: 0.9rem; padding-bottom: 0.9rem; border-bottom: 1px dashed var(--line); }
   .yr-q:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-  .yr-tag { font-family: 'IBM Plex Mono', monospace; font-size: 0.76rem; color: #fff; background: var(--ink-soft); padding: 0.1rem 0.5rem; border-radius: 5px; margin-right: 0.5rem; }
+  .yr-tag { font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; font-size: 0.76rem; color: #fff; background: var(--ink-soft); padding: 0.1rem 0.5rem; border-radius: 5px; margin-right: 0.5rem; }
   .yr-q .q-text { font-size: 0.92rem; margin-top: 0.4rem; }
 
   .yt-link {
@@ -175,22 +175,22 @@
 
   /* formula cards */
   .formula-group { margin-bottom: 1.6rem; }
-  .formula-group h4 { font-size: 0.98rem; font-weight: 600; margin: 0 0 0.7rem; color: var(--teal-deep); font-family: 'Source Serif 4', serif; }
+  .formula-group h4 { font-size: 0.98rem; font-weight: 600; margin: 0 0 0.7rem; color: var(--teal-deep); font-family: 'Source Serif 4', Georgia, serif; }
   .formula-card { background: #FAFBFB; border: 1px solid var(--line); border-left: 3px solid var(--teal); border-radius: 8px; padding: 0.85rem 1.1rem; margin-bottom: 0.6rem; }
-  .formula-card .expr { font-family: 'IBM Plex Mono', monospace; font-size: 1rem; color: var(--ink); margin-bottom: 0.25rem; }
+  .formula-card .expr { font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; font-size: 1rem; color: var(--ink); margin-bottom: 0.25rem; }
   .formula-card .note { font-size: 0.85rem; color: var(--ink-soft); }
-  .verified-tag { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.76rem; font-family: 'IBM Plex Mono', monospace; color: var(--teal-deep); background: var(--teal-wash); padding: 0.2rem 0.6rem; border-radius: 20px; margin-bottom: 1.2rem; }
+  .verified-tag { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.76rem; font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; color: var(--teal-deep); background: var(--teal-wash); padding: 0.2rem 0.6rem; border-radius: 20px; margin-bottom: 1.2rem; }
 
   .watch-item { display: flex; gap: 0.8rem; padding: 0.95rem 0; border-bottom: 1px solid var(--line); }
   .watch-item:last-child { border-bottom: none; }
-  .watch-mark { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--amber-wash); color: var(--amber); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; font-family: 'IBM Plex Mono', monospace; }
+  .watch-mark { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--amber-wash); color: var(--amber); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; }
   .watch-body b { display: block; margin-bottom: 0.15rem; font-size: 0.96rem; }
   .watch-body span { color: var(--ink-soft); font-size: 0.9rem; }
 
   /* bloom's insight */
   .insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
   .insight-box { background: #FAFBFB; border: 1px solid var(--line); border-radius: 10px; padding: 1rem 1.1rem; }
-  .insight-box .big { font-family: 'Source Serif 4', serif; font-size: 1.8rem; font-weight: 700; color: var(--teal-deep); }
+  .insight-box .big { font-family: 'Source Serif 4', Georgia, serif; font-size: 1.8rem; font-weight: 700; color: var(--teal-deep); }
   .insight-box .lbl { font-size: 0.82rem; color: var(--ink-soft); margin-top: 0.2rem; }
 
   .priority-box { background: var(--rose-wash); border: 1px solid #EBC9C9; border-radius: 16px; padding: 1.6rem 1.8rem; margin-bottom: 2.2rem; }
@@ -200,7 +200,7 @@
 
 
   .yt-list { border-top: 1px solid var(--line); margin-top: 0.9rem; padding-top: 0.8rem; }
-  .yt-list-title { font-size: 0.78rem; font-family: 'IBM Plex Mono', monospace; color: var(--ink-soft); margin-bottom: 0.5rem; }
+  .yt-list-title { font-size: 0.78rem; font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; color: var(--ink-soft); margin-bottom: 0.5rem; }
   .yt-list a { display: block; font-size: 0.87rem; color: var(--rose); text-decoration: none; font-weight: 500; padding: 0.3rem 0; }
   .yt-list a:hover { text-decoration: underline; }
   .yt-list a span.covers { color: var(--ink-soft); font-weight: 400; }
@@ -210,9 +210,9 @@
 
   .paper-card { border: 1px solid var(--line); border-radius: 12px; margin-top: 1.4rem; overflow: hidden; }
   .paper-card-head { background: #FAFBFB; border-bottom: 1px solid var(--line); padding: 0.9rem 1.2rem; }
-  .paper-card-head h3 { margin: 0 0 0.3rem; font-family: 'Source Serif 4', serif; font-size: 1.1rem; }
+  .paper-card-head h3 { margin: 0 0 0.3rem; font-family: 'Source Serif 4', Georgia, serif; font-size: 1.1rem; }
   .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-  .chip-s { font-family: 'IBM Plex Mono', monospace; font-size: 0.74rem; background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 0.12rem 0.55rem; color: var(--ink-soft); }
+  .chip-s { font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; font-size: 0.74rem; background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 0.12rem 0.55rem; color: var(--ink-soft); }
   .paper-card-body { padding: 1rem 1.2rem 1.2rem; }
   .mini-label { font-size: 0.8rem; font-weight: 600; color: var(--ink-soft); margin: 0.2rem 0 0.4rem; }
   .stack { display: flex; height: 12px; border-radius: 6px; overflow: hidden; margin-bottom: 0.35rem; }
@@ -230,7 +230,7 @@
 
   .qp { border: 1px solid var(--line); border-radius: 12px; margin-top: 1.6rem; overflow: hidden; }
   .qp-head { background: var(--ink); color: #fff; padding: 0.9rem 1.2rem; }
-  .qp-head h3 { margin: 0; font-family: 'Source Serif 4', serif; font-size: 1.1rem; }
+  .qp-head h3 { margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-size: 1.1rem; }
   .qp-head p { margin: 0.2rem 0 0; font-size: 0.82rem; color: #C9D3D8; }
   .qp-note { font-size: 0.82rem; color: var(--ink-soft); padding: 0.8rem 1.2rem; border-bottom: 1px solid var(--line); background: #FAFBFB; }
   .qp-scroll { overflow-x: auto; }
@@ -238,7 +238,7 @@
   .qp th, .qp td { padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
   .qp th { font-size: 0.75rem; color: var(--ink-soft); font-weight: 600; background: #fff; }
   .qp td.q { width: 62%; }
-  .qp td.m { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; white-space: nowrap; }
+  .qp td.m { font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; font-size: 0.8rem; white-space: nowrap; }
   .qp tr.qstart td { border-top: 2px solid var(--line); }
   @media print { .section-block, .qp, .paper-card, .topic-card { break-inside: avoid-page; } }
 
@@ -246,8 +246,8 @@
   .heat { width: 100%; border-collapse: separate; border-spacing: 4px; font-size: 0.86rem; min-width: 520px; }
   .heat th { font-size: 0.75rem; color: var(--ink-soft); font-weight: 600; padding: 0.3rem; text-align: center; }
   .heat th.rowh { text-align: left; }
-  .heat td { text-align: center; padding: 0.55rem 0.3rem; border-radius: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; }
-  .heat td.topic { text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-weight: 500; font-size: 0.88rem; background: none; padding-left: 0; }
+  .heat td { text-align: center; padding: 0.55rem 0.3rem; border-radius: 6px; font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; font-size: 0.82rem; }
+  .heat td.topic { text-align: left; font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 500; font-size: 0.88rem; background: none; padding-left: 0; }
   .heat td.freq { background: none; color: var(--ink-soft); }
   .heat td.zero { background: #F1F4F4; color: #B8C3C6; }
   .heat-legend { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--ink-soft); margin-top: 0.9rem; flex-wrap: wrap; }
@@ -261,8 +261,8 @@
 
   .must-item { border: 1px solid var(--line); border-radius: 12px; padding: 1rem 1.15rem; margin-bottom: 0.8rem; }
   .must-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.8rem; }
-  .must-top h3 { margin: 0; font-family: 'Source Serif 4', serif; font-size: 1.06rem; }
-  .chance { flex-shrink: 0; font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.65rem; border-radius: 20px; white-space: nowrap; }
+  .must-top h3 { margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-size: 1.06rem; }
+  .chance { flex-shrink: 0; font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.65rem; border-radius: 20px; white-space: nowrap; }
   .chance.vh { background: var(--teal); color: #fff; }
   .chance.hi { background: var(--teal-wash); color: var(--teal-deep); border: 1px solid #BEDEDB; }
   .chance.cp { background: var(--amber-wash); color: #7A5A0E; border: 1px solid #E9D6A8; }
@@ -276,8 +276,8 @@
   .must-prep b { color: var(--teal-deep); }
   .must-key { display: flex; flex-wrap: wrap; gap: 0.8rem; font-size: 0.82rem; color: var(--ink-soft); margin-bottom: 1.2rem; }
 
-  .fb { border: 1px solid var(--line); border-radius: 14px; padding: 1.3rem 1.5rem; margin-top: 2.4rem; background: var(--paper); }
-  .fb h3 { margin: 0 0 .3rem; font-family: 'Source Serif 4', serif; font-size: 1.1rem; }
+  .fb { border: 2px solid var(--teal); border-radius: 14px; padding: 1.4rem 1.5rem; margin: 0 0 2.6rem; background: var(--paper); box-shadow: 0 2px 14px rgba(0,0,0,.05); }
+  .fb h3 { margin: 0 0 .45rem; font-family: 'Source Serif 4', Georgia, serif; font-size: 1.18rem; }
   .fb p.sub2 { margin: 0 0 1rem; font-size: .88rem; color: var(--ink-soft); }
   .fb-btns { display: flex; gap: .6rem; flex-wrap: wrap; }
   .fb-btn { font-family: inherit; font-size: .9rem; font-weight: 600; cursor: pointer; padding: .55rem 1.1rem; border-radius: 30px; border: 1px solid var(--line); background: #fff; color: var(--ink); transition: border-color .2s, background .2s; }
@@ -312,6 +312,20 @@
   <div class="toc">
     <div class="toc-title">CONTENTS</div>
     <ol><li><a href="#s1">Must-do topics — highest chance of coming</a></li><li><a href="#s2">Year-wise paper analysis</a></li><li><a href="#s3">Repeated-topics heatmap</a></li><li><a href="#s4">Topic deep-dive — every repeated question, by year</a></li><li><a href="#s5">Formula sheet</a></li><li><a href="#s6">Common mistakes that lose marks</a></li><li><a href="#s7">If you only have one evening</a></li><li><a href="#s8">How to actually prepare</a></li><li><a href="#s9">Full question papers</a></li></ol>
+  </div>
+
+  <div class="fb" id="fb">
+    <h3>Did this guide help you?</h3>
+    <p class="sub2">This guide is made by a student, for students — free, no ads, and built by reading every past paper by hand. If it genuinely helps you, please take five seconds to vote and leave a line about what worked or what's missing. Your answer goes only to the student who made it, and it decides which subjects and guides get built next.</p>
+    <div class="fb-btns">
+      <button class="fb-btn" id="fb-yes" type="button">&#128077; Yes, it helped</button>
+      <button class="fb-btn" id="fb-no" type="button">&#128078; Not really</button>
+    </div>
+    <div id="fb-more" style="display:none">
+      <textarea id="fb-text" placeholder="What helped, or what's missing? (optional, but really useful)"></textarea>
+      <button class="fb-send" id="fb-send" type="button">Send</button>
+    </div>
+    <p class="fb-done" id="fb-done" style="display:none">Thanks — this genuinely helps. Good luck in the exam.</p>
   </div>
 
   <div class="hero-stat">
@@ -653,19 +667,6 @@
   </div>
 
 
-  <div class="fb" id="fb">
-    <h3>Was this guide helpful?</h3>
-    <p class="sub2">Your answer only goes to the student who made this guide — it helps decide what to fix and what to build next.</p>
-    <div class="fb-btns">
-      <button class="fb-btn" id="fb-yes" type="button">&#128077; Yes, helpful</button>
-      <button class="fb-btn" id="fb-no" type="button">&#128078; Not really</button>
-    </div>
-    <div id="fb-more" style="display:none">
-      <textarea id="fb-text" placeholder="Anything missing or wrong? (optional)"></textarea>
-      <button class="fb-send" id="fb-send" type="button">Send</button>
-    </div>
-    <p class="fb-done" id="fb-done" style="display:none">Thanks — noted.</p>
-  </div>
 
   <footer>
     Compiled directly from four TIET UCB009 MST papers (Mar 2024 → Oct 2025). No fabricated content — every number, question, and formula above traces back to an actual paper. Stuck on something here? Ask in Doubts or grab a verified senior in Guidance.
