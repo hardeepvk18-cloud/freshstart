@@ -113,6 +113,28 @@ footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);
   h1{font-size:26px} h2.yr{font-size:21px}
   .q{padding:15px 15px} .m,pre.code{font-size:12.6px} .ans .val{font-size:13.4px}
 }
+
+.share{border:1px solid var(--line);border-radius:14px;padding:17px 20px;margin:20px 0 0;
+  background:var(--paper)}
+.share h3{margin:0 0 5px;font-family:'Source Serif 4',Georgia,serif;font-size:18px;font-weight:700}
+.share p{margin:0 0 13px;font-size:14.2px;color:var(--ink-soft,#4A5866)}
+.share-row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.share-wa{display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+  font-family:inherit;font-size:14.5px;font-weight:600;padding:10px 18px;border-radius:30px;
+  background:#25D366;color:#fff;border:none;cursor:pointer}
+.share-wa:hover{background:#1FB855}
+.share-copy{font-family:inherit;font-size:14.5px;font-weight:600;cursor:pointer;
+  padding:10px 18px;border-radius:30px;border:1px solid var(--line);background:#fff;color:var(--ink,#16202C)}
+.share-copy:hover{border-color:#25D366}
+.share-done{font-size:13.8px;color:#1F7A4D;font-weight:600;margin:9px 0 0}
+
+.share-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  border:1px solid var(--line);border-radius:12px;padding:12px 15px;margin:0 0 22px;background:var(--paper)}
+.share-top span{font-size:14.2px;color:var(--ink-soft,#4A5866)}
+.share-top a{display:inline-flex;align-items:center;gap:7px;text-decoration:none;
+  font-family:inherit;font-size:13.8px;font-weight:600;padding:8px 15px;border-radius:30px;
+  background:#25D366;color:#fff;white-space:nowrap}
+.share-top a:hover{background:#1FB855}
 </style>
 </head>
 <body>
@@ -130,6 +152,11 @@ footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);
 
 <div class="note" style="background:#EEF1FB;border-color:#CDD6EE;color:#2E3A57">
   <b style="color:#3D4C72">Note:</b> these solutions were made using <b>Claude Opus 5 (Anthropic's AI)</b> and then every program was compiled and run with gcc to check its output. Errors are still possible — if a step looks wrong, go with your professor, and report it in the feedback box at the bottom so it gets fixed.
+</div>
+
+<div class="share-top">
+  <span>Know someone who needs this? Send it over.</span>
+  <a id="share-wa-top" href="#" target="_blank" rel="noopener noreferrer">&#128172; Share on WhatsApp</a>
 </div>
 
 <nav class="toc">
@@ -1202,6 +1229,16 @@ int main() {
   <p class="fb-done" id="fb-done" style="display:none">Thanks — this genuinely helps. Good luck in the exam.</p>
 </div>
 
+<div class="share" id="share">
+  <h3>Send this to a friend</h3>
+  <p>Someone in your batch is looking for exactly this right now. It takes one tap.</p>
+  <div class="share-row">
+    <a class="share-wa" id="share-wa" href="#" target="_blank" rel="noopener noreferrer">&#128172; Share on WhatsApp</a>
+    <button class="share-copy" id="share-copy" type="button">Copy link</button>
+  </div>
+  <p class="share-done" id="share-done" style="display:none">Link copied.</p>
+</div>
+
 <footer>
   <p>Solutions worked out from the Mar 2024, Oct 2024, Mar 2025, Oct 2025 and Mar 2026 UES103 / UTA003 MST papers. Every program on this page was compiled with gcc and run — the outputs shown are what the compiler actually produced, not what the answer assumed.</p>
 </footer>
@@ -1245,6 +1282,33 @@ int main() {
     post(text.value);
     more.style.display = 'none';
     done.style.display = 'block';
+  });
+})();
+</script>
+
+<script>
+(function () {
+  var url = window.location.href.split('#')[0].split('?')[0];
+  var msg = "C Programming (UES103) — every question from the past MST papers, solved step by step. Free on FreshStart.\n\n" + url;
+  var link = 'https://wa.me/?text=' + encodeURIComponent(msg);
+  ['share-wa', 'share-wa-top'].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) el.href = link;
+  });
+
+  var cp = document.getElementById('share-copy'), done = document.getElementById('share-done');
+  if (cp) cp.addEventListener('click', function () {
+    function ok() { done.style.display = 'block'; setTimeout(function(){ done.style.display='none'; }, 2500); }
+    try {
+      navigator.clipboard.writeText(url).then(ok, fallback);
+    } catch (e) { fallback(); }
+    function fallback() {
+      var t = document.createElement('textarea');
+      t.value = url; t.style.position = 'fixed'; t.style.opacity = '0';
+      document.body.appendChild(t); t.select();
+      try { document.execCommand('copy'); ok(); } catch (e) {}
+      document.body.removeChild(t);
+    }
   });
 })();
 </script>

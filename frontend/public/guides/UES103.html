@@ -318,6 +318,14 @@
 .share-done{font-size:13.8px;color:#1F7A4D;font-weight:600;margin:9px 0 0}
 
 .paper-table{display:block;overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}
+
+.share-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  border:1px solid var(--line);border-radius:12px;padding:12px 15px;margin:0 0 22px;background:var(--paper)}
+.share-top span{font-size:14.2px;color:var(--ink-soft,#4A5866)}
+.share-top a{display:inline-flex;align-items:center;gap:7px;text-decoration:none;
+  font-family:inherit;font-size:13.8px;font-weight:600;padding:8px 15px;border-radius:30px;
+  background:#25D366;color:#fff;white-space:nowrap}
+.share-top a:hover{background:#1FB855}
 </style>
 </head>
 <body>
@@ -326,7 +334,12 @@
   <h1>UES103 — Programming for Problem Solving (C)<br>MST Question Paper Analysis</h1>
   <p class="subtitle">Built from five actual MST papers — March 2024, October 2024, March 2025, October 2025, and March 2026. Every number below is added up from the marks printed on those papers, and every code output was checked by running it.</p>
   <div class="disclaimer"><b>Before you rely on this:</b> this analysis reflects the syllabus as it stood across these five papers. If your current semester's syllabus has added or dropped a topic, the weightage below will shift accordingly — always cross-check against this year's official syllabus first.</div>
-  <div class="toc"><div class="toc-title">CONTENTS</div><ol><li><a href="#s1">Must-do topics — highest chance of coming</a></li><li><a href="#s2">Year-wise paper analysis</a></li><li><a href="#s3">Repeated-topics heatmap</a></li><li><a href="#s4">Topic deep-dive — every repeated question, by year</a></li><li><a href="#s5">Syntax &amp; rules cheat sheet</a></li><li><a href="#s6">Common mistakes that lose marks</a></li><li><a href="#s7">If you only have one evening</a></li><li><a href="#s8">Full question papers</a></li></ol></div>
+  <div class="share-top">
+  <span>Know someone who needs this? Send it over.</span>
+  <a id="share-wa-top" href="#" target="_blank" rel="noopener noreferrer">&#128172; Share on WhatsApp</a>
+</div>
+
+<div class="toc"><div class="toc-title">CONTENTS</div><ol><li><a href="#s1">Must-do topics — highest chance of coming</a></li><li><a href="#s2">Year-wise paper analysis</a></li><li><a href="#s3">Repeated-topics heatmap</a></li><li><a href="#s4">Topic deep-dive — every repeated question, by year</a></li><li><a href="#s5">Syntax &amp; rules cheat sheet</a></li><li><a href="#s6">Common mistakes that lose marks</a></li><li><a href="#s7">If you only have one evening</a></li><li><a href="#s8">Full question papers</a></li></ol></div>
 
   <div class="section-block" id="s1" style="border:2px solid var(--teal);">
     <div class="section-head"><div class="section-num">1</div><h2>Must-do topics — highest chance of coming</h2></div>
@@ -521,8 +534,11 @@
 (function () {
   var url = window.location.href.split('#')[0].split('?')[0];
   var msg = "C Programming (UES103) — MST question paper analysis: which topics repeat, every past question by year, formula sheet and the full papers. Free on FreshStart.\n\n" + url;
-  var wa = document.getElementById('share-wa');
-  if (wa) wa.href = 'https://wa.me/?text=' + encodeURIComponent(msg);
+  var link = 'https://wa.me/?text=' + encodeURIComponent(msg);
+  ['share-wa', 'share-wa-top'].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) el.href = link;
+  });
 
   var cp = document.getElementById('share-copy'), done = document.getElementById('share-done');
   if (cp) cp.addEventListener('click', function () {
