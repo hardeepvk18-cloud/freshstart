@@ -121,10 +121,18 @@ function SectionFeedback({ user }) {
   if (already) return null;
 
   return (
-    <div className="highlight" style={{ marginTop: '2rem' }}>
+    <div
+      className="highlight"
+      style={{
+        margin: '2rem 0',
+        border: '2px solid #6c63ff',
+        background: 'rgba(108, 99, 255, .1)',
+        boxShadow: '0 10px 30px rgba(108, 99, 255, .18)'
+      }}
+    >
       <span>&#128172;</span>
       <div style={{ width: '100%' }}>
-        <b>Did this section help you?</b>
+        <b style={{ fontSize: '1.05rem' }}>Did these guides help you?</b>
         {sent ? (
           <p style={{ marginTop: '.5rem' }}>Thanks — this genuinely helps. Good luck in the exam.</p>
         ) : (
@@ -448,6 +456,8 @@ function PyqGuides({ user }) {
         {sortGuides(GUIDES.filter(g => g.pool === 'A'), user).map((g, i) => <GuideCard g={g} i={i} user={user} key={g.code} />)}
       </div>
 
+      <SectionFeedback user={user} />
+
       <div className="sec-title">Pool B</div>
       <div className="grid">
         {sortGuides(GUIDES.filter(g => g.pool === 'B'), user).map((g, i) => <GuideCard g={g} i={i} user={user} key={g.code} />)}
@@ -457,8 +467,6 @@ function PyqGuides({ user }) {
         Each guide says which papers it was built from. Syllabus changes every now and then, so
         cross-check the topic list against your own MST syllabus before planning.
       </p>
-
-      <SectionFeedback user={user} />
     </div>
   );
 }
