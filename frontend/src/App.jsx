@@ -81,6 +81,89 @@ function trackGuideOpen(code, user) {
   }).catch(() => {});
 }
 
+/* feedback on the PYQ section as a whole — separate from the per-guide boxes */
+function SectionFeedback({ user }) {
+  const [choice, setChoice] = useState(null);
+  const [text, setText] = useState('');
+  const [sent, setSent] = useState(false);
+  const [already, setAlready] = useState(false);
+
+  useEffect(() => {
+    try { if (localStorage.getItem('fs_section_fb')) setAlready(true); } catch (e) {}
+  }, []);
+
+  function post(helpful, comment) {
+    fetch(API + '/api/guide-feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        code: 'SECTION',
+        helpful,
+        comment: comment || '',
+        visitorId: getVisitorId(),
+        email: user ? user.email : undefined
+      })
+    }).catch(() => {});
+  }
+
+  function pick(val) {
+    setChoice(val);
+    post(val, '');
+  }
+
+  function send() {
+    if (choice === null) return;
+    post(choice, text);
+    try { localStorage.setItem('fs_section_fb', '1'); } catch (e) {}
+    setSent(true);
+  }
+
+  if (already) return null;
+
+  return (
+    <div className="highlight" style={{ marginTop: '2rem' }}>
+      <span>&#128172;</span>
+      <div style={{ width: '100%' }}>
+        <b>Did this section help you?</b>
+        {sent ? (
+          <p style={{ marginTop: '.5rem' }}>Thanks — this genuinely helps. Good luck in the exam.</p>
+        ) : (
+          <>
+            <p>
+              These guides are made by a student, for students — free, no ads, and built by reading
+              every past paper by hand. If they helped you, please vote and write a line about what
+              worked. And tell us which subject's guide you want next.
+            </p>
+            <div className="tags" style={{ marginTop: '.9rem' }}>
+              <button
+                className={'btn btn-sm' + (choice === true ? '' : ' btn-ghost')}
+                onClick={() => pick(true)}
+              >&#128077; Yes, it helped</button>
+              <button
+                className={'btn btn-sm' + (choice === false ? '' : ' btn-ghost')}
+                onClick={() => pick(false)}
+              >&#128078; Not really</button>
+            </div>
+            {choice !== null && (
+              <>
+                <label className="field" style={{ marginTop: '.9rem', display: 'block' }}>
+                  <textarea
+                    placeholder="What helped, and which subject's guide should come next?"
+                    value={text}
+                    onChange={e => setText(e.target.value)}
+                    style={{ minHeight: '80px' }}
+                  />
+                </label>
+                <button className="btn btn-sm" onClick={send}>Send</button>
+              </>
+            )}
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 const Spinner = () => <div className="spinner" />;
 
 /* ---------------- pages ---------------- */
@@ -106,7 +189,7 @@ function Home({ go }) {
           <div className="senior-cta-in">
             <span className="live">new</span>
             <h3>PYQ analysis guides for 9 subjects</h3>
-            <p>We read every past MST paper of each subject and counted the marks. See which topics repeat, the questions asked each year, a verified formula sheet, the mistakes that cost marks, and the full papers to practise on.</p>
+            <p>We read every past MST paper of each subject and counted the marks. See which topics repeat, the questions asked each year, a formula sheet, the mistakes that cost marks, and the full papers to practise on.</p>
             <span className="senior-cta-go">Open the guides &rarr;</span>
           </div>
         </div>
@@ -354,7 +437,7 @@ function PyqGuides({ user }) {
           <b>What's inside every guide</b>
           <p>
             Must-do topics ranked by how often they came up · a repeated-topics heatmap · every past
-            question sorted by topic and year · a verified formula sheet · common mistakes · a
+            question sorted by topic and year · a formula sheet · common mistakes · a
             one-evening plan · and the full past papers.
           </p>
         </div>
@@ -374,6 +457,8 @@ function PyqGuides({ user }) {
         Each guide says which papers it was built from. Syllabus changes every now and then, so
         cross-check the topic list against your own MST syllabus before planning.
       </p>
+
+      <SectionFeedback user={user} />
     </div>
   );
 }
@@ -698,7 +783,7 @@ function Admin({ user }) {
           <div className="list">
             {feedback.summary.map(f => (
               <div className="card" key={f.code}>
-                <h4>{f.code}</h4>
+                <h4>{f.code === 'SECTION' ? 'PYQ section (overall)' : f.code}</h4>
                 <div className="tags" style={{ marginTop: '.5rem' }}>
                   <span className="tag ok">&#128077; {f.up}</span>
                   <span className={'tag' + (f.down ? ' warn' : '')}>&#128078; {f.down}</span>
@@ -714,7 +799,7 @@ function Admin({ user }) {
               <div className="list">
                 {feedback.comments.map((c, i) => (
                   <div className="card" key={i}>
-                    <h4>{c.code} · {c.helpful ? '👍' : '👎'}</h4>
+                    <h4>{c.code === 'SECTION' ? 'PYQ section' : c.code} · {c.helpful ? '👍' : '👎'}</h4>
                     <p style={{ marginTop: '.5rem' }}>{c.comment}</p>
                     <p className="note">{c.email || 'not signed in'} · {new Date(c.createdAt).toLocaleString()}</p>
                   </div>
