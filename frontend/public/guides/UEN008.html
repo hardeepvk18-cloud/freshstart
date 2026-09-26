@@ -300,6 +300,22 @@
   .scan { margin-top: 1.4rem; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
   .scan img { display: block; width: 100%; height: auto; border-top: 1px solid var(--line); }
   .num-grid { display:grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin-top: 1rem; }
+
+.share{border:1px solid var(--line);border-radius:14px;padding:17px 20px;margin:20px 0 0;
+  background:var(--paper)}
+.share h3{margin:0 0 5px;font-family:'Source Serif 4',Georgia,serif;font-size:18px;font-weight:700}
+.share p{margin:0 0 13px;font-size:14.2px;color:var(--ink-soft,#4A5866)}
+.share-row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.share-wa{display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+  font-family:inherit;font-size:14.5px;font-weight:600;padding:10px 18px;border-radius:30px;
+  background:#25D366;color:#fff;border:none;cursor:pointer}
+.share-wa:hover{background:#1FB855}
+.share-copy{font-family:inherit;font-size:14.5px;font-weight:600;cursor:pointer;
+  padding:10px 18px;border-radius:30px;border:1px solid var(--line);background:#fff;color:var(--ink,#16202C)}
+.share-copy:hover{border-color:#25D366}
+.share-done{font-size:13.8px;color:#1F7A4D;font-weight:600;margin:9px 0 0}
+
+.paper-table{display:block;overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}
 </style>
 </head>
 <body>
@@ -438,6 +454,16 @@
     <p class="fb-done" id="fb-done" style="display:none">Thanks — this genuinely helps. Good luck in the exam.</p>
   </div>
 
+<div class="share" id="share">
+  <h3>Send this to a friend</h3>
+  <p>Someone in your batch is looking for exactly this right now. It takes one tap.</p>
+  <div class="share-row">
+    <a class="share-wa" id="share-wa" href="#" target="_blank" rel="noopener noreferrer">&#128172; Share on WhatsApp</a>
+    <button class="share-copy" id="share-copy" type="button">Copy link</button>
+  </div>
+  <p class="share-done" id="share-done" style="display:none">Link copied.</p>
+</div>
+
   <div class="section-block" id="s8">
     <div class="section-head"><div class="section-num">8</div><h2>Full question papers</h2></div>
     <p class="section-note">All five papers as original scans, including every data table. Newest first. Try one as a timed 2-hour mock before looking at the analysis.</p>
@@ -484,6 +510,30 @@
     post(text.value);
     more.style.display = 'none';
     done.style.display = 'block';
+  });
+})();
+</script>
+
+<script>
+(function () {
+  var url = window.location.href.split('#')[0].split('?')[0];
+  var msg = "Energy & Environment (UEN008) — MST question paper analysis: which topics repeat, every past question by year, formula sheet and the full papers. Free on FreshStart.\n\n" + url;
+  var wa = document.getElementById('share-wa');
+  if (wa) wa.href = 'https://wa.me/?text=' + encodeURIComponent(msg);
+
+  var cp = document.getElementById('share-copy'), done = document.getElementById('share-done');
+  if (cp) cp.addEventListener('click', function () {
+    function ok() { done.style.display = 'block'; setTimeout(function(){ done.style.display='none'; }, 2500); }
+    try {
+      navigator.clipboard.writeText(url).then(ok, fallback);
+    } catch (e) { fallback(); }
+    function fallback() {
+      var t = document.createElement('textarea');
+      t.value = url; t.style.position = 'fixed'; t.style.opacity = '0';
+      document.body.appendChild(t); t.select();
+      try { document.execCommand('copy'); ok(); } catch (e) {}
+      document.body.removeChild(t);
+    }
   });
 })();
 </script>
