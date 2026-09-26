@@ -121,10 +121,18 @@ function SectionFeedback({ user }) {
   if (already) return null;
 
   return (
-    <div className="highlight" style={{ marginTop: '2rem' }}>
+    <div
+      className="highlight"
+      style={{
+        margin: '2rem 0',
+        border: '2px solid #6c63ff',
+        background: 'rgba(108, 99, 255, .1)',
+        boxShadow: '0 10px 30px rgba(108, 99, 255, .18)'
+      }}
+    >
       <span>&#128172;</span>
       <div style={{ width: '100%' }}>
-        <b>Did this section help you?</b>
+        <b style={{ fontSize: '1.05rem' }}>Did these guides help you?</b>
         {sent ? (
           <p style={{ marginTop: '.5rem' }}>Thanks — this genuinely helps. Good luck in the exam.</p>
         ) : (
@@ -183,6 +191,7 @@ function Home({ go }) {
           <div className="mini" onClick={() => go('faqs')}><i>❓</i><h4>FAQs</h4><p>Real answers</p></div>
           <div className="mini" onClick={() => go('doubts')}><i>💬</i><h4>Doubts</h4><p>Ask anonymously</p></div>
           <div className="mini" onClick={() => go('pyq')}><i>📊</i><h4>PYQ Guides</h4><p>What repeats in MSTs</p></div>
+          <div className="mini" onClick={() => go('solutions')}><i>✎</i><h4>Solved PYQs</h4><p>Past papers worked out</p></div>
         </div>
 
         <div className="senior-cta" onClick={() => go('pyq')} style={{ marginBottom: '1.2rem' }}>
@@ -351,6 +360,29 @@ const GUIDES = [
 ];
 const GUIDE_CODES = GUIDES.map(g => g.code);
 
+// fully worked solutions to the past papers — a separate thing from the analysis guides
+const SOLUTIONS = [
+  {
+    code: 'UMA004',
+    file: 'UMA004-solutions.html',
+    name: 'Mathematics II',
+    pool: 'B',
+    papers: 3,
+    parts: 26,
+    note: 'Every part of the Mar 2024, Mar 2025 and Mar 2026 papers, solved step by step'
+  },
+  {
+    code: 'UES103',
+    file: 'UES103-solutions.html',
+    name: 'C Programming',
+    pool: 'A',
+    papers: 5,
+    parts: 30,
+    note: 'Five papers solved — every program compiled and run to check its output'
+  }
+];
+const SOLVED_CODES = SOLUTIONS.map(s => s.code);
+
 // one free sample subject per pool — everything else needs a Thapar sign-in
 const OPEN_CODES = ['UEN008', 'UES102'];
 
@@ -414,7 +446,103 @@ function GuideCard({ g, i, user }) {
   );
 }
 
-function PyqGuides({ user }) {
+function SolutionCard({ s, i, user }) {
+  const inner = (
+    <>
+      <h3>{s.name}{user ? '' : ' 🔒'}</h3>
+      <p>{s.code} · Pool {s.pool} · {s.papers} papers · {s.parts} questions solved</p>
+      <p style={{ marginTop: '.6rem', color: '#5b54d6', fontSize: '.9rem' }}>{s.note}</p>
+      <div className="tags" style={{ marginTop: '.9rem' }}>
+        <span className="tag">Step-by-step</span>
+        <span className="tag">Method named</span>
+        <span className="tag">Common slips</span>
+        <span className="tag">Year-wise</span>
+      </div>
+    </>
+  );
+
+  if (!user) {
+    return (
+      <div className="card clickable" onClick={startLogin} role="button"
+        style={{ animationDelay: i * 0.06 + 's', opacity: .85 }}>
+        {inner}
+        <p style={{
+          marginTop: '.9rem', padding: '.55rem .8rem', borderRadius: '10px',
+          background: 'rgba(108, 99, 255, .12)', border: '1px solid rgba(108, 99, 255, .35)',
+          color: '#4f48c4', fontSize: '.85rem', fontWeight: 600
+        }}>
+          🔒 Tap to sign in with your Thapar email and open these solutions
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <a className="card clickable" href={'/guides/' + s.file} target="_blank" rel="noopener noreferrer"
+      onClick={() => trackGuideOpen(s.code + '-SOL', user)}
+      style={{ animationDelay: i * 0.06 + 's', textDecoration: 'none', display: 'block' }}>
+      {inner}
+    </a>
+  );
+}
+
+function PyqSolutions({ user, go }) {
+  return (
+    <div className="wrap">
+      <h2>Past PYQ solutions</h2>
+      <p className="sub">
+        The analysis guides tell you which questions come. These go one step further — every question
+        from the past papers worked out fully, the way you would write it in the answer sheet, with the
+        method named at each step.
+      </p>
+
+      <div className="highlight" style={{ marginTop: '1.4rem' }}>
+        <span>&#9998;</span>
+        <div>
+          <b>What's inside</b>
+          <p>
+            Each paper, year by year · every part solved step by step · the method named (reduction of
+            order, operator method, convolution, and so on) · the final answer set apart · and a note
+            wherever students commonly lose marks.
+          </p>
+        </div>
+      </div>
+
+      <div className="grid" style={{ marginTop: '1.4rem' }}>
+        {SOLUTIONS.map((s, i) => <SolutionCard s={s} i={i} user={user} key={s.code} />)}
+      </div>
+
+      <div className="sec-title" style={{ marginTop: '2.2rem' }}>Coming soon</div>
+      <div className="grid">
+        {GUIDES.filter(g => !SOLVED_CODES.includes(g.code)).map((g, i) => (
+          <div className="card" key={g.code}
+            style={{ animationDelay: i * 0.05 + 's', opacity: .62, cursor: 'default' }}>
+            <h3 style={{ fontSize: '1.05rem' }}>{g.name}</h3>
+            <p>{g.code} · Pool {g.pool} · {g.papers} papers</p>
+            <div className="tags" style={{ marginTop: '.7rem' }}>
+              <span className="tag">Solutions coming soon</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p className="note" style={{ marginTop: '1.6rem' }}>
+        Subjects are added one at a time, in the order exams come up. Every answer is checked before it
+        goes up, but if a step looks wrong, use the feedback box inside the page — it gets fixed for everyone.
+      </p>
+
+      <div className="senior-cta" onClick={() => go('pyq')} style={{ marginTop: '1.6rem' }}>
+        <div className="senior-cta-in">
+          <h3>Haven't seen the analysis guides yet?</h3>
+          <p>They show which topics repeat, how often, and what to prepare first — read that before working through the solutions.</p>
+          <span className="senior-cta-go">Open the PYQ guides &rarr;</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PyqGuides({ user, go }) {
   return (
     <div className="wrap">
       <h2>PYQ analysis guides</h2>
@@ -448,6 +576,8 @@ function PyqGuides({ user }) {
         {sortGuides(GUIDES.filter(g => g.pool === 'A'), user).map((g, i) => <GuideCard g={g} i={i} user={user} key={g.code} />)}
       </div>
 
+      <SectionFeedback user={user} />
+
       <div className="sec-title">Pool B</div>
       <div className="grid">
         {sortGuides(GUIDES.filter(g => g.pool === 'B'), user).map((g, i) => <GuideCard g={g} i={i} user={user} key={g.code} />)}
@@ -458,7 +588,14 @@ function PyqGuides({ user }) {
         cross-check the topic list against your own MST syllabus before planning.
       </p>
 
-      <SectionFeedback user={user} />
+      <div className="senior-cta" onClick={() => go('solutions')} style={{ marginTop: '1.6rem' }}>
+        <div className="senior-cta-in">
+          <span className="live">new</span>
+          <h3>Past papers, fully solved</h3>
+          <p>Every question from the past papers worked out step by step, with the method named. Mathematics II is up now, more subjects coming.</p>
+          <span className="senior-cta-go">Open the solutions &rarr;</span>
+        </div>
+      </div>
     </div>
   );
 }
@@ -1396,7 +1533,7 @@ export default function App() {
   // open a section straight from a shared link, e.g. /#pyq or /#doubts
   useEffect(() => {
     const target = (window.location.hash || '').replace('#', '');
-    if (['pyq', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target)) {
+    if (['pyq', 'solutions', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target)) {
       setPage(target);
     }
   }, []);
@@ -1444,7 +1581,7 @@ export default function App() {
 
   const go = (target, code) => {
     try {
-      const hash = ['pyq', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target) ? '#' + target : '';
+      const hash = ['pyq', 'solutions', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target) ? '#' + target : '';
       window.history.replaceState({}, '', window.location.pathname + hash);
     } catch (e) {}
     setHistory(h => (target === page && (code || null) === subjectCode) ? h : [...h, { page, subjectCode }]);
@@ -1502,6 +1639,7 @@ export default function App() {
 
         <div className="nav-links">
           <button className={'nav-link' + (page === 'pyq' ? ' on' : '')} onClick={() => go('pyq')}>PYQ Guides</button>
+          <button className={'nav-link' + (page === 'solutions' ? ' on' : '')} onClick={() => go('solutions')}>Solved PYQs</button>
           <button className={'nav-link' + (page === 'faqs' ? ' on' : '')} onClick={() => go('faqs')}>FAQs</button>
           <button className={'nav-link' + (page.startsWith('subject') ? ' on' : '')} onClick={() => go('subjects')}>Subjects</button>
           <button className={'nav-link' + (page === 'doubts' ? ' on' : '')} onClick={() => go('doubts')}>Doubts</button>
@@ -1528,7 +1666,8 @@ export default function App() {
         </div>
       )}
 
-      {page === 'pyq' && <PyqGuides user={user} />}
+      {page === 'pyq' && <PyqGuides user={user} go={go} />}
+      {page === 'solutions' && <PyqSolutions user={user} go={go} />}
       {page === 'faqs' && <FAQs user={user} />}
       {page === 'subjects' && <Subjects user={user} go={go} />}
       {page === 'subject' && <SubjectDetail code={subjectCode} user={user} go={go} />}
