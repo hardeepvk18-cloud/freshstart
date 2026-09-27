@@ -109,7 +109,12 @@ const PaymentClaim = mongoose.models.PaymentClaim || mongoose.model('PaymentClai
 }));
 
 // each subject is unlocked on its own
+/* Set to true to put the solved papers back behind the paywall.
+   Everything else (claims, admin panel, unlock page) stays wired up. */
+const PAID_MODE = false;
+
 async function hasPaidAccess(email, code) {
+  if (!PAID_MODE) return !!String(email || '').trim();
   const e = String(email || '').toLowerCase();
   const c = String(code || '').toUpperCase();
   if (!e || !c) return false;
@@ -798,9 +803,17 @@ app.post('/api/payment-claim', async (req, res) => {
   }
 });
 
+const SOLUTIONS_DIR = path.join(__dirname, 'solutions');
+
 // the frontend asks this on load to decide what the solution cards look like
 app.get('/api/access', async (req, res) => {
   try {
+    if (!PAID_MODE) {
+      const dir = fs.existsSync(SOLUTIONS_DIR) ? fs.readdirSync(SOLUTIONS_DIR) : [];
+      return res.json({
+        codes: dir.filter(f => /-solutions\.html$/.test(f)).map(f => f.split('-')[0].toUpperCase())
+      });
+    }
     res.json({ codes: await paidCodes(req.query.email) });
   } catch (err) {
     res.json({ codes: [] });
@@ -809,7 +822,6 @@ app.get('/api/access', async (req, res) => {
 
 /* The solved papers live outside the public folder, so the only way to read
    them is through this route, which checks for a payment first.            */
-const SOLUTIONS_DIR = path.join(__dirname, 'solutions');
 
 app.get('/api/solutions/:code', async (req, res) => {
   try {
