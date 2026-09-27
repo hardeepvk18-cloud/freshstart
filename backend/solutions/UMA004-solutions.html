@@ -147,10 +147,6 @@ footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);
   <b style="color:#3D4C72">Note:</b> these solutions were made using <b>Claude Opus 5 (Anthropic's AI)</b> and then checked in a computer algebra system. Errors are still possible — if a step looks wrong, go with your professor, and report it in the feedback box at the bottom so it gets fixed. FreshStart is run by one Thapar student and is not an official TIET page — it has no connection with the institute.
 </div>
 
-<div class="share-top">
-  <span>Know someone who needs this? Send it over.</span>
-  <a id="share-wa-top" href="#" target="_blank" rel="noopener noreferrer">&#128172; Share on WhatsApp</a>
-</div>
 
 <nav class="toc">
   <h2>What keeps coming back</h2>
@@ -1217,15 +1213,6 @@ At s = 3 :
   <p class="fb-done" id="fb-done" style="display:none">Thanks — this genuinely helps. Good luck in the exam.</p>
 </div>
 
-<div class="share" id="share">
-  <h3>Send this to a friend</h3>
-  <p>Someone in your batch is looking for exactly this right now. It takes one tap.</p>
-  <div class="share-row">
-    <a class="share-wa" id="share-wa" href="#" target="_blank" rel="noopener noreferrer">&#128172; Share on WhatsApp</a>
-    <button class="share-copy" id="share-copy" type="button">Copy link</button>
-  </div>
-  <p class="share-done" id="share-done" style="display:none">Link copied.</p>
-</div>
 
 <footer>
   <p>Solutions worked out from the March 2024, March 2025 and March 2026 UMA004 MST papers. Every final answer and the key intermediate steps were checked independently in a computer algebra system — solutions substituted back into their differential equations, transforms confirmed both symbolically and numerically, and initial conditions verified.</p>
@@ -1275,31 +1262,5 @@ At s = 3 :
 })();
 </script>
 
-<script>
-(function () {
-  var url = window.location.href.split('#')[0].split('?')[0];
-  var msg = "Mathematics II (UMA004) — every question from the past MST papers, solved step by step. Free on FreshStart.\n\n" + url;
-  var link = 'https://wa.me/?text=' + encodeURIComponent(msg);
-  ['share-wa', 'share-wa-top'].forEach(function (id) {
-    var el = document.getElementById(id);
-    if (el) el.href = link;
-  });
-
-  var cp = document.getElementById('share-copy'), done = document.getElementById('share-done');
-  if (cp) cp.addEventListener('click', function () {
-    function ok() { done.style.display = 'block'; setTimeout(function(){ done.style.display='none'; }, 2500); }
-    try {
-      navigator.clipboard.writeText(url).then(ok, fallback);
-    } catch (e) { fallback(); }
-    function fallback() {
-      var t = document.createElement('textarea');
-      t.value = url; t.style.position = 'fixed'; t.style.opacity = '0';
-      document.body.appendChild(t); t.select();
-      try { document.execCommand('copy'); ok(); } catch (e) {}
-      document.body.removeChild(t);
-    }
-  });
-})();
-</script>
 </body>
 </html>
