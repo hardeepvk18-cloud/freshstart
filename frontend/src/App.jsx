@@ -1049,18 +1049,29 @@ function Admin({ user }) {
         <div className="empty">No payments yet.</div>
       ) : (
         <>
-          <div className="tags" style={{ marginBottom: '1rem' }}>
-            <span className="tag ok">{payments.activeCount} unlocked</span>
-            <span className="tag">&#8377;{payments.total} collected</span>
+          <div className="tags" style={{ marginBottom: '.6rem' }}>
+            <span className="tag ok">&#8377;{payments.total} collected</span>
+            <span className="tag">{payments.activeCount} active unlocks</span>
             <span className="tag">{payments.claims.length} total claims</span>
+            <span className="tag">
+              {new Set(payments.claims.filter(c => !c.revoked).map(c => c.email)).size} students
+            </span>
+          </div>
+          <div className="tags" style={{ marginBottom: '1rem' }}>
+            {SOLUTIONS.map(s => {
+              const n = payments.claims.filter(c => !c.revoked && c.code === s.code).length;
+              return <span className="tag" key={s.code}>{s.code} · {n} sold</span>;
+            })}
           </div>
           <div className="list">
             {payments.claims.map(c => (
               <div className="card" key={c._id} style={c.revoked ? { opacity: .55 } : null}>
                 <h4>{c.email}{c.revoked ? ' · revoked' : ''}</h4>
-                <p style={{ marginTop: '.4rem' }}>
-                  UTR <b>{c.utr}</b> · &#8377;{c.amount}
-                </p>
+                <div className="tags" style={{ marginTop: '.4rem' }}>
+                  <span className="tag">{c.code}</span>
+                  <span className="tag ok">&#8377;{c.amount}</span>
+                </div>
+                <p style={{ marginTop: '.5rem' }}>UTR <b>{c.utr}</b></p>
                 <p className="note">{c.name || 'no name'} · {new Date(c.createdAt).toLocaleString()}</p>
                 <div className="tags" style={{ marginTop: '.6rem' }}>
                   <button className="btn btn-sm btn-ghost"
