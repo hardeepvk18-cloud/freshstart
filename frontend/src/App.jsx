@@ -385,8 +385,9 @@ const SOLVED_CODES = SOLUTIONS.map(s => s.code);
 
 /* ---- change these two and nothing else to alter the price or the UPI id ---- */
 const PRICE = 19;
-const UPI_QR = "data:image/png;base64,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";
+const UPI_QR = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXIAAAFyAQAAAADAX2ykAAAC8UlEQVR4nO2cQW7jMAxFH0cCspSBHiBHsW/WM80N7KP0AAWsZQAZnAUlJ+2gTYtJPTZALYzYeYsPMJT5STuifGdNv76Fg/POO/+jfJa6BoBJIpAjTN0iIhJp38dt9Dj/QB7VOaiqqtJrwT6OqUBv1+rBuHFv+p3/Cl+TM0dkAGQgKGSRSuWW3TvV7/yX+UkiOr45/a96nP8nPr47V1gEiAUIZXM9zv8Er6oFIChTB/RagHQRq7RIqjWn96nf+c/4xcpjAOT55aQ1qvmkMgBMIiLSbaXH+cfxtWC2NYOOaa2VAUvd6/L6+Xh8bg53SAXq/XcRGahBvnHHe9Tv/GfLsra63tX6zjWTgVBNsN2E96bf+TvLWhuARRVSsYOqtoNF2uN7TD5Xw3uTuvoSb3oe1D17Iz3OP5A3/ysQipBm25Dl1vqGAvnUxkx70+/8nVWt71o1W+lsmRz0+i3g/edD8jlakSVyLoh0i7SEXQRaEW0x36N+5+/wwdoYOrKI6hy0OqVUaEOGxf3RMfm6P/dzqDtw3Z9VdVxTV+fg9fMx+ep/R5pTuk59V6dU57/evzog36I6X6/UXLWctiJrBs/fQ/J18+1bG6O1O95szRZpz98D8rcRtKiuQbadupkkfz7nkDw3BdU6BLbSqjamSxsHu/89LC9DFpEhR4ulPGtBBiNqYtdya5/6nf9otedz0mvU6VyiTt2Mkp+sPylgz+w0bm/6nf98Wdx0GiLSv9hAoUC6iE5dKJA7pPakt9Dj/GP52BwuQA5FYBEld0B6Fep84QndRo/zj+Wp5ha4KZjHtBbMhPWa+6Pj8ZF1Fih217XR0YL048U2ZSWDkLbQ4/xj+dZctjQFS9i1E90aW80zef4emg82FdQxXUTkfBGms6qOPj86Kv/+/QXp5w6Bk0r/+6Ri1ii9RvpxCz3OP5av/shO0kWYziVCmlHyOunP689gb/qdv8+v7y/kk+r496MbXF9c2aV+5z9e4v/P4Lzzh+X/AHmaKUEH5q9tAAAAAElFTkSuQmCC";
 const UPI_ID = '9817176418@ybl';
+const UPI_NAME = 'HARDEEP SINGH';   // must match the name on the UPI account, or banks flag the payment
 
 // one free sample subject per pool — everything else needs a Thapar sign-in
 const OPEN_CODES = ['UEN008', 'UES102'];
@@ -602,27 +603,29 @@ function Unlock({ user, go, onPaid, code }) {
         </p>
       </div>
 
-      <p className="note" style={{ marginTop: '1.1rem' }}>Faster, if it works on your phone:</p>
+      <p className="note" style={{ marginTop: '1.1rem' }}>Or scan this:</p>
       <div className="card" style={{ textAlign: 'center', padding: '1.1rem 1rem', marginTop: '.4rem' }}>
-        <img src={UPI_QR} alt={'UPI QR for ₹' + PRICE}
+        <img src={UPI_QR} alt="UPI QR"
           style={{ width: '180px', maxWidth: '62%', borderRadius: '12px' }} />
-        <p className="note" style={{ marginTop: '.7rem' }}>Scan, or tap an app below</p>
-        <div className="tags" style={{ marginTop: '.5rem', justifyContent: 'center' }}>
+        <p className="note" style={{ marginTop: '.7rem' }}>
+          Scan, then type <b>₹{PRICE}</b> yourself — the amount is not filled in.
+        </p>
+        <div className="tags" style={{ marginTop: '.6rem', justifyContent: 'center' }}>
           {[
             ['Google Pay', 'tez://upi/pay'],
             ['PhonePe', 'phonepe://pay'],
             ['Paytm', 'paytmmp://pay']
           ].map(([label, scheme]) => (
             <a className="btn btn-sm btn-ghost" key={label}
-              href={scheme + '?pa=' + encodeURIComponent(UPI_ID) + '&pn=FreshStart&am=' + PRICE + '&cu=INR'}>
+              href={scheme + '?pa=' + encodeURIComponent(UPI_ID) + '&pn=' + encodeURIComponent(UPI_NAME) + '&cu=INR'}>
               {label}
             </a>
           ))}
         </div>
       </div>
       <p className="note">
-        If a link says the payment was declined, that is your bank blocking the shortcut, not a problem
-        with your account — just send ₹{PRICE} to the id above from your UPI app instead.
+        Payment declined ho raha ho toh UPI app khud kholo, upar wali id paste karo aur ₹{PRICE} bhejo —
+        wo hamesha chalta hai.
       </p>
 
       <div className="sec-title" style={{ marginTop: "1.8rem" }}>Step 2 — enter your transaction id</div>
