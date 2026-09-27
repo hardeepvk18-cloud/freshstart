@@ -520,13 +520,13 @@ function Unlock({ user, go, onPaid, code }) {
     reader.onload = () => {
       const img = new Image();
       img.onload = () => {
-        const max = 700;
+        const max = 520;
         const scale = Math.min(1, max / Math.max(img.width, img.height));
         const c = document.createElement('canvas');
         c.width = Math.round(img.width * scale);
         c.height = Math.round(img.height * scale);
         c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
-        setShot(c.toDataURL('image/jpeg', 0.6));
+        setShot(c.toDataURL('image/jpeg', 0.45));
       };
       img.src = reader.result;
     };
@@ -536,23 +536,40 @@ function Unlock({ user, go, onPaid, code }) {
   async function submit() {
     if (utr.trim().length < 6) { setMsg('Enter the full UPI transaction id (UTR).'); return; }
     setBusy(true); setMsg('');
-    try {
+
+    // one attempt; withShot=false drops the screenshot, which is what usually
+    // makes the request too big for the network in the middle
+    async function attempt(withShot) {
       const r = await fetch(API + '/api/payment-claim', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email: user.email, name: user.name || '', code,
-          utr: utr.trim(), amount: PRICE, screenshot: shot
+          utr: utr.trim(), amount: PRICE, screenshot: withShot ? shot : ''
         })
       });
-      const d = await r.json();
-      if (!r.ok) { setMsg(d.message || 'Could not submit. Try again.'); setBusy(false); return; }
-      onPaid(code);
-      go('solutions');
-    } catch (e) {
-      setMsg('Could not reach the server. Check your connection and try again.');
-      setBusy(false);
+      let d = {};
+      try { d = await r.json(); } catch (e) {}
+      return { ok: r.ok, d };
     }
+
+    let res = null;
+    try {
+      res = await attempt(true);
+    } catch (e) { res = null; }
+
+    // the screenshot is the only heavy part — retry without it before giving up
+    if ((!res || !res.ok) && shot) {
+      setMsg('Screenshot bada tha — UTR se try kar raha hoon…');
+      try { res = await attempt(false); } catch (e) { res = null; }
+    }
+
+    if (res && res.ok) { onPaid(code); go('solutions'); return; }
+
+    setMsg(res && res.d && res.d.message
+      ? res.d.message
+      : 'Server tak request nahi pahunchi. Thodi der baad dobara try karo — paisa kata hai toh access pakka milega.');
+    setBusy(false);
   }
 
   return (
