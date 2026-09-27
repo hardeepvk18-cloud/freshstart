@@ -383,6 +383,10 @@ const SOLUTIONS = [
 ];
 const SOLVED_CODES = SOLUTIONS.map(s => s.code);
 
+/* ---- change these two and nothing else to alter the price or the UPI id ---- */
+const PRICE = 19;
+const UPI_ID = '9817176418@ybl';
+
 // one free sample subject per pool — everything else needs a Thapar sign-in
 const OPEN_CODES = ['UEN008', 'UES102'];
 
@@ -446,10 +450,17 @@ function GuideCard({ g, i, user }) {
   );
 }
 
-function SolutionCard({ s, i, user }) {
+const noteStyle = {
+  marginTop: '.9rem', padding: '.55rem .8rem', borderRadius: '10px',
+  background: 'rgba(108, 99, 255, .12)', border: '1px solid rgba(108, 99, 255, .35)',
+  color: '#4f48c4', fontSize: '.85rem', fontWeight: 600
+};
+
+function SolutionCard({ s, i, user, paid, go }) {
+  const locked = !user || !paid;
   const inner = (
     <>
-      <h3>{s.name}{user ? '' : ' 🔒'}</h3>
+      <h3>{s.name}{locked ? ' 🔒' : ''}</h3>
       <p>{s.code} · Pool {s.pool} · {s.papers} papers · {s.parts} questions solved</p>
       <p style={{ marginTop: '.6rem', color: '#5b54d6', fontSize: '.9rem' }}>{s.note}</p>
       <div className="tags" style={{ marginTop: '.9rem' }}>
@@ -466,19 +477,25 @@ function SolutionCard({ s, i, user }) {
       <div className="card clickable" onClick={startLogin} role="button"
         style={{ animationDelay: i * 0.06 + 's', opacity: .85 }}>
         {inner}
-        <p style={{
-          marginTop: '.9rem', padding: '.55rem .8rem', borderRadius: '10px',
-          background: 'rgba(108, 99, 255, .12)', border: '1px solid rgba(108, 99, 255, .35)',
-          color: '#4f48c4', fontSize: '.85rem', fontWeight: 600
-        }}>
-          🔒 Tap to sign in with your Thapar email and open these solutions
-        </p>
+        <p style={noteStyle}>🔒 Tap to sign in with your Thapar email</p>
+      </div>
+    );
+  }
+
+  if (!paid) {
+    return (
+      <div className="card clickable" onClick={() => go('unlock', s.code)} role="button"
+        style={{ animationDelay: i * 0.06 + 's', opacity: .9 }}>
+        {inner}
+        <p style={noteStyle}>🔓 Tap to unlock — ₹{PRICE} for this paper</p>
       </div>
     );
   }
 
   return (
-    <a className="card clickable" href={'/guides/' + s.file} target="_blank" rel="noopener noreferrer"
+    <a className="card clickable"
+      href={API + '/api/solutions/' + s.code + '?email=' + encodeURIComponent(user.email)}
+      target="_blank" rel="noopener noreferrer"
       onClick={() => trackGuideOpen(s.code + '-SOL', user)}
       style={{ animationDelay: i * 0.06 + 's', textDecoration: 'none', display: 'block' }}>
       {inner}
@@ -486,7 +503,115 @@ function SolutionCard({ s, i, user }) {
   );
 }
 
-function PyqSolutions({ user, go }) {
+/* ---- unlock page: pay by UPI, then enter the transaction id ---- */
+function Unlock({ user, go, onPaid, code }) {
+  const subject = SOLUTIONS.find(s => s.code === code);
+  const [utr, setUtr] = useState('');
+  const [shot, setShot] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [msg, setMsg] = useState('');
+
+  // shrink the screenshot in the browser so a 3 MB photo does not get uploaded
+  function pickFile(e) {
+    const f = e.target.files && e.target.files[0];
+    if (!f) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        const max = 700;
+        const scale = Math.min(1, max / Math.max(img.width, img.height));
+        const c = document.createElement('canvas');
+        c.width = Math.round(img.width * scale);
+        c.height = Math.round(img.height * scale);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        setShot(c.toDataURL('image/jpeg', 0.6));
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(f);
+  }
+
+  async function submit() {
+    if (utr.trim().length < 6) { setMsg('Enter the full UPI transaction id (UTR).'); return; }
+    setBusy(true); setMsg('');
+    try {
+      const r = await fetch(API + '/api/payment-claim', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: user.email, name: user.name || '', code,
+          utr: utr.trim(), amount: PRICE, screenshot: shot
+        })
+      });
+      const d = await r.json();
+      if (!r.ok) { setMsg(d.message || 'Could not submit. Try again.'); setBusy(false); return; }
+      onPaid(code);
+      go('solutions');
+    } catch (e) {
+      setMsg('Could not reach the server. Check your connection and try again.');
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="wrap">
+      <h2>Unlock {subject ? subject.name : 'these solutions'}</h2>
+      <p className="sub">
+        ₹{PRICE} opens the solved papers for {subject ? subject.name + ' (' + subject.code + ')' : 'this subject'} —
+        {subject ? ' all ' + subject.parts + ' questions from ' + subject.papers + ' past papers, ' : ' '}
+        worked out step by step. The analysis guides stay free for everyone.
+      </p>
+
+      <div className="highlight" style={{ marginTop: '1.4rem' }}>
+        <span>&#8377;</span>
+        <div>
+          <b>Step 1 — pay ₹{PRICE} by UPI</b>
+          <p style={{ marginTop: '.4rem' }}>
+            Send ₹{PRICE} to <b style={{ color: '#5b54d6' }}>{UPI_ID}</b> from any UPI app.
+          </p>
+        </div>
+      </div>
+
+      <a className="btn" style={{ marginTop: '1rem', display: 'inline-block' }}
+        href={'upi://pay?pa=' + encodeURIComponent(UPI_ID) + '&pn=FreshStart&am=' + PRICE + '&cu=INR'}>
+        Open UPI app &amp; pay ₹{PRICE}
+      </a>
+      <p className="note">On a laptop this button will not work — pay from your phone, or copy the UPI id above.</p>
+
+      <div className="sec-title" style={{ marginTop: '1.8rem' }}>Step 2 — enter your transaction id</div>
+      <p className="note" style={{ marginTop: 0 }}>
+        After paying, your UPI app shows a transaction id (UTR) — usually 12 digits. Enter it below and
+        the solutions open straight away.
+      </p>
+
+      <label className="field" style={{ display: 'block', marginTop: '.9rem' }}>
+        <input placeholder="UPI transaction id / UTR" value={utr}
+          onChange={e => setUtr(e.target.value)} />
+      </label>
+
+      <label className="field" style={{ display: 'block', marginTop: '.7rem' }}>
+        <span className="note" style={{ display: 'block', marginBottom: '.4rem' }}>
+          Payment screenshot (optional, but it helps if anything goes wrong)
+        </span>
+        <input type="file" accept="image/*" onChange={pickFile} />
+      </label>
+      {shot && <p className="note" style={{ color: '#0f766e' }}>Screenshot attached.</p>}
+
+      <button className="btn" style={{ marginTop: '1rem' }} onClick={submit} disabled={busy}>
+        {busy ? 'Opening…' : 'Unlock the solutions'}
+      </button>
+      {msg && <p className="note" style={{ color: '#b91c1c' }}>{msg}</p>}
+
+      <p className="note" style={{ marginTop: '1.6rem' }}>
+        Paying with a different account than the one you signed in with is fine — access is tied to
+        the Thapar email you are signed in as ({user.email}). Trouble? Ask in Doubts and it gets sorted.
+      </p>
+    </div>
+  );
+}
+
+function PyqSolutions({ user, go, paid }) {
   return (
     <div className="wrap">
       <h2>Past PYQ solutions</h2>
@@ -509,7 +634,7 @@ function PyqSolutions({ user, go }) {
       </div>
 
       <div className="grid" style={{ marginTop: '1.4rem' }}>
-        {SOLUTIONS.map((s, i) => <SolutionCard s={s} i={i} user={user} key={s.code} />)}
+        {SOLUTIONS.map((s, i) => <SolutionCard s={s} i={i} user={user} paid={paid.includes(s.code)} go={go} key={s.code} />)}
       </div>
 
       <div className="sec-title" style={{ marginTop: '2.2rem' }}>Coming soon</div>
@@ -784,6 +909,8 @@ function Admin({ user }) {
   const [logins, setLogins] = useState([]);
   const [feedback, setFeedback] = useState(null);
   const [answered, setAnswered] = useState([]);
+  const [payments, setPayments] = useState(null);
+  const [shots, setShots] = useState({});
 
   const load = useCallback(() => {
     if (!user) return;
@@ -815,6 +942,11 @@ function Admin({ user }) {
     fetch(API + '/api/admin/guide-feedback', { headers })
       .then(r => r.ok ? r.json() : null)
       .then(d => { if (d) setFeedback(d); })
+      .catch(() => {});
+
+    fetch(API + '/api/admin/payment-claims', { headers })
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d) setPayments(d); })
       .catch(() => {});
 
     fetch(API + '/api/admin/analytics', { headers })
@@ -909,6 +1041,57 @@ function Admin({ user }) {
               ))}
             </div>
           )}
+        </>
+      )}
+
+      <div className="sec-title">Payments</div>
+      {!payments || payments.claims.length === 0 ? (
+        <div className="empty">No payments yet.</div>
+      ) : (
+        <>
+          <div className="tags" style={{ marginBottom: '1rem' }}>
+            <span className="tag ok">{payments.activeCount} unlocked</span>
+            <span className="tag">&#8377;{payments.total} collected</span>
+            <span className="tag">{payments.claims.length} total claims</span>
+          </div>
+          <div className="list">
+            {payments.claims.map(c => (
+              <div className="card" key={c._id} style={c.revoked ? { opacity: .55 } : null}>
+                <h4>{c.email}{c.revoked ? ' · revoked' : ''}</h4>
+                <p style={{ marginTop: '.4rem' }}>
+                  UTR <b>{c.utr}</b> · &#8377;{c.amount}
+                </p>
+                <p className="note">{c.name || 'no name'} · {new Date(c.createdAt).toLocaleString()}</p>
+                <div className="tags" style={{ marginTop: '.6rem' }}>
+                  <button className="btn btn-sm btn-ghost"
+                    onClick={() => {
+                      if (shots[c._id]) { setShots({ ...shots, [c._id]: null }); return; }
+                      fetch(API + '/api/admin/payment-claims/' + c._id + '/screenshot', { headers: Auth.adminHeaders(user.email) })
+                        .then(r => r.ok ? r.json() : null)
+                        .then(d => setShots({ ...shots, [c._id]: (d && d.screenshot) || 'none' }))
+                        .catch(() => {});
+                    }}>
+                    {shots[c._id] ? 'Hide screenshot' : 'View screenshot'}
+                  </button>
+                  <button className={'btn btn-sm' + (c.revoked ? ' btn-ghost' : ' btn-red')}
+                    onClick={() => {
+                      fetch(API + '/api/admin/payment-claims/' + c._id + '/revoke', {
+                        method: 'POST',
+                        headers: { ...Auth.adminHeaders(user.email), 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ revoked: !c.revoked })
+                      }).then(() => load()).catch(() => {});
+                    }}>
+                    {c.revoked ? 'Restore access' : 'Revoke access'}
+                  </button>
+                </div>
+                {shots[c._id] && shots[c._id] !== 'none' && (
+                  <img src={shots[c._id]} alt="payment screenshot"
+                    style={{ marginTop: '.8rem', maxWidth: '100%', borderRadius: '10px' }} />
+                )}
+                {shots[c._id] === 'none' && <p className="note">No screenshot was attached.</p>}
+              </div>
+            ))}
+          </div>
         </>
       )}
 
@@ -1528,12 +1711,22 @@ export default function App() {
   const [user, setUser] = useState(Auth.get());
   const [isAdmin, setIsAdmin] = useState(false);
   const [loginError, setLoginError] = useState('');
+  const [paid, setPaid] = useState([]);   // subject codes this account has unlocked
   const [history, setHistory] = useState([]);
+
+  // has this account unlocked the solved papers?
+  useEffect(() => {
+    if (!user) { setPaid([]); return; }
+    fetch(API + '/api/access?email=' + encodeURIComponent(user.email))
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d) setPaid(d.codes || []); })
+      .catch(() => {});
+  }, [user]);
 
   // open a section straight from a shared link, e.g. /#pyq or /#doubts
   useEffect(() => {
     const target = (window.location.hash || '').replace('#', '');
-    if (['pyq', 'solutions', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target)) {
+    if (['pyq', 'solutions', 'unlock', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target)) {
       setPage(target);
     }
   }, []);
@@ -1581,7 +1774,7 @@ export default function App() {
 
   const go = (target, code) => {
     try {
-      const hash = ['pyq', 'solutions', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target) ? '#' + target : '';
+      const hash = ['pyq', 'solutions', 'unlock', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target) ? '#' + target : '';
       window.history.replaceState({}, '', window.location.pathname + hash);
     } catch (e) {}
     setHistory(h => (target === page && (code || null) === subjectCode) ? h : [...h, { page, subjectCode }]);
@@ -1667,7 +1860,8 @@ export default function App() {
       )}
 
       {page === 'pyq' && <PyqGuides user={user} go={go} />}
-      {page === 'solutions' && <PyqSolutions user={user} go={go} />}
+      {page === 'solutions' && <PyqSolutions user={user} go={go} paid={paid} />}
+      {page === 'unlock' && user && subjectCode && <Unlock user={user} go={go} code={subjectCode} onPaid={c => setPaid(p => [...p, c])} />}
       {page === 'faqs' && <FAQs user={user} />}
       {page === 'subjects' && <Subjects user={user} go={go} />}
       {page === 'subject' && <SubjectDetail code={subjectCode} user={user} go={go} />}

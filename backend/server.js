@@ -6,6 +6,8 @@ const session = require('express-session');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const crypto = require('crypto');
+const path = require('path');
+const fs = require('fs');
 const { User, FAQ, Subject, Doubt, Mentor, Thread, Visit, Presence } = require('./models');
 const { sendMail, sendMailMany } = require('./mailer');
 
@@ -17,7 +19,7 @@ const ADMINS = (process.env.ADMIN_EMAILS || '')
   .filter(Boolean);
 
 app.set('trust proxy', 1);
-app.use(express.json());
+app.use(express.json({ limit: '4mb' }));   // payment screenshots arrive as base64
 app.use(cors({ origin: FRONTEND, credentials: true }));
 app.use(session({
   secret: process.env.SESSION_SECRET || 'dev_secret',
@@ -90,6 +92,38 @@ const GuideFeedback = mongoose.models.GuideFeedback || mongoose.model('GuideFeed
   email: String,
   createdAt: { type: Date, default: Date.now }
 }));
+
+/* ---------------- paid access to the solved papers ----------------
+   A student pays by UPI, then submits the transaction id and a screenshot.
+   Access opens straight away — the screenshot is kept so a fake claim can be
+   spotted later and revoked from the admin panel.                          */
+const PaymentClaim = mongoose.models.PaymentClaim || mongoose.model('PaymentClaim', new mongoose.Schema({
+  email: { type: String, required: true, lowercase: true, index: true },
+  code: { type: String, required: true, uppercase: true },   // which subject was paid for
+  name: { type: String, default: '' },
+  utr: { type: String, required: true },
+  amount: { type: Number, default: 0 },
+  screenshot: { type: String, default: '' },      // base64 data URL, resized by the browser
+  revoked: { type: Boolean, default: false },
+  createdAt: { type: Date, default: Date.now }
+}));
+
+// each subject is unlocked on its own
+async function hasPaidAccess(email, code) {
+  const e = String(email || '').toLowerCase();
+  const c = String(code || '').toUpperCase();
+  if (!e || !c) return false;
+  if (isAdminEmail(e)) return true;
+  return !!(await PaymentClaim.findOne({ email: e, code: c, revoked: false }).select('_id').lean());
+}
+
+// every subject this account has unlocked
+async function paidCodes(email) {
+  const e = String(email || '').toLowerCase();
+  if (!e) return [];
+  const claims = await PaymentClaim.find({ email: e, revoked: false }).select('code').lean();
+  return [...new Set(claims.map(c => c.code))];
+}
 
 const requireAdmin = (req, res, next) => {
   const email = String(req.headers['x-user-email'] || '').toLowerCase();
@@ -728,6 +762,116 @@ app.get('/api/stats', requireAdmin, async (req, res) => {
       threadsOpen: await Thread.countDocuments({ status: 'open' }),
       threadsResolved: await Thread.countDocuments({ status: 'resolved' })
     });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+/* ---------------- payments ---------------- */
+
+// a student submits their UPI transaction id; access opens immediately
+app.post('/api/payment-claim', async (req, res) => {
+  try {
+    const email = String(req.body.email || '').toLowerCase();
+    const code = String(req.body.code || '').toUpperCase();
+    const utr = String(req.body.utr || '').trim();
+    if (!email) return res.status(400).json({ message: 'Please sign in first.' });
+    if (!/^[A-Z]{3}[0-9]{3}$/.test(code)) return res.status(400).json({ message: 'Unknown subject.' });
+    if (utr.length < 6) return res.status(400).json({ message: 'Enter the full UPI transaction id.' });
+
+    let shot = String(req.body.screenshot || '');
+    if (shot && !shot.startsWith('data:image/')) shot = '';     // ignore anything that is not an image
+    if (shot.length > 700000) shot = '';                        // keep the database small
+
+    await PaymentClaim.create({
+      email,
+      code,
+      name: String(req.body.name || '').slice(0, 80),
+      utr: utr.slice(0, 60),
+      amount: Number(req.body.amount) || 0,
+      screenshot: shot
+    });
+
+    res.json({ ok: true, code });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// the frontend asks this on load to decide what the solution cards look like
+app.get('/api/access', async (req, res) => {
+  try {
+    res.json({ codes: await paidCodes(req.query.email) });
+  } catch (err) {
+    res.json({ codes: [] });
+  }
+});
+
+/* The solved papers live outside the public folder, so the only way to read
+   them is through this route, which checks for a payment first.            */
+const SOLUTIONS_DIR = path.join(__dirname, 'solutions');
+
+app.get('/api/solutions/:code', async (req, res) => {
+  try {
+    const code = String(req.params.code || '').toUpperCase();
+    if (!/^[A-Z]{3}[0-9]{3}$/.test(code)) return res.status(400).send('Unknown subject.');
+
+    if (!(await hasPaidAccess(req.query.email, code))) {
+      return res.status(402).send(
+        '<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
+        '<div style="font-family:system-ui,sans-serif;max-width:520px;margin:18vh auto;padding:0 20px;text-align:center;color:#16202C">' +
+        '<h2 style="font-weight:700">This one is unlocked after payment</h2>' +
+        '<p style="color:#4A5866;line-height:1.6">Open FreshStart, go to Solved PYQs and unlock it there. ' +
+        'If you have already paid, sign in with the same Thapar email you used.</p>' +
+        '<p><a href="' + FRONTEND + '/#solutions" style="color:#0F766E;font-weight:600">Back to FreshStart</a></p></div>'
+      );
+    }
+
+    const file = path.join(SOLUTIONS_DIR, code + '-solutions.html');
+    if (!fs.existsSync(file)) return res.status(404).send('Those solutions are not up yet.');
+
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader('Cache-Control', 'private, no-store');
+    fs.createReadStream(file).pipe(res);
+  } catch (err) {
+    res.status(500).send('Something went wrong.');
+  }
+});
+
+/* ---------------- payments, admin side ---------------- */
+
+app.get('/api/admin/payment-claims', requireAdmin, async (req, res) => {
+  try {
+    const claims = await PaymentClaim.find()
+      .select('-screenshot')                      // the list stays light; screenshots load one at a time
+      .sort({ createdAt: -1 })
+      .limit(500)
+      .lean();
+    const total = claims.filter(c => !c.revoked).reduce((s, c) => s + (c.amount || 0), 0);
+    res.json({ claims, activeCount: claims.filter(c => !c.revoked).length, total });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+app.get('/api/admin/payment-claims/:id/screenshot', requireAdmin, async (req, res) => {
+  try {
+    const c = await PaymentClaim.findById(req.params.id).select('screenshot').lean();
+    res.json({ screenshot: (c && c.screenshot) || '' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+app.post('/api/admin/payment-claims/:id/revoke', requireAdmin, async (req, res) => {
+  try {
+    const c = await PaymentClaim.findByIdAndUpdate(
+      req.params.id,
+      { revoked: req.body.revoked !== false },
+      { new: true }
+    ).select('-screenshot');
+    if (!c) return res.status(404).json({ message: 'Not found' });
+    res.json(c);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
