@@ -385,7 +385,7 @@ const SOLVED_CODES = SOLUTIONS.map(s => s.code);
 
 /* ---- change these two and nothing else to alter the price or the UPI id ---- */
 const PRICE = 19;
-const UPI_ID = '9817176418@ybl';
+const UPI_ID = 'hardeepvk18@okhdfcbank';
 
 // one free sample subject per pool — everything else needs a Thapar sign-in
 const OPEN_CODES = ['UEN008', 'UES102'];
@@ -563,23 +563,45 @@ function Unlock({ user, go, onPaid, code }) {
         worked out step by step. The analysis guides stay free for everyone.
       </p>
 
-      <div className="highlight" style={{ marginTop: '1.4rem' }}>
-        <span>&#8377;</span>
-        <div>
-          <b>Step 1 — pay ₹{PRICE} by UPI</b>
-          <p style={{ marginTop: '.4rem' }}>
-            Send ₹{PRICE} to <b style={{ color: '#5b54d6' }}>{UPI_ID}</b> from any UPI app.
-          </p>
-        </div>
+      <div className="sec-title" style={{ marginTop: '1.6rem' }}>Step 1 — pay ₹{PRICE}</div>
+
+      <div className="card" style={{ textAlign: 'center', padding: '1.4rem 1rem' }}>
+        <p style={{ marginBottom: '.9rem' }}>Scan this with any UPI app</p>
+        <img src="/upi-qr.png" alt={'UPI QR for ₹' + PRICE}
+          style={{ width: '210px', maxWidth: '70%', borderRadius: '12px' }} />
+        <p className="note" style={{ marginTop: '.9rem' }}>
+          Or send ₹{PRICE} to <b style={{ color: '#5b54d6' }}>{UPI_ID}</b>
+        </p>
+        <button className="btn btn-sm btn-ghost" style={{ marginTop: '.5rem' }}
+          onClick={() => {
+            try {
+              navigator.clipboard.writeText(UPI_ID);
+              setMsg('UPI id copied.');
+            } catch (e) { setMsg('Copy it by hand: ' + UPI_ID); }
+          }}>
+          Copy UPI id
+        </button>
       </div>
 
-      <a className="btn" style={{ marginTop: '1rem', display: 'inline-block' }}
-        href={'upi://pay?pa=' + encodeURIComponent(UPI_ID) + '&pn=FreshStart&am=' + PRICE + '&cu=INR'}>
-        Open UPI app &amp; pay ₹{PRICE}
-      </a>
-      <p className="note">On a laptop this button will not work — pay from your phone, or copy the UPI id above.</p>
+      <p className="note" style={{ marginTop: '.9rem' }}>Or open an app directly:</p>
+      <div className="tags" style={{ marginTop: '.4rem' }}>
+        {[
+          ['Google Pay', 'tez://upi/pay'],
+          ['PhonePe', 'phonepe://pay'],
+          ['Paytm', 'paytmmp://pay'],
+          ['Any UPI app', 'upi://pay']
+        ].map(([label, scheme]) => (
+          <a className="btn btn-sm btn-ghost" key={label}
+            href={scheme + '?pa=' + encodeURIComponent(UPI_ID) + '&pn=FreshStart&am=' + PRICE + '&cu=INR'}>
+            {label}
+          </a>
+        ))}
+      </div>
+      <p className="note">
+        These only work on a phone. If a button opens the wrong app (WhatsApp, for example), use the QR above instead.
+      </p>
 
-      <div className="sec-title" style={{ marginTop: '1.8rem' }}>Step 2 — enter your transaction id</div>
+      <div className="sec-title" style={{ marginTop: "1.8rem" }}>Step 2 — enter your transaction id</div>
       <p className="note" style={{ marginTop: 0 }}>
         After paying, your UPI app shows a transaction id (UTR) — usually 12 digits. Enter it below and
         the solutions open straight away.
