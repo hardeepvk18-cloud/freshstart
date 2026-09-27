@@ -385,7 +385,7 @@ const SOLVED_CODES = SOLUTIONS.map(s => s.code);
 
 /* ---- change these two and nothing else to alter the price or the UPI id ---- */
 const PRICE = 19;
-const UPI_QR = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAdYAAAHWCAIAAABFeD8NAAAKl0lEQVR4nO3dvY0cSRpF0ekBfVh5DRj/DRkDRl4rclUKgwCJYPB+kXWO3pXZ9XORykN8Pc/zBwCFP+sbAPhcEgyQkWCAjAQDZCQYICPBABkJBshIMEBGggEyEgyQkWCAjAQDZCQYICPBABkJBshIMEBGggEyEgyQkWCAjAQDZCQYICPBABkJBshIMEBGggEyEgyQkWCAjAQDZCQYIPPt3Ev/579/nXvxxP/++fvQK597r6p7Xl935/+d+R+de+WZv6Mb73nHuW+dp2CAjAQDZCQYICPBABkJBshIMEBGggEyEgyQkWCAzMF13Nq5tcmOmauec0ukmSu1G/dvazuf4Lm/Xbtxsbmj+u17CgbISDBARoIBMhIMkJFggIwEA2QkGCAjwQAZCQbIZOu4tRuXOTeePLbztzuvXL0b1Yl21Spv5vpx7cbf/g5PwQAZCQbISDBARoIBMhIMkJFggIwEA2QkGCAjwQCZoes4vlctr963JFybeXbcziszn6dggIwEA2QkGCAjwQAZCQbISDBARoIBMhIMkJFggIx13G9y7kSsneveeIZb9bfnnDvB7xyrvF/FUzBARoIBMhIMkJFggIwEA2QkGCAjwQAZCQbISDBAZug67tO2NzNXWzOXddXfnnPj+3zOp/32PQUDZCQYICPBABkJBshIMEBGggEyEgyQkWCAjAQDZLJ1XLW9qcxcfL1vaXaO9/lX+bTf/pqnYICMBANkJBggI8EAGQkGyEgwQEaCATISDJCRYIDMwXXcjbudc2yrfo9zy6vqvdq5bvXdeN/36hxPwQAZCQbISDBARoIBMhIMkJFggIwEA2QkGCAjwQCZr+d5Dr30uU1XZWfzc26JNHMPduMqb+aC8Zz3/UdrM791noIBMhIMkJFggIwEA2QkGCAjwQAZCQbISDBARoIBMgfXcWszN1032nknz71XN64Bd1SntM3csL3vuud+KZ6CATISDJCRYICMBANkJBggI8EAGQkGyEgwQEaCATLfzr10dRLXjnP7mZlnqd34Gc28qx0zv3UzV4g7Zn76noIBMhIMkJFggIwEA2QkGCAjwQAZCQbISDBARoIBMgfXcTuqM6A+7RSvT1OtAW/coe3cc7X3W5u5nPQUDJCRYICMBANkJBggI8EAGQkGyEgwQEaCATISDJD5ep4nufCNp8OdU50AVq0Q12aumNZuvOe1T/uFWscBfBwJBshIMEBGggEyEgyQkWCAjAQDZCQYICPBAJlsHbejWm2dM3OztzbznL2Zf7v2vpMDZy7cZnbDUzBARoIBMhIMkJFggIwEA2QkGCAjwQAZCQbISDBA5sp13DkzT1qr7mrHzLPjZp6HNvO6M791N+7f1jwFA2QkGCAjwQAZCQbISDBARoIBMhIMkJFggIwEA2S+nXvpTztra2e3M/PsOOfs/fh11+/VjYu+6tOvNnvV++wpGCAjwQAZCQbISDBARoIBMhIMkJFggIwEA2QkGCBzcB13buWyo7qrag147qyt951Kt3Pd6vu8NvO9OufGe/YUDJCRYICMBANkJBggI8EAGQkGyEgwQEaCATISDJDJzo47pzp7qjofbOYua606Z+997+SOc7/Qc9/nNWfHAfATJBggI8EAGQkGyEgwQEaCATISDJCRYICMBANkvp7nOfTS1eLr3ObnxnteO7f5qZaEa9V1z7lxC3qOs+MA+AkSDJCRYICMBANkJBggI8EAGQkGyEgwQEaCATIHz46buZ85d1c3budmLs1u3OytVTu06p1cm3nKYsVTMEBGggEyEgyQkWCAjAQDZCQYICPBABkJBshIMEDm4NlxlfftZ3Y4H+x71X/0vvMMb1y4zfwteAoGyEgwQEaCATISDJCRYICMBANkJBggI8EAGQkGyGTruJm7nZnswW53bku2c92Zr7xz3R3WcQAfR4IBMhIMkJFggIwEA2QkGCAjwQAZCQbISDBA5uA67n0LmXNmbo1uPD3sxl3lzF9K9envuHEZ6ykYICPBABkJBshIMEBGggEyEgyQkWCAjAQDZCQYIJOdHbdj5rpm5obt3HXPed/+bW3mPd94+l91Vt4OT8EAGQkGyEgwQEaCATISDJCRYICMBANkJBggI8EAmSvXcWvvW4utnduSnXPjmWbViXY7fGN//JUrnoIBMhIMkJFggIwEA2QkGCAjwQAZCQbISDBARoIBMgfXcdWKaYcF1Pfe9//e+M0559zS7MbT/6rregoGyEgwQEaCATISDJCRYICMBANkJBggI8EAGQkGyFx5dtynnXh249Zo7X2nh1XfyR0zT/D7NJ6CATISDJCRYICMBANkJBggI8EAGQkGyEgwQEaCATJD13E3bm9uPJds5tJsx8wz69Zu/LavOZXux3kKBshIMEBGggEyEgyQkWCAjAQDZCQYICPBABkJBsgcXMdVq61zbtwprd24NZp53ZlmfgrnPsEb156eggEyEgyQkWCAjAQDZCQYICPBABkJBshIMEBGggEyQ9dxO6+8432bveqeZy7rZpr5blRLs5nvxjmeggEyEgyQkWCAjAQDZCQYICPBABkJBshIMEBGggEyQ9dxNy7r1s5t2G5cT63N3Put3XjPaxZuv4enYICMBANkJBggI8EAGQkGyEgwQEaCATISDJCRYIDMt/oG/l21NTq32Tu3f6uWhNVGsfqMqk3Xueuu/9+Z36uZv8EdnoIBMhIMkJFggIwEA2QkGCAjwQAZCQbISDBARoIBMkPXcdUG5twi6MbdztrM89CqXeX7vrE71z33yjO3czs8BQNkJBggI8EAGQkGyEgwQEaCATISDJCRYICMBANkvp7nqe/hJWaePDbzlLa16p53zFxtzTw5cOe6azPfyTVPwQAZCQbISDBARoIBMhIMkJFggIwEA2QkGCAjwQCZg2fHzTxbbMd6ITNzDzZzHzVzSVhtq2aeO7ejOoPx3N+e4ykYICPBABkJBshIMEBGggEyEgyQkWCAjAQDZCQYIHNwHbc2c6lybms08+y4auFW7dCqk+WqDVu1UK1OlnN2HAA/QYIBMhIMkJFggIwEA2QkGCAjwQAZCQbISDBAJlvHrZ1b9cxc5a1VJ4/N3DjtvPLajWfHnbO+q5m7u5n7tzVPwQAZCQbISDBARoIBMhIMkJFggIwEA2QkGCAjwQCZoes43q06w61aqVULxnP/UfVurN24ffUUDJCRYICMBANkJBggI8EAGQkGyEgwQEaCATISDJCxjvtNbtw4zVyL7bxydUrbjWfH3bgGvJGnYICMBANkJBggI8EAGQkGyEgwQEaCATISDJCRYIDM0HXcjRuYnc3PjYugnXueeXbc2rnF17nr7ti555nvxsxfmadggIwEA2QkGCAjwQAZCQbISDBARoIBMhIMkJFggMzX8zyHXvrcxqkyc9N143pqbeb/u1attmb+7Vr1nZy5MvUUDJCRYICMBANkJBggI8EAGQkGyEgwQEaCATISDJA5uI4DYM1TMEBGggEyEgyQkWCAjAQDZCQYICPBABkJBshIMEBGggEyEgyQkWCAjAQDZCQYICPBABkJBshIMEBGggEyEgyQkWCAjAQDZCQYICPBABkJBshIMEBGggEyEgyQkWCAjAQDZP4Pw07xQo2Sk0wAAAAASUVORK5CYII=";
+const UPI_QR = "data:image/png;base64,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";
 const UPI_ID = '9817176418@ybl';
 
 // one free sample subject per pool — everything else needs a Thapar sign-in
@@ -567,39 +567,45 @@ function Unlock({ user, go, onPaid, code }) {
       <div className="sec-title" style={{ marginTop: '1.6rem' }}>Step 1 — pay ₹{PRICE}</div>
 
       <div className="card" style={{ textAlign: 'center', padding: '1.4rem 1rem' }}>
-        <p style={{ marginBottom: '.9rem' }}>Scan this with any UPI app</p>
-        <img src={UPI_QR} alt={'UPI QR for ₹' + PRICE}
-          style={{ width: '210px', maxWidth: '70%', borderRadius: '12px' }} />
-        <p className="note" style={{ marginTop: '.9rem' }}>
-          Or send ₹{PRICE} to <b style={{ color: '#5b54d6' }}>{UPI_ID}</b>
+        <p style={{ marginBottom: '.4rem', fontWeight: 600 }}>Send ₹{PRICE} to</p>
+        <p style={{ fontSize: '1.15rem', fontWeight: 700, color: '#5b54d6', wordBreak: 'break-all' }}>
+          {UPI_ID}
         </p>
-        <button className="btn btn-sm btn-ghost" style={{ marginTop: '.5rem' }}
+        <button className="btn btn-sm" style={{ marginTop: '.7rem' }}
           onClick={() => {
             try {
               navigator.clipboard.writeText(UPI_ID);
-              setMsg('UPI id copied.');
+              setMsg('UPI id copied — paste it in your UPI app.');
             } catch (e) { setMsg('Copy it by hand: ' + UPI_ID); }
           }}>
           Copy UPI id
         </button>
+        <p className="note" style={{ marginTop: '.9rem' }}>
+          Open any UPI app, paste this id, send ₹{PRICE}. This always works.
+        </p>
       </div>
 
-      <p className="note" style={{ marginTop: '.9rem' }}>Or open an app directly:</p>
-      <div className="tags" style={{ marginTop: '.4rem' }}>
-        {[
-          ['Google Pay', 'tez://upi/pay'],
-          ['PhonePe', 'phonepe://pay'],
-          ['Paytm', 'paytmmp://pay'],
-          ['Any UPI app', 'upi://pay']
-        ].map(([label, scheme]) => (
-          <a className="btn btn-sm btn-ghost" key={label}
-            href={scheme + '?pa=' + encodeURIComponent(UPI_ID) + '&pn=FreshStart&am=' + PRICE + '&cu=INR'}>
-            {label}
-          </a>
-        ))}
+      <p className="note" style={{ marginTop: '1.1rem' }}>Faster, if it works on your phone:</p>
+      <div className="card" style={{ textAlign: 'center', padding: '1.1rem 1rem', marginTop: '.4rem' }}>
+        <img src={UPI_QR} alt={'UPI QR for ₹' + PRICE}
+          style={{ width: '180px', maxWidth: '62%', borderRadius: '12px' }} />
+        <p className="note" style={{ marginTop: '.7rem' }}>Scan, or tap an app below</p>
+        <div className="tags" style={{ marginTop: '.5rem', justifyContent: 'center' }}>
+          {[
+            ['Google Pay', 'tez://upi/pay'],
+            ['PhonePe', 'phonepe://pay'],
+            ['Paytm', 'paytmmp://pay']
+          ].map(([label, scheme]) => (
+            <a className="btn btn-sm btn-ghost" key={label}
+              href={scheme + '?pa=' + encodeURIComponent(UPI_ID) + '&pn=FreshStart&am=' + PRICE + '&cu=INR'}>
+              {label}
+            </a>
+          ))}
+        </div>
       </div>
       <p className="note">
-        These only work on a phone. If a button opens the wrong app (WhatsApp, for example), use the QR above instead.
+        If a link says the payment was declined, that is your bank blocking the shortcut, not a problem
+        with your account — just send ₹{PRICE} to the id above from your UPI app instead.
       </p>
 
       <div className="sec-title" style={{ marginTop: "1.8rem" }}>Step 2 — enter your transaction id</div>
