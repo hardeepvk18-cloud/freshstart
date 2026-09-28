@@ -337,10 +337,6 @@
   <h1>UPH013 — Physics<br>MST Question Paper Analysis</h1>
   <p class="subtitle">Built from four actual MST papers — October 2024, March 2025, October 2025, and March 2026. Every number below is added up from the marks printed on those papers.</p>
   <div class="disclaimer"><b>Before you rely on this:</b> this analysis reflects the syllabus as it stood across these four papers. If your current semester's syllabus has added or dropped a topic, the weightage below will shift accordingly — always cross-check against this year's official syllabus first.</div>
-  <div class="share-top">
-  <span>Know someone who needs this? Send it over.</span>
-  <a id="share-wa-top" href="#" target="_blank" rel="noopener noreferrer">&#128172; Share on WhatsApp</a>
-</div>
 
 <div class="toc"><div class="toc-title">CONTENTS</div><ol><li><a href="#s1">Must-do topics — highest chance of coming</a></li><li><a href="#s2">Year-wise paper analysis</a></li><li><a href="#s3">Repeated-topics heatmap</a></li><li><a href="#s4">Topic deep-dive — every repeated question, by year</a></li><li><a href="#s5">Formula sheet</a></li><li><a href="#s6">Common mistakes that lose marks</a></li><li><a href="#s7">If you only have one evening</a></li><li><a href="#s8">Full question papers</a></li></ol></div>
 
@@ -476,15 +472,7 @@
     <p class="fb-done" id="fb-done" style="display:none">Thanks — this genuinely helps. Good luck in the exam.</p>
   </div>
 
-<div class="share" id="share">
-  <h3>Send this to a friend</h3>
-  <p>Someone in your batch is looking for exactly this right now. It takes one tap.</p>
-  <div class="share-row">
-    <a class="share-wa" id="share-wa" href="#" target="_blank" rel="noopener noreferrer">&#128172; Share on WhatsApp</a>
-    <button class="share-copy" id="share-copy" type="button">Copy link</button>
-  </div>
-  <p class="share-done" id="share-done" style="display:none">Link copied.</p>
-</div>
+
 
   <div class="section-block" id="s8">
     <div class="section-head"><div class="section-num">8</div><h2>Full question papers</h2></div>
@@ -536,31 +524,5 @@
 })();
 </script>
 
-<script>
-(function () {
-  var url = window.location.href.split('#')[0].split('?')[0];
-  var msg = "Physics (UPH013) — MST question paper analysis: which topics repeat, every past question by year, formula sheet and the full papers. Free on FreshStart.\n\n" + url;
-  var link = 'https://wa.me/?text=' + encodeURIComponent(msg);
-  ['share-wa', 'share-wa-top'].forEach(function (id) {
-    var el = document.getElementById(id);
-    if (el) el.href = link;
-  });
-
-  var cp = document.getElementById('share-copy'), done = document.getElementById('share-done');
-  if (cp) cp.addEventListener('click', function () {
-    function ok() { done.style.display = 'block'; setTimeout(function(){ done.style.display='none'; }, 2500); }
-    try {
-      navigator.clipboard.writeText(url).then(ok, fallback);
-    } catch (e) { fallback(); }
-    function fallback() {
-      var t = document.createElement('textarea');
-      t.value = url; t.style.position = 'fixed'; t.style.opacity = '0';
-      document.body.appendChild(t); t.select();
-      try { document.execCommand('copy'); ok(); } catch (e) {}
-      document.body.removeChild(t);
-    }
-  });
-})();
-</script>
 </body>
 </html>
