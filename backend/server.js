@@ -784,6 +784,77 @@ app.get('/api/admin/logins', requireAdmin, async (req, res) => {
   }
 });
 
+/* ---------------- Daily history ----------------
+   Every visit is stored as its own document with a timestamp, so the day by day
+   record can be rebuilt at any time, including for days already past.        */
+
+app.get('/api/admin/daily', requireAdmin, async (req, res) => {
+  try {
+    const days = Math.min(Math.max(parseInt(req.query.days, 10) || 60, 1), 365);
+    const from = new Date(Date.now() - days * 24 * 60 * 60 * 1000);
+    const tz = 'Asia/Kolkata';
+
+    const visits = await Visit.aggregate([
+      { $match: { createdAt: { $gte: from } } },
+      { $group: {
+          _id: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt', timezone: tz } },
+          visits: { $sum: 1 },
+          visitors: { $addToSet: '$visitorId' }
+      } },
+      { $project: { _id: 0, date: '$_id', visits: 1, uniqueVisitors: { $size: '$visitors' } } },
+      { $sort: { date: -1 } }
+    ]);
+
+    // people who signed in for the first time that day
+    let signups = [];
+    try {
+      signups = await Presence.aggregate([
+        { $match: { firstSeen: { $gte: from }, email: { $exists: true, $ne: null } } },
+        { $group: {
+            _id: { $dateToString: { format: '%Y-%m-%d', date: '$firstSeen', timezone: tz } },
+            n: { $sum: 1 }
+        } }
+      ]);
+    } catch (e) { signups = []; }
+    const signupBy = {};
+    signups.forEach(d => { signupBy[d._id] = d.n; });
+
+    // which guide was opened how often, per day
+    let guides = [];
+    try {
+      guides = await Visit.aggregate([
+        { $match: { createdAt: { $gte: from }, path: { $regex: '^guide/' } } },
+        { $group: {
+            _id: {
+              date: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt', timezone: tz } },
+              path: '$path'
+            },
+            n: { $sum: 1 }
+        } },
+        { $sort: { n: -1 } }
+      ]);
+    } catch (e) { guides = []; }
+    const guideBy = {};
+    guides.forEach(g => {
+      (guideBy[g._id.date] = guideBy[g._id.date] || []).push({ path: g._id.path, n: g.n });
+    });
+
+    res.json({
+      timezone: tz,
+      generatedAt: new Date().toISOString(),
+      days: visits.map(d => ({
+        date: d.date,
+        visits: d.visits,
+        uniqueVisitors: d.uniqueVisitors,
+        newSignins: signupBy[d.date] || 0,
+        guides: (guideBy[d.date] || []).slice(0, 8)
+      }))
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 /* ---------------- Stats ---------------- */
 
 app.get('/api/stats', requireAdmin, async (req, res) => {

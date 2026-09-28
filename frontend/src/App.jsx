@@ -417,6 +417,35 @@ function sortGuides(list, user) {
   return [...list].sort((a, b) => (OPEN_CODES.includes(b.code) ? 1 : 0) - (OPEN_CODES.includes(a.code) ? 1 : 0));
 }
 
+/* Turn the day by day record into a file worth keeping. A dashboard can be
+   reset or rebuilt; a downloaded CSV cannot. */
+function downloadDailyCsv(daily) {
+  const rows = [['date', 'visits', 'unique_visitors', 'new_signins', 'guides_opened']];
+  daily.days.forEach(d => {
+    rows.push([
+      d.date,
+      d.visits,
+      d.uniqueVisitors,
+      d.newSignins,
+      d.guides.map(g => g.path + '=' + g.n).join(' ')
+    ]);
+  });
+  const csv = rows.map(r => r.map(v => {
+    const s = String(v);
+    return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+  }).join(',')).join('\n');
+
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'freshstart-daily-' + new Date().toISOString().slice(0, 10) + '.csv';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
 function GuideCard({ g, i, user, paid }) {
   const open = user || OPEN_CODES.includes(g.code);
   const hasFull = SPLIT_CODES.includes(g.code);        // this guide has a paid half
@@ -850,6 +879,7 @@ function Admin({ user }) {
   const [denied, setDenied] = useState(false);
   const [mentorApps, setMentorApps] = useState([]);
   const [analytics, setAnalytics] = useState(null);
+  const [daily, setDaily] = useState(null);
   const [logins, setLogins] = useState([]);
   const [feedback, setFeedback] = useState(null);
   const [answered, setAnswered] = useState([]);
@@ -896,6 +926,11 @@ function Admin({ user }) {
     fetch(API + '/api/admin/analytics', { headers })
       .then(r => r.ok ? r.json() : null)
       .then(d => { if (d) setAnalytics(d); })
+      .catch(() => {});
+
+    fetch(API + '/api/admin/daily?days=90', { headers })
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d) setDaily(d); })
       .catch(() => {});
 
     fetch(API + '/api/admin/logins', { headers })
@@ -985,6 +1020,48 @@ function Admin({ user }) {
               ))}
             </div>
           )}
+        </>
+      )}
+
+      <div className="sec-title">Day by day record</div>
+      {!daily || !daily.days.length ? (
+        <div className="empty">Nothing recorded yet.</div>
+      ) : (
+        <>
+          <p className="note" style={{ marginTop: 0 }}>
+            Rebuilt from every stored visit, so it covers the days already gone. Times are {daily.timezone}.
+            Download it now and again after the exams &mdash; a saved file is proof, a dashboard is not.
+          </p>
+          <button className="btn btn-sm" style={{ marginBottom: '.8rem' }}
+            onClick={() => downloadDailyCsv(daily)}>
+            Download as CSV
+          </button>
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '.86rem' }}>
+              <thead>
+                <tr style={{ textAlign: 'left', borderBottom: '2px solid #e4e4ef' }}>
+                  <th style={{ padding: '.45rem .5rem' }}>Date</th>
+                  <th style={{ padding: '.45rem .5rem' }}>Visits</th>
+                  <th style={{ padding: '.45rem .5rem' }}>Unique</th>
+                  <th style={{ padding: '.45rem .5rem' }}>New sign-ins</th>
+                  <th style={{ padding: '.45rem .5rem' }}>Most opened</th>
+                </tr>
+              </thead>
+              <tbody>
+                {daily.days.map(d => (
+                  <tr key={d.date} style={{ borderBottom: '1px solid #eee' }}>
+                    <td style={{ padding: '.45rem .5rem', whiteSpace: 'nowrap' }}>{d.date}</td>
+                    <td style={{ padding: '.45rem .5rem', fontWeight: 600 }}>{d.visits}</td>
+                    <td style={{ padding: '.45rem .5rem' }}>{d.uniqueVisitors}</td>
+                    <td style={{ padding: '.45rem .5rem' }}>{d.newSignins}</td>
+                    <td style={{ padding: '.45rem .5rem', color: '#5A6472' }}>
+                      {d.guides.length ? d.guides.slice(0, 3).map(g => g.path.replace('guide/', '') + ' ' + g.n).join(' · ') : '—'}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </>
       )}
 
