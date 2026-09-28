@@ -533,7 +533,7 @@ function Unlock({ user, go, onPaid, code }) {
   async function submit() {
     const ref = utr.replace(/\s/g, '');
     if (!/^[0-9]{12}$/.test(ref)) {
-      setMsg('The UPI transaction id is 12 digits — check your payment app and enter all 12.');
+      setMsg('Number poore 12 ank ka hona chahiye. Apne UPI app me payment pe tap karke dekho.');
       return;
     }
     setBusy(true); setMsg('');
@@ -603,25 +603,45 @@ function Unlock({ user, go, onPaid, code }) {
         </div>
       </div>
 
-      <div className="sec-title" style={{ marginTop: "1.8rem" }}>Step 2 — enter your transaction id</div>
+      <div className="sec-title" style={{ marginTop: "1.8rem" }}>Step 2 — enter the 12-digit number</div>
       <p className="note" style={{ marginTop: 0 }}>
-        After paying, your UPI app shows a transaction id (UTR) — usually 12 digits. Enter it below and
-        the solutions open straight away.
+        Har payment ka ek <b>12-digit number</b> hota hai. Wahi daalna hai — uske baad solutions
+        turant khul jayenge.
       </p>
 
+      <div style={{
+        marginTop: '.9rem', padding: '.9rem 1rem', borderRadius: '10px',
+        background: '#F4F6FB', border: '1px solid #DCE2F0', fontSize: '.86rem', lineHeight: 1.65
+      }}>
+        <b style={{ display: 'block', marginBottom: '.4rem' }}>Wo number kahan milega</b>
+        <div style={{ color: '#4A5866' }}>
+          <b>PhonePe</b> &mdash; History → jo payment abhi ki uspe tap karo → neeche
+          <i> UTR</i> likha hoga<br />
+          <b>Google Pay</b> &mdash; payment pe tap karo → <i>UPI transaction ID</i><br />
+          <b>Paytm</b> &mdash; payment pe tap karo → <i>UPI Ref No.</i><br />
+          <b>Koi bhi app</b> &mdash; jo 12 ank ka lamba number dikhe, wahi hai
+        </div>
+      </div>
+
       <label className="field" style={{ display: 'block', marginTop: '.9rem' }}>
-        <input placeholder="12-digit UPI transaction id" value={utr}
+        <input placeholder="12-digit number" value={utr}
           inputMode="numeric" maxLength={14}
           onChange={e => setUtr(e.target.value.replace(/[^0-9]/g, '').slice(0, 12))} />
-        <span className="note" style={{ display: 'block', marginTop: '.35rem' }}>
-          {utr.length
-            ? utr.length + ' / 12 digits'
-            : 'PhonePe: History → tap the payment → UTR.  Google Pay: tap the payment → UPI transaction ID.'}
+        <span className="note" style={{
+          display: 'block', marginTop: '.35rem',
+          color: utr.length === 12 ? '#0c7057' : undefined,
+          fontWeight: utr.length === 12 ? 600 : undefined
+        }}>
+          {utr.length === 0
+            ? 'Sirf ank — 12 ka 12'
+            : utr.length === 12
+              ? '12 / 12 — theek hai'
+              : utr.length + ' / 12 ank'}
         </span>
       </label>
 
       <button className="btn" style={{ marginTop: '1rem' }} onClick={submit} disabled={busy}>
-        {busy ? 'Opening…' : 'Unlock the solutions'}
+        {busy ? 'Khol raha hoon…' : 'Unlock karo'}
       </button>
       {msg && <p className="note" style={{ color: '#b91c1c' }}>{msg}</p>}
 

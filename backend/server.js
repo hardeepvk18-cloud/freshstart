@@ -902,14 +902,16 @@ app.post('/api/payment-claim', async (req, res) => {
     if (!/^[A-Z]{3}[0-9]{3}$/.test(code)) return res.status(400).json({ message: 'Unknown subject.' });
     // a UPI reference number is always exactly 12 digits
     if (!/^[0-9]{12}$/.test(utr)) {
-      return res.status(400).json({ message: 'The UPI transaction id is 12 digits. Check it and try again.' });
+      return res.status(400).json({
+        message: 'Number poore 12 ank ka hona chahiye. Apne UPI app me payment pe tap karke dekho.'
+      });
     }
 
     // one reference number opens one account, so it cannot be passed around
     const seen = await PaymentClaim.findOne({ utr }).select('email code').lean();
     if (seen && seen.email !== email) {
       return res.status(409).json({
-        message: 'That transaction id has already been used on another account. Use the id from your own payment.'
+        message: 'Ye number kisi aur account pe pehle use ho chuka hai. Apni payment ka number daalo.'
       });
     }
     if (seen && seen.code === code) {
