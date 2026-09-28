@@ -115,7 +115,7 @@ const PAID_MODE = true;
 
 /* Only these subjects are behind the paywall. Everything else stays open to any
    signed-in student, so adding a subject here is what makes it paid.          */
-const PAID_CODES = ['UES103'];
+const PAID_CODES = ['UES103', 'UES102'];
 
 async function hasPaidAccess(email, code) {
   const signedIn = !!String(email || '').trim();

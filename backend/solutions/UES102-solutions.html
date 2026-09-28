@@ -1,0 +1,2076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UES102 Solved Papers</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"></noscript>
+<style>
+:root{
+  --bg:#F4F6F9; --paper:#FFFFFF; --ink:#16202C; --ink2:#4A5866; --ink3:#77838F;
+  --line:#DCE3EB; --line2:#EDF1F5; --teal:#0F766E; --teal-bg:#E7F4F1;
+  --accent:#5b54d6; --accent-bg:#EEEDFB;
+  --warn:#B4531A; --warn-bg:#FDF2E9; --warn-line:#F0DCC6;
+  --code-bg:#1E293B; --code-ink:#E2E8F0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);
+  font-family:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  line-height:1.62;-webkit-text-size-adjust:100%}
+.wrap{max-width:840px;margin:0 auto;padding:0 16px 80px}
+
+header{padding:40px 0 26px;border-bottom:1px solid var(--line)}
+.kicker{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--teal);font-weight:600}
+h1{font-family:'Source Serif 4',Georgia,serif;font-size:32px;line-height:1.18;margin:8px 0 10px;font-weight:700}
+.sub{color:var(--ink2);font-size:15px;max-width:62ch}
+
+.note{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:10px;
+  padding:14px 16px;margin:22px 0;font-size:14px;color:#6B3D18}
+.note b{color:var(--warn)}
+
+nav.toc{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:26px 0}
+nav.toc h2{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);font-weight:600;margin-bottom:12px}
+nav.toc ul{list-style:none}
+nav.toc li{margin:9px 0;font-size:15px;color:var(--ink2)}
+nav.toc li b{color:var(--ink)}
+
+.paper{margin-top:44px}
+h2.yr{font-family:'Source Serif 4',Georgia,serif;font-size:25px;font-weight:700;padding-top:12px}
+.yr-meta{color:var(--ink3);font-size:13.5px;margin-top:4px;
+  font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace}
+
+.q{background:var(--paper);border:1px solid var(--line);border-radius:12px;
+  padding:18px 20px;margin:16px 0}
+.q-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.q-no{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-weight:600;font-size:14px;
+  color:#fff;background:var(--teal);padding:3px 9px;border-radius:6px}
+.marks{font-size:12px;color:var(--ink3);font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace}
+.method{font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--accent);background:var(--accent-bg);padding:3px 9px;border-radius:20px}
+
+.qtext{font-size:15px;color:var(--ink);padding:12px 14px;background:#FAFBFD;
+  border-left:3px solid var(--line);border-radius:6px;margin-bottom:14px}
+
+h4.step{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);
+  font-weight:600;margin:16px 0 8px}
+
+pre.code{background:var(--code-bg);color:var(--code-ink);border-radius:9px;
+  padding:14px 16px;margin:10px 0;overflow-x:auto;
+  font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:13.2px;line-height:1.65}
+pre.code .c{color:#94A3B8}
+
+.m{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:14px;line-height:1.85;
+  background:#FAFBFD;border:1px solid var(--line2);border-radius:8px;
+  padding:12px 15px;margin:9px 0;overflow-x:auto;white-space:pre}
+p{font-size:15px;margin:9px 0}
+p.why{color:var(--ink2);font-size:14.3px}
+ul.pts{list-style:none;margin:8px 0}
+ul.pts li{position:relative;padding:5px 0 5px 20px;font-size:14.5px;color:var(--ink2)}
+ul.pts li::before{content:"";position:absolute;left:4px;top:14px;width:5px;height:5px;
+  border-radius:50%;background:var(--teal)}
+ol.steps{margin:8px 0 8px 20px}
+ol.steps li{font-size:14.6px;color:var(--ink2);padding:4px 0}
+
+.ans{background:var(--teal-bg);border:1px solid #C6E4DD;border-radius:10px;
+  padding:13px 16px;margin:14px 0 2px}
+.ans .lbl{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--teal);
+  font-weight:600;margin-bottom:6px}
+.ans .val{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:14.3px;
+  line-height:1.8;color:#123F39;white-space:pre-wrap}
+
+.trap{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:10px;
+  padding:12px 16px;margin:12px 0}
+.trap b{color:var(--warn);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.trap p{color:#6B3D18;font-size:14.3px;margin:6px 0 0}
+
+table{width:100%;border-collapse:collapse;font-size:14px;margin:10px 0}
+.tbl{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:10px 0;
+     border-radius:8px}
+.tbl>table{margin:0;min-width:100%}
+.tbl th,.tbl td{white-space:normal}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line2);vertical-align:top}
+th{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);
+  font-weight:600;border-bottom:1px solid var(--line)}
+td.mono{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:13.4px}
+
+footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:13.5px;color:var(--ink3)}
+
+.fb{border:2px solid var(--teal);border-radius:14px;padding:18px 20px;margin:34px 0 0;
+  background:var(--paper);box-shadow:0 2px 14px rgba(0,0,0,.05)}
+.fb h3{margin:0 0 6px;font-family:'Source Serif 4',Georgia,serif;font-size:19px;font-weight:700}
+.fb p.sub2{margin:0 0 14px;font-size:14.3px;color:var(--ink2)}
+.fb-btns{display:flex;gap:9px;flex-wrap:wrap}
+.fb-btn{font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;padding:9px 17px;
+  border-radius:30px;border:1px solid var(--line);background:#fff;color:var(--ink);
+  transition:border-color .2s,background .2s}
+.fb-btn:hover{border-color:var(--teal)}
+.fb-btn.on{background:var(--teal);border-color:var(--teal);color:#fff}
+.fb textarea{width:100%;margin-top:13px;padding:11px 13px;border-radius:10px;
+  border:1px solid var(--line);font-family:inherit;font-size:14px;resize:vertical;min-height:76px}
+.fb-send{margin-top:10px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;
+  padding:8px 18px;border-radius:30px;border:none;background:var(--teal);color:#fff}
+.fb-done{font-size:14.5px;color:var(--teal);font-weight:600}
+
+@media(max-width:560px){
+  h1{font-size:26px} h2.yr{font-size:21px}
+  .q{padding:15px 15px} .m,pre.code{font-size:12.6px} .ans .val{font-size:13.4px}
+}
+
+.share{border:1px solid var(--line);border-radius:14px;padding:17px 20px;margin:20px 0 0;
+  background:var(--paper)}
+.share h3{margin:0 0 5px;font-family:'Source Serif 4',Georgia,serif;font-size:18px;font-weight:700}
+.share p{margin:0 0 13px;font-size:14.2px;color:var(--ink-soft,#4A5866)}
+.share-row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.share-wa{display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+  font-family:inherit;font-size:14.5px;font-weight:600;padding:10px 18px;border-radius:30px;
+  background:#25D366;color:#fff;border:none;cursor:pointer}
+.share-wa:hover{background:#1FB855}
+.share-copy{font-family:inherit;font-size:14.5px;font-weight:600;cursor:pointer;
+  padding:10px 18px;border-radius:30px;border:1px solid var(--line);background:#fff;color:var(--ink,#16202C)}
+.share-copy:hover{border-color:#25D366}
+.share-done{font-size:13.8px;color:#1F7A4D;font-weight:600;margin:9px 0 0}
+
+.share-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  border:1px solid var(--line);border-radius:12px;padding:12px 15px;margin:0 0 22px;background:var(--paper)}
+.share-top span{font-size:14.2px;color:var(--ink-soft,#4A5866)}
+.share-top a{display:inline-flex;align-items:center;gap:7px;text-decoration:none;
+  font-family:inherit;font-size:13.8px;font-weight:600;padding:8px 15px;border-radius:30px;
+  background:#25D366;color:#fff;white-space:nowrap}
+.share-top a:hover{background:#1FB855}
+</style><body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">UES102 / UTA026 / UES018 &middot; Manufacturing Processes &middot; MST</div>
+  <h1>Past papers, fully solved</h1>
+  <p class="sub">Every question from the last five MST papers worked out &mdash; CNC programs written line
+  by line against the drawing, and every numerical checked twice: once by formula and once by
+  an independent route (volume removed &divide; time, volume flow through the roll gap, and so on).</p>
+</header>
+
+<div class="note" style="background:#EEF1FB;border-color:#CDD6EE;color:#26324D">
+  <b>Note:</b> these solutions were written with the help of <b>Claude Opus 5 (Anthropic's AI)</b>.
+  Every numerical here was recomputed independently and the two routes agreed, but errors are still
+  possible &mdash; and unlike programming, a manufacturing theory answer cannot be checked by a machine.
+  If a step looks wrong, go with your professor, and report it in the feedback box at the bottom so it
+  gets fixed. FreshStart is run by one Thapar student and is not an official TIET page &mdash; it has no
+  connection with the institute.
+</div>
+
+<div class="note">
+  <b>About the drawings:</b> the CNC questions are answered from the figures printed on the papers.
+  Where a dimension chain on the scan could be read more than one way, the reading used is stated in
+  the solution, so you can check it against your own copy. The program structure does not change if a
+  fillet length differs by a millimetre &mdash; only that one Z value does.
+</div>
+
+<nav class="toc">
+  <h2>What is in here</h2>
+  <ul>
+    <li><b>March 2026</b> &mdash; CNC milling profile, FDM vs SLS, turning velocity &amp; MRR,
+        tool signature, tandem rolling, forging classification</li>
+    <li><b>October 2025</b> &mdash; CNC turning with canned cycles, additive manufacturing,
+        machining time &amp; hourly output, chip welding, tool signature, stress&ndash;strain,
+        cold rolling, flash and flashless forging</li>
+    <li><b>March 2025</b> &mdash; CNC canned cycles, forming for rails and screws, absolute vs
+        incremental coordinates, cutting velocity &amp; MRR, rake angle choice, additive
+        manufacturing for implants, tandem rolling with maximum draft, impression die vs upset
+        forging, rake angle comparison</li>
+    <li><b>October 2024</b> &mdash; CNC turning with canned cycles, stress&ndash;strain to chip type,
+        cutting speed &amp; MRR per pass, thread rolling vs cutting, punch and die design,
+        crankshaft forging</li>
+    <li><b>March 2024</b> &mdash; washer blanking and punching, forming properties, two-stand hot
+        rolling with forward slip, hand tool forging, CNC lathe program and manual machining time,
+        rake angles, CNC milling program, chips in copper and cast iron</li>
+  </ul>
+</nav>
+<!-- ========== March 2026 ========== -->
+<div class="paper" id="y2026">
+<h2 class="yr">March 2026</h2>
+<p class="yr-meta">20-03-2026 · 60 marks · 2 hours</p>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1 (a)</span><span class="marks">14 marks</span><span class="method">CNC milling — part program</span></div>
+  <div class="qtext">Write a CNC milling part program (in absolute mode) to machine the profile shown in Figure 1 for a 90 × 90 × 10 mm mild steel plate. Tool follows the path A-B-C----H-A and I–J–K–L–I. Depth of the profile to be cut is 2 mm. End mill of 4 mm diameter is used with 1500 rpm spindle speed and feed rate of 40 mm/min.</div>
+
+  <h4 class="step">Step 1 — read every vertex off the drawing</h4>
+  <p class="why">The origin ⊗ sits at the bottom-left corner of the plate, so the plate runs 0–90 in both X and Y. The dimension chains down the left edge and across the top both read 10 + 10 + 50 + 10 + 10, which add to 90 — that is the check that the drawing has been read correctly. The profile is inset 10 mm from every edge, so it lives in a 70 × 70 box, and each corner is cut back 10 mm, which leaves the 50 mm straight sides the drawing marks.</p>
+  <div class="m">Point    X     Y      how it is fixed
+  A     20    10     bottom edge (y = 10), 10 in from the corner cut
+  B     10    20     left edge (x = 10), 10 up from the corner cut
+  C     10    70     left edge, 50 above B
+  D     20    80     top edge (y = 80)
+  E     70    80     top edge, 50 across from D
+  F     80    70     right edge (x = 80)
+  G     80    20     right edge, 50 below F
+  H     70    10     bottom edge, 10 in from the corner cut
+
+Circle Ø40 sits on the plate centre (45, 45), so R = 20:
+  I     25    45     left of centre
+  J     45    65     above centre
+  K     65    45     right of centre
+  L     45    25     below centre</div>
+
+  <h4 class="step">Step 2 — which corners are arcs and which are chamfers</h4>
+  <p class="why">Look at the drawing, not the letters: C–D and G–H are drawn as curves, A–B and E–F as straight diagonals. An R10 corner between C (10, 70) and D (20, 80) must be centred at (20, 70) — that point is exactly 10 mm from both ends. Same for G–H, centred at (70, 20).</p>
+  <div class="m">C(10,70) → D(20,80)   centre (20,70)   R10   ✓ 10 mm from both ends
+G(80,20) → H(70,10)   centre (70,20)   R10   ✓ 10 mm from both ends
+
+Direction: about (20,70), C lies due west and D due north.
+West → north is clockwise, so G02. Same for G → H.
+
+The circle is traced I → J → K → L → I, that is
+left → top → right → bottom, which is also clockwise: G02.</div>
+
+  <h4 class="step">Step 3 — the program</h4>
+  <p class="why">The tool path in the question is the profile itself, and the handout has no cutter-compensation codes (no G41/G42), so the tool centre is programmed straight onto the profile. Feed is in mm/min, so G94.</p>
+  <pre class="code">N10   G21 G90 G94 G54          <span class="c">; metric, absolute, feed in mm/min, work offset</span>
+N20   T01 M06                  <span class="c">; 4 mm diameter end mill</span>
+N30   G43 H1 Z50               <span class="c">; tool length offset, stand clear</span>
+N40   M03 S1500                <span class="c">; spindle on, 1500 rpm</span>
+
+<span class="c">; ---- outer profile A-B-C-D-E-F-G-H-A ----</span>
+N50   G00 X20 Y10              <span class="c">; rapid over A</span>
+N60   G00 Z2                   <span class="c">; just above the face</span>
+N70   G01 Z-2 F40              <span class="c">; plunge to 2 mm depth</span>
+N80   G01 X10 Y20              <span class="c">; A → B  (chamfer)</span>
+N90   G01 X10 Y70              <span class="c">; B → C  (50 mm straight)</span>
+N100  G02 X20 Y80 R10          <span class="c">; C → D  (R10 corner, clockwise)</span>
+N110  G01 X70 Y80              <span class="c">; D → E</span>
+N120  G01 X80 Y70              <span class="c">; E → F  (chamfer)</span>
+N130  G01 X80 Y20              <span class="c">; F → G</span>
+N140  G02 X70 Y10 R10          <span class="c">; G → H  (R10 corner, clockwise)</span>
+N150  G01 X20 Y10              <span class="c">; H → A, profile closed</span>
+N160  G00 Z2                   <span class="c">; lift clear</span>
+
+<span class="c">; ---- circle I-J-K-L-I, cut as two semicircles ----</span>
+N170  G00 X25 Y45              <span class="c">; rapid over I</span>
+N180  G01 Z-2 F40              <span class="c">; plunge</span>
+N190  G02 X65 Y45 R20          <span class="c">; I → K through J (top half)</span>
+N200  G02 X25 Y45 R20          <span class="c">; K → I through L (bottom half)</span>
+N210  G00 Z50                  <span class="c">; retract</span>
+
+N220  G28                      <span class="c">; home</span>
+N230  M05                      <span class="c">; spindle off</span>
+N240  M30                      <span class="c">; program stop and rewind</span></pre>
+  <p class="why">The circle is split into two arcs on purpose. With the R form of G02 a full 360° move is ambiguous — the control cannot tell which of the two possible circles you mean — so a complete circle is always programmed as two halves (or with I/J centre offsets).</p>
+
+  <h4 class="step">Step 4 — cutting length, if the examiner asks for time</h4>
+  <div class="m">A–B chamfer   √(10² + 10²)      = 14.142 mm
+B–C straight                     = 50.000 mm
+C–D arc       (π/2) × 10         = 15.708 mm
+D–E straight                     = 50.000 mm
+E–F chamfer   √(10² + 10²)       = 14.142 mm
+F–G straight                     = 50.000 mm
+G–H arc       (π/2) × 10         = 15.708 mm
+H–A straight                     = 50.000 mm
+                        profile  = 259.700 mm
+
+circle        π × 40             = 125.664 mm
+                          total  = 385.364 mm
+
+time = 385.364 ÷ 40 = 9.63 min of cutting</div>
+
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">Program as above · profile path 259.70 mm + circle 125.66 mm = 385.36 mm · 9.63 min of cutting at 40 mm/min</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>Three places. First, getting the eight vertices right — check them by adding the dimension chain: 10 + 10 + 50 + 10 + 10 = 90 on both axes, and if that does not close, your coordinates are wrong. Second, the arc direction: C→D and G→H are both <b>G02</b>, and writing G03 reverses the corner. Third, programming the circle as one G02 with R20 — that is ambiguous and loses the mark; split it at I and K.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1 (b)</span><span class="marks">6 marks</span><span class="method">Additive manufacturing</span></div>
+  <div class="qtext">What are the key differences between Fused Deposition Modeling and Selective Laser Sintering with respect to type and form of material used, heat source, principle of layer formation, type of support structure, and industrial application?</div>
+
+  <p class="why">The question names five headings, so answer under those five headings. A table gets full marks and takes a third of the time.</p>
+
+  <div class="tbl"><table>
+    <tr><th>Point of comparison</th><th>FDM</th><th>SLS</th></tr>
+    <tr><td>Material and its form</td><td>Thermoplastic supplied as a continuous <b>filament</b> on a spool — ABS, PLA, PETG, PC</td><td>Fine <b>powder</b> in a bed — polyamide (nylon 11/12), and with the metal variant, steel or titanium powder</td></tr>
+    <tr><td>Heat source</td><td>A resistance-heated <b>nozzle</b>; the filament is melted only as it passes through</td><td>A <b>laser beam</b> (usually CO₂ for polymers) steered by galvanometer mirrors</td></tr>
+    <tr><td>How a layer is formed</td><td>Material is <b>extruded and deposited</b> along a path; the new bead fuses to the bead beside it and to the layer below as it cools</td><td>The laser <b>sinters</b> selected points of a pre-spread powder layer; a roller then spreads the next layer of powder over it</td></tr>
+    <tr><td>Support structure</td><td><b>Needed</b> for overhangs. Printed from the same material (or a soluble second material) and broken or dissolved off afterwards</td><td><b>Not needed</b> — the unsintered powder around the part supports it. The part is simply dug out and the loose powder brushed off and reused</td></tr>
+    <tr><td>Typical industrial use</td><td>Concept models, jigs and fixtures, low-cost functional prototypes, short-run tooling</td><td>Functional end-use parts, complex internal geometry, small production batches, aerospace and medical components</td></tr>
+  </table></div>
+
+  <div class="trap"><b>Where marks go</b><p>The support-structure row is the one people forget, and it is the most interesting difference: SLS needs no supports at all because the powder bed does the job. Say that explicitly rather than writing "supports not required".</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2 (a)</span><span class="marks">12 marks</span><span class="method">Turning — cutting velocity and MRR</span></div>
+  <div class="qtext">A straight turning operation is performed on a lathe to reduce the diameter of a cylindrical work-piece from 25 mm to 21 mm over an effective machining length of 150 mm. The material removal is carried out in multiple passes, with a depth of cut of 1 mm in each pass. The tool operates with a constant feed rate of 0.25 mm per revolution, and the process produces 10 components per hour. Assume that the spindle speed remains constant during all passes, determine the cutting velocity employed in each pass and the corresponding material removal rate (MRR) in mm³/min.</div>
+
+  <h4 class="step">Step 1 — how many passes</h4>
+  <p class="why">Depth of cut is measured on the <i>radius</i>, but the diameter drops by twice that each pass.</p>
+  <div class="m">radial stock to remove = (25 − 21) / 2 = 2 mm
+depth of cut per pass  = 1 mm
+number of passes       = 2 / 1 = 2
+
+so the diameter goes  25 → 23 → 21 mm</div>
+
+  <h4 class="step">Step 2 — spindle speed from the production rate</h4>
+  <p class="why">10 components an hour fixes the time, and the time fixes N — this is the step the question is really testing.</p>
+  <div class="m">time per component = 60 / 10          = 6 min
+time per pass      = 6 / 2            = 3 min
+
+revolutions needed for one pass:
+  L / f = 150 / 0.25                  = 600 rev
+
+N = 600 rev ÷ 3 min                   = 200 rev/min</div>
+
+  <h4 class="step">Step 3 — cutting velocity in each pass</h4>
+  <p class="why">N is the same in both passes, but the diameter at the cut is not — so the cutting velocity drops in the second pass. That is exactly why the question says "in each pass".</p>
+  <div class="m">V = π D N
+
+pass 1, cutting at D = 25 mm:
+  V₁ = π × 25 × 200 = 15 708 mm/min = 15.71 m/min
+
+pass 2, cutting at D = 23 mm:
+  V₂ = π × 23 × 200 = 14 451 mm/min = 14.45 m/min</div>
+
+  <h4 class="step">Step 4 — material removal rate</h4>
+  <p class="why">MRR = V · f · d, with V taken at the <i>mean</i> diameter of that pass, because the cut spans from the entry diameter to the exit diameter.</p>
+  <div class="m">pass 1: mean D = (25 + 23)/2 = 24 mm
+  V = π × 24 × 200 = 15 080 mm/min
+  MRR₁ = 15 080 × 0.25 × 1 = 3 770 mm³/min
+
+pass 2: mean D = (23 + 21)/2 = 22 mm
+  V = π × 22 × 200 = 13 823 mm/min
+  MRR₂ = 13 823 × 0.25 × 1 = 3 456 mm³/min
+
+average MRR = (3 770 + 3 456)/2 = 3 613 mm³/min</div>
+
+  <h4 class="step">Check it a second way</h4>
+  <p class="why">Work out the volume of metal actually removed and divide by the time. If this does not match the average above, something is wrong.</p>
+  <div class="m">volume = (π/4)(25² − 21²) × 150
+       = (π/4)(625 − 441) × 150
+       = (π/4)(184)(150) = 21 677 mm³
+
+MRR = 21 677 / 6 min = 3 613 mm³/min   ✓ matches</div>
+
+  <div class="ans">
+    <div class="lbl">Answers</div>
+    <div class="val">N = 200 rev/min · V₁ = 15.71 m/min, V₂ = 14.45 m/min · MRR₁ = 3 770, MRR₂ = 3 456 mm³/min (average 3 613 mm³/min)</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>Two traps. Taking the depth of cut as 4 mm instead of 2 mm — the diameter falls by 4, the radius by 2. And giving one cutting velocity when the question asks for the velocity "in each pass": the whole point is that V falls as the diameter falls, even though N is held constant.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2 (b)</span><span class="marks">8 marks</span><span class="method">Single point cutting tool — signature</span></div>
+  <div class="qtext">A single point cutting tool has the following tool signature: 6° – 8° – 2° – 2° – 12° – 15° – 0.8 mm. Identify each element in the tool signature and show them schematically in Top view, Side view and Front view of the single point cutting tool. Identify the angles that prevent rubbing in a cutting tool and discuss the consequences of rubbing during machining.</div>
+
+  <h4 class="step">Step 1 — the seven elements, in ASA order</h4>
+  <p class="why">A tool signature is always written in the same order, and that order is what the first marks are for. In the ASA (American Standards Association) system it is: back rake, side rake, end relief, side relief, end cutting edge angle, side cutting edge angle, nose radius.</p>
+  <div class="tbl"><table>
+    <tr><th>Value</th><th>Element</th><th>What it does</th></tr>
+    <tr><td>6°</td><td>Back rake angle</td><td>Tilts the face along the tool axis; steers the chip away from the machined surface</td></tr>
+    <tr><td>8°</td><td>Side rake angle</td><td>Tilts the face sideways; controls chip flow direction and the cutting force</td></tr>
+    <tr><td>2°</td><td>End relief (clearance) angle</td><td>Keeps the tool's end flank off the just-cut face</td></tr>
+    <tr><td>2°</td><td>Side relief (clearance) angle</td><td>Keeps the tool's side flank off the machined surface</td></tr>
+    <tr><td>12°</td><td>End cutting edge angle</td><td>Stops the trailing edge dragging on the finished surface</td></tr>
+    <tr><td>15°</td><td>Side cutting edge angle</td><td>Sets how the tool enters the cut and spreads the load over a longer edge</td></tr>
+    <tr><td>0.8 mm</td><td>Nose radius</td><td>Blends the two edges; larger radius gives a better finish and a stronger nose</td></tr>
+  </table></div>
+
+  <h4 class="step">Step 2 — where each angle shows up in which view</h4>
+  <p class="why">A question that says "show them schematically in top, side and front view" is asking you to sort the seven angles into the three views. Each angle appears in exactly one.</p>
+  <div class="m">TOP VIEW (looking down on the tool face)
+    side cutting edge angle   15°
+    end cutting edge angle    12°
+    nose radius               0.8 mm
+
+SIDE VIEW (looking along the work axis, at the side flank)
+    side rake angle            8°
+    side relief angle          2°
+
+FRONT VIEW (looking at the end of the tool, at the end flank)
+    back rake angle            6°
+    end relief angle           2°</div>
+  <p class="why">Draw three boxes, label the tool in each, and mark only the angles listed for that view. Put the workpiece surface in as a reference line — the relief angles mean nothing without it, because they are measured from it.</p>
+
+  <h4 class="step">Step 3 — which angles prevent rubbing</h4>
+  <div class="m">The RELIEF (clearance) angles:
+    end relief   2°   keeps the end flank clear of the freshly cut face
+    side relief  2°   keeps the side flank clear of the machined surface
+
+Both are the 2° values in this signature. Rake angles do not
+prevent rubbing — they control the chip, not the flank contact.</div>
+
+  <h4 class="step">Step 4 — what rubbing does</h4>
+  <ul class="pts">
+    <li><b>Heat.</b> The flank scrapes the work instead of clearing it, and friction there produces heat right at the cutting edge, where the tool is weakest.</li>
+    <li><b>Flank wear.</b> That rubbing wears a land on the flank, and once it starts it grows, which increases the contact area, which increases the rubbing — it feeds itself.</li>
+    <li><b>Poor surface finish.</b> The rubbed surface is smeared and torn rather than cut, and it work-hardens, which makes the next pass worse.</li>
+    <li><b>Higher forces and power.</b> The extra friction adds to the cutting force with no extra metal removed, so power goes up and the machine may chatter.</li>
+    <li><b>Dimensional error.</b> As the flank wears, the tool effectively retreats from the work and the diameter creeps upward through the cut.</li>
+  </ul>
+  <p class="why">If the relief angle is made too large instead, the wedge behind the edge becomes thin and the edge chips — so there is a sensible minimum and a sensible maximum, and 2° is at the small end, typical of a tool cutting a soft material where the edge needs support.</p>
+
+  <div class="trap"><b>Where marks go</b><p>Getting the signature order wrong. It is back rake first, then side rake — not the other way round — and the two 2° values are the <i>relief</i> angles, not the cutting edge angles. If you cannot remember the order, remember that it runs rake → relief → cutting edge angles → nose radius, and the back/end pair always comes before the side pair within each type.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q3 (a)</span><span class="marks">12 marks</span><span class="method">Tandem rolling</span></div>
+  <div class="qtext">Design and schematically illustrate a tandem-rolling operation with minimum set of rollers to reduce the sheet thickness from 40 mm to 18 mm. Entrance speed of the work-piece is 20 m/min and coefficient of friction is 0.20. Roll radius for the initial set of rollers is 250 mm, and for each subsequent set, the roll radius is reduced by 50 mm, and width of sheet widens by 5 % in each step. Also, determine the input and exit velocity of the work-piece for each step.</div>
+
+  <h4 class="step">Step 1 — the two relations you need</h4>
+  <p class="why">"Minimum set of rollers" means take the biggest bite the friction will allow at every stand. That maximum bite is what limits the design.</p>
+  <div class="m">maximum draft the rolls can pull in:
+    d_max = μ² R
+
+volume flows through unchanged (metal is not compressed):
+    t₀ · w₀ · v₀ = t₁ · w₁ · v₁</div>
+
+  <h4 class="step">Step 2 — work stand by stand</h4>
+  <div class="m">STAND 1   R = 250 mm
+  d_max = 0.20² × 250 = 0.04 × 250 = 10.0 mm
+  take the full 10 mm:   40 → 30 mm
+  width × 1.05
+  v₁ = (40 × 1 × 20) / (30 × 1.05) = 800 / 31.5 = 25.40 m/min
+
+STAND 2   R = 200 mm
+  d_max = 0.04 × 200 = 8.0 mm
+  take the full 8 mm:    30 → 22 mm
+  width × 1.05 again (now 1.1025 of the original)
+  v₂ = (30 × 1.05 × 25.40) / (22 × 1.1025) = 800 / 24.255 = 32.98 m/min
+
+STAND 3   R = 150 mm
+  d_max = 0.04 × 150 = 6.0 mm
+  but only 22 − 18 = 4 mm is left, so take 4 mm:  22 → 18 mm  ✓ target reached
+  width × 1.05 again (now 1.157625 of the original)
+  v₃ = (22 × 1.1025 × 32.98) / (18 × 1.157625) = 800 / 20.837 = 38.39 m/min</div>
+
+  <h4 class="step">Step 3 — the answer table</h4>
+  <div class="tbl"><table>
+    <tr><th>Stand</th><th>Roll radius</th><th>Max draft μ²R</th><th>Draft taken</th><th>Thickness</th><th>Velocity in</th><th>Velocity out</th></tr>
+    <tr><td>1</td><td>250 mm</td><td>10.0 mm</td><td>10.0 mm</td><td>40 → 30 mm</td><td>20.00 m/min</td><td>25.40 m/min</td></tr>
+    <tr><td>2</td><td>200 mm</td><td>8.0 mm</td><td>8.0 mm</td><td>30 → 22 mm</td><td>25.40 m/min</td><td>32.98 m/min</td></tr>
+    <tr><td>3</td><td>150 mm</td><td>6.0 mm</td><td>4.0 mm</td><td>22 → 18 mm</td><td>32.98 m/min</td><td>38.39 m/min</td></tr>
+  </table></div>
+
+  <h4 class="step">Check</h4>
+  <div class="m">volume rate at entry  = 40 × 1.0000   × 20.00 = 800.0
+after stand 1         = 30 × 1.0500   × 25.40 = 800.0
+after stand 2         = 22 × 1.1025   × 32.98 = 800.0
+after stand 3         = 18 × 1.157625 × 38.39 = 800.0   ✓ constant throughout</div>
+
+  <h4 class="step">The sketch</h4>
+  <p class="why">Three pairs of rolls in a line, each pair smaller than the last, with the strip running left to right and getting thinner and faster at each stand. Label t and v either side of every stand and mark the roll radii — the marks are for the labelling, not the drawing quality.</p>
+
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">Minimum 3 sets of rollers · 40 → 30 → 22 → 18 mm · velocities 20 → 25.40 → 32.98 → 38.39 m/min</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>Two things. Forgetting that the last stand does <i>not</i> take its maximum draft — only 4 mm is left, so taking 6 mm would undershoot 18 mm. And forgetting that the width keeps growing: the 5 % compounds, so by stand 3 the width is 1.05³ = 1.1576 of the original, not 1.15.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q3 (b)</span><span class="marks">8 marks</span><span class="method">Forging</span></div>
+  <div class="qtext">With the help of neat illustrations, classify the forging operations based on metal flow constraints. Describe the most appropriate forming process with neat sketches for mass production of product (threading portion only) as shown in Figure 2.</div>
+
+  <h4 class="step">Part 1 — classification by how much the dies constrain the metal</h4>
+  <p class="why">"Metal flow constraints" is the key phrase: the classification is by how free the metal is to spread sideways, and there are three levels.</p>
+  <div class="tbl"><table>
+    <tr><th>Type</th><th>How the metal is constrained</th><th>Flash</th><th>Typical use</th></tr>
+    <tr><td><b>Open die forging</b><br>(upsetting, cogging)</td><td>Flat or simply shaped dies; the metal is free to spread sideways in every direction. Shape comes from the operator's manipulation, not from the dies</td><td>None</td><td>Large shafts, rings, one-off and small-batch work</td></tr>
+    <tr><td><b>Impression die forging</b><br>(closed die with flash)</td><td>The dies carry the part cavity, so the metal is forced to fill it. A deliberate gap round the parting line lets the excess escape</td><td>Yes — the flash land builds back-pressure that forces the cavity to fill, then is trimmed off</td><td>Connecting rods, crankshafts, spanners — mass production</td></tr>
+    <tr><td><b>Flashless (true closed die) forging</b></td><td>The cavity is completely sealed; the metal has nowhere to escape at all</td><td>None</td><td>Precision parts where material cost matters; needs the billet volume controlled accurately</td></tr>
+  </table></div>
+  <p class="why">Sketch all three: two flat dies squashing a billet outward; two shaped dies with a thin flash line squeezing out at the parting plane; and a fully enclosed cavity with no gap. Arrows showing where the metal flows are what earn the marks.</p>
+
+  <h4 class="step">Part 2 — the threaded portion of the bolt, in mass production</h4>
+  <p class="why">The figure is a hex bolt with the thread called out. The question says "mass production" and "threading portion only", and that combination points at one answer.</p>
+  <div class="m">Process: THREAD ROLLING  (a cold forming process)
+
+How it works: the blank is fed between two hardened dies carrying the
+thread profile in reverse. The dies press into the blank and roll it, and
+the metal is DISPLACED — pushed out of the roots and up into the crests —
+rather than cut away.
+
+Two arrangements to sketch:
+  • flat reciprocating dies: one fixed, one sliding across it,
+    the blank rolls between them
+  • cylindrical dies: two or three rotating rolls with the blank
+    held between them</div>
+  <ul class="pts">
+    <li><b>No material is wasted</b> — nothing is cut off, so the blank diameter is the pitch diameter, not the major diameter.</li>
+    <li><b>Much faster</b> — a thread is formed in one pass in a fraction of a second, against many passes for single-point cutting.</li>
+    <li><b>Stronger thread</b> — the grain flow is bent to follow the thread contour instead of being cut through, and the surface is left in compression, which raises fatigue strength considerably.</li>
+    <li><b>Better finish</b> — the rolled surface is burnished by the die, so no separate finishing is needed.</li>
+  </ul>
+
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">Open die / impression die (with flash) / flashless closed die · the threads are made by <b>thread rolling</b></div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>Answering "thread cutting" or "tapping". Both work, but neither is a <i>forming</i> process and neither suits mass production — and the question sits in a forming paper and says "forming process" outright. Also, say what happens to the grain flow: that is the sentence that separates a 6 from an 8.</p></div>
+</div>
+
+</div>
+
+<!-- ========== October 2025 ========== -->
+<div class="paper" id="y2025o">
+<h2 class="yr">October 2025</h2>
+<p class="yr-meta">06-10-2025 · 60 marks · 2 hours</p>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1 (a)</span><span class="marks">13 marks</span><span class="method">CNC turning — canned cycles</span></div>
+  <div class="qtext">The component of aluminium shown in Figure 1 is to be manufactured. A 70 mm diameter and 120 mm long blank is to be used. Write a CNC part program for its manufacturing on CNC machine. Tool pre-travel allowance 2 mm; spindle speeds for turning/facing, drilling and threading 2000, 1000 and 500 rpm; feed rates for roughing and finishing 100 and 60 mm/min; feed in drilling 60 mm/min; facing of 2 mm before other operations; DOC in rough turning 0.5 mm and finishing allowance 0.1 mm in both directions; DOC and tool retract in drilling 0.5 and 1 mm; included angle of thread 60°, no. of finishing passes 4, finishing allowance 0.2 mm; minimum and maximum DOC for threading 50 and 100 µm.</div>
+
+  <h4 class="step">Step 1 — read the profile off the drawing</h4>
+  <p class="why">The drawing is dimensioned by diameter (70, 60, 50, 35, 15) with the axial chain running along the bottom: 10, 5, 5, 5, 10, 15, 15, 10, 20 and then 2 for the facing stock. Put Z = 0 on the finished right-hand face and work leftwards in negative Z.</p>
+  <div class="m">from the finished face, going left:
+  Z  0    → −20    Ø15     M15 × 1.5 threaded portion
+  Z −20   → −30    R10     fillet blending Ø15 up to Ø35
+  Z −30   → −45    Ø35     plain cylinder
+  Z −45   → −60            taper, Ø35 up to Ø50
+  Z −60   → −70    Ø50     plain cylinder
+  Z −70   → −75    R5      fillet Ø50 up to Ø60
+  Z −75   → −80    Ø60     plain cylinder
+  Z −80   → −85    R5      fillet Ø60 up to Ø70
+  Z −85   → −95    Ø70     the blank diameter, left untouched
+
+chain check: 20 + 10 + 15 + 15 + 10 + 5 + 5 + 5 + 10 = 95 mm
+             plus the 2 mm facing stock = 97 mm out of a 120 mm blank  ✓
+
+drilled hole: Ø6, 15 mm deep from the face (the dashed outline)</div>
+
+  <h4 class="step">Step 2 — the operation order</h4>
+  <p class="why">The order is fixed by the question and by common sense: face first so every Z is measured from a true face, then drill while the part is still stiff, then rough and finish the outside, then cut the thread last so it is not damaged by later cuts.</p>
+  <div class="m">1. face 2 mm off the right end        (G94 facing cycle)
+2. drill Ø6 to 15 mm deep             (G74 peck drilling)
+3. rough the outside profile          (G71, 0.5 mm DOC, 0.1 mm left on)
+4. finish the outside profile         (G70, feed 60)
+5. cut the M15 × 1.5 thread           (G76)</div>
+
+  <h4 class="step">Step 3 — the program</h4>
+  <pre class="code">N10   G21 G90 G98              <span class="c">; metric, absolute, feed in mm/min</span>
+N20   T01 M06                  <span class="c">; facing / turning tool</span>
+N30   M03 S2000                <span class="c">; spindle 2000 rpm</span>
+N40   G00 X72 Z2               <span class="c">; clear of the blank, 2 mm pre-travel</span>
+
+<span class="c">; ---- 1. facing, 2 mm off in four 0.5 mm cuts ----</span>
+N50   G94 X-1 Z1.5 F100        <span class="c">; face to centre, first 0.5 mm</span>
+N60   G94 X-1 Z1.0 F100
+N70   G94 X-1 Z0.5 F100
+N80   G94 X-1 Z0   F100        <span class="c">; face now at Z0</span>
+N90   G00 X72 Z2
+
+<span class="c">; ---- 2. drilling Ø6 × 15 deep ----</span>
+N100  G00 X0 Z2                <span class="c">; on the axis</span>
+N110  T02 M06                  <span class="c">; Ø6 drill</span>
+N120  M03 S1000                <span class="c">; 1000 rpm for drilling</span>
+N130  G74 R1                   <span class="c">; 1 mm retract between pecks</span>
+N140  G74 X0 Z-15 Q500 F60     <span class="c">; peck 0.5 mm (500 µm) to 15 mm deep</span>
+N150  G00 Z2
+
+<span class="c">; ---- 3. rough turning ----</span>
+N160  T01 M06
+N170  M03 S2000
+N180  G00 X72 Z2
+N190  G71 U0.5 R1              <span class="c">; 0.5 mm depth of cut, 1 mm retract</span>
+N200  G71 P210 Q300 U0.1 W0.1 F100   <span class="c">; 0.1 mm left on in X and Z</span>
+
+<span class="c">; ---- the finished profile, read from the drawing ----</span>
+N210  G00 X15                  <span class="c">; thread outside diameter</span>
+N220  G01 Z-20 F60             <span class="c">; along the threaded length</span>
+N230  G03 X35 Z-30 R10         <span class="c">; R10 fillet up to Ø35</span>
+N240  G01 Z-45                 <span class="c">; Ø35 cylinder</span>
+N250  G01 X50 Z-60             <span class="c">; taper up to Ø50</span>
+N260  G01 Z-70                 <span class="c">; Ø50 cylinder</span>
+N270  G03 X60 Z-75 R5          <span class="c">; R5 fillet up to Ø60</span>
+N280  G01 Z-80                 <span class="c">; Ø60 cylinder</span>
+N290  G03 X70 Z-85 R5          <span class="c">; R5 fillet up to Ø70</span>
+N300  G01 Z-95                 <span class="c">; Ø70, end of profile</span>
+
+<span class="c">; ---- 4. finishing pass ----</span>
+N310  G70 P210 Q300 F60        <span class="c">; same profile, finishing feed</span>
+N320  G00 X72 Z2
+
+<span class="c">; ---- 5. threading M15 × 1.5 ----</span>
+N330  T03 M06                  <span class="c">; 60° threading tool</span>
+N340  M03 S500                 <span class="c">; 500 rpm for threading</span>
+N350  G00 X18 Z2
+N360  G76 P041060 Q50 R0.2     <span class="c">; 4 finish passes, 60° angle,</span>
+                               <span class="c">; min DOC 50 µm, 0.2 mm finish allowance</span>
+N370  G76 X13.16 Z-20 P920 Q100 F1.5
+                               <span class="c">; thread depth 0.92 mm, first cut 100 µm,</span>
+                               <span class="c">; pitch 1.5 mm</span>
+N380  G00 X72 Z2
+
+N390  G28 U0 W0                <span class="c">; home</span>
+N400  M05                      <span class="c">; spindle off</span>
+N410  M30                      <span class="c">; end</span></pre>
+
+  <h4 class="step">Where the thread numbers come from</h4>
+  <p class="why">The G76 line needs the thread depth and the minor diameter, and the examiner expects to see them worked out rather than copied.</p>
+  <div class="m">M15 × 1.5  →  major diameter 15 mm, pitch p = 1.5 mm
+
+thread height (ISO, 60° included):
+  h = 0.6134 p = 0.6134 × 1.5 = 0.92 mm   (920 µm)
+
+minor diameter at the root:
+  d = 15 − 2 × 0.92 = 13.16 mm
+
+so   P920  (depth in µm)   and   X13.16  (final X)</div>
+
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">Program as above — face (G94) → drill (G74) → rough (G71) → finish (G70) → thread (G76), with thread depth 0.92 mm and minor diameter 13.16 mm</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>The profile block between P and Q must be written as a single continuous chain from the smallest diameter outwards, and every fillet must be <b>G03</b> here, not G02 — going from a small diameter up to a large one on the far side of the axis is an anticlockwise move. Writing the profile from the chuck end towards the face reverses everything and the cycle will not run.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1 (b)</span><span class="marks">7 marks</span><span class="method">Additive manufacturing</span></div>
+  <div class="qtext">Write the basic steps of part manufacturing through additive manufacturing (3D printing). As an engineer, which type of Additive manufacturing process you will suggest to fabricate the implant as shown in Figure 2. Explain the working principle of that particular process with a neat diagram.</div>
+
+  <h4 class="step">Part 1 — the steps, in order</h4>
+  <ol class="steps">
+    <li><b>3D model.</b> Build the part in CAD, or capture it — for an implant, from a CT or MRI scan of the patient converted to a solid model.</li>
+    <li><b>Convert to STL.</b> The surfaces are approximated by a mesh of triangles. Finer triangles mean a smoother part and a bigger file.</li>
+    <li><b>Orient and support.</b> Choose how the part sits on the bed — this decides surface finish, strength direction and how much support is needed — and add supports where the process requires them.</li>
+    <li><b>Slice.</b> The model is cut into horizontal layers and each layer is turned into a tool path, with layer thickness, speed and infill set here.</li>
+    <li><b>Build.</b> The machine adds material layer on layer until the part is complete.</li>
+    <li><b>Remove and clean.</b> Take the part off the bed, break away supports, brush off loose powder or wash off resin.</li>
+    <li><b>Post-process.</b> Heat treatment or hot isostatic pressing for metal parts, machining of mating faces, polishing, and for an implant, sterilisation.</li>
+  </ol>
+
+  <h4 class="step">Part 2 — which process for the implant</h4>
+  <p class="why">Figure 2 shows a polymer implant with an open lattice structure. That lattice is the clue: it has undercuts and internal voids everywhere, so any process that needs support structures would be impossible to clean out.</p>
+  <div class="m">Suggested process: SELECTIVE LASER SINTERING (SLS)
+
+Why this one:
+  • the surrounding unsintered powder supports the lattice, so no
+    support structures have to be built inside it and then removed
+  • it runs biocompatible polymers such as PEEK and nylon 12
+  • it holds fine features and thin struts accurately
+  • loose powder shakes out of the open lattice cleanly</div>
+
+  <h4 class="step">How SLS works — for the diagram</h4>
+  <ol class="steps">
+    <li>A thin, even layer of polymer powder is spread across the build platform by a roller or blade.</li>
+    <li>The whole bed is held just below the melting point, so the laser only has to supply the last small amount of energy.</li>
+    <li>A CO₂ laser, steered by two galvanometer mirrors, traces the cross-section of that layer and sinters the powder grains together where it passes.</li>
+    <li>The platform drops by one layer thickness, the roller spreads fresh powder, and the laser draws the next cross-section, fusing it to the one below.</li>
+    <li>This repeats to the top of the part. The part is left to cool inside the powder cake, then dug out and the loose powder brushed off and recycled.</li>
+  </ol>
+  <p class="why">The diagram needs: powder supply cylinder, roller, build platform on a piston, laser with mirror, and the part buried in the powder bed. Label the unsintered powder as "acts as support" — that is the point of the whole answer.</p>
+
+  <div class="trap"><b>Where marks go</b><p>Naming FDM. It prints the same polymers, but an open lattice printed by FDM would be full of support material that cannot be reached to remove. The mark is for connecting the <i>geometry in the figure</i> to the <i>process that needs no supports</i>.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2 (a)</span><span class="marks">10 marks</span><span class="method">Turning — time, MRR, output</span></div>
+  <div class="qtext">It is required to produce a short shaft used in an agricultural pump. Bars (60 mm Ø, 250 mm long, mild steel) are turned to a final diameter of 50 mm over a length of 200 mm. Production planning needs the machining time and material removal rate to estimate hourly output and machine loading. Cutting conditions: V = 180 m/min, f = 0.25 mm/rev, depth of cut per roughing pass is 1.5 mm and finishing pass (only one) is 0.5 mm. Use the mean diameter for the calculation of spindle speed.</div>
+
+  <h4 class="step">Step 1 — how the depth is split</h4>
+  <div class="m">radial stock = (60 − 50) / 2 = 5 mm
+
+one finishing pass takes 0.5 mm, so roughing must take 4.5 mm
+number of roughing passes = 4.5 / 1.5 = 3
+
+total passes = 3 roughing + 1 finishing = 4</div>
+
+  <h4 class="step">Step 2 — spindle speed from the mean diameter</h4>
+  <p class="why">The question says to use the mean diameter, which is the average of the starting and finishing diameters — this is the standard way to get one speed for a cut that spans a range of diameters.</p>
+  <div class="m">D_mean = (60 + 50) / 2 = 55 mm
+
+V = π D N   →   N = V / (π D)
+
+N = (180 × 1000) / (π × 55) = 180 000 / 172.79 = 1041.7 rev/min</div>
+
+  <h4 class="step">Step 3 — machining time</h4>
+  <div class="m">time for one pass = L / (f × N)
+                  = 200 / (0.25 × 1041.7)
+                  = 200 / 260.4 = 0.768 min
+
+total machining time = 4 × 0.768 = 3.072 min ≈ 3.07 min</div>
+
+  <h4 class="step">Step 4 — hourly output</h4>
+  <div class="m">parts per hour = 60 / 3.072 = 19.5 parts/hour
+
+(that is cutting time only — with loading, unloading and
+ tool changes the real figure will be lower)</div>
+
+  <h4 class="step">Step 5 — material removal rate</h4>
+  <p class="why">Two figures are worth quoting, and they are different for a good reason: the roughing rate is what the machine has to cope with, the average is what the planner uses.</p>
+  <div class="m">during a roughing pass:
+  MRR = V · f · d = 180 000 × 0.25 × 1.5 = 67 500 mm³/min
+
+averaged over the whole job:
+  volume removed = (π/4)(60² − 50²) × 200
+                 = (π/4)(3600 − 2500)(200)
+                 = (π/4)(1100)(200) = 172 788 mm³
+  MRR = 172 788 / 3.072 = 56 250 mm³/min</div>
+  <p class="why">The average is lower because the last pass only takes 0.5 mm — a third of the roughing depth — while taking just as long.</p>
+
+  <div class="ans">
+    <div class="lbl">Answers</div>
+    <div class="val">N = 1042 rev/min · 4 passes · machining time 3.07 min · 19.5 parts/hour · MRR 67 500 mm³/min while roughing (56 250 mm³/min averaged)</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>Working the whole 5 mm as roughing and getting 3.33 passes. The finishing pass is stated separately and must be taken out first: 5 − 0.5 = 4.5, then divide. Also, the time is the same for every pass — feed and length do not change with depth — so do not scale the finishing pass down.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2 (b)</span><span class="marks">5 marks</span><span class="method">Chip welding / built-up edge</span></div>
+  <div class="qtext">With the aid of a schematic, illustrate the phenomenon of chip welding. Under what machining conditions is it likely to occur, and what strategies can be employed to minimize or eliminate it?</div>
+
+  <h4 class="step">What it is</h4>
+  <p class="why">Chip welding is the built-up edge, or BUE. Under the pressure and heat where the chip slides over the tool face, some of the work material seizes and pressure-welds itself to the rake face just behind the cutting edge.</p>
+  <div class="m">The cycle, which is what the schematic should show:
+
+  1. a layer of work material sticks to the rake face
+  2. it work-hardens and grows, and starts doing the cutting itself
+  3. it becomes unstable and breaks away
+  4. part goes off with the chip, part is dragged onto the machined
+     surface, leaving it rough and scored
+  5. a fresh layer sticks and the cycle starts again
+
+Draw: tool, chip curling away, and a wedge of built-up material
+sitting on the rake face ahead of the tool, with the effective
+cutting edge now at the tip of that wedge, not the tool.</div>
+
+  <h4 class="step">When it happens</h4>
+  <ul class="pts">
+    <li><b>Low to medium cutting speed.</b> This is the main one. At low speed there is time for the material to weld; above a critical speed the temperature is high enough that the material softens and flows instead of sticking, and the BUE disappears.</li>
+    <li><b>Ductile work material</b> — low carbon steel, aluminium, copper. Brittle materials give discontinuous chips and do not form a BUE.</li>
+    <li><b>Small or negative rake angle</b>, which raises the pressure on the chip–tool contact.</li>
+    <li><b>High feed and depth of cut</b>, again through higher contact pressure.</li>
+    <li><b>No cutting fluid</b>, so nothing prevents the metal-to-metal contact.</li>
+  </ul>
+
+  <h4 class="step">How to stop it</h4>
+  <ul class="pts">
+    <li><b>Raise the cutting speed</b> past the critical value. Cheapest and most effective fix.</li>
+    <li><b>Increase the rake angle</b> — a larger positive rake cuts the contact pressure and lets the chip slide away.</li>
+    <li><b>Use a cutting fluid</b>, chosen for lubrication rather than cooling, so a film separates chip from tool.</li>
+    <li><b>Reduce the feed</b>, which lowers the chip thickness and the pressure with it.</li>
+    <li><b>Use a tool with a low affinity for the work</b> — a coated carbide (TiN, TiAlN) or a polished rake face, so the chip does not weld to it.</li>
+  </ul>
+
+  <div class="trap"><b>Where marks go</b><p>Saying BUE is always bad. A small stable built-up edge actually protects the tool by taking the wear itself, and in rough cutting it can extend tool life. What ruins the job is the <i>unstable</i> BUE that keeps breaking off and smearing the surface — say that, and the answer reads like you understand it rather than remember it.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2 (c)</span><span class="marks">5 marks</span><span class="method">Tool signature</span></div>
+  <div class="qtext">Identify the elements of the tool signature of a single point cutting tool given as "6 - 7 - 8 - 7 - 12 - 14 - 0.6". What would be the consequences on strength of cutting tool, cutting forces and surface finish, if the back rake angle and nose radius of a cutting tool are selected beyond their recommended ranges?</div>
+
+  <h4 class="step">Step 1 — the seven elements</h4>
+  <div class="tbl"><table>
+    <tr><th>Value</th><th>Element</th></tr>
+    <tr><td>6°</td><td>Back rake angle</td></tr>
+    <tr><td>7°</td><td>Side rake angle</td></tr>
+    <tr><td>8°</td><td>End relief angle</td></tr>
+    <tr><td>7°</td><td>Side relief angle</td></tr>
+    <tr><td>12°</td><td>End cutting edge angle</td></tr>
+    <tr><td>14°</td><td>Side cutting edge angle</td></tr>
+    <tr><td>0.6 mm</td><td>Nose radius</td></tr>
+  </table></div>
+
+  <h4 class="step">Step 2 — back rake angle pushed too far</h4>
+  <div class="tbl"><table>
+    <tr><th></th><th>Back rake too LARGE (too positive)</th><th>Back rake too SMALL or negative</th></tr>
+    <tr><td>Tool strength</td><td>The wedge behind the edge becomes thin, so the edge is weak and chips or breaks under shock</td><td>The wedge is thick and strong — this is why negative rake is used for interrupted cuts and hard materials</td></tr>
+    <tr><td>Cutting force</td><td>Low — the chip is sheared easily and flows away freely</td><td>High — more energy goes into deforming the chip, so force and power rise</td></tr>
+    <tr><td>Surface finish</td><td>Good, provided the edge survives; if it chips, the finish collapses</td><td>Poorer, with more heat, more rubbing and a greater chance of built-up edge</td></tr>
+  </table></div>
+
+  <h4 class="step">Step 3 — nose radius pushed too far</h4>
+  <div class="tbl"><table>
+    <tr><th></th><th>Nose radius too LARGE</th><th>Nose radius too SMALL</th></tr>
+    <tr><td>Tool strength</td><td>Strong nose, good heat dissipation, longer tool life</td><td>Sharp weak nose that wears and breaks quickly</td></tr>
+    <tr><td>Cutting force</td><td>Rises, especially the radial component — and that component is what pushes the tool away from the work and causes <b>chatter</b> and deflection on slender jobs</td><td>Low, so a slender workpiece deflects less</td></tr>
+    <tr><td>Surface finish</td><td>Better — the theoretical roughness falls as f²/(8R), so doubling R quarters the roughness, up to the point where chatter sets in and ruins it</td><td>Poorer — the feed marks are deeper and more visible</td></tr>
+  </table></div>
+
+  <div class="m">theoretical peak-to-valley roughness:
+    R_max = f² / (8 R)
+
+which is why a bigger nose radius improves finish — until the
+radial force it causes starts the job chattering.</div>
+
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">6° back rake, 7° side rake, 8° end relief, 7° side relief, 12° ECEA, 14° SCEA, 0.6 mm nose radius · both parameters trade tool strength and chatter against cutting force and finish</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>The nose radius answer that stops at "larger radius gives better finish". The examiner wants the other side too: the radial force it raises is what makes a long slender shaft chatter, and then the finish gets worse, not better. Saying both directions is what earns the full five.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q3 (a)</span><span class="marks">5 marks</span><span class="method">Stress–strain</span></div>
+  <div class="qtext">Plot the stress-strain diagram for ductile and brittle material with labelling of yield stress, ultimate stress and elongation. Also, identify the zone of operation during machining and forming operations.</div>
+
+  <h4 class="step">What the two curves look like</h4>
+  <div class="m">DUCTILE (mild steel)
+  • straight elastic line from the origin
+  • upper and lower yield point, then a flat yield plateau
+  • strain hardening up to the ULTIMATE TENSILE STRESS at the peak
+  • necking, load falls, fracture at large strain
+  • elongation at fracture is large — 20 % or more
+
+BRITTLE (cast iron, glass)
+  • a short, steeply rising line
+  • no clear yield point at all
+  • fractures at or very near the peak
+  • elongation at fracture is tiny — under 1–2 %
+  • the area under the curve (toughness) is small</div>
+  <p class="why">Draw both on the same axes so the contrast is obvious, and mark on the ductile curve: the proportional limit, the yield stress σ_y, the ultimate stress σ_u at the peak, and the total elongation along the strain axis at the fracture point.</p>
+
+  <h4 class="step">Which zone each process works in</h4>
+  <div class="tbl"><table>
+    <tr><th>Process</th><th>Zone</th><th>Why</th></tr>
+    <tr><td><b>Forming</b><br>(rolling, forging, drawing, sheet metal)</td><td><b>Plastic zone</b> — past the yield point but before the ultimate stress</td><td>Forming needs the metal to take a permanent new shape without breaking, so the stress must exceed yield but stay below the point where necking and fracture begin. The whole art of forming is staying inside that window.</td></tr>
+    <tr><td><b>Machining</b></td><td><b>Fracture zone</b> — beyond the ultimate stress</td><td>A chip is not deformed, it is separated. The material ahead of the tool is loaded past its ultimate strength until it shears and comes away as a chip.</td></tr>
+  </table></div>
+
+  <div class="trap"><b>Where marks go</b><p>The last part is the one that is usually left blank because it is only one line. Forming works between yield and ultimate; machining works past ultimate, at fracture. Mark those two bands on the ductile curve and shade them — it is two marks for almost no writing.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q3 (b)</span><span class="marks">10 marks</span><span class="method">Cold rolling</span></div>
+  <div class="qtext">A steel strip of initial thickness 50 mm and width 300 mm is cold-rolled to a final thickness of 20 mm in two passes using a two-stand tandem roll mill as shown in Figure 3. Each stand has rolls of 600 mm diameter. The strip enters stand 1 at 16 m/min. The roll surface speeds are 17.5 m/min at stand 1 and 20 m/min at stand 2. During rolling, the strip widens by 4 % per pass. Calculate: 1. The draft per pass. 2. The minimum coefficient of friction required to achieve this reduction. 3. The exit velocity of the plate.</div>
+
+  <h4 class="step">Part 1 — draft per pass</h4>
+  <div class="m">total reduction = 50 − 20 = 30 mm
+two equal passes  → draft per pass = 30 / 2 = 15 mm
+
+so the thickness goes  50 → 35 → 20 mm</div>
+
+  <h4 class="step">Part 2 — minimum coefficient of friction</h4>
+  <p class="why">The rolls can only drag the strip in if friction is strong enough. The bite condition sets the largest draft a given friction can pull: d_max = μ²R. Turn it round to get the smallest friction that will manage the draft you need.</p>
+  <div class="m">d_max = μ² R     →     μ_min = √(d / R)
+
+R = 600 / 2 = 300 mm,  d = 15 mm
+
+μ_min = √(15 / 300) = √0.05 = 0.2236</div>
+
+  <h4 class="step">Part 3 — exit velocity</h4>
+  <p class="why">Metal is not compressed, so the volume passing any cross-section per minute is the same everywhere: t · w · v is constant. Note the width grows 4 % at <i>each</i> pass, so it compounds.</p>
+  <div class="m">entry:        t = 50 mm, w = 300 mm,   v = 16 m/min
+  volume rate = 50 × 300 × 16 = 240 000
+
+after pass 1: t = 35 mm, w = 300 × 1.04 = 312 mm
+  v₁ = 240 000 / (35 × 312) = 240 000 / 10 920 = 21.98 m/min
+
+after pass 2: t = 20 mm, w = 312 × 1.04 = 324.48 mm
+  v₂ = 240 000 / (20 × 324.48) = 240 000 / 6 489.6 = 36.98 m/min</div>
+
+  <div class="ans">
+    <div class="lbl">Answers</div>
+    <div class="val">Draft 15 mm per pass · μ_min = 0.224 · exit velocity 36.98 m/min (21.98 m/min between the stands)</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>Using the roll diameter instead of the radius in √(d/R) — that halves the answer to 0.158. Use R = 300 mm.</p>
+  <p>Worth noticing: the exit velocity comes out well above the roll surface speed of 20 m/min, which real rolling would not do — forward slip is normally a few per cent, not eighty. The numbers in the question are simply not self-consistent. Volume constancy is the method the marks are for, so use it and, if you have time, add one line saying the given roll speeds do not match — examiners give credit for spotting that.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q3 (c)</span><span class="marks">5 marks</span><span class="method">Forging — flash</span></div>
+  <div class="qtext">The given Figure 4 shows some unwanted material. Identify it, explain why it is produced. Suggest and illustrate schematically the suitable forging process in which this unwanted material is not formed.</div>
+
+  <h4 class="step">What it is</h4>
+  <div class="m">The unwanted material is FLASH — the thin fin of metal squeezed out
+around the parting line of the connecting rod in Figure 4.</div>
+
+  <h4 class="step">Why it is produced — and why it is deliberate</h4>
+  <p class="why">This is the part most answers get wrong. Flash is not an accident or a sign of a badly made die. It is designed in, and it does a job.</p>
+  <ol class="steps">
+    <li>The billet is always given slightly more volume than the cavity needs, because you cannot cut billets to an exact volume in production.</li>
+    <li>As the dies close, the excess has to go somewhere, and it escapes through a deliberate narrow gap at the parting line called the <b>flash land</b>.</li>
+    <li>That gap is thin and long, so the metal escaping through it cools fast and meets high friction. Both make it hard to push.</li>
+    <li>The resistance builds up <b>back-pressure</b> inside the cavity, and it is that back-pressure that forces the metal into the thin ribs and sharp corners of the part. Without flash, the far corners would not fill.</li>
+  </ol>
+  <p class="why">So flash is the price paid for a completely filled cavity. It is trimmed off afterwards in a trimming press, and it is scrap — typically 10 to 20 % of the billet.</p>
+
+  <h4 class="step">The process that avoids it</h4>
+  <div class="m">FLASHLESS FORGING  (also called true closed-die or precision forging)
+
+The cavity is fully enclosed — the dies seal against each other and
+there is no gap at the parting line, so no metal can escape.
+
+What that demands:
+  • the billet volume must be controlled accurately, because any
+    excess has nowhere to go and will over-load the dies
+  • too little material and the part will not fill
+  • higher die stresses, so stronger and more expensive tooling
+  • usually done on a press with good stroke control, not a hammer
+
+What you get:
+  • no flash, so no trimming operation and no trimming scrap
+  • much better material utilisation
+  • closer tolerances and less machining afterwards</div>
+  <p class="why">For the sketch, draw them side by side: impression die forging with the thin flash escaping at the parting line, and flashless forging with the cavity fully sealed and the billet exactly filling it. One arrow each showing where the metal goes.</p>
+
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">The unwanted material is <b>flash</b>, formed deliberately at the flash land to build back-pressure and fill the cavity · avoided by <b>flashless (true closed die) forging</b>, which needs accurate billet volume</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>Saying flash is simply "extra material that leaks out". That gets one mark. Explaining that the flash land builds back-pressure, and that the back-pressure is what fills the thin sections, gets the rest — and it is the sentence that shows you know why anyone would design flash on purpose.</p></div>
+</div>
+
+</div>
+
+<!-- ========== March 2025 ========== -->
+<div class="paper" id="y2025e">
+<h2 class="yr">March 2025</h2>
+<p class="yr-meta">06-03-2025 · 75 marks · 2 hours</p>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1 (a)</span><span class="marks">14 marks</span><span class="method">CNC turning — canned cycles</span></div>
+  <div class="qtext">An aluminum component required to be manufactured on CNC Lathe machine as shown in Fig.1. Write a manual part program using canned cycles. Spindle speed for turning/facing and drilling are 2000 and 1000 rpm; depth of cut for facing operation is 1 mm; feed rate for rough and finish turning are 60 and 40 mm/min; for facing operation the feed rate is 60 mm/min; depth of cut for rough cut turning is 0.5 mm and finishing allowance is 0.2 mm for both directions with tool retraction of 0.5 mm; for drilling operation, depth of cut 1 mm and feed rate of 100 mm/min with tool retraction of 0.5 mm are to be maintained.</div>
+
+  <h4 class="step">Step 1 — the profile, read off Fig. 1</h4>
+  <p class="why">Fig. 1 is dimensioned by <b>radius</b> — R63, R48, R35, R23, R9 — so double each one to get the diameter you program. The axial chain along the bottom reads 30, 39, 13, 47, 5, adding to 134 mm. The origin ⊕ sits at the right-hand face on the axis.</p>
+  <div class="m">radius on drawing  →  diameter to program
+  R63   →  Ø126     largest diameter, at the chuck end
+  R48   →  Ø96      where the R15 fillet ends
+  R35   →  Ø70
+  R23   →  Ø46      the long plain cylinder
+  R9    →  Ø18      the drilled hole
+
+reading right to left from the face, Z = 0 at the finished face:
+  Z  0    → −5      Ø46, short land at the face
+  Z −5    → −52     Ø46 cylinder                    (47 mm)
+  Z −52   → −65     R12 fillet, Ø46 up to Ø70       (13 mm)
+  Z −65   → −104    taper, Ø70 up to Ø96            (39 mm)
+  Z −104  → −134    R15 fillet then Ø126            (30 mm)
+
+chain check: 5 + 47 + 13 + 39 + 30 = 134 mm  ✓</div>
+  <p class="why">On the scan the two fillets sit at the boundaries of the 39 and 30 bands and it is not certain which band absorbs each fillet's axial length. The reading above puts R12 inside the 13 and R15 inside the 30, which is the one that makes the chain close. If your copy shows it differently only those two Z values move — the program does not change shape.</p>
+
+  <h4 class="step">Step 2 — the program</h4>
+  <pre class="code">N10   G21 G90 G98              <span class="c">; metric, absolute, feed in mm/min</span>
+N20   T01 M06                  <span class="c">; facing / turning tool</span>
+N30   M03 S2000                <span class="c">; 2000 rpm</span>
+N40   G00 X128 Z2              <span class="c">; clear of the Ø126 blank</span>
+
+<span class="c">; ---- facing, 1 mm depth of cut ----</span>
+N50   G94 X-1 Z0 F60           <span class="c">; face right across to the axis</span>
+N60   G00 X128 Z2
+
+<span class="c">; ---- drilling Ø18 on the axis ----</span>
+N70   T02 M06                  <span class="c">; Ø18 drill</span>
+N80   M03 S1000                <span class="c">; 1000 rpm for drilling</span>
+N90   G00 X0 Z2
+N100  G74 R0.5                 <span class="c">; 0.5 mm retract between pecks</span>
+N110  G74 X0 Z-40 Q1000 F100   <span class="c">; peck 1 mm at a time</span>
+N120  G00 Z2
+
+<span class="c">; ---- rough turning ----</span>
+N130  T01 M06
+N140  M03 S2000
+N150  G00 X128 Z2
+N160  G71 U0.5 R0.5            <span class="c">; 0.5 mm depth of cut, 0.5 mm retract</span>
+N170  G71 P180 Q240 U0.2 W0.2 F60   <span class="c">; 0.2 mm left on in both directions</span>
+
+<span class="c">; ---- the finished profile ----</span>
+N180  G00 X46                  <span class="c">; smallest turned diameter</span>
+N190  G01 Z-52 F40             <span class="c">; Ø46 cylinder, 47 mm of it</span>
+N200  G03 X70 Z-65 R12         <span class="c">; R12 fillet up to Ø70</span>
+N210  G01 X96 Z-104            <span class="c">; taper up to Ø96</span>
+N220  G03 X126 Z-134 R15       <span class="c">; R15 fillet up to Ø126</span>
+N230  G01 Z-134
+N240  G01 X128                 <span class="c">; run out clear of the work</span>
+
+<span class="c">; ---- finishing ----</span>
+N250  G70 P180 Q240 F40        <span class="c">; same profile at finishing feed</span>
+N260  G00 X128 Z2
+
+N270  G28 U0 W0
+N280  M05
+N290  M30</pre>
+
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">Face (G94) → drill (G74) → rough (G71, U0.5, leaving 0.2) → finish (G70) · profile Ø46 → R12 → Ø70 → taper → Ø96 → R15 → Ø126 over 134 mm</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>Programming radii instead of diameters. A lathe control works in <i>diameter</i> on the X axis, so R63 on the drawing must be written X126, not X63. Halving every X is the single most common way to lose this question.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1 (b)</span><span class="marks">5 marks</span><span class="method">Forming process selection</span></div>
+  <div class="qtext">An industry wants to set up the manufacturing unit of railway tracks and metal screws. Please suggest the forming processes with a neat sketch for making such products.</div>
+
+  <h4 class="step">Railway track — hot rolling, in a shaped roll pass sequence</h4>
+  <div class="m">Process: HOT ROLLING through grooved (shaped) rolls
+
+Why:
+  • a rail is a long constant cross-section — that is exactly what
+    rolling is for, and no other process makes length this cheaply
+  • the section is heavy and complex, so it is done HOT, above the
+    recrystallisation temperature, where the steel is soft and
+    can take large reductions without cracking
+  • it is made in a SEQUENCE of passes: a square bloom is worked
+    step by step through roughing, intermediate and finishing
+    stands, each pair of rolls grooved a little closer to the
+    final rail shape
+  • hot working also refines the grain and closes casting porosity</div>
+  <p class="why">Sketch: a bloom entering a set of grooved rolls, and beside it the sequence of cross-sections — square → dog-bone → rough rail → finished rail profile. That progression is what the marks are for.</p>
+
+  <h4 class="step">Metal screws — cold heading, then thread rolling</h4>
+  <div class="m">Two forming steps, both COLD:
+
+1. COLD HEADING (a cold upsetting / forging operation)
+   Wire is cut to length and the end is struck in a die to
+   upset it into the head. No metal is removed — it is displaced.
+
+2. THREAD ROLLING
+   The shank is rolled between two dies carrying the reverse
+   thread form. Metal is pushed out of the roots into the crests.
+
+Why cold, and why forming rather than cutting:
+  • enormous production rates — hundreds of screws a minute
+  • no material wasted, unlike turning a head or cutting a thread
+  • grain flow follows the head and thread contour instead of
+    being cut through, so the screw is much stronger in fatigue
+  • the rolled surface is burnished, so no finishing is needed</div>
+  <p class="why">Sketch: wire stock, punch and die closing to form the head, then the blank between two flat thread-rolling dies with the thread appearing on the shank.</p>
+
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">Rails — <b>hot rolling</b> through a grooved roll pass sequence · Screws — <b>cold heading</b> for the head, then <b>thread rolling</b> for the thread</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>Saying "rolling" for the rail without saying <i>hot</i> and without mentioning shaped rolls in a sequence, and saying "thread cutting" for the screw. The question asks for <i>forming</i> processes, so every answer must be one that displaces metal rather than removing it.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1 (c)</span><span class="marks">6 marks</span><span class="method">Absolute vs incremental</span></div>
+  <div class="qtext">Fill the coordinates of all vertices (P1 to P6) in both incremental and absolute dimensioning in given format (Table 1) for the drawing shown in Fig. 2.</div>
+
+  <h4 class="step">Step 1 — read the figure and check it closes</h4>
+  <p class="why">P1 is the origin (0, 0). The drawing gives two horizontal 25 mm steps, and the two arcs fix everything else — that is the check that the reading is right.</p>
+  <div class="m">P1 → P2   25 mm to the LEFT, same height
+P2 → P3   straight UP
+P3 → P4   25 mm to the LEFT, same height
+P4 → P5   straight UP
+P5 → P6   an R20 arc, sweeping round the left
+P6 → P1   an R25 arc, sweeping round the bottom
+
+The R25 arc has to be centred on P2, because P1 and P6 must both
+sit 25 mm from that centre. That puts P6 level with P1 and P2.
+The R20 arc has to be centred on P4 for the same reason, which
+makes P5 and P6 each 20 mm from P4, one above and one below.
+
+Working those through gives the vertical steps as 20 mm each.</div>
+
+  <h4 class="step">Step 2 — the check</h4>
+  <div class="m">R25 arc, centre P2 (−25, 0):
+  to P1 (0, 0)     √(25² + 0²)  = 25  ✓
+  to P6 (−50, 0)   √(25² + 0²)  = 25  ✓
+
+R20 arc, centre P4 (−50, 20):
+  to P5 (−50, 40)  √(0² + 20²)  = 20  ✓
+  to P6 (−50, 0)   √(0² + 20²)  = 20  ✓
+
+both arcs close exactly, so the reading is right</div>
+
+  <h4 class="step">Step 3 — the table</h4>
+  <div class="tbl"><table>
+    <tr><th rowspan="2">Point</th><th colspan="2">Absolute dimensioning</th><th colspan="2">Incremental dimensioning</th></tr>
+    <tr><th>X</th><th>Y</th><th>X</th><th>Y</th></tr>
+    <tr><td>P1</td><td>0</td><td>0</td><td>—</td><td>—</td></tr>
+    <tr><td>P2</td><td>−25</td><td>0</td><td>−25</td><td>0</td></tr>
+    <tr><td>P3</td><td>−25</td><td>20</td><td>0</td><td>+20</td></tr>
+    <tr><td>P4</td><td>−50</td><td>20</td><td>−25</td><td>0</td></tr>
+    <tr><td>P5</td><td>−50</td><td>40</td><td>0</td><td>+20</td></tr>
+    <tr><td>P6</td><td>−50</td><td>0</td><td>0</td><td>−40</td></tr>
+  </table></div>
+  <p class="why">Absolute values are always measured from P1, the origin. Incremental values are measured from the <i>previous</i> point — so the incremental column is simply the difference between one absolute row and the one above it.</p>
+
+  <div class="trap"><b>Where marks go</b><p>Mixing the two systems inside one column, and forgetting the signs. Every move here is left or up, so X increments are negative or zero and Y increments are positive — except P5 → P6, which drops 40 mm and is the only negative Y. Get the signs wrong and the table is worth nothing even if the numbers are right.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2 (a)</span><span class="marks">12 marks</span><span class="method">Turning — cutting velocity and MRR</span></div>
+  <div class="qtext">Calculate the maximum cutting velocity in a turning operation, employed to machine a cylindrical shaft of diameter 50 mm to 44 mm upto length of 200 mm in two passes. The operation produces 12 parts in 1 hour. Also calculate the material removal rate (mm³/min) of the operation. Assume tool feed to be 0.25 mm/rev.</div>
+
+  <h4 class="step">Step 1 — depth of cut and time</h4>
+  <div class="m">radial stock = (50 − 44) / 2 = 3 mm
+over two passes → 1.5 mm depth of cut per pass
+diameters go   50 → 47 → 44 mm
+
+time per part = 60 / 12 = 5 min
+time per pass = 5 / 2   = 2.5 min</div>
+
+  <h4 class="step">Step 2 — spindle speed</h4>
+  <div class="m">revolutions needed for one pass = L / f = 200 / 0.25 = 800 rev
+
+N = 800 rev ÷ 2.5 min = 320 rev/min</div>
+
+  <h4 class="step">Step 3 — maximum cutting velocity</h4>
+  <p class="why">The question asks for the <b>maximum</b>, and cutting velocity is π D N with N fixed — so it is largest where the diameter is largest, which is the very start of the first pass.</p>
+  <div class="m">V_max = π × D_max × N
+      = π × 50 × 320
+      = 50 265 mm/min
+      = 50.27 m/min</div>
+
+  <h4 class="step">Step 4 — material removal rate</h4>
+  <div class="m">pass 1: mean diameter (50 + 47)/2 = 48.5 mm
+  V = π × 48.5 × 320 = 48 756 mm/min
+  MRR₁ = 48 756 × 0.25 × 1.5 = 18 284 mm³/min
+
+pass 2: mean diameter (47 + 44)/2 = 45.5 mm
+  V = π × 45.5 × 320 = 45 741 mm/min
+  MRR₂ = 45 741 × 0.25 × 1.5 = 17 153 mm³/min
+
+average = (18 284 + 17 153) / 2 = 17 719 mm³/min</div>
+
+  <h4 class="step">Check it the other way</h4>
+  <div class="m">volume removed = (π/4)(50² − 44²)(200)
+               = (π/4)(2500 − 1936)(200)
+               = (π/4)(564)(200) = 88 593 mm³
+
+MRR = 88 593 / 5 min = 17 719 mm³/min   ✓ matches the average</div>
+
+  <div class="ans">
+    <div class="lbl">Answers</div>
+    <div class="val">N = 320 rev/min · V_max = 50.27 m/min · MRR ≈ 17 719 mm³/min (18 284 in pass 1, 17 153 in pass 2)</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>Taking 12 parts per hour as 12 minutes per part. It is 60/12 = 5 minutes. And the word "maximum" in the question is there for a reason — quote the velocity at Ø50, not at the mean diameter.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2 (b)</span><span class="marks">7 marks</span><span class="method">Rake angle selection</span></div>
+  <div class="qtext">During the machining of the A and B classes of material, the operator has decided to use a negative and positive rake angle of a single-point cutting tool, respectively. In general, what level (low, medium, high) of cutting parameters is he opting for machining with these cutting tools, and what kind of chips will result in?</div>
+
+  <h4 class="step">What the choice of rake tells you about the material</h4>
+  <p class="why">Nobody picks a rake angle at random — it follows from what is being cut. Working backwards from the rake to the material and then to the chip is what this question wants.</p>
+
+  <div class="tbl"><table>
+    <tr><th></th><th>Material A — negative rake</th><th>Material B — positive rake</th></tr>
+    <tr><td>What the material must be</td><td>Hard, strong, often brittle — hardened steel, cast iron. Also chosen for interrupted cuts where the edge takes impact</td><td>Soft and ductile — aluminium, copper, mild steel, or a thin-walled or slender job that cannot take much force</td></tr>
+    <tr><td>Cutting speed</td><td><b>High.</b> Negative rake means a strong edge, normally carbide or ceramic, which is run fast to keep the temperature in the range where those tools work well</td><td><b>Low to medium.</b> A positive-rake tool is thin at the edge and will not survive high-speed high-temperature work</td></tr>
+    <tr><td>Feed</td><td><b>High.</b> The thick wedge behind the edge can carry a heavy chip load</td><td><b>Low to medium.</b> Higher feed would overload the weak edge</td></tr>
+    <tr><td>Depth of cut</td><td><b>High</b> — heavy roughing cuts</td><td><b>Low to medium</b> — light and finishing cuts</td></tr>
+    <tr><td>Cutting force and power</td><td>High — more energy goes into deforming the chip</td><td>Low — the chip shears off easily</td></tr>
+    <tr><td>Chip produced</td><td><b>Discontinuous</b> (segmented) chips, because the material is brittle and fractures rather than flows. If the material is ductile but the rake is negative, the chip comes off thick and highly deformed</td><td><b>Continuous</b> chips, because the material is ductile and the large rake lets it flow smoothly up the face. Built-up edge is a real risk at low speed, so a chip breaker is usually needed</td></tr>
+  </table></div>
+
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">A (negative rake) — high speed, feed and depth, high forces, <b>discontinuous</b> chips · B (positive rake) — low to medium speed, feed and depth, low forces, <b>continuous</b> chips</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>Answering only about the chips and skipping the "level of cutting parameters". The question names three parameters — speed, feed, depth — and expects a level against each. Put them in a table and you cannot miss one.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2 (c)</span><span class="marks">6 marks</span><span class="method">Additive manufacturing</span></div>
+  <div class="qtext">Identify and explain with schematics the process, where industry has to build customized polymer based medical implants using PLA wire as feedstock material. Also write, the three major advantages and challenges faced in additive manufacturing?</div>
+
+  <h4 class="step">Step 1 — the process</h4>
+  <p class="why">The words "PLA wire as feedstock" settle it. Wire on a spool means an extrusion process, and for PLA that is FDM. If the feedstock had been powder it would be SLS; if resin, SLA.</p>
+  <div class="m">Process: FUSED DEPOSITION MODELLING (FDM),
+         also called Fused Filament Fabrication
+
+How it works, for the schematic:
+  1. PLA filament is pulled off a spool by a pair of drive rollers
+  2. it is pushed into a heated liquefier, where it melts just
+     above its glass transition
+  3. the melt is extruded through a fine nozzle onto the bed
+  4. the nozzle moves in X and Y, laying the cross-section of the
+     part one bead at a time; the bead fuses to its neighbour and
+     to the layer below as it cools
+  5. the bed drops one layer thickness and the next layer is drawn
+  6. supports are printed under overhangs and broken or dissolved
+     off at the end
+
+Label on the diagram: spool, drive rollers, heater block,
+nozzle, part, support material, heated build platform.</div>
+  <p class="why">PLA suits medical work because it is biocompatible and bioresorbable — the body breaks it down into lactic acid — which is why it is used for temporary fixation implants and surgical guides.</p>
+
+  <h4 class="step">Step 2 — three advantages</h4>
+  <ul class="pts">
+    <li><b>Any geometry, at no extra cost.</b> Internal channels, lattices and undercuts that no machine tool could reach cost the same as a solid block, because the machine only ever adds one layer at a time.</li>
+    <li><b>Customisation with no tooling.</b> Every implant can be different, made straight from that patient's scan. There is no mould or die to pay for, so a batch of one costs the same per part as a batch of a hundred.</li>
+    <li><b>Very little waste, and a short route from design to part.</b> Material is placed only where it is needed, and a design change is a new file, not new tooling — days instead of months.</li>
+  </ul>
+
+  <h4 class="step">Step 3 — three challenges</h4>
+  <ul class="pts">
+    <li><b>Anisotropic strength.</b> The bond between layers is weaker than the material within a layer, so a part is significantly weaker across the build direction. Orientation becomes a design decision, not a printing one.</li>
+    <li><b>Slow, and worse the bigger the part.</b> Build time scales with volume, so additive is uncompetitive against moulding once quantities rise.</li>
+    <li><b>Surface finish and accuracy.</b> The layers leave a stepped surface, especially on shallow slopes, so anything that has to seal, fit or slide needs machining afterwards. For implants there is also the qualification problem — proving every part is sound when every part is different.</li>
+  </ul>
+
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">The process is <b>FDM</b> (PLA filament feedstock) · advantages: free complexity, tool-free customisation, low waste · challenges: anisotropy, build speed, surface finish and qualification</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>Naming SLA or SLS. Read the feedstock: <i>wire</i> means filament, and filament means FDM. That one word decides the whole answer.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q3 (a)</span><span class="marks">14 marks</span><span class="method">Tandem rolling</span></div>
+  <div class="qtext">A carbon steel slab is rolled via tandem rolling operation. The initial workpiece's thickness of 35 mm is to be reduced to 20 mm. Considering the maximum reduction in draft for each pass, determine the number of passes that would be required for the process and the velocity of material after each stage. Given that the entry velocity of the material is 16 m/min, the material width increases by 6 % after each stage. The rollers used in the first stage are 600 mm in diameter, and in each successive stage, the roller diameter is 100 mm less than the previous stage's roller diameter. The coefficient of friction between the work material and roller may be assumed to be 0.15.</div>
+
+  <h4 class="step">Step 1 — the two relations</h4>
+  <div class="m">maximum draft the friction can pull in:   d_max = μ² R
+volume flows through unchanged:           t · w · v = constant</div>
+
+  <h4 class="step">Step 2 — pass by pass</h4>
+  <div class="m">PASS 1   D = 600 mm, so R = 300 mm
+  d_max = 0.15² × 300 = 0.0225 × 300 = 6.75 mm
+  take the full 6.75:   35 → 28.25 mm
+  width factor now 1.06
+  v₁ = (35 × 1 × 16) / (28.25 × 1.06) = 560 / 29.945 = 18.70 m/min
+
+PASS 2   D = 500 mm, so R = 250 mm
+  d_max = 0.0225 × 250 = 5.625 mm
+  take the full 5.625:  28.25 → 22.625 mm
+  width factor now 1.06² = 1.1236
+  v₂ = 560 / (22.625 × 1.1236) = 560 / 25.421 = 22.03 m/min
+
+PASS 3   D = 400 mm, so R = 200 mm
+  d_max = 0.0225 × 200 = 4.5 mm
+  but only 22.625 − 20 = 2.625 mm is left, so take 2.625
+  22.625 → 20.000 mm  ✓ target reached
+  width factor now 1.06³ = 1.191016
+  v₃ = 560 / (20 × 1.191016) = 560 / 23.820 = 23.51 m/min</div>
+
+  <h4 class="step">Step 3 — the answer table</h4>
+  <div class="tbl"><table>
+    <tr><th>Pass</th><th>Roll dia</th><th>R</th><th>d_max = μ²R</th><th>Draft taken</th><th>Thickness</th><th>Velocity out</th></tr>
+    <tr><td>1</td><td>600 mm</td><td>300 mm</td><td>6.750 mm</td><td>6.750 mm</td><td>35 → 28.25 mm</td><td>18.70 m/min</td></tr>
+    <tr><td>2</td><td>500 mm</td><td>250 mm</td><td>5.625 mm</td><td>5.625 mm</td><td>28.25 → 22.625 mm</td><td>22.03 m/min</td></tr>
+    <tr><td>3</td><td>400 mm</td><td>200 mm</td><td>4.500 mm</td><td>2.625 mm</td><td>22.625 → 20 mm</td><td>23.51 m/min</td></tr>
+  </table></div>
+
+  <h4 class="step">Check</h4>
+  <div class="m">volume rate entering  = 35     × 1.000000 × 16.00 = 560.0
+after pass 1          = 28.25  × 1.060000 × 18.70 = 560.0
+after pass 2          = 22.625 × 1.123600 × 22.03 = 560.0
+after pass 3          = 20.000 × 1.191016 × 23.51 = 560.0   ✓</div>
+
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">3 passes · 35 → 28.25 → 22.625 → 20 mm · velocities 16 → 18.70 → 22.03 → 23.51 m/min</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>Using the roll <i>diameter</i> in μ²R. The relation needs the radius, so 600 mm diameter gives R = 300 and d_max = 6.75 mm — using 600 doubles every draft and you finish in two passes instead of three. Also remember the 6 % width increase compounds: after three passes it is 1.06³ = 1.191, not 1.18.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q3 (b)</span><span class="marks">7 marks</span><span class="method">Forging</span></div>
+  <div class="qtext">Schematically explain, how impression die forging is different from upset forging? If you compare impression die forging with the machining process, what benefits does it offer?</div>
+
+  <h4 class="step">Part 1 — the two processes</h4>
+  <div class="tbl"><table>
+    <tr><th></th><th>Upset forging</th><th>Impression die forging</th></tr>
+    <tr><td>Die shape</td><td>Flat or simple dies — open die work</td><td>Dies carry the full cavity of the finished part, in two halves</td></tr>
+    <tr><td>How the metal flows</td><td>Free to spread sideways in every direction; the operator controls shape by how the billet is turned and struck</td><td>Constrained — forced to fill the cavity, with the excess escaping at the flash land</td></tr>
+    <tr><td>Direction of work</td><td>Length is reduced and cross-section is increased — the billet is squashed shorter and fatter</td><td>Shape comes from the die, not from the direction of the blow</td></tr>
+    <tr><td>Flash</td><td>None</td><td>Yes, and deliberately — it builds the back-pressure that fills the thin sections, then is trimmed off</td></tr>
+    <tr><td>Accuracy</td><td>Loose; almost always needs machining afterwards</td><td>Close to net shape; only the mating faces need machining</td></tr>
+    <tr><td>Suits</td><td>Simple shapes, bolt heads, flanged ends, small batches</td><td>Complex shapes in quantity — connecting rods, crankshafts, spanners</td></tr>
+  </table></div>
+  <p class="why">Sketch both: two flat dies squashing a billet outward with arrows showing the free spread, and two shaped dies closing on a billet with a thin flash line escaping at the parting plane.</p>
+
+  <h4 class="step">Part 2 — impression die forging against machining</h4>
+  <ul class="pts">
+    <li><b>Grain flow follows the shape.</b> This is the big one. Forging bends the grain to follow the contour of the part; machining cuts straight through it and leaves the fibres ending at the surface. A forged connecting rod is far stronger in fatigue than one machined from bar, for the same material and the same shape.</li>
+    <li><b>Far less material wasted.</b> Machining a rod from solid turns most of the bar into swarf. Forging displaces the metal instead, so only the flash is lost.</li>
+    <li><b>Much faster in quantity.</b> A forging is made in one or two blows in seconds; the same part machined from solid takes many minutes of cutting.</li>
+    <li><b>No internal porosity.</b> The forging pressure closes voids left from casting and welds them shut.</li>
+    <li><b>Better surface integrity.</b> The forged surface is left in compression, which resists crack initiation, whereas a machined surface carries tensile residual stress and tool marks that act as crack starters.</li>
+  </ul>
+  <p class="why">The honest other side, worth one sentence: forging needs expensive dies, so it only pays above a certain quantity, and it cannot hold the tolerances machining can — which is why forged parts are usually machined on their critical faces afterwards.</p>
+
+  <div class="trap"><b>Where marks go</b><p>Listing "stronger" without saying why. The reason is grain flow, and one sentence about grain following the contour instead of being cut through is worth more than three generic bullet points.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q3 (c)</span><span class="marks">4 marks</span><span class="method">Rake angle comparison</span></div>
+  <div class="qtext">Draw the schematics and compare the positive and negative rake angle tools for machining of ductile material based on parameters provided in Table 2: strength of cutting tool, frictional force, power consumption, surface finish.</div>
+
+  <h4 class="step">The table</h4>
+  <div class="tbl"><table>
+    <tr><th>Parameter</th><th>Positive rake angle</th><th>Negative rake angle</th></tr>
+    <tr><td><b>Strength of cutting tool</b></td><td><b>Lower.</b> The wedge angle behind the edge is small, so the edge is thin and chips easily under shock or interrupted cutting</td><td><b>Higher.</b> A thick wedge supports the edge, and the cutting force pushes into the body of the tool rather than trying to peel the edge off</td></tr>
+    <tr><td><b>Frictional force</b></td><td><b>Lower.</b> The chip flows away up the face with a short contact length and little sliding resistance</td><td><b>Higher.</b> The chip is forced against the face, the contact length grows and so does the friction and the heat with it</td></tr>
+    <tr><td><b>Power consumption</b></td><td><b>Lower.</b> Less energy is spent deforming the chip, so the cutting force and the power both fall</td><td><b>Higher.</b> More severe chip deformation means more cutting force and more power for the same metal removed</td></tr>
+    <tr><td><b>Surface finish</b></td><td><b>Better</b> on a ductile material. The clean shearing action avoids tearing, and lower forces mean less deflection of a slender job</td><td><b>Poorer</b> on a ductile material. Higher pressure and heat promote built-up edge, which smears the surface</td></tr>
+  </table></div>
+  <p class="why">For the schematics, draw the workpiece surface as a horizontal line and the tool sitting on it in both cases. In the positive-rake sketch the rake face leans away from the work, opening the chip's escape route; in the negative-rake sketch it leans towards the work, and the included wedge angle is visibly larger. Mark the rake angle from the vertical in both, with its sign.</p>
+
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">For a ductile material, <b>positive rake</b> wins on friction, power and finish; <b>negative rake</b> wins only on tool strength — which is why positive rake is the normal choice here, and negative rake is kept for hard materials and interrupted cuts</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>The question says "for machining of ductile material", and that qualifier decides the finish row. On a hard or brittle material negative rake can give the better finish; on a ductile one it does not. Answering without the qualifier reads as a memorised table.</p></div>
+</div>
+
+</div>
+
+<!-- ========== October 2024 ========== -->
+<div class="paper" id="y2024o">
+<h2 class="yr">October 2024</h2>
+<p class="yr-meta">16-10-2024 · 60 marks · 2 hours</p>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1 (a)</span><span class="marks">16 marks</span><span class="method">CNC turning — canned cycles</span></div>
+  <div class="qtext">Write a CNC turning part program for making the aluminum component with a maximum diameter of 120 mm, as shown in Fig. 1, using canned cycles. Spindle speeds during turning/facing and drilling are 1500 and 900 rpm; feed rates during rough and finish cycle are 80 and 40 mm/min; depth of cut during roughing cut (turning) is 0.5 mm, and finishing allowance is 0.1 mm in both directions with 0.5 mm tool retract; 2 mm facing is required with a 1 mm depth of cut using a 40 mm/min feed rate; incremental depth of cut and tool retract in drilling are 0.5 mm and 1 mm, with a feed rate of 50 mm/min.</div>
+
+  <h4 class="step">Step 1 — the profile from Fig. 1</h4>
+  <p class="why">The figure is dimensioned by diameter (Ø50, Ø36, and the 100 across the big end), with the axial chain running 30, 7, 20, 7, 20 from left to right. Put Z = 0 on the finished right-hand face.</p>
+  <div class="m">from the finished face, going left:
+  Z  0    → −20     Ø50      plain cylinder                (20 mm)
+  Z −20   → −27     taper    Ø50 down to Ø36              (7 mm)
+  Z −27   → −47     Ø36      the necked-down section      (20 mm)
+  Z −47   → −54     taper    Ø36 up to Ø50                (7 mm)
+  Z −54   → −84     Ø50      plain cylinder               (30 mm)
+  Z −84   → −94     R10      fillet, Ø50 up to Ø100
+  beyond            Ø100     the large body, left alone
+
+chain check: 20 + 7 + 20 + 7 + 30 = 84 mm  ✓
+blank is Ø120, so the Ø100 body is turned too
+
+drilled hole: 15 mm deep from the face</div>
+
+  <h4 class="step">Step 2 — the program</h4>
+  <pre class="code">N10   G21 G90 G98              <span class="c">; metric, absolute, feed in mm/min</span>
+N20   T01 M06                  <span class="c">; facing / turning tool</span>
+N30   M03 S1500                <span class="c">; 1500 rpm</span>
+N40   G00 X122 Z2              <span class="c">; clear of the Ø120 blank</span>
+
+<span class="c">; ---- facing: 2 mm off in two 1 mm cuts ----</span>
+N50   G94 X-1 Z1 F40           <span class="c">; first 1 mm</span>
+N60   G94 X-1 Z0 F40           <span class="c">; second 1 mm, face now at Z0</span>
+N70   G00 X122 Z2
+
+<span class="c">; ---- drilling, 15 mm deep ----</span>
+N80   T02 M06                  <span class="c">; drill</span>
+N90   M03 S900                 <span class="c">; 900 rpm for drilling</span>
+N100  G00 X0 Z2
+N110  G74 R1                   <span class="c">; 1 mm retract between pecks</span>
+N120  G74 X0 Z-15 Q500 F50     <span class="c">; peck 0.5 mm (500 µm) to 15 mm</span>
+N130  G00 Z2
+
+<span class="c">; ---- rough turning ----</span>
+N140  T01 M06
+N150  M03 S1500
+N160  G00 X122 Z2
+N170  G71 U0.5 R0.5            <span class="c">; 0.5 mm depth of cut, 0.5 mm retract</span>
+N180  G71 P190 Q260 U0.1 W0.1 F80   <span class="c">; 0.1 mm left on in both directions</span>
+
+<span class="c">; ---- the finished profile ----</span>
+N190  G00 X50                  <span class="c">; smallest diameter at the face</span>
+N200  G01 Z-20 F40             <span class="c">; Ø50 cylinder</span>
+N210  G01 X36 Z-27             <span class="c">; taper down to Ø36</span>
+N220  G01 Z-47                 <span class="c">; Ø36 neck</span>
+N230  G01 X50 Z-54             <span class="c">; taper back up to Ø50</span>
+N240  G01 Z-84                 <span class="c">; Ø50 cylinder</span>
+N250  G03 X100 Z-94 R10        <span class="c">; R10 fillet up to Ø100</span>
+N260  G01 X122                 <span class="c">; run out clear</span>
+
+<span class="c">; ---- finishing ----</span>
+N270  G70 P190 Q260 F40        <span class="c">; same profile, finishing feed</span>
+N280  G00 X122 Z2
+
+N290  G28 U0 W0
+N300  M05
+N310  M30</pre>
+
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">Face (G94, two 1 mm cuts) → drill (G74, 0.5 mm pecks to 15 mm) → rough (G71, U0.5, leaving 0.1) → finish (G70, F40)</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>The G71 profile block has to run from the smallest diameter outwards, in one unbroken chain, and it must not contain a Z-only move backwards. Also, the necked section here goes <i>down</i> then back <i>up</i> — a re-entrant shape. A plain G71 cannot cut a true undercut, and this is a taper on both sides rather than a square groove, so it is fine; if it had been a square groove you would have had to say so and add a grooving tool.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1 (b)</span><span class="marks">4 marks</span><span class="method">Stress–strain to chip type</span></div>
+  <div class="qtext">The Stress Vs Strain diagram of two different class of the material is given in Fig. 2. Suggest &amp; identify, kind of chip formation, suitable rake angle (+ve or −ve) of single point cutting tool (Answer as per Table 1).</div>
+
+  <h4 class="step">How to read the curves</h4>
+  <p class="why">Four curves, A to D. The only thing you need from each is: how far does it stretch before it breaks, and how high does it go. Ductility decides the chip; hardness decides the rake.</p>
+  <div class="m">A — very steep, very high, breaks almost immediately
+      → hard and brittle, almost no plastic strain
+
+B — steep and high, short plastic region before fracture
+      → hard, slightly ductile
+
+C — moderate slope, long plastic region, clear yielding
+      → ductile, the classic mild steel shape
+
+D — very low stress, enormous strain
+      → very soft and very ductile</div>
+
+  <h4 class="step">The table</h4>
+  <div class="tbl"><table>
+    <tr><th>Material</th><th>Behaviour</th><th>Type of chip</th><th>Suitable rake angle</th></tr>
+    <tr><td><b>A</b></td><td>Hard and brittle, fractures with almost no plastic flow</td><td><b>Discontinuous</b> (segmented) — the material cracks ahead of the tool instead of flowing</td><td><b>Negative</b> — the edge needs the support of a thick wedge to survive cutting a hard material</td></tr>
+    <tr><td><b>B</b></td><td>Hard, a little ductile</td><td><b>Discontinuous to continuous</b> — mostly segmented, with short continuous lengths</td><td><b>Negative</b> (or a small positive), again for edge strength</td></tr>
+    <tr><td><b>C</b></td><td>Ductile, yields and strain-hardens before breaking</td><td><b>Continuous</b> — the material flows smoothly up the rake face</td><td><b>Positive</b> — lets the chip flow away and keeps forces low</td></tr>
+    <tr><td><b>D</b></td><td>Very soft and very ductile</td><td><b>Continuous with a built-up edge</b> — soft ductile metals weld to the rake face readily</td><td><b>Large positive</b>, with a polished face or coolant, to fight the built-up edge</td></tr>
+  </table></div>
+
+  <div class="trap"><b>Where marks go</b><p>Reading the curves by height alone. The chip type follows from <i>ductility</i> — how far the curve runs along the strain axis — not from how high it goes. A material can be both strong and ductile, and it will still give a continuous chip.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2 (a)</span><span class="marks">12 marks</span><span class="method">Turning — speed, MRR, time</span></div>
+  <div class="qtext">In an automobile manufacturing company, a high-strength steel rod with an initial length of 150 mm and a diameter of 26 mm needs to be turned down to a final diameter of 22 mm using a lathe machine. The machining process is conducted in multiple passes with a 1 mm depth of cut. The lathe spindle operates at 600 revolutions per minute and the tool advancing at a linear rate of 100 mm/min with a pre-travel of 10 mm. Determine the cutting speed, the material removal rate for each pass, and the total machining time required to complete the operation.</div>
+
+  <h4 class="step">Step 1 — passes and feed</h4>
+  <div class="m">radial stock = (26 − 22) / 2 = 2 mm
+depth of cut = 1 mm per pass
+number of passes = 2 / 1 = 2
+diameters go  26 → 24 → 22 mm
+
+the tool advances at 100 mm/min while the spindle turns at 600 rev/min,
+so the feed per revolution is
+  f = 100 / 600 = 0.1667 mm/rev</div>
+
+  <h4 class="step">Step 2 — cutting speed in each pass</h4>
+  <p class="why">N is fixed at 600 rev/min, so the cutting speed depends only on the diameter being cut — and that changes between the passes.</p>
+  <div class="m">V = π D N / 1000    (D in mm, V in m/min)
+
+pass 1, at D = 26 mm:
+  V₁ = π × 26 × 600 / 1000 = 49.01 m/min
+
+pass 2, at D = 24 mm:
+  V₂ = π × 24 × 600 / 1000 = 45.24 m/min</div>
+
+  <h4 class="step">Step 3 — material removal rate per pass</h4>
+  <div class="m">MRR = π · D_mean · N · f · d
+
+pass 1: D_mean = (26 + 24)/2 = 25 mm
+  MRR₁ = π × 25 × 600 × 0.1667 × 1 = 7 854 mm³/min
+
+pass 2: D_mean = (24 + 22)/2 = 23 mm
+  MRR₂ = π × 23 × 600 × 0.1667 × 1 = 7 226 mm³/min</div>
+
+  <h4 class="step">Step 4 — total machining time</h4>
+  <p class="why">The pre-travel is the 10 mm the tool runs before it touches metal, and it still takes time, so it goes into the travel length for every pass.</p>
+  <div class="m">travel per pass = 150 + 10 = 160 mm
+time per pass   = 160 / 100 = 1.6 min
+
+total machining time = 2 × 1.6 = 3.2 min</div>
+
+  <h4 class="step">Check</h4>
+  <div class="m">volume removed = (π/4)(26² − 22²)(150)
+               = (π/4)(676 − 484)(150)
+               = (π/4)(192)(150) = 22 619 mm³
+
+cutting time (excluding pre-travel) = 2 × 150/100 = 3.0 min
+MRR = 22 619 / 3.0 = 7 540 mm³/min
+
+average of the two passes = (7 854 + 7 226)/2 = 7 540  ✓ matches</div>
+
+  <div class="ans">
+    <div class="lbl">Answers</div>
+    <div class="val">f = 0.167 mm/rev · V₁ = 49.01 m/min, V₂ = 45.24 m/min · MRR₁ = 7 854, MRR₂ = 7 226 mm³/min · total machining time 3.2 min</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>Leaving out the pre-travel. It is stated in the question precisely so that you include it — 160 mm of travel per pass, not 150 — and forgetting it gives 3.0 min instead of 3.2. Also, the cutting speed is asked for the operation, and there are two passes at two different diameters, so give both.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2 (b)</span><span class="marks">8 marks</span><span class="method">Thread rolling vs cutting</span></div>
+  <div class="qtext">Compare the threads manufactured by Thread Rolling and Thread Cutting in terms of 1. Production rates 2. Material wastage 3. Strength of threads 4. Grain Alignment.</div>
+
+  <p class="why">Four headings are named, so answer under four headings. A table gets full marks.</p>
+
+  <div class="tbl"><table>
+    <tr><th></th><th>Thread rolling (forming)</th><th>Thread cutting (machining)</th></tr>
+    <tr><td><b>1. Production rate</b></td><td><b>Very high.</b> The thread is formed in a single pass as the blank rolls once between the dies — a fraction of a second. Hundreds of parts per minute on an automatic machine</td><td><b>Low.</b> Single-point threading needs many passes, each removing a little more of the groove, and each pass is a full traverse of the thread length</td></tr>
+    <tr><td><b>2. Material wastage</b></td><td><b>None.</b> Metal is displaced, not removed — pushed out of the roots and up into the crests. The blank is turned to the <i>pitch</i> diameter, which is smaller than the finished major diameter</td><td><b>Significant.</b> Everything between the crests is cut away as swarf, and the blank must start at the full major diameter</td></tr>
+    <tr><td><b>3. Strength of threads</b></td><td><b>Higher</b>, typically 30–50 % better in fatigue. The cold working strain-hardens the surface, and the rolling leaves residual <b>compressive</b> stress in the thread root — which is exactly where fatigue cracks would otherwise start</td><td><b>Lower.</b> The cut surface carries tool marks and tensile residual stress, both of which act as crack starters at the root</td></tr>
+    <tr><td><b>4. Grain alignment</b></td><td><b>Continuous and follows the thread contour.</b> The grain is bent around the root and up into the crest, unbroken, so the load path runs along the fibres</td><td><b>Cut through.</b> The grain runs straight through the blank and the tool severs it, so fibre ends surface at the root — the weakest possible arrangement there</td></tr>
+  </table></div>
+
+  <p class="why">One honest limit, worth a line: rolling only works on materials ductile enough to be cold formed, and only on external threads on a blank that can be rolled. Internal threads, very hard materials and one-off large threads still have to be cut.</p>
+
+  <div class="trap"><b>Where marks go</b><p>Point 4 is the one that separates answers. Do not just write "grain flow is better" — say that in rolling the grain is <i>bent unbroken around the root</i>, and in cutting it is <i>severed so that fibre ends lie at the root</i>. That sentence explains point 3 as well, and the examiner can see the two are connected.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q3 (a)</span><span class="marks">12 marks</span><span class="method">Punch and die design</span></div>
+  <div class="qtext">Design a 2-hole punching machine as shown in Fig. 3, capable of creating a 6 mm diameter hole in a cardstock sheet with a thickness of 300 microns. The cardstock has a shearing strength of 50 MPa with an allowance of a = 0.065. The key design parameters are: 1. Size of Punch 2. Size of die/guide 3. Total force required to perform the operation. If the operation involves blanking to produce discs of the same size instead of punching, suggest modifications to the machine's design and compare the force required for blanking to that of punching.</div>
+
+  <h4 class="step">Step 1 — clearance</h4>
+  <div class="m">t = 300 microns = 0.300 mm
+a = 0.065
+
+clearance per side, c = a × t = 0.065 × 0.300 = 0.0195 mm</div>
+
+  <h4 class="step">Step 2 — punch and die sizes, for PUNCHING</h4>
+  <p class="why">This is the rule that carries most of the marks, and it is worth stating in words before using it. <b>In punching, the hole is the product</b>, so the punch carries the finished size and the clearance is added to the die. In blanking the slug is the product, so the die carries the finished size and the clearance is taken off the punch.</p>
+  <div class="m">The 6 mm HOLE is wanted, so this is punching:
+
+  punch diameter = 6.000 mm                       (the nominal size)
+  die diameter   = 6.000 + 2(0.0195) = 6.039 mm   (nominal + 2c)</div>
+
+  <h4 class="step">Step 3 — force</h4>
+  <div class="m">F = τ × t × L      where L is the cut perimeter
+
+one hole:
+  L = π D = π × 6 = 18.850 mm
+  F = 50 × 0.300 × 18.850 = 282.74 N
+
+both holes punched at the same instant:
+  F = 2 × 282.74 = 565.5 N ≈ 0.57 kN</div>
+  <p class="why">If the two punches are staggered in height so that one enters before the other, the peak force is only 282.7 N — a standard trick called <b>shear on the punch</b> or stepped punches, used to halve the press capacity needed. Worth one line.</p>
+
+  <h4 class="step">Step 4 — if it were blanking instead</h4>
+  <div class="m">Now the 6 mm DISC is the product, so the sizes swap over:
+
+  die diameter   = 6.000 mm                       (the nominal size)
+  punch diameter = 6.000 − 2(0.0195) = 5.961 mm   (nominal − 2c)
+
+Force: UNCHANGED at 565.5 N for two discs.
+
+Why unchanged: F = τ · t · L depends only on the shear strength,
+the sheet thickness and the length of the cut. None of those
+changed — the same 6 mm circle is being sheared either way.
+What changed is only which member holds the nominal size.</div>
+
+  <h4 class="step">Modifications to the machine</h4>
+  <ul class="pts">
+    <li><b>Re-grind the punch and die</b> to the sizes above — die at 6.000 mm, punch at 5.961 mm.</li>
+    <li><b>Collect the product from below, not above.</b> In punching the slug is scrap and falls through; in blanking that slug <i>is</i> the part, so the die opening needs a chute or a container, and the die must be relieved below the land so the disc does not jam.</li>
+    <li><b>Add a stripper</b> to pull the sheet off the punch on the return stroke — now it is the sheet that is scrap and it will cling to the punch.</li>
+    <li><b>Feed and strip layout.</b> Blanking needs the sheet indexed so the discs are spaced with a web between them; punching only needs the two hole positions.</li>
+  </ul>
+
+  <div class="ans">
+    <div class="lbl">Answers</div>
+    <div class="val">Punching: punch Ø6.000 mm, die Ø6.039 mm · Blanking: die Ø6.000 mm, punch Ø5.961 mm · Force 282.7 N per hole, <b>565.5 N for both</b> — the same either way</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>Putting the clearance on the wrong member. Say the rule out loud as you write: <i>punching — punch is nominal; blanking — die is nominal</i>. And when the last part asks you to compare the forces, the answer is that they are <b>equal</b>, with the reason. Writing a different number there means the formula was not understood.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q3 (b)</span><span class="marks">8 marks</span><span class="method">Forging — crankshaft</span></div>
+  <div class="qtext">A manufacturing company needs to produce a large quantity of crank shaft used in automotive parts. The company is considering the forging process to manufacture these parts. 1. Explain why forging would be a suitable manufacturing process for these components. 2. Suggest with a neat sketch which type of forging would be more appropriate for this component.</div>
+
+  <h4 class="step">Part 1 — why forging suits a crankshaft</h4>
+  <ul class="pts">
+    <li><b>Grain flow follows the shape.</b> A crankshaft is a fatigue part — it sees a reversing bending and torsional load millions of times. Forging bends the grain around the journals and the crank webs so the fibres run along the load path. A crankshaft machined from bar has its fibres cut through at exactly the fillets where the stress is highest.</li>
+    <li><b>Compressive residual stress at the fillets.</b> The forged surface is left in compression, and the fillet between journal and web is precisely where fatigue cracks would start. Compression there delays crack initiation.</li>
+    <li><b>No internal porosity.</b> The forging pressure closes voids and welds them shut. A cast crankshaft can carry porosity that becomes a crack starter.</li>
+    <li><b>Suited to quantity.</b> The dies are expensive, but over a large production run the cost per part is low and the cycle is seconds, not the many minutes machining from solid would take.</li>
+    <li><b>Material saving.</b> Machining a crankshaft from a solid billet would turn most of it into swarf. Forging displaces the metal instead, so only the flash is lost.</li>
+  </ul>
+
+  <h4 class="step">Part 2 — which type of forging</h4>
+  <div class="m">Recommended: CLOSED DIE (IMPRESSION DIE) DROP FORGING,
+             worked through a sequence of die impressions.
+
+Why this one, and not the others:
+  • open die forging cannot produce the offset crank throws
+    with any accuracy, and would need heavy machining after
+  • flashless forging demands billet volume control too tight
+    for a shape this complex
+  • impression die forging with flash gives the back-pressure
+    needed to fill the deep webs and the throws
+
+The sequence in the dies:
+  1. FULLERING   — a round billet is reduced where the journals
+                   will be, distributing the metal along its length
+  2. EDGING      — metal is gathered where the webs need bulk
+  3. BLOCKING    — a rough impression, close to shape
+  4. FINISHING   — the final impression, filled completely,
+                   with flash escaping at the parting line
+  5. TRIMMING    — the flash is sheared off in a trimming die
+  6. TWISTING    — for a multi-throw shaft, the throws are
+                   twisted to their angular positions
+  7. heat treatment, then machining of the journals and grinding</div>
+  <p class="why">For the sketch: the two die halves with the crankshaft cavity between them, billet in place, flash escaping at the parting line, and beside it the progression of shapes through fullering → edging → blocking → finishing. The progression is what earns the marks.</p>
+
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">Forging suits it because of grain flow, compressive surface stress and absence of porosity in a fatigue-critical part · use <b>closed (impression) die drop forging</b> in a fullering → edging → blocking → finishing → trimming sequence</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>Part 1 answered with general forging advantages that would apply to any part. The question says <i>crankshaft</i>, and a crankshaft is a fatigue component — every reason should be tied to fatigue and to the fillets where it fails. That is what makes the answer specific rather than recited.</p></div>
+</div>
+
+</div>
+
+<!-- ========== March 2024 ========== -->
+<div class="paper" id="y2024e">
+<h2 class="yr">March 2024</h2>
+<p class="yr-meta">21-03-2024 · 40 marks · 2 hours</p>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1 (a)</span><span class="marks">6 marks</span><span class="method">Blanking and punching</span></div>
+  <div class="qtext">A sheet washer 44 mm outside diameter &amp; 22.25 mm inside diameter and 1.6 mm thick is to be blanked from a sheet. If the shear stress of the sheet metal is 400 N/mm², design the punch and die for operation(s) and estimate the maximum punch force required in blanking as well as in punching operation? (Allowance of the sheet is 0.064).</div>
+
+  <h4 class="step">Step 1 — decide which cut is which</h4>
+  <p class="why">A washer needs two cuts, and they are different operations. Get this the wrong way round and every size afterwards is wrong.</p>
+  <div class="m">The 44 mm OUTSIDE diameter — the washer itself is the product,
+  the surrounding sheet is scrap  →  this is BLANKING
+
+The 22.25 mm INSIDE diameter — the hole is the product,
+  the slug that falls out is scrap  →  this is PUNCHING</div>
+
+  <h4 class="step">Step 2 — clearance</h4>
+  <div class="m">c = allowance × thickness = 0.064 × 1.6 = 0.1024 mm per side</div>
+
+  <h4 class="step">Step 3 — punch and die sizes</h4>
+  <p class="why">The rule: whichever member produces the finished size is cut to the nominal dimension, and the clearance goes on the other one. In blanking that is the die; in punching it is the punch.</p>
+  <div class="m">BLANKING the 44 mm outside diameter
+  die   = 44.0000 mm                        (nominal)
+  punch = 44 − 2(0.1024) = 43.7952 mm       (nominal − 2c)
+
+PUNCHING the 22.25 mm hole
+  punch = 22.2500 mm                        (nominal)
+  die   = 22.25 + 2(0.1024) = 22.4548 mm    (nominal + 2c)</div>
+
+  <h4 class="step">Step 4 — the forces</h4>
+  <div class="m">F = τ × t × L      L = the perimeter being sheared
+
+BLANKING:
+  L = π × 44 = 138.230 mm
+  F = 400 × 1.6 × 138.230 = 88 467 N = 88.47 kN
+
+PUNCHING:
+  L = π × 22.25 = 69.900 mm
+  F = 400 × 1.6 × 69.900 = 44 736 N = 44.74 kN
+
+maximum punch force = 88.47 kN, the blanking cut,
+because it has the longer perimeter</div>
+  <p class="why">If both cuts are made in the same stroke by a compound die, the press has to supply 88.47 + 44.74 = <b>133.2 kN</b>. If the punches are stepped so the small one enters first, the peak stays at 88.47 kN — that is why stepped punches are used.</p>
+
+  <div class="ans">
+    <div class="lbl">Answers</div>
+    <div class="val">Blanking: die Ø44.000, punch Ø43.795 mm, F = 88.47 kN · Punching: punch Ø22.250, die Ø22.455 mm, F = 44.74 kN · maximum = <b>88.47 kN</b></div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>Applying the clearance to the same member in both operations. The whole point of the question is that the rule reverses between blanking and punching — that is why one washer needs two differently-made tools.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1 (b)</span><span class="marks">4 marks</span><span class="method">Formability</span></div>
+  <div class="qtext">What are the desirable properties required to successfully formed a metal? Graphically show the impact of temperature on these properties.</div>
+
+  <h4 class="step">What a metal needs to be formable</h4>
+  <ul class="pts">
+    <li><b>High ductility.</b> The single most important one — the metal must take large plastic strain before it fractures. Measured as percentage elongation or reduction in area.</li>
+    <li><b>Low yield strength.</b> The lower the yield point, the less force, energy and press capacity the operation needs.</li>
+    <li><b>Good malleability</b> — the ability to be spread thin under compression, which is what rolling and forging actually do.</li>
+    <li><b>Low strain hardening rate.</b> If the metal hardens quickly as it deforms, the operation stalls and you need intermediate annealing. A low rate lets one operation go further.</li>
+    <li><b>Uniform, fine grain structure.</b> A coarse or uneven grain gives an uneven surface — the orange-peel effect — and local thinning.</li>
+    <li><b>Freedom from inclusions and defects</b>, which become crack starters under forming strain.</li>
+  </ul>
+
+  <h4 class="step">What temperature does to them</h4>
+  <div class="m">Draw ONE graph:   x-axis = temperature
+                  y-axis = property
+
+Two curves crossing the recrystallisation temperature:
+
+  DUCTILITY  ──── rises steadily with temperature
+                  (atoms move more easily, slip planes multiply,
+                   and above recrystallisation new strain-free
+                   grains keep forming as fast as the old ones
+                   are deformed)
+
+  YIELD STRENGTH ── falls steadily with temperature
+                  (the same reason, seen from the other side)
+
+Mark the RECRYSTALLISATION TEMPERATURE as a vertical line and
+label the two regions either side of it:
+
+  left of it  = COLD WORKING
+      lower ductility, higher strength needed, work hardening
+      accumulates, but good finish and close tolerances
+
+  right of it = HOT WORKING
+      high ductility, low forming force, no work hardening
+      (it is annealed away as fast as it forms), so very large
+      reductions are possible — but poor finish and scale</div>
+  <p class="why">That single crossing graph answers the whole question. The two curves going opposite ways, and the recrystallisation line between them, is what the marks are for.</p>
+
+  <div class="trap"><b>Where marks go</b><p>Drawing two separate graphs, or forgetting the recrystallisation line. Put both curves on one set of axes and mark the line — it is the line that turns a list of properties into an explanation of why hot working exists.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2 (a)</span><span class="marks">6 marks</span><span class="method">Tandem rolling — forward slip</span></div>
+  <div class="qtext">A continuous hot rolling mill as shown in figure 1 has two stands. Thickness of the starting plate = 25 mm and width = 300 mm. Final thickness is to be 13 mm. Roll radius at each stand = 250 mm. Rotational speed at the first stand = 20 rev/min. Equal drafts of 6 mm are to be taken at each stand. The plate is wide enough relative to its thickness that no increase in width occurs. Under the assumption that the forward slip is equal at each stand, determine (a) speed V<sub>r</sub> at each stand, and (b) forward slip s. (c) Also, determine the exiting speeds at each rolling stand, if the entering speed at the first stand = 26 m/min.</div>
+
+  <h4 class="step">Step 1 — check the thicknesses</h4>
+  <div class="m">25 − 6 = 19 mm  after stand 1
+19 − 6 = 13 mm  after stand 2   ✓ matches the required final thickness</div>
+
+  <h4 class="step">Step 2 — roll surface speed at stand 1</h4>
+  <div class="m">D = 2R = 2 × 250 = 500 mm = 0.5 m
+
+V_r1 = π D N = π × 0.5 × 20 = 31.416 m/min</div>
+
+  <h4 class="step">Step 3 — exit speeds, from volume constancy</h4>
+  <p class="why">The width does not change, so the volume rate is just thickness × speed, and that is the same everywhere along the mill. Do part (c) before part (b) — you need the exit speeds to get the slip.</p>
+  <div class="m">volume rate = t · v = 25 × 26 = 650  (constant)
+
+exit of stand 1:   v₁ = 650 / 19 = 34.21 m/min
+exit of stand 2:   v₂ = 650 / 13 = 50.00 m/min</div>
+
+  <h4 class="step">Step 4 — forward slip</h4>
+  <p class="why">Forward slip is how much faster the plate leaves the roll gap than the roll surface is moving. It comes out of the numbers you already have at stand 1.</p>
+  <div class="m">s = (v_f − V_r) / V_r
+
+at stand 1:
+  s = (34.21 − 31.416) / 31.416 = 2.795 / 31.416 = 0.0889
+
+so s = 0.0889, that is 8.89 %</div>
+
+  <h4 class="step">Step 5 — roll speed at stand 2</h4>
+  <p class="why">The question says the forward slip is equal at each stand, and that is what fixes the second stand's roll speed — the plate must leave at 50 m/min with the same 8.89 % slip.</p>
+  <div class="m">v₂ = V_r2 (1 + s)
+
+V_r2 = v₂ / (1 + s) = 50.00 / 1.0889 = 45.92 m/min
+
+and if the rotational speed is wanted:
+  N₂ = V_r2 / (π D) = 45.92 / (π × 0.5) = 29.23 rev/min</div>
+
+  <h4 class="step">Check</h4>
+  <div class="m">volume rate entering stand 1 = 25 × 26.00 = 650
+after stand 1                = 19 × 34.21 = 650
+after stand 2                = 13 × 50.00 = 650   ✓
+
+forward slip at stand 2 = (50.00 − 45.92)/45.92 = 0.0889  ✓ equal</div>
+
+  <div class="ans">
+    <div class="lbl">Answers</div>
+    <div class="val">(a) V<sub>r1</sub> = 31.42 m/min, V<sub>r2</sub> = 45.92 m/min (N₂ = 29.2 rev/min) · (b) s = 0.0889 (8.89 %) · (c) exit speeds 34.21 and 50.00 m/min</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>Answering the parts in the order printed. You cannot find V<sub>r2</sub> in part (a) without knowing the slip, and you cannot find the slip without the exit speeds from part (c). Do (c) first, then (b), then finish (a) — and say in one line that you are doing so.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2 (b)</span><span class="marks">4 marks</span><span class="method">Forging — hand tools</span></div>
+  <div class="qtext">What is the key process involved in the manufacturing of hand tools such as spanners and wrenches, and provide a schematic explanation of this process?</div>
+
+  <div class="m">Process: CLOSED (IMPRESSION) DIE DROP FORGING, hot.</div>
+
+  <h4 class="step">Why it is the right process</h4>
+  <ul class="pts">
+    <li>A spanner is a <b>high-stress, high-volume</b> part — it is loaded hard at the jaws every time it is used, and it is made in millions. Both point at impression die forging.</li>
+    <li><b>Grain flow.</b> Forging bends the grain to follow the outline of the jaws and the shank. A spanner machined from plate would have its fibres cut through right at the jaw fillet, which is where it would break.</li>
+    <li><b>Material saving.</b> The shape is mostly thin shank with two bulky ends — machining it from bar would waste most of the bar.</li>
+    <li><b>Near net shape</b>, so only the jaw faces need finishing.</li>
+  </ul>
+
+  <h4 class="step">The sequence — for the schematic</h4>
+  <ol class="steps">
+    <li><b>Cut and heat</b> the bar stock to forging temperature.</li>
+    <li><b>Fullering and edging</b> — the metal is distributed along the length, thinned where the shank will be and gathered where the two heads will be.</li>
+    <li><b>Blocking</b> — a rough impression brings it close to the final outline.</li>
+    <li><b>Finishing impression</b> — the final blow fills the cavity completely, with the excess escaping as flash at the parting line.</li>
+    <li><b>Trimming</b> — the flash is sheared off in a trimming die.</li>
+    <li><b>Heat treatment</b>, then machining and broaching of the jaw opening, then finishing and plating.</li>
+  </ol>
+  <p class="why">Draw: the two die halves with the spanner cavity, the hot billet between them, and flash squeezing out at the parting plane. Beside it, the progression of shapes from bar → fullered → blocked → finished, and an outline of the spanner with the grain flow lines drawn following its contour round the jaws.</p>
+
+  <div class="trap"><b>Where marks go</b><p>The grain flow sketch. Anyone can write "drop forging"; the marks are in showing the fibres curving round the jaw instead of running straight through it, and saying that is why the forged spanner does not crack at the fillet.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q3 (a)</span><span class="marks">7 marks</span><span class="method">CNC lathe + machining time</span></div>
+  <div class="qtext">For machining a final component as shown in figure 2 the following sequence of operations is to be done on a CNC lathe machine with a spindle rotation of 1500 RPM. 1) Facing with depth of cut (DOC) of 1 mm and tool speed of 50 mm/min. 2) Rough turning with DOC 2 mm and tool speed of 100 mm/min. 3) Finish turning with DOC of 0.5 mm and tool speed of 60 mm/min. Write the CNC code for the given component. Also, find out the total machining time to machine the component on a <b>manual lathe machine</b> keeping the sequence of operations same. Avoid all idle movements of the tool.</div>
+
+  <h4 class="step">Step 1 — the component from Fig. 2</h4>
+  <div class="m">stock: Ø25
+origin (X0, Z0) at the right-hand face, on the axis
+"02" at the right end is the 2 mm facing allowance
+
+finished part, measured from the faced end:
+  Z  0  → −20     Ø16
+  Z −20 → −40     Ø20
+  beyond −40      Ø25, left as stock
+
+so the radial metal to remove is:
+  over the first 20 mm  (25 − 16)/2 = 4.5 mm
+  over the next  20 mm  (25 − 20)/2 = 2.5 mm</div>
+
+  <h4 class="step">Step 2 — the pass plan</h4>
+  <p class="why">Roughing takes 2 mm a pass and finishing takes 0.5 mm, so the roughing must stop 0.5 mm short of the final size. Work out how many passes each step needs before writing a line of code.</p>
+  <div class="m">Ø16 section: 4.5 mm = 2 roughing (2 + 2) + 1 finishing (0.5)  ✓
+Ø20 section: 2.5 mm = 1 roughing (2)     + 1 finishing (0.5)  ✓
+
+check: 25 − 2(2 + 2 + 0.5) = 16 mm  ✓
+       25 − 2(2 + 0.5)     = 20 mm  ✓</div>
+
+  <h4 class="step">Step 3 — the CNC program</h4>
+  <pre class="code">N10   G21 G90 G98              <span class="c">; metric, absolute, feed in mm/min</span>
+N20   T01 M06
+N30   M03 S1500                <span class="c">; 1500 rpm</span>
+N40   G00 X27 Z2               <span class="c">; clear of the Ø25 bar</span>
+
+<span class="c">; ---- facing, 2 mm off in two 1 mm cuts ----</span>
+N50   G94 X-1 Z1 F50
+N60   G94 X-1 Z0 F50           <span class="c">; face now at Z0</span>
+N70   G00 X27 Z2
+
+<span class="c">; ---- roughing, 2 mm depth of cut ----</span>
+N80   G00 X21 Z0               <span class="c">; first rough pass, Ø25 → Ø21</span>
+N90   G01 Z-40 F100            <span class="c">; runs the full 40 mm</span>
+N100  G00 X27
+N110  G00 Z0
+
+N120  G00 X17                  <span class="c">; second rough pass, Ø21 → Ø17</span>
+N130  G01 Z-20 F100            <span class="c">; only the Ø16 section, 20 mm</span>
+N140  G00 X27
+N150  G00 Z0
+
+<span class="c">; ---- finishing, 0.5 mm depth of cut ----</span>
+N160  G00 X16                  <span class="c">; Ø17 → Ø16</span>
+N170  G01 Z-20 F60
+N180  G01 X20                  <span class="c">; step out to the shoulder</span>
+N190  G01 Z-40 F60             <span class="c">; Ø21 → Ø20 along the second section</span>
+N200  G00 X27
+N210  G00 Z2
+
+N220  G28 U0 W0
+N230  M05
+N240  M30</pre>
+
+  <h4 class="step">Step 4 — machining time on a manual lathe</h4>
+  <p class="why">"Avoid all idle movements" means count only the cutting strokes. Time for a cut is simply the distance travelled divided by the tool speed given for that operation.</p>
+  <div class="m">FACING — the tool travels from the outside to the centre,
+  a radial distance of 25/2 = 12.5 mm, and 2 mm of stock
+  at 1 mm per cut means 2 passes:
+
+  2 × (12.5 / 50) = 2 × 0.25 = 0.50 min
+
+TURNING:
+  rough 1   Ø25 → Ø21   over 40 mm at 100 mm/min = 0.4000 min
+  rough 2   Ø21 → Ø17   over 20 mm at 100 mm/min = 0.2000 min
+  finish    Ø21 → Ø20   over 20 mm at  60 mm/min = 0.3333 min
+  finish    Ø17 → Ø16   over 20 mm at  60 mm/min = 0.3333 min
+                                        turning  = 1.2667 min
+
+TOTAL = 0.50 + 1.2667 = 1.7667 min ≈ 1.77 min  (106 s)</div>
+
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">Program as above · facing 0.50 min + turning 1.27 min = <b>1.77 min</b> of machining time</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>Running every pass over the full 40 mm. The second roughing cut and the Ø16 finishing cut only need 20 mm, because only the first section goes down that far — and the question says to avoid idle movement, which is exactly what that means. Cutting all four passes at 40 mm gives 2.03 min instead of 1.77.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q3 (b)</span><span class="marks">3 marks</span><span class="method">Rake angles</span></div>
+  <div class="qtext">What are the different rake angles that can be used for a single-point cutting tool, and illustrate them schematically? Also, brief the suitable usage of each rake angle for different types of work materials.</div>
+
+  <div class="tbl"><table>
+    <tr><th>Rake angle</th><th>What it looks like</th><th>Where it is used</th></tr>
+    <tr><td><b>Positive</b></td><td>The rake face slopes away from the cutting edge, down and back from the work. The wedge angle is small and the edge is keen</td><td>Soft and ductile materials — aluminium, copper, mild steel, brass. Also slender or thin-walled work that cannot take much force, and any low-power machine. Gives low cutting force, a continuous chip and a good finish</td></tr>
+    <tr><td><b>Negative</b></td><td>The rake face slopes towards the work, so the included wedge behind the edge is large and blunt</td><td>Hard and strong materials — hardened steel, cast iron, and any interrupted cut where the edge takes impact. Used with carbide and ceramic tools at high speed on rigid, powerful machines. Strong edge, but high force and heat</td></tr>
+    <tr><td><b>Zero (neutral)</b></td><td>The rake face lies perpendicular to the work surface</td><td>Brass and bronze, where a positive rake would dig in and grab. Also on form tools and threading tools, where the tool profile has to reproduce exactly on the work and any rake would distort it</td></tr>
+  </table></div>
+  <p class="why">For the schematic, draw the workpiece surface as a horizontal line and the tool on it three times. Draw a vertical reference line at the cutting edge in each. Positive rake leans the face away from that line; negative leans it towards the work; zero lies along it. Mark the angle from the reference line in all three.</p>
+
+  <div class="trap"><b>Where marks go</b><p>Forgetting zero rake. It is only three marks and it is a three-way answer — leaving one out costs a third of them. Zero rake on form and threading tools is the example examiners look for, because it shows you know the reason, not just the list.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q4 (a)</span><span class="marks">7 marks</span><span class="method">CNC milling — part program</span></div>
+  <div class="qtext">Write a CNC program in absolute coordinate system for the given profile to be manufactured on a 3-axis milling machine. The profile must be cut from a square aluminum plate of 280 × 280 × 10 mm dimensions. Follow the path ABCDEFGHIJKA as shown in figure 3. Assume depth of profile to be 2 mm and to be cut in a single pass. A 2.5 mm diameter milling cutter has been used. Consider the feed is 0.125 mm/rev, and RPM of spindle is 1000 rpm.</div>
+
+  <h4 class="step">Step 1 — set the grid</h4>
+  <p class="why">Fig. 3 tells you the key on the drawing itself: <b>one unit cell = 20 mm × 20 mm</b>, with the origin (0,0) marked at the centre of the grid. So every vertex is read off as a whole number of cells and multiplied by 20.</p>
+  <div class="m">Read each labelled point off the grid in cells, then × 20 mm:
+
+  A  ( 2,  1)  →  ( 40,  20)
+  B  ( 1,  0)  →  ( 20,   0)
+  C  ( 2, −1)  →  ( 40, −20)
+  D  ( 2, −2)  →  ( 40, −40)
+  E  ( 1, −2)  →  ( 20, −40)
+  F  ( 0, −3)  →  (  0, −60)
+  G  (−1, −3)  →  (−20, −60)
+  H  (−1, −1)  →  (−20, −20)
+  I  ( 0,  0)  →  (  0,   0)
+  J  (−1,  1)  →  (−20,  20)
+  K  ( 1,  2)  →  ( 20,  40)
+
+two R40 arcs are marked: one at the top left near K,
+one at the bottom right between E and F</div>
+  <p class="why">Count the cells on your own copy before you write anything — the marks for this question are almost entirely in the coordinate list, and the program itself is mechanical once the list is right. If your grid reading differs, keep the program structure and change only the numbers.</p>
+
+  <h4 class="step">Step 2 — feed rate</h4>
+  <p class="why">The feed is given per revolution but a milling control wants it per minute, so convert before you use it.</p>
+  <div class="m">F = f × N = 0.125 mm/rev × 1000 rev/min = 125 mm/min</div>
+
+  <h4 class="step">Step 3 — the program</h4>
+  <pre class="code">N10   G21 G90 G94 G54          <span class="c">; metric, absolute, feed in mm/min</span>
+N20   T01 M06                  <span class="c">; 2.5 mm diameter end mill</span>
+N30   G43 H1 Z50               <span class="c">; tool length offset, clear</span>
+N40   M03 S1000                <span class="c">; 1000 rpm</span>
+
+N50   G00 X40 Y20              <span class="c">; rapid over A</span>
+N60   G00 Z2                   <span class="c">; just above the face</span>
+N70   G01 Z-2 F125             <span class="c">; plunge to 2 mm depth</span>
+
+N80   G01 X20 Y0               <span class="c">; A → B</span>
+N90   G01 X40 Y-20             <span class="c">; B → C</span>
+N100  G01 X40 Y-40             <span class="c">; C → D</span>
+N110  G01 X20 Y-40             <span class="c">; D → E</span>
+N120  G02 X0 Y-60 R40          <span class="c">; E → F, R40 arc</span>
+N130  G01 X-20 Y-60            <span class="c">; F → G</span>
+N140  G01 X-20 Y-20            <span class="c">; G → H</span>
+N150  G01 X0 Y0                <span class="c">; H → I</span>
+N160  G01 X-20 Y20             <span class="c">; I → J</span>
+N170  G03 X20 Y40 R40          <span class="c">; J → K, R40 arc</span>
+N180  G01 X40 Y20              <span class="c">; K → A, profile closed</span>
+
+N190  G00 Z50                  <span class="c">; retract</span>
+N200  G28                      <span class="c">; home</span>
+N210  M05
+N220  M30</pre>
+
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">Feed 125 mm/min (0.125 × 1000) · vertices read off the 20 mm grid · single 2 mm deep pass round A→B→C→D→E→F→G→H→I→J→K→A</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>Using F0.125 in the program. The control is in G94, mm per minute, so the feed word must be 125 — writing 0.125 would run the cut eight hundred times too slowly. Convert the feed and say you have, in one line.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q4 (b)</span><span class="marks">3 marks</span><span class="method">Types of chips</span></div>
+  <div class="qtext">What are the different types of chips formed during machining of pure copper (Cu) and Cast Iron (C.I.)? Explain the machining condition that promotes the chip formation for each material schematically.</div>
+
+  <h4 class="step">Pure copper — continuous chip, with a built-up edge</h4>
+  <div class="m">Copper is very ductile and very soft, so the material ahead of the
+tool flows plastically up the rake face in one unbroken ribbon
+instead of fracturing.
+
+Conditions that produce it:
+  • ductile work material                      (copper, aluminium, mild steel)
+  • large POSITIVE rake angle
+  • high cutting speed
+  • small feed and small depth of cut
+  • good lubrication, and a sharp, polished tool
+
+The complication: copper is so soft and so prone to sticking that
+at low and medium speed it forms a BUILT-UP EDGE — material
+pressure-welds to the rake face, grows, breaks off, and smears the
+machined surface. So copper usually gives a "continuous chip with
+built-up edge" unless the speed is taken high enough to suppress it.</div>
+
+  <h4 class="step">Cast iron — discontinuous chip</h4>
+  <div class="m">Cast iron is brittle, and its graphite flakes act as ready-made
+crack starters. The material ahead of the tool cracks rather than
+flows, so the chip comes away in small separate pieces.
+
+Conditions that produce it:
+  • brittle work material                      (cast iron, bronze, brass)
+  • small or NEGATIVE rake angle
+  • low cutting speed
+  • large feed and large depth of cut
+  • no cutting fluid needed for chip control
+
+Side effects worth one line: the cut is intermittent, so the force
+fluctuates and the machine can chatter — which is why cast iron is
+cut on rigid machines with strong, negative-rake carbide tools.</div>
+
+  <h4 class="step">The schematic</h4>
+  <p class="why">Two sketches side by side, each with the workpiece, the tool and the shear plane. For copper, draw one long ribbon curling away continuously from the rake face; add a small wedge on the rake face if you are showing the built-up edge version. For cast iron, draw several short separate segments breaking off at the shear plane and falling away.</p>
+
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">Copper — <b>continuous chip</b> (with built-up edge at low and medium speed): ductile material, positive rake, high speed, small feed · Cast iron — <b>discontinuous chip</b>: brittle material, negative rake, low speed, large feed</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>Answering just "continuous and discontinuous". The question says "explain the machining condition that promotes" each, so each chip type needs its list of conditions — rake, speed, feed, and the material property behind it. Three marks, two chips, and the conditions are where the third mark lives.</p></div>
+</div>
+
+</div>
+
+<div class="fb" id="fb">
+  <h3>Did these solutions help you?</h3>
+  <p class="sub2">These are free, made by a student for students. Two things would really help: a vote, and a line saying what was useful — or, more importantly, <b>if you found a step that looks wrong</b>. Anything you report gets checked and fixed for everyone. It only goes to the student who made this.</p>
+  <div class="fb-btns">
+    <button class="fb-btn" id="fb-yes" type="button">&#128077; Yes, it helped</button>
+    <button class="fb-btn" id="fb-no" type="button">&#128078; Not really</button>
+  </div>
+  <div id="fb-more" style="display:none">
+    <textarea id="fb-text" placeholder="What helped, or which step looks wrong? (optional, but really useful)"></textarea>
+    <button class="fb-send" id="fb-send" type="button">Send</button>
+  </div>
+  <p class="fb-done" id="fb-done" style="display:none">Thanks — this genuinely helps. Good luck in the exam.</p>
+</div>
+
+<div class="share" id="share">
+  <h3>Send this to a friend</h3>
+  <p>Someone in your batch is looking for exactly this right now. It takes one tap.</p>
+  <div class="share-row">
+    <a class="share-wa" id="share-wa" href="#" target="_blank" rel="noopener noreferrer">&#128172; Share on WhatsApp</a>
+    <button class="share-copy" id="share-copy" type="button">Copy link</button>
+  </div>
+  <p class="share-done" id="share-done" style="display:none">Link copied.</p>
+</div>
+
+<footer>
+  <p>Solutions worked out from the Mar 2024, Oct 2024, Mar 2025, Oct 2025 and Mar 2026 UES103 / UTA003 MST papers. Every program on this page was compiled with gcc and run — the outputs shown are what the compiler actually produced, not what the answer assumed.</p>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  var CODE = 'UES102-SOL';
+  var choice = null;
+  var yes = document.getElementById('fb-yes'), no = document.getElementById('fb-no');
+  var more = document.getElementById('fb-more'), done = document.getElementById('fb-done');
+  var send = document.getElementById('fb-send'), text = document.getElementById('fb-text');
+
+  function visitorId() {
+    try {
+      var id = localStorage.getItem('fs_visitor');
+      if (!id) { id = 'v_' + Math.random().toString(36).slice(2) + Date.now(); localStorage.setItem('fs_visitor', id); }
+      return id;
+    } catch (e) { return 'anon'; }
+  }
+  function post(comment) {
+    var email; try { email = localStorage.getItem('fs_email') || undefined; } catch (e) {}
+    fetch('/api/guide-feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code: CODE, helpful: choice, comment: comment || '', visitorId: visitorId(), email: email })
+    }).catch(function () {});
+  }
+  function pick(val) {
+    choice = val;
+    yes.classList.toggle('on', val === true);
+    no.classList.toggle('on', val === false);
+    more.style.display = 'block';
+    post('');
+  }
+  yes.addEventListener('click', function () { pick(true); });
+  no.addEventListener('click', function () { pick(false); });
+  send.addEventListener('click', function () {
+    if (choice === null) return;
+    post(text.value);
+    more.style.display = 'none';
+    done.style.display = 'block';
+  });
+})();
+</script>
+
+<script>
+(function () {
+  var url = window.location.href.split('#')[0].split('?')[0];
+  var msg = "C Programming (UES103) — every question from the past MST papers, solved step by step. Free on FreshStart.\n\n" + url;
+  var link = 'https://wa.me/?text=' + encodeURIComponent(msg);
+  ['share-wa', 'share-wa-top'].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) el.href = link;
+  });
+
+  var cp = document.getElementById('share-copy'), done = document.getElementById('share-done');
+  if (cp) cp.addEventListener('click', function () {
+    function ok() { done.style.display = 'block'; setTimeout(function(){ done.style.display='none'; }, 2500); }
+    try {
+      navigator.clipboard.writeText(url).then(ok, fallback);
+    } catch (e) { fallback(); }
+    function fallback() {
+      var t = document.createElement('textarea');
+      t.value = url; t.style.position = 'fixed'; t.style.opacity = '0';
+      document.body.appendChild(t); t.select();
+      try { document.execCommand('copy'); ok(); } catch (e) {}
+      document.body.removeChild(t);
+    }
+  });
+})();
+</script>
+</body>
+</html>
