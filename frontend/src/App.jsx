@@ -56,7 +56,7 @@ function LoginGate({ title, text }) {
       <h3>{title}</h3>
       <p>{text}</p>
       <ul className="perks">
-        <li><b>✦</b>PYQ analysis guides for all nine subjects</li>
+        <li><b>✦</b>PYQ solutions and analysis for all nine subjects</li>
         <li><b>✦</b>Every FAQ, fully unlocked</li>
         <li><b>✦</b>Topper tips for all ten subjects</li>
         <li><b>✦</b>The full answered doubts archive</li>
@@ -197,7 +197,7 @@ function Home({ go }) {
       <div className="hero-in">
         <h2 className="hero-title">Start first year <em>knowing what to expect</em></h2>
         <p>
-          PYQ analysis guides, subject guides, attendance rules, detention risk and answers from
+          PYQ solutions, subject guides, attendance rules, detention risk and answers from
           people who already survived it. Sign in with your @thapar.edu email to open everything.
         </p>
 
@@ -205,7 +205,7 @@ function Home({ go }) {
           <div className="mini" onClick={() => go('subjects')}><i>📚</i><h4>Subjects</h4><p>Pool A and B</p></div>
           <div className="mini" onClick={() => go('faqs')}><i>❓</i><h4>FAQs</h4><p>Real answers</p></div>
           <div className="mini" onClick={() => go('doubts')}><i>💬</i><h4>Doubts</h4><p>Ask anonymously</p></div>
-          <div className="mini" onClick={() => go('pyq')}><i>📊</i><h4>PYQ Guides</h4><p>What repeats in MSTs</p></div>
+          <div className="mini" onClick={() => go('pyq')}><i>✎</i><h4>PYQ Solutions</h4><p>Papers solved, step by step</p></div>
         </div>
 
         <NotOfficial />
@@ -213,9 +213,9 @@ function Home({ go }) {
         <div className="senior-cta" onClick={() => go('pyq')} style={{ marginBottom: '1.2rem' }}>
           <div className="senior-cta-in">
             <span className="live">new</span>
-            <h3>PYQ analysis guides for 9 subjects</h3>
-            <p>We read every past MST paper of each subject and counted the marks. See which topics repeat, the questions asked each year, a formula sheet, the mistakes that cost marks, and the full papers to practise on.</p>
-            <span className="senior-cta-go">Open the guides &rarr;</span>
+            <h3>PYQ solutions &mdash; papers solved step by step</h3>
+            <p>Every question from the past MST papers worked out the way you would write it in the answer sheet, with the method named at each step. Plus which topics repeat, a formula sheet, and the full papers to practise on.</p>
+            <span className="senior-cta-go">Open the solutions &rarr;</span>
           </div>
         </div>
 
@@ -638,11 +638,11 @@ function Unlock({ user, go, onPaid, code }) {
 function PyqGuides({ user, go, paid }) {
   return (
     <div className="wrap">
-      <h2>PYQ analysis guides</h2>
+      <h2>PYQ solutions</h2>
       <p className="sub">
-        Every guide is built from the actual MST papers of that subject — not guesswork. We counted the
-        marks question by question to show which topics keep repeating, how they were asked each year,
-        and where students lose easy marks.
+        Every question from the past MST papers, solved step by step &mdash; the way you would write it
+        in the answer sheet, with the method named at each step. <b>The solutions sit inside each
+        subject below</b>, along with which topics repeat, a formula sheet, and the full past papers.
       </p>
 
       {!user && (
@@ -653,28 +653,41 @@ function PyqGuides({ user, go, paid }) {
       )}
 
       <div className="highlight">
-        <span>&#128202;</span>
+        <span>&#9998;</span>
         <div>
-          <b>What's inside every guide</b>
+          <b>Papers solved, step by step</b>
           <p>
-            Must-do topics ranked by how often they came up · a repeated-topics heatmap · the full
-            past papers · every past question sorted by topic and year · a formula sheet · common
-            mistakes · a one-evening plan · and, where they are ready, the past papers solved
-            step by step in the same guide.
+            Every question from the past MST papers worked out in full &mdash; the method named at
+            each step, the final answer set apart, and a note wherever students lose marks. The
+            solutions live inside the subject's own page, under everything else.
           </p>
         </div>
       </div>
 
-      <div className="sec-title">Pool A</div>
+      <div className="sec-title">Solutions are ready for these</div>
       <div className="grid">
-        {sortGuides(GUIDES.filter(g => g.pool === 'A'), user).map((g, i) => <GuideCard g={g} i={i} user={user} paid={paid} key={g.code} />)}
+        {GUIDES.filter(g => SPLIT_CODES.includes(g.code))
+               .map((g, i) => <GuideCard g={g} i={i} user={user} paid={paid} key={g.code} />)}
       </div>
 
       <SectionFeedback user={user} />
 
-      <div className="sec-title">Pool B</div>
+      <div className="sec-title" style={{ marginTop: '2.4rem' }}>PYQ analysis guides</div>
+      <p className="note" style={{ marginTop: 0, marginBottom: '1.1rem' }}>
+        Solutions for these are still being written. The analysis is complete: which topics repeat,
+        how they were asked each year, a formula sheet, the common mistakes, and the full past papers.
+      </p>
+
+      <div className="sec-title" style={{ fontSize: '.95rem', opacity: .75 }}>Pool A</div>
       <div className="grid">
-        {sortGuides(GUIDES.filter(g => g.pool === 'B'), user).map((g, i) => <GuideCard g={g} i={i} user={user} paid={paid} key={g.code} />)}
+        {sortGuides(GUIDES.filter(g => g.pool === 'A' && !SPLIT_CODES.includes(g.code)), user)
+          .map((g, i) => <GuideCard g={g} i={i} user={user} paid={paid} key={g.code} />)}
+      </div>
+
+      <div className="sec-title" style={{ fontSize: '.95rem', opacity: .75 }}>Pool B</div>
+      <div className="grid">
+        {sortGuides(GUIDES.filter(g => g.pool === 'B' && !SPLIT_CODES.includes(g.code)), user)
+          .map((g, i) => <GuideCard g={g} i={i} user={user} paid={paid} key={g.code} />)}
       </div>
 
       <p className="note" style={{ marginTop: '1.6rem' }}>
@@ -739,9 +752,9 @@ function SubjectDetail({ code, user, go }) {
         >
           <span style={{ fontSize: '1.5rem' }}>&#128202;</span>
           <span style={{ flex: 1 }}>
-            <b style={{ display: 'block', fontSize: '1rem' }}>PYQ analysis guide</b>
+            <b style={{ display: 'block', fontSize: '1rem' }}>PYQ solutions &amp; analysis</b>
             <span style={{ fontSize: '.85rem', color: '#5A6472' }}>
-              Which topics repeat, formula sheet, common mistakes and full past papers
+              Papers solved step by step, which topics repeat, formula sheet and the full past papers
             </span>
           </span>
           <span style={{ fontSize: '1.2rem', color: '#5b54d6' }}>&rarr;</span>
@@ -1854,7 +1867,7 @@ export default function App() {
         </button>
 
         <div className="nav-links">
-          <button className={'nav-link' + (page === 'pyq' ? ' on' : '')} onClick={() => go('pyq')}>PYQ Guides</button>
+          <button className={'nav-link' + (page === 'pyq' ? ' on' : '')} onClick={() => go('pyq')}>PYQ Solutions</button>
           <button className={'nav-link' + (page === 'faqs' ? ' on' : '')} onClick={() => go('faqs')}>FAQs</button>
           <button className={'nav-link' + (page.startsWith('subject') ? ' on' : '')} onClick={() => go('subjects')}>Subjects</button>
           <button className={'nav-link' + (page === 'doubts' ? ' on' : '')} onClick={() => go('doubts')}>Doubts</button>
