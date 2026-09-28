@@ -205,7 +205,8 @@ function Home({ go }) {
           <div className="mini" onClick={() => go('subjects')}><i>📚</i><h4>Subjects</h4><p>Pool A and B</p></div>
           <div className="mini" onClick={() => go('faqs')}><i>❓</i><h4>FAQs</h4><p>Real answers</p></div>
           <div className="mini" onClick={() => go('doubts')}><i>💬</i><h4>Doubts</h4><p>Ask anonymously</p></div>
-          <div className="mini" onClick={() => go('pyq')}><i>✎</i><h4>PYQ Solutions</h4><p>Papers solved, step by step</p></div>
+          <div className="mini" onClick={() => go('pyq')}><i>📊</i><h4>PYQ Guides</h4><p>What repeats in MSTs</p></div>
+          <div className="mini" onClick={() => go('solutions')}><i>✎</i><h4>Solved PYQs</h4><p>Past papers worked out</p></div>
         </div>
 
         <NotOfficial />
@@ -388,6 +389,15 @@ const SOLUTIONS = [
     note: 'Every part of the Mar 2024, Mar 2025 and Mar 2026 papers, solved step by step'
   },
   {
+    code: 'UES102',
+    file: 'UES102-solutions.html',
+    name: 'Manufacturing Processes',
+    pool: 'B',
+    papers: 5,
+    parts: 37,
+    note: 'All five MST papers solved — every CNC program written out and every numerical checked twice'
+  },
+  {
     code: 'UES103',
     file: 'UES103-solutions.html',
     name: 'C Programming',
@@ -403,8 +413,6 @@ const SOLUTIONS = [
    The unlock page, the claim form and the admin panel all stay in place. */
 const PAID_MODE = false;
 const PRICE = 29;
-/* subjects whose guide has a free half and a paid half */
-const SPLIT_CODES = ['UES103', 'UES102'];
 const UPI_QR = "data:image/png;base64,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";
 const UPI_ID = 'harpuneet61-1@oksbi';
 
@@ -446,21 +454,14 @@ function downloadDailyCsv(daily) {
   URL.revokeObjectURL(url);
 }
 
-function GuideCard({ g, i, user, paid }) {
+function GuideCard({ g, i, user }) {
   const open = user || OPEN_CODES.includes(g.code);
-  const hasFull = SPLIT_CODES.includes(g.code);        // this guide has a paid half
-  const unlocked = !PAID_MODE || (paid || []).includes(g.code);
   const inner = (
     <>
       <h3>{g.name}{open ? '' : ' 🔒'}</h3>
       <p>{g.code} · Pool {g.pool} · built from {g.papers} MST papers</p>
       <p style={{ marginTop: '.6rem', color: '#5b54d6', fontSize: '.9rem' }}>{g.note}</p>
       <div className="tags" style={{ marginTop: '.9rem' }}>
-        {hasFull && (
-          <span className="tag" style={{
-            background: '#0E6E6E', borderColor: '#0E6E6E', color: '#fff', fontWeight: 600
-          }}>✎ PYQ solutions</span>
-        )}
         <span className="tag">Must-do topics</span>
         <span className="tag">Formula sheet</span>
         <span className="tag">Common mistakes</span>
@@ -492,27 +493,17 @@ function GuideCard({ g, i, user, paid }) {
     );
   }
 
-  const full = hasFull && unlocked && user;
-  const href = full
-    ? API + '/api/guide-full/' + g.code + '?email=' + encodeURIComponent(user.email)
-    : '/guides/' + g.code + '.html';
-
   return (
     <a
       className="card clickable"
-      href={href}
+      href={'/guides/' + g.code + '.html'}
       target="_blank"
       rel="noopener noreferrer"
-      onClick={() => trackGuideOpen(g.code + (full ? '-FULL' : ''), user)}
+      onClick={() => trackGuideOpen(g.code, user)}
       key={g.code}
       style={{ animationDelay: i * 0.06 + 's', textDecoration: 'none', display: 'block' }}
     >
       {inner}
-      {PAID_MODE && hasFull && full && (
-        <p style={{ ...noteStyle, background: 'rgba(16,150,120,.12)', borderColor: 'rgba(16,150,120,.35)', color: '#0c7057' }}>
-          ✓ Unlocked
-        </p>
-      )}
     </a>
   );
 }
@@ -653,14 +644,96 @@ function Unlock({ user, go, onPaid, code }) {
   );
 }
 
-function PyqGuides({ user, go, paid }) {
+/* ---- Solved PYQs: its own section again, one card per subject ---- */
+const SOLVED_CODES = SOLUTIONS.map(s => s.code);
+
+function SolutionCard({ s, i, user }) {
+  const inner = (
+    <>
+      <h3>{s.name}{user ? '' : ' 🔒'}</h3>
+      <p>{s.code} · Pool {s.pool} · {s.papers} papers · {s.parts} questions solved</p>
+      <p style={{ marginTop: '.6rem', color: '#5b54d6', fontSize: '.9rem' }}>{s.note}</p>
+      <div className="tags" style={{ marginTop: '.9rem' }}>
+        <span className="tag">Step-by-step</span>
+        <span className="tag">Method named</span>
+        <span className="tag">Common slips</span>
+        <span className="tag">Year-wise</span>
+      </div>
+    </>
+  );
+
+  if (!user) {
+    return (
+      <div className="card clickable" onClick={startLogin} role="button"
+        style={{ animationDelay: i * 0.06 + 's', opacity: .85 }}>
+        {inner}
+        <p style={noteStyle}>🔒 Tap to sign in with your Thapar email</p>
+      </div>
+    );
+  }
+
+  return (
+    <a className="card clickable"
+      href={API + '/api/solutions/' + s.code + '?email=' + encodeURIComponent(user.email)}
+      target="_blank" rel="noopener noreferrer"
+      onClick={() => trackGuideOpen(s.code + '-SOL', user)}
+      style={{ animationDelay: i * 0.06 + 's', textDecoration: 'none', display: 'block' }}>
+      {inner}
+    </a>
+  );
+}
+
+function PyqSolutions({ user, go }) {
   return (
     <div className="wrap">
-      <h2>PYQ solutions</h2>
+      <h2>Past PYQ solutions</h2>
       <p className="sub">
-        Every question from the past MST papers, solved step by step &mdash; the way you would write it
-        in the answer sheet, with the method named at each step. <b>The solutions sit inside each
-        subject below</b>, along with which topics repeat, a formula sheet, and the full past papers.
+        The analysis guides tell you which questions come. These go one step further &mdash; every
+        question from the past papers worked out fully, the way you would write it in the answer
+        sheet, with the method named at each step.
+      </p>
+
+      <div className="highlight" style={{ marginTop: '1.4rem' }}>
+        <span>&#9998;</span>
+        <div>
+          <b>What's inside</b>
+          <p>
+            Each paper, year by year &middot; every part solved step by step &middot; the method named
+            &middot; the final answer set apart &middot; and a note wherever students commonly lose marks.
+          </p>
+        </div>
+      </div>
+
+      <div className="grid" style={{ marginTop: '1.4rem' }}>
+        {SOLUTIONS.map((s, i) => <SolutionCard s={s} i={i} user={user} key={s.code} />)}
+      </div>
+
+      <div className="sec-title" style={{ marginTop: '2.2rem' }}>Coming soon</div>
+      <p className="note" style={{ marginTop: 0 }}>
+        Solutions for these are still being written. Their analysis guides are complete and open now.
+      </p>
+      <div className="tags" style={{ marginTop: '.6rem' }}>
+        {GUIDES.filter(g => !SOLVED_CODES.includes(g.code)).map(g => (
+          <span className="tag" key={g.code}>{g.name}</span>
+        ))}
+      </div>
+
+      <p className="note" style={{ marginTop: '1.6rem' }}>
+        Spotted a step that looks wrong? Say so in the box at the bottom of the solutions page &mdash;
+        it gets checked and fixed.
+      </p>
+    </div>
+  );
+}
+
+function PyqGuides({ user, go }) {
+  return (
+    <div className="wrap">
+      <h2>PYQ analysis guides</h2>
+      <p className="sub">
+        Every guide is built from the actual MST papers of that subject &mdash; not guesswork. We counted
+        the marks question by question to show which topics keep repeating, how they were asked each
+        year, and where students lose easy marks.
       </p>
 
       {!user && (
@@ -671,41 +744,27 @@ function PyqGuides({ user, go, paid }) {
       )}
 
       <div className="highlight">
-        <span>&#9998;</span>
+        <span>&#128202;</span>
         <div>
-          <b>Papers solved, step by step</b>
+          <b>What's inside every guide</b>
           <p>
-            Every question from the past MST papers worked out in full &mdash; the method named at
-            each step, the final answer set apart, and a note wherever students lose marks. The
-            solutions live inside the subject's own page, under everything else.
+            Must-do topics ranked by how often they came up &middot; a repeated-topics heatmap &middot;
+            every past question sorted by topic and year &middot; a formula sheet &middot; common
+            mistakes &middot; a one-evening plan &middot; and the full past papers.
           </p>
         </div>
       </div>
 
-      <div className="sec-title">Solutions are ready for these</div>
+      <div className="sec-title">Pool A</div>
       <div className="grid">
-        {GUIDES.filter(g => SPLIT_CODES.includes(g.code))
-               .map((g, i) => <GuideCard g={g} i={i} user={user} paid={paid} key={g.code} />)}
+        {sortGuides(GUIDES.filter(g => g.pool === 'A'), user).map((g, i) => <GuideCard g={g} i={i} user={user} key={g.code} />)}
       </div>
 
       <SectionFeedback user={user} />
 
-      <div className="sec-title" style={{ marginTop: '2.4rem' }}>PYQ analysis guides</div>
-      <p className="note" style={{ marginTop: 0, marginBottom: '1.1rem' }}>
-        Solutions for these are still being written. The analysis is complete: which topics repeat,
-        how they were asked each year, a formula sheet, the common mistakes, and the full past papers.
-      </p>
-
-      <div className="sec-title" style={{ fontSize: '.95rem', opacity: .75 }}>Pool A</div>
+      <div className="sec-title">Pool B</div>
       <div className="grid">
-        {sortGuides(GUIDES.filter(g => g.pool === 'A' && !SPLIT_CODES.includes(g.code)), user)
-          .map((g, i) => <GuideCard g={g} i={i} user={user} paid={paid} key={g.code} />)}
-      </div>
-
-      <div className="sec-title" style={{ fontSize: '.95rem', opacity: .75 }}>Pool B</div>
-      <div className="grid">
-        {sortGuides(GUIDES.filter(g => g.pool === 'B' && !SPLIT_CODES.includes(g.code)), user)
-          .map((g, i) => <GuideCard g={g} i={i} user={user} paid={paid} key={g.code} />)}
+        {sortGuides(GUIDES.filter(g => g.pool === 'B'), user).map((g, i) => <GuideCard g={g} i={i} user={user} key={g.code} />)}
       </div>
 
       <p className="note" style={{ marginTop: '1.6rem' }}>
@@ -1836,8 +1895,7 @@ export default function App() {
       setPage('unlock');
       return;
     }
-    if (target === 'solutions') { setPage('pyq'); return; }   // solutions live inside the guides now
-    if (['pyq', 'unlock', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target)) {
+    if (['pyq', 'solutions', 'unlock', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target)) {
       setPage(target);
     }
   }, []);
@@ -1885,7 +1943,7 @@ export default function App() {
 
   const go = (target, code) => {
     try {
-      const hash = ['pyq', 'unlock', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target) ? '#' + target : '';
+      const hash = ['pyq', 'solutions', 'unlock', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target) ? '#' + target : '';
       window.history.replaceState({}, '', window.location.pathname + hash);
     } catch (e) {}
     setHistory(h => (target === page && (code || null) === subjectCode) ? h : [...h, { page, subjectCode }]);
@@ -1944,7 +2002,8 @@ export default function App() {
         </button>
 
         <div className="nav-links">
-          <button className={'nav-link' + (page === 'pyq' ? ' on' : '')} onClick={() => go('pyq')}>PYQ Solutions</button>
+          <button className={'nav-link' + (page === 'pyq' ? ' on' : '')} onClick={() => go('pyq')}>PYQ Guides</button>
+          <button className={'nav-link' + (page === 'solutions' ? ' on' : '')} onClick={() => go('solutions')}>Solved PYQs</button>
           <button className={'nav-link' + (page === 'faqs' ? ' on' : '')} onClick={() => go('faqs')}>FAQs</button>
           <button className={'nav-link' + (page.startsWith('subject') ? ' on' : '')} onClick={() => go('subjects')}>Subjects</button>
           <button className={'nav-link' + (page === 'doubts' ? ' on' : '')} onClick={() => go('doubts')}>Doubts</button>
@@ -1971,7 +2030,8 @@ export default function App() {
         </div>
       )}
 
-      {page === 'pyq' && <PyqGuides user={user} go={go} paid={paid} />}
+      {page === 'pyq' && <PyqGuides user={user} go={go} />}
+      {page === 'solutions' && <PyqSolutions user={user} go={go} />}
       {page === 'unlock' && user && subjectCode && <Unlock user={user} go={go} code={subjectCode} onPaid={c => setPaid(p => [...p, c])} />}
       {page === 'faqs' && <FAQs user={user} />}
       {page === 'subjects' && <Subjects user={user} go={go} />}
