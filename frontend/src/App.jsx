@@ -427,6 +427,11 @@ function GuideCard({ g, i, user, paid }) {
       <p>{g.code} · Pool {g.pool} · built from {g.papers} MST papers</p>
       <p style={{ marginTop: '.6rem', color: '#5b54d6', fontSize: '.9rem' }}>{g.note}</p>
       <div className="tags" style={{ marginTop: '.9rem' }}>
+        {hasFull && (
+          <span className="tag" style={{
+            background: '#0E6E6E', borderColor: '#0E6E6E', color: '#fff', fontWeight: 600
+          }}>✎ PYQ solutions</span>
+        )}
         <span className="tag">Must-do topics</span>
         <span className="tag">Formula sheet</span>
         <span className="tag">Common mistakes</span>
