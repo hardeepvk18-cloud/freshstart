@@ -206,7 +206,6 @@ function Home({ go }) {
           <div className="mini" onClick={() => go('faqs')}><i>❓</i><h4>FAQs</h4><p>Real answers</p></div>
           <div className="mini" onClick={() => go('doubts')}><i>💬</i><h4>Doubts</h4><p>Ask anonymously</p></div>
           <div className="mini" onClick={() => go('pyq')}><i>📊</i><h4>PYQ Guides</h4><p>What repeats in MSTs</p></div>
-          <div className="mini" onClick={() => go('solutions')}><i>✎</i><h4>Solved PYQs</h4><p>Past papers worked out</p></div>
         </div>
 
         <NotOfficial />
@@ -398,7 +397,6 @@ const SOLUTIONS = [
     note: 'Five papers solved — every program compiled and run to check its output'
   }
 ];
-const SOLVED_CODES = SOLUTIONS.map(s => s.code);
 
 /* ---- change these two and nothing else to alter the price or the UPI id ---- */
 /* Set to true to put the solved papers back behind the paywall.
@@ -476,12 +474,10 @@ function GuideCard({ g, i, user, paid }) {
       style={{ animationDelay: i * 0.06 + 's', textDecoration: 'none', display: 'block' }}
     >
       {inner}
-      {hasFull && (
-        full
-          ? <p style={{ ...noteStyle, background: 'rgba(16,150,120,.12)', borderColor: 'rgba(16,150,120,.35)', color: '#0c7057' }}>
-              ✓ Unlocked — solutions included
-            </p>
-          : <p style={noteStyle}>+ Solutions and the rest of this guide — ₹{PRICE}</p>
+      {hasFull && full && (
+        <p style={{ ...noteStyle, background: 'rgba(16,150,120,.12)', borderColor: 'rgba(16,150,120,.35)', color: '#0c7057' }}>
+          ✓ Unlocked
+        </p>
       )}
     </a>
   );
@@ -492,53 +488,6 @@ const noteStyle = {
   background: 'rgba(108, 99, 255, .12)', border: '1px solid rgba(108, 99, 255, .35)',
   color: '#4f48c4', fontSize: '.85rem', fontWeight: 600
 };
-
-function SolutionCard({ s, i, user, paid, go }) {
-  const locked = !user || (PAID_MODE && !paid);
-  const inner = (
-    <>
-      <h3>{s.name}{locked ? ' 🔒' : ''}</h3>
-      <p>{s.code} · Pool {s.pool} · {s.papers} papers · {s.parts} questions solved</p>
-      <p style={{ marginTop: '.6rem', color: '#5b54d6', fontSize: '.9rem' }}>{s.note}</p>
-      <div className="tags" style={{ marginTop: '.9rem' }}>
-        <span className="tag">Step-by-step</span>
-        <span className="tag">Method named</span>
-        <span className="tag">Common slips</span>
-        <span className="tag">Year-wise</span>
-      </div>
-    </>
-  );
-
-  if (!user) {
-    return (
-      <div className="card clickable" onClick={startLogin} role="button"
-        style={{ animationDelay: i * 0.06 + 's', opacity: .85 }}>
-        {inner}
-        <p style={noteStyle}>🔒 Tap to sign in with your Thapar email</p>
-      </div>
-    );
-  }
-
-  if (PAID_MODE && !paid) {
-    return (
-      <div className="card clickable" onClick={() => go('unlock', s.code)} role="button"
-        style={{ animationDelay: i * 0.06 + 's', opacity: .9 }}>
-        {inner}
-        <p style={noteStyle}>🔓 Tap to unlock — ₹{PRICE} for this paper</p>
-      </div>
-    );
-  }
-
-  return (
-    <a className="card clickable"
-      href={API + '/api/solutions/' + s.code + '?email=' + encodeURIComponent(user.email)}
-      target="_blank" rel="noopener noreferrer"
-      onClick={() => trackGuideOpen(s.code + '-SOL', user)}
-      style={{ animationDelay: i * 0.06 + 's', textDecoration: 'none', display: 'block' }}>
-      {inner}
-    </a>
-  );
-}
 
 /* ---- unlock page: pay by UPI, then enter the transaction id ---- */
 function Unlock({ user, go, onPaid, code }) {
@@ -604,7 +553,7 @@ function Unlock({ user, go, onPaid, code }) {
       try { res = await attempt(false); } catch (e) { res = null; }
     }
 
-    if (res && res.ok) { onPaid(code); go('solutions'); return; }
+    if (res && res.ok) { onPaid(code); go('pyq'); return; }
 
     setMsg(res && res.d && res.d.message
       ? res.d.message
@@ -686,64 +635,6 @@ function Unlock({ user, go, onPaid, code }) {
   );
 }
 
-function PyqSolutions({ user, go, paid }) {
-  return (
-    <div className="wrap">
-      <h2>Past PYQ solutions</h2>
-      <p className="sub">
-        The analysis guides tell you which questions come. These go one step further — every question
-        from the past papers worked out fully, the way you would write it in the answer sheet, with the
-        method named at each step.
-      </p>
-
-      <NotOfficial withErrorNote />
-
-      <div className="highlight" style={{ marginTop: '1.4rem' }}>
-        <span>&#9998;</span>
-        <div>
-          <b>What's inside</b>
-          <p>
-            Each paper, year by year · every part solved step by step · the method named (reduction of
-            order, operator method, convolution, and so on) · the final answer set apart · and a note
-            wherever students commonly lose marks.
-          </p>
-        </div>
-      </div>
-
-      <div className="grid" style={{ marginTop: '1.4rem' }}>
-        {SOLUTIONS.map((s, i) => <SolutionCard s={s} i={i} user={user} paid={paid.includes(s.code)} go={go} key={s.code} />)}
-      </div>
-
-      <div className="sec-title" style={{ marginTop: '2.2rem' }}>Coming soon</div>
-      <div className="grid">
-        {GUIDES.filter(g => !SOLVED_CODES.includes(g.code)).map((g, i) => (
-          <div className="card" key={g.code}
-            style={{ animationDelay: i * 0.05 + 's', opacity: .62, cursor: 'default' }}>
-            <h3 style={{ fontSize: '1.05rem' }}>{g.name}</h3>
-            <p>{g.code} · Pool {g.pool} · {g.papers} papers</p>
-            <div className="tags" style={{ marginTop: '.7rem' }}>
-              <span className="tag">Solutions coming soon</span>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <p className="note" style={{ marginTop: '1.6rem' }}>
-        Subjects are added one at a time, in the order exams come up. Every answer is checked before it
-        goes up, but if a step looks wrong, use the feedback box inside the page — it gets fixed for everyone.
-      </p>
-
-      <div className="senior-cta" onClick={() => go('pyq')} style={{ marginTop: '1.6rem' }}>
-        <div className="senior-cta-in">
-          <h3>Haven't seen the analysis guides yet?</h3>
-          <p>They show which topics repeat, how often, and what to prepare first — read that before working through the solutions.</p>
-          <span className="senior-cta-go">Open the PYQ guides &rarr;</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function PyqGuides({ user, go, paid }) {
   return (
     <div className="wrap">
@@ -766,9 +657,10 @@ function PyqGuides({ user, go, paid }) {
         <div>
           <b>What's inside every guide</b>
           <p>
-            Must-do topics ranked by how often they came up · a repeated-topics heatmap · every past
-            question sorted by topic and year · a formula sheet · common mistakes · a
-            one-evening plan · and the full past papers.
+            Must-do topics ranked by how often they came up · a repeated-topics heatmap · the full
+            past papers · every past question sorted by topic and year · a formula sheet · common
+            mistakes · a one-evening plan · and, where they are ready, the past papers solved
+            step by step in the same guide.
           </p>
         </div>
       </div>
@@ -790,14 +682,7 @@ function PyqGuides({ user, go, paid }) {
         cross-check the topic list against your own MST syllabus before planning.
       </p>
 
-      <div className="senior-cta" onClick={() => go('solutions')} style={{ marginTop: '1.6rem' }}>
-        <div className="senior-cta-in">
-          <span className="live">new</span>
-          <h3>Past papers, fully solved</h3>
-          <p>Every question from the past papers worked out step by step, with the method named. Mathematics II is up now, more subjects coming.</p>
-          <span className="senior-cta-go">Open the solutions &rarr;</span>
-        </div>
-      </div>
+
     </div>
   );
 }
@@ -1861,7 +1746,8 @@ export default function App() {
       setPage('unlock');
       return;
     }
-    if (['pyq', 'solutions', 'unlock', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target)) {
+    if (target === 'solutions') { setPage('pyq'); return; }   // solutions live inside the guides now
+    if (['pyq', 'unlock', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target)) {
       setPage(target);
     }
   }, []);
@@ -1909,7 +1795,7 @@ export default function App() {
 
   const go = (target, code) => {
     try {
-      const hash = ['pyq', 'solutions', 'unlock', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target) ? '#' + target : '';
+      const hash = ['pyq', 'unlock', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target) ? '#' + target : '';
       window.history.replaceState({}, '', window.location.pathname + hash);
     } catch (e) {}
     setHistory(h => (target === page && (code || null) === subjectCode) ? h : [...h, { page, subjectCode }]);
@@ -1969,7 +1855,6 @@ export default function App() {
 
         <div className="nav-links">
           <button className={'nav-link' + (page === 'pyq' ? ' on' : '')} onClick={() => go('pyq')}>PYQ Guides</button>
-          <button className={'nav-link' + (page === 'solutions' ? ' on' : '')} onClick={() => go('solutions')}>Solved PYQs</button>
           <button className={'nav-link' + (page === 'faqs' ? ' on' : '')} onClick={() => go('faqs')}>FAQs</button>
           <button className={'nav-link' + (page.startsWith('subject') ? ' on' : '')} onClick={() => go('subjects')}>Subjects</button>
           <button className={'nav-link' + (page === 'doubts' ? ' on' : '')} onClick={() => go('doubts')}>Doubts</button>
@@ -1997,7 +1882,6 @@ export default function App() {
       )}
 
       {page === 'pyq' && <PyqGuides user={user} go={go} paid={paid} />}
-      {page === 'solutions' && <PyqSolutions user={user} go={go} paid={paid} />}
       {page === 'unlock' && user && subjectCode && <Unlock user={user} go={go} code={subjectCode} onPaid={c => setPaid(p => [...p, c])} />}
       {page === 'faqs' && <FAQs user={user} />}
       {page === 'subjects' && <Subjects user={user} go={go} />}
