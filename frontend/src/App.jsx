@@ -1002,6 +1002,12 @@ function Admin({ user }) {
       )}
 
       <div className="sec-title">Live traffic</div>
+      <p className="note" style={{ marginTop: 0 }}>
+        A page view is counted once per page load and once each time a guide is opened.
+        A device is one browser — the same person on a phone and a laptop counts twice,
+        so <b>Users</b> above (one per signed-in Thapar account) is the firmer number.
+        Today means since midnight IST.
+      </p>
       {analytics && (
         <>
           <div className="stats">
@@ -1009,9 +1015,14 @@ function Admin({ user }) {
               <b><span className="live" style={{ marginRight: '.4rem' }}></span>{analytics.activeNow}</b>
               <span>Active now</span>
             </div>
-            <div className="stat"><b>{analytics.visitsToday}</b><span>Visits today</span></div>
-            <div className="stat"><b>{analytics.totalVisits}</b><span>Total visits</span></div>
-            <div className="stat"><b>{analytics.uniqueVisitors}</b><span>Unique visitors</span></div>
+            <div className="stat">
+              <b>{analytics.visitsCalendarToday != null ? analytics.visitsCalendarToday : analytics.visitsToday}</b>
+              <span>Page views today</span>
+            </div>
+            <div className="stat"><b>{analytics.visitsLast24h || analytics.visitsToday}</b><span>Last 24 hours</span></div>
+            <div className="stat"><b>{analytics.uniqueToday != null ? analytics.uniqueToday : '—'}</b><span>Devices today</span></div>
+            <div className="stat"><b>{analytics.totalVisits}</b><span>Page views, all time</span></div>
+            <div className="stat"><b>{analytics.uniqueVisitors}</b><span>Devices, all time</span></div>
           </div>
           {analytics.topPages.length > 0 && (
             <div className="tags" style={{ marginBottom: '2rem' }}>

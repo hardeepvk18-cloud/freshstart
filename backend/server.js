@@ -742,10 +742,22 @@ app.get('/api/admin/analytics', requireAdmin, async (req, res) => {
     const dayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
     const activeCutoff = new Date(Date.now() - 2 * 60 * 1000); // active in last 2 min
 
-    const [totalVisits, visitsToday, uniqueVisitorIds, activeNow, topPagesRaw] = await Promise.all([
+    /* Midnight this morning in IST. Date.now() is the same number everywhere, so
+       shifting it by +5:30 and then reading the UTC date parts gives the Indian
+       calendar date whatever timezone the server itself is set to. */
+    const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000;
+    const shifted = new Date(Date.now() + IST_OFFSET_MS);
+    const midnightIST = new Date(Date.UTC(
+      shifted.getUTCFullYear(), shifted.getUTCMonth(), shifted.getUTCDate()
+    ) - IST_OFFSET_MS);
+
+    const [totalVisits, visitsLast24h, visitsCalendarToday, uniqueVisitorIds,
+           uniqueToday, activeNow, topPagesRaw] = await Promise.all([
       Visit.countDocuments(),
       Visit.countDocuments({ createdAt: { $gte: dayAgo } }),
+      Visit.countDocuments({ createdAt: { $gte: midnightIST } }),
       Visit.distinct('visitorId'),
+      Visit.distinct('visitorId', { createdAt: { $gte: midnightIST } }),
       Presence.countDocuments({ lastSeen: { $gte: activeCutoff } }),
       Visit.aggregate([
         { $group: { _id: '$path', count: { $sum: 1 } } },
@@ -755,9 +767,12 @@ app.get('/api/admin/analytics', requireAdmin, async (req, res) => {
     ]);
 
     res.json({
-      totalVisits,
-      visitsToday,
-      uniqueVisitors: uniqueVisitorIds.length,
+      totalVisits,                                  // every page load and guide open, all time
+      visitsToday: visitsLast24h,                   // kept so an older frontend still works
+      visitsLast24h,
+      visitsCalendarToday,                          // since midnight IST
+      uniqueVisitors: uniqueVisitorIds.length,      // distinct browsers, all time
+      uniqueToday: uniqueToday.length,              // distinct browsers since midnight IST
       activeNow,
       topPages: topPagesRaw.map(p => ({ path: p._id || 'unknown', count: p.count }))
     });
