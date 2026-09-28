@@ -870,6 +870,51 @@ app.get('/api/admin/daily', requireAdmin, async (req, res) => {
   }
 });
 
+/* ---------------- Hour of day ----------------
+   Which hours the site is actually used in. Rebuilt from the stored visits, so
+   it covers days already past.                                               */
+
+app.get('/api/admin/hourly', requireAdmin, async (req, res) => {
+  try {
+    const days = Math.min(Math.max(parseInt(req.query.days, 10) || 14, 1), 180);
+    const from = new Date(Date.now() - days * 24 * 60 * 60 * 1000);
+    const tz = 'Asia/Kolkata';
+
+    const rows = await Visit.aggregate([
+      { $match: { createdAt: { $gte: from } } },
+      { $group: {
+          _id: { $hour: { date: '$createdAt', timezone: tz } },
+          visits: { $sum: 1 },
+          visitors: { $addToSet: '$visitorId' }
+      } },
+      { $project: { _id: 0, hour: '$_id', visits: 1, devices: { $size: '$visitors' } } }
+    ]);
+
+    // every hour present, even the quiet ones, so the shape is honest
+    const byHour = {};
+    rows.forEach(r => { byHour[r.hour] = r; });
+    const hours = [];
+    for (let h = 0; h < 24; h++) {
+      hours.push({ hour: h, visits: (byHour[h] || {}).visits || 0,
+                   devices: (byHour[h] || {}).devices || 0 });
+    }
+
+    const busiest = hours.reduce((a, b) => (b.visits > a.visits ? b : a), hours[0]);
+    res.json({
+      timezone: tz,
+      days,
+      from: from.toISOString(),
+      generatedAt: new Date().toISOString(),
+      hours,
+      busiestHour: busiest.hour,
+      busiestVisits: busiest.visits,
+      total: hours.reduce((n, h) => n + h.visits, 0)
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 /* ---------------- Stats ---------------- */
 
 app.get('/api/stats', requireAdmin, async (req, res) => {

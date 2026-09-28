@@ -425,9 +425,16 @@ function sortGuides(list, user) {
   return [...list].sort((a, b) => (OPEN_CODES.includes(b.code) ? 1 : 0) - (OPEN_CODES.includes(a.code) ? 1 : 0));
 }
 
+/* 14 -> "2 pm", 0 -> "12 am" — hours read better than 24-hour numbers in prose */
+function fmtHour(h) {
+  const am = h < 12;
+  const twelve = h % 12 === 0 ? 12 : h % 12;
+  return twelve + (am ? ' am' : ' pm');
+}
+
 /* Turn the day by day record into a file worth keeping. A dashboard can be
    reset or rebuilt; a downloaded CSV cannot. */
-function downloadDailyCsv(daily) {
+function downloadDailyCsv(daily, hourly) {
   const rows = [['date', 'visits', 'unique_visitors', 'new_signins', 'guides_opened']];
   daily.days.forEach(d => {
     rows.push([
@@ -438,6 +445,12 @@ function downloadDailyCsv(daily) {
       d.guides.map(g => g.path + '=' + g.n).join(' ')
     ]);
   });
+
+  if (hourly && hourly.hours) {
+    rows.push([]);
+    rows.push(['hour_of_day_' + hourly.timezone, 'visits', 'devices', 'window_days', '']);
+    hourly.hours.forEach(h => rows.push([String(h.hour).padStart(2, '0'), h.visits, h.devices, hourly.days, '']));
+  }
   const csv = rows.map(r => r.map(v => {
     const s = String(v);
     return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
@@ -959,6 +972,8 @@ function Admin({ user }) {
   const [mentorApps, setMentorApps] = useState([]);
   const [analytics, setAnalytics] = useState(null);
   const [daily, setDaily] = useState(null);
+  const [hourly, setHourly] = useState(null);
+  const [hoverHour, setHoverHour] = useState(null);
   const [logins, setLogins] = useState([]);
   const [feedback, setFeedback] = useState(null);
   const [answered, setAnswered] = useState([]);
@@ -1010,6 +1025,11 @@ function Admin({ user }) {
     fetch(API + '/api/admin/daily?days=90', { headers })
       .then(r => r.ok ? r.json() : null)
       .then(d => { if (d) setDaily(d); })
+      .catch(() => {});
+
+    fetch(API + '/api/admin/hourly?days=14', { headers })
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d) setHourly(d); })
       .catch(() => {});
 
     fetch(API + '/api/admin/logins', { headers })
@@ -1113,6 +1133,64 @@ function Admin({ user }) {
         </>
       )}
 
+      <div className="sec-title">When people are on the site</div>
+      {!hourly || !hourly.total ? (
+        <div className="empty">Nothing recorded yet.</div>
+      ) : (
+        <>
+          <p className="note" style={{ marginTop: 0 }}>
+            Page views by hour of day, last {hourly.days} days, {hourly.timezone}.
+            Busiest hour is <b>{fmtHour(hourly.busiestHour)}</b> with {hourly.busiestVisits} views.
+          </p>
+
+          <div style={{
+            display: 'flex', alignItems: 'flex-end', gap: '2px',
+            height: '160px', marginTop: '1rem', padding: '18px 0 0'
+          }}>
+            {hourly.hours.map(h => {
+              const peak = hourly.busiestVisits || 1;
+              const pct = Math.round((h.visits / peak) * 100);
+              const isPeak = h.hour === hourly.busiestHour;
+              const showing = hoverHour === h.hour || (hoverHour === null && isPeak);
+              return (
+                <div key={h.hour}
+                  onMouseEnter={() => setHoverHour(h.hour)}
+                  onMouseLeave={() => setHoverHour(null)}
+                  style={{ flex: 1, height: '100%', display: 'flex', flexDirection: 'column',
+                           justifyContent: 'flex-end', position: 'relative', cursor: 'default' }}>
+                  {showing && (
+                    <span style={{
+                      position: 'absolute', top: '-16px', left: '50%', transform: 'translateX(-50%)',
+                      fontSize: '.72rem', fontWeight: 600, color: '#16202C', whiteSpace: 'nowrap'
+                    }}>{h.visits}</span>
+                  )}
+                  <div style={{
+                    height: Math.max(pct, h.visits > 0 ? 2 : 0) + '%',
+                    background: '#6c63ff',
+                    opacity: hoverHour === null || hoverHour === h.hour ? 1 : .45,
+                    borderRadius: '4px 4px 0 0',
+                    transition: 'opacity .12s'
+                  }} />
+                </div>
+              );
+            })}
+          </div>
+
+          <div style={{ display: 'flex', gap: '2px', marginTop: '.35rem' }}>
+            {hourly.hours.map(h => (
+              <div key={h.hour} style={{
+                flex: 1, textAlign: 'center', fontSize: '.62rem', color: '#8A94A6',
+                fontVariantNumeric: 'tabular-nums'
+              }}>{h.hour % 3 === 0 ? String(h.hour).padStart(2, '0') : ''}</div>
+            ))}
+          </div>
+          <p className="note" style={{ marginTop: '.5rem', fontSize: '.78rem' }}>
+            Hover a bar for its number. Use this to decide when to post &mdash; a new guide or a
+            story lands best an hour before the peak.
+          </p>
+        </>
+      )}
+
       <div className="sec-title">Day by day record</div>
       {!daily || !daily.days.length ? (
         <div className="empty">Nothing recorded yet.</div>
@@ -1123,7 +1201,7 @@ function Admin({ user }) {
             Download it now and again after the exams &mdash; a saved file is proof, a dashboard is not.
           </p>
           <button className="btn btn-sm" style={{ marginBottom: '.8rem' }}
-            onClick={() => downloadDailyCsv(daily)}>
+            onClick={() => downloadDailyCsv(daily, hourly)}>
             Download as CSV
           </button>
           <div style={{ overflowX: 'auto' }}>
