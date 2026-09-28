@@ -498,30 +498,8 @@ const noteStyle = {
 function Unlock({ user, go, onPaid, code }) {
   const subject = SOLUTIONS.find(s => s.code === code);
   const [utr, setUtr] = useState('');
-  const [shot, setShot] = useState('');
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState('');
-
-  // shrink the screenshot in the browser so a 3 MB photo does not get uploaded
-  function pickFile(e) {
-    const f = e.target.files && e.target.files[0];
-    if (!f) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      const img = new Image();
-      img.onload = () => {
-        const max = 520;
-        const scale = Math.min(1, max / Math.max(img.width, img.height));
-        const c = document.createElement('canvas');
-        c.width = Math.round(img.width * scale);
-        c.height = Math.round(img.height * scale);
-        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
-        setShot(c.toDataURL('image/jpeg', 0.45));
-      };
-      img.src = reader.result;
-    };
-    reader.readAsDataURL(f);
-  }
 
   async function submit() {
     const ref = utr.replace(/\s/g, '');
@@ -531,15 +509,13 @@ function Unlock({ user, go, onPaid, code }) {
     }
     setBusy(true); setMsg('');
 
-    // one attempt; withShot=false drops the screenshot, which is what usually
-    // makes the request too big for the network in the middle
-    async function attempt(withShot) {
+    async function attempt() {
       const r = await fetch(API + '/api/payment-claim', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email: user.email, name: user.name || '', code,
-          utr: ref, amount: PRICE, screenshot: withShot ? shot : ''
+          utr: ref, amount: PRICE
         })
       });
       let d = {};
@@ -549,14 +525,8 @@ function Unlock({ user, go, onPaid, code }) {
 
     let res = null;
     try {
-      res = await attempt(true);
+      res = await attempt();
     } catch (e) { res = null; }
-
-    // the screenshot is the only heavy part — retry without it before giving up
-    if ((!res || !res.ok) && shot) {
-      setMsg('Screenshot bada tha — UTR se try kar raha hoon…');
-      try { res = await attempt(false); } catch (e) { res = null; }
-    }
 
     if (res && res.ok) { onPaid(code); go('pyq'); return; }
 
@@ -615,17 +585,11 @@ function Unlock({ user, go, onPaid, code }) {
           inputMode="numeric" maxLength={14}
           onChange={e => setUtr(e.target.value.replace(/[^0-9]/g, '').slice(0, 12))} />
         <span className="note" style={{ display: 'block', marginTop: '.35rem' }}>
-          {utr.length ? utr.length + ' / 12 digits' : 'Your UPI app calls it the UTR or reference number.'}
+          {utr.length
+            ? utr.length + ' / 12 digits'
+            : 'PhonePe: History → tap the payment → UTR.  Google Pay: tap the payment → UPI transaction ID.'}
         </span>
       </label>
-
-      <label className="field" style={{ display: 'block', marginTop: '.7rem' }}>
-        <span className="note" style={{ display: 'block', marginBottom: '.4rem' }}>
-          Payment screenshot (optional, but it helps if anything goes wrong)
-        </span>
-        <input type="file" accept="image/*" onChange={pickFile} />
-      </label>
-      {shot && <p className="note" style={{ color: '#0f766e' }}>Screenshot attached.</p>}
 
       <button className="btn" style={{ marginTop: '1rem' }} onClick={submit} disabled={busy}>
         {busy ? 'Opening…' : 'Unlock the solutions'}
