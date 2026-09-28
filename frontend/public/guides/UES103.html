@@ -327,6 +327,64 @@
   background:#25D366;color:#fff;white-space:nowrap}
 .share-top a:hover{background:#1FB855}
 </style>
+
+<style>
+  .lock-wrap { margin: 2.2rem 0 1rem; }
+  .lock-box {
+    background: var(--paper); border: 2px solid var(--teal);
+    border-radius: 16px; padding: 1.9rem 1.7rem;
+    box-shadow: 0 10px 30px rgba(14,110,110,.10);
+  }
+  .lock-kicker {
+    font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+    font-size: .74rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--teal-deep); margin-bottom: .5rem;
+  }
+  .lock-box h2 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 1.5rem; margin: 0 0 .5rem; color: var(--ink); line-height: 1.25;
+  }
+  .lock-lede { color: var(--ink-soft); font-size: .93rem; margin: 0 0 1.3rem; }
+
+  .lock-hero {
+    background: var(--teal-wash); border: 1px solid #B9DBD6;
+    border-radius: 12px; padding: 1.05rem 1.15rem; margin-bottom: .9rem;
+  }
+  .lock-hero .tagline {
+    display: inline-block; font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+    font-size: .68rem; letter-spacing: .1em; text-transform: uppercase;
+    color: #fff; background: var(--teal); border-radius: 999px;
+    padding: .2rem .6rem; margin-bottom: .55rem;
+  }
+  .lock-hero h3 { margin: 0 0 .3rem; font-size: 1.12rem; color: var(--teal-deep); }
+  .lock-hero p { margin: 0; font-size: .89rem; color: #2F4F4C; line-height: 1.5; }
+
+  .lock-list { list-style: none; padding: 0; margin: 0 0 1.4rem; }
+  .lock-list li {
+    display: flex; gap: .7rem; align-items: flex-start;
+    padding: .52rem 0; border-bottom: 1px solid var(--line); font-size: .93rem;
+  }
+  .lock-list li:last-child { border-bottom: 0; }
+  .lock-list .tick { color: var(--teal); font-weight: 700; line-height: 1.4; }
+  .lock-list b { color: var(--ink); font-weight: 600; }
+  .lock-list span.d { color: var(--ink-soft); }
+
+  .lock-cta {
+    display: block; text-align: center; text-decoration: none;
+    background: var(--teal); color: #fff; font-weight: 600; font-size: 1rem;
+    padding: .95rem 1.2rem; border-radius: 11px;
+  }
+  .lock-cta:hover { background: var(--teal-deep); }
+  .lock-why {
+    margin: 1.2rem 0 0; padding-top: 1.1rem; border-top: 1px solid var(--line);
+    font-size: .845rem; color: var(--ink-soft); line-height: 1.6;
+  }
+  .lock-why b { color: var(--ink); }
+  @media (max-width: 560px) {
+    .lock-box { padding: 1.5rem 1.2rem; }
+    .lock-box h2 { font-size: 1.32rem; }
+  }
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -376,55 +434,10 @@
       <div class="must-dots"><span><i class="on"></i>Mar 2024</span><span><i class="off"></i>Oct 2024</span><span><i class="off"></i>Mar 2025</span><span><i class="on"></i>Oct 2025</span><span><i class="on"></i>Mar 2026</span></div>
       <div class="must-prep"><b>Prepare:</b> Row-major address calculation, rotating an array, inserting into a 2-D array, and predicting output when an array is modified inside a loop.</div><div class="must-prep" style="margin-top:0.35rem;color:var(--ink-soft)">12 marks in Oct 2025.</div>
     </div>
-  </div><div class="section-block" id="s2">
-    <div class="section-head"><div class="section-num">2</div><h2>Year-wise paper analysis</h2></div>
-    <p class="section-note">Each paper on its own — what it covered, how it was built, and what was different about it. Newest first. All five are out of 30.</p>
-    <table class="paper-table">
-      <tr><th>Paper</th><th>Write a program</th><th>Read / trace code</th><th>Flowchart</th><th>Theory &amp; conversions</th></tr>
-      <tr><td>Mar 2026</td><td class="num">5</td><td class="num">12</td><td class="num">4</td><td class="num">9</td></tr>
-      <tr><td>Oct 2025</td><td class="num">—</td><td class="num">12</td><td class="num">—</td><td class="num">18</td></tr>
-      <tr><td>Mar 2025</td><td class="num">—</td><td class="num">12</td><td class="num">6</td><td class="num">12</td></tr>
-      <tr><td>Oct 2024</td><td class="num">5</td><td class="num">10</td><td class="num">5</td><td class="num">10</td></tr>
-      <tr><td>Mar 2024</td><td class="num">25</td><td class="num">—</td><td class="num">3</td><td class="num">2</td></tr>
-    </table>
-    <div class="paper-card"><div class="paper-card-head"><h3>March 2026 — most recent</h3><div class="chips"><span class="chip-s">Mar 9, 2026</span><span class="chip-s">30 marks</span><span class="chip-s">6 questions</span><span class="chip-s">2 hours</span></div></div>
-      <div class="paper-card-body">
-        <div class="mini-label">Topic split (marks)</div><div class="stack"><div style="width:13.3%;background:var(--teal);"></div><div style="width:13.3%;background:#3E8E86;"></div><div style="width:16.7%;background:var(--amber);"></div><div style="width:20.0%;background:#C99A3A;"></div><div style="width:16.7%;background:var(--rose);"></div><div style="width:20.0%;background:#6B7C86;"></div></div><div class="stack-legend"><span><i class="dot" style="background:var(--teal)"></i>Number systems 4</span><span><i class="dot" style="background:#3E8E86"></i>Flowcharts 4</span><span><i class="dot" style="background:var(--amber)"></i>Arrays &amp; sorting 5</span><span><i class="dot" style="background:#C99A3A"></i>Strings 6</span><span><i class="dot" style="background:var(--rose)"></i>Loops &amp; control 5</span><span><i class="dot" style="background:#6B7C86"></i>Basics &amp; debugging 6</span></div>
-        <div class="mini-label">Question type (marks)</div><div class="stack"><div style="width:16.7%;background:#0A5252;"></div><div style="width:40.0%;background:#3E8E86;"></div><div style="width:13.3%;background:#C99A3A;"></div><div style="width:30.0%;background:#9FC9C5;"></div></div><div class="stack-legend"><span><i class="dot" style="background:#0A5252"></i>Write a full program 5</span><span><i class="dot" style="background:#3E8E86"></i>Read / trace / fix code 12</span><span><i class="dot" style="background:#C99A3A"></i>Flowchart 4</span><span><i class="dot" style="background:#9FC9C5"></i>Theory &amp; conversions 9</span></div>
-        <div class="mini-label">What stood out</div><ul><li>The only full program asked: rotate an array to the right by k steps.</li><li>Type casting: evaluate <code>a / b + (float)a / b + a / (float)b</code> step by step, then rewrite it so the result becomes 10.50.</li><li>Fill-in-the-blanks on a 2-D character array that counts the length of each word.</li><li>Syntax questions: do-while and switch-case.</li><li>A flowchart with three salary slabs (HRA and DA percentages).</li></ul>
-      </div></div>
-    <div class="paper-card"><div class="paper-card-head"><h3>October 2025</h3><div class="chips"><span class="chip-s">Oct 17, 2025</span><span class="chip-s">30 marks</span><span class="chip-s">5 × 6 marks</span><span class="chip-s">2 hours</span></div></div>
-      <div class="paper-card-body">
-        <div class="mini-label">Topic split (marks)</div><div class="stack"><div style="width:20.0%;background:var(--teal);"></div><div style="width:40.0%;background:var(--amber);"></div><div style="width:20.0%;background:var(--rose);"></div><div style="width:20.0%;background:#6B7C86;"></div></div><div class="stack-legend"><span><i class="dot" style="background:var(--teal)"></i>Number systems 6</span><span><i class="dot" style="background:var(--amber)"></i>Arrays &amp; sorting 12</span><span><i class="dot" style="background:var(--rose)"></i>Loops &amp; control 6</span><span><i class="dot" style="background:#6B7C86"></i>Basics &amp; debugging 6</span></div>
-        <div class="mini-label">Question type (marks)</div><div class="stack"><div style="width:40.0%;background:#3E8E86;"></div><div style="width:60.0%;background:#9FC9C5;"></div></div><div class="stack-legend"><span><i class="dot" style="background:#3E8E86"></i>Read / trace / fix code 12</span><span><i class="dot" style="background:#9FC9C5"></i>Theory &amp; conversions 18</span></div>
-        <div class="mini-label">What stood out</div><ul><li>No full program and no flowchart at all.</li><li>Arrays took 12 marks: row-major address calculation for int, double and char 2-D arrays, and two predict-the-output programs.</li><li>One of the output programs is a trap — it doesn't change the array at all.</li><li>Arrange jumbled lines into a working program that finds the largest of five numbers.</li><li>Six "explain the difference" items, such as break vs return 0 and float vs double.</li></ul>
-      </div></div>
-    <div class="paper-card"><div class="paper-card-head"><h3>March 2025</h3><div class="chips"><span class="chip-s">Mar 1, 2025</span><span class="chip-s">30 marks</span><span class="chip-s">5 × 6 marks</span><span class="chip-s">2 hours</span></div></div>
-      <div class="paper-card-body">
-        <div class="mini-label">Topic split (marks)</div><div class="stack"><div style="width:20.0%;background:var(--teal);"></div><div style="width:20.0%;background:#3E8E86;"></div><div style="width:30.0%;background:#C99A3A;"></div><div style="width:10.0%;background:var(--rose);"></div><div style="width:20.0%;background:#6B7C86;"></div></div><div class="stack-legend"><span><i class="dot" style="background:var(--teal)"></i>Number systems 6</span><span><i class="dot" style="background:#3E8E86"></i>Flowcharts 6</span><span><i class="dot" style="background:#C99A3A"></i>Strings 9</span><span><i class="dot" style="background:var(--rose)"></i>Loops &amp; control 3</span><span><i class="dot" style="background:#6B7C86"></i>Basics &amp; debugging 6</span></div>
-        <div class="mini-label">Question type (marks)</div><div class="stack"><div style="width:40.0%;background:#3E8E86;"></div><div style="width:20.0%;background:#C99A3A;"></div><div style="width:40.0%;background:#9FC9C5;"></div></div><div class="stack-legend"><span><i class="dot" style="background:#3E8E86"></i>Read / trace / fix code 12</span><span><i class="dot" style="background:#C99A3A"></i>Flowchart 6</span><span><i class="dot" style="background:#9FC9C5"></i>Theory &amp; conversions 12</span></div>
-        <div class="mini-label">What stood out</div><ul><li>No full program to write.</li><li>Predict-the-output: <code>sizeof('H')</code>, <code>sizeof(A)</code> and <code>strlen(A)</code>, and a while loop where <code>continue</code> skips the increment.</li><li>Explain six comments in a program that adds two 10-digit numbers stored as strings.</li><li>Flowchart for bubble sort.</li><li>Six short concept explanations: header files, brackets, <code>%c</code> vs <code>%d</code>, semicolon vs comma, and comments.</li></ul>
-      </div></div>
-    <div class="paper-card"><div class="paper-card-head"><h3>October 2024</h3><div class="chips"><span class="chip-s">Oct 21, 2024</span><span class="chip-s">30 marks</span><span class="chip-s">6 × 5 marks</span><span class="chip-s">2 hours</span></div></div>
-      <div class="paper-card-body">
-        <div class="mini-label">Topic split (marks)</div><div class="stack"><div style="width:16.7%;background:var(--teal);"></div><div style="width:16.7%;background:#3E8E86;"></div><div style="width:16.7%;background:var(--amber);"></div><div style="width:16.7%;background:#C99A3A;"></div><div style="width:33.3%;background:#6B7C86;"></div></div><div class="stack-legend"><span><i class="dot" style="background:var(--teal)"></i>Number systems 5</span><span><i class="dot" style="background:#3E8E86"></i>Flowcharts 5</span><span><i class="dot" style="background:var(--amber)"></i>Arrays &amp; sorting 5</span><span><i class="dot" style="background:#C99A3A"></i>Strings 5</span><span><i class="dot" style="background:#6B7C86"></i>Basics &amp; debugging 10</span></div>
-        <div class="mini-label">Question type (marks)</div><div class="stack"><div style="width:16.7%;background:#0A5252;"></div><div style="width:33.3%;background:#3E8E86;"></div><div style="width:16.7%;background:#C99A3A;"></div><div style="width:33.3%;background:#9FC9C5;"></div></div><div class="stack-legend"><span><i class="dot" style="background:#0A5252"></i>Write a full program 5</span><span><i class="dot" style="background:#3E8E86"></i>Read / trace / fix code 10</span><span><i class="dot" style="background:#C99A3A"></i>Flowchart 5</span><span><i class="dot" style="background:#9FC9C5"></i>Theory &amp; conversions 10</span></div>
-        <div class="mini-label">What stood out</div><ul><li>The only paper with a debugging question: mark the line numbers of the errors in a factorial program and correct them.</li><li>Trace bubble sort pass by pass on [44, 33, 55, 22, 11] by filling in boxes.</li><li>Draw and explain the life cycle of a C program — editing to termination.</li><li>Program to flip the case of every character in a string.</li><li>Five conversions, including −43 in both sign-bit and 2's complement.</li></ul>
-      </div></div>
-    <div class="paper-card"><div class="paper-card-head"><h3>March 2024</h3><div class="chips"><span class="chip-s">Mar 19, 2024</span><span class="chip-s">30 marks</span><span class="chip-s">3 questions, 8 parts</span><span class="chip-s">2 hours</span></div></div>
-      <div class="paper-card-body">
-        <div class="mini-label">Topic split (marks)</div><div class="stack"><div style="width:6.7%;background:var(--teal);"></div><div style="width:10.0%;background:#3E8E86;"></div><div style="width:33.3%;background:var(--amber);"></div><div style="width:16.7%;background:#C99A3A;"></div><div style="width:33.3%;background:var(--rose);"></div></div><div class="stack-legend"><span><i class="dot" style="background:var(--teal)"></i>Number systems 2</span><span><i class="dot" style="background:#3E8E86"></i>Flowcharts 3</span><span><i class="dot" style="background:var(--amber)"></i>Arrays &amp; sorting 10</span><span><i class="dot" style="background:#C99A3A"></i>Strings 5</span><span><i class="dot" style="background:var(--rose)"></i>Loops &amp; control 10</span></div>
-        <div class="mini-label">Question type (marks)</div><div class="stack"><div style="width:83.3%;background:#0A5252;"></div><div style="width:10.0%;background:#C99A3A;"></div><div style="width:6.7%;background:#9FC9C5;"></div></div><div class="stack-legend"><span><i class="dot" style="background:#0A5252"></i>Write a full program 25</span><span><i class="dot" style="background:#C99A3A"></i>Flowchart 3</span><span><i class="dot" style="background:#9FC9C5"></i>Theory &amp; conversions 2</span></div>
-        <div class="mini-label">What stood out</div><ul><li>The programming-heavy paper: 25 of 30 marks were for writing full programs.</li><li>Programs: binary search, replacing every 0 with 1 in a number, odd/even with the ternary operator, a switch-case calculator that repeats until N, inserting into a 2-D array, and swapping the 2nd and 3rd words of a sentence.</li><li>Flowchart for the greatest of three numbers.</li><li>The paper printed its own Bloom's split: L2 16%, L3 67%, L4 17%.</li></ul>
-      </div></div>
-    <div class="trend-box"><b>What changes across the five papers</b><ul>
-      <li><b>The paper moved from writing code to reading it.</b> March 2024 gave 25 marks to full programs; the four papers since gave 5, 0, 0 and 5.</li>
-      <li><b>Reading code is now the biggest block</b> — predicting output, debugging, ordering lines, filling blanks and explaining code: 10–12 marks in every paper since Oct 2024.</li>
-      <li><b>Number conversions never miss</b> — 2 to 6 marks in every paper.</li>
-      <li><b>Flowcharts in four of five papers</b>, a different algorithm each time.</li>
-    </ul></div>
-  </div><div class="section-block" id="s3">
-    <div class="section-head"><div class="section-num">3</div><h2>Repeated-topics heatmap</h2></div>
+  </div>
+
+<div class="section-block" id="s3">
+    <div class="section-head"><div class="section-num">2</div><h2>Repeated-topics heatmap</h2></div>
     <p class="section-note">Every topic across all five papers at a glance. Each paper is out of 30.</p>
     <div class="heat-scroll"><table class="heat">
       <tr><th class="rowh">Topic</th><th>Mar 2024<br><span style="font-weight:400">/30</span></th><th>Oct 2024<br><span style="font-weight:400">/30</span></th><th>Mar 2025<br><span style="font-weight:400">/30</span></th><th>Oct 2025<br><span style="font-weight:400">/30</span></th><th>Mar 2026<br><span style="font-weight:400">/30</span></th><th>Asked in</th></tr>
@@ -433,30 +446,43 @@
     <div class="heat-legend">Darker = bigger share of that paper's marks · number = marks
       <span class="sw" style="background:rgba(14,110,110,0.2)"></span><span class="sw" style="background:rgba(14,110,110,0.5)"></span><span class="sw" style="background:rgba(14,110,110,0.9)"></span>
       · <span class="sw" style="background:#F1F4F4"></span> not asked</div>
-  </div><div class="section-block" id="s4">
-    <div class="section-head"><div class="section-num">4</div><h2>Topic deep-dive — every repeated question, by year</h2></div>
-    <p class="section-note">Every topic, with the actual question asked in each paper it appeared in.</p>
-    <div class="topic-card"><div class="topic-card-head"><h3>Number systems</h3><span class="freq-tag">5 / 5 papers</span></div><div class="topic-card-body"><div class="yr-q"><span class="yr-tag">MAR 2026</span><div class="q-text">Convert 1110 1001 from unsigned binary to decimal, and from 8-bit 2's complement to decimal. Convert 145 to binary.</div></div><div class="yr-q"><span class="yr-tag">OCT 2025</span><div class="q-text">Convert 1001 1011 (unsigned) to decimal, 99 to unsigned binary, and −99 to binary using 2's complement.</div></div><div class="yr-q"><span class="yr-tag">MAR 2025</span><div class="q-text">Convert +91 to binary, and −69 using sign-bit and using 2's complement — stating the minimum bits needed each time.</div></div><div class="yr-q"><span class="yr-tag">OCT 2024</span><div class="q-text">1010 0111 as unsigned and as a signed (sign-bit) number; 43 to unsigned binary; −43 using sign-bit and using 2's complement.</div></div><div class="yr-q"><span class="yr-tag">MAR 2024</span><div class="q-text">List all 4-bit binary numbers with two 0s and two 1s, and convert each to decimal.</div></div></div></div><div class="topic-card"><div class="topic-card-head"><h3>Strings</h3><span class="freq-tag">4 / 5 papers</span></div><div class="topic-card-body"><div class="yr-q"><span class="yr-tag">MAR 2026</span><div class="q-text">Fill in the blanks in a program that stores DOG, ELEPHANT, CAT and TIGER in a 2-D character array and prints each word with its length.</div></div><div class="yr-q"><span class="yr-tag">MAR 2025</span><div class="q-text">Predict the output of <code>sizeof('H')</code>, <code>sizeof(A)</code> and <code>strlen(A)</code> for <code>char A[] = "H"</code>. Separately: explain six comments in a program that adds two 10-digit numbers stored as strings.</div></div><div class="yr-q"><span class="yr-tag">OCT 2024</span><div class="q-text">Write a program that flips the case of every character ("Hasta La Vista" → "hASTA lA vISTA").</div></div><div class="yr-q"><span class="yr-tag">MAR 2024</span><div class="q-text">Write a program that swaps only the 2nd and 3rd words of a sentence entered with spaces.</div></div></div></div><div class="topic-card"><div class="topic-card-head"><h3>Loops, conditions &amp; switch</h3><span class="freq-tag">4 / 5 papers</span></div><div class="topic-card-body"><div class="yr-q"><span class="yr-tag">MAR 2026</span><div class="q-text">Write the syntax of the do-while loop and the switch-case statement.</div></div><div class="yr-q"><span class="yr-tag">OCT 2025</span><div class="q-text">Arrange jumbled lines into a program that reads five numbers and prints the largest.</div></div><div class="yr-q"><span class="yr-tag">MAR 2025</span><div class="q-text">Predict the output of a while loop where <code>continue</code> comes before <code>i++</code>.</div></div><div class="yr-q"><span class="yr-tag">MAR 2024</span><div class="q-text">Replace every 0 with 1 in a number (201301 → 211311); odd or even using the ternary operator; a switch-case calculator that keeps running until the user enters N.</div></div></div></div><div class="topic-card"><div class="topic-card-head"><h3>C basics, operators &amp; type casting</h3><span class="freq-tag">4 / 5 papers</span></div><div class="topic-card-body"><div class="yr-q"><span class="yr-tag">MAR 2026</span><div class="q-text">Evaluate <code>a / b + (float)a / b + a / (float)b</code> with a = 7, b = 2 step by step; rewrite it to give 10.50; explain why casting changes the result.</div></div><div class="yr-q"><span class="yr-tag">OCT 2025</span><div class="q-text">Explain: ternary vs if-else, array vs string, break vs return 0, float vs double, <code>{</code> vs <code>(</code>, printf vs scanf.</div></div><div class="yr-q"><span class="yr-tag">MAR 2025</span><div class="q-text">Explain six concepts: <code>#include&lt;stdio.h&gt;</code>, math.h and string.h, the three types of brackets, <code>%c</code> and <code>%d</code>, semicolon and comma, and comments.</div></div><div class="yr-q"><span class="yr-tag">OCT 2024</span><div class="q-text">Draw and explain the life cycle of a C program: editing, preprocessing, compilation, assembly, linking, loading, execution and termination.</div></div></div></div><div class="topic-card"><div class="topic-card-head"><h3>Flowcharts</h3><span class="freq-tag">4 / 5 papers</span></div><div class="topic-card-body"><div class="yr-q"><span class="yr-tag">MAR 2026</span><div class="q-text">Read N employees' basic salaries and output the total net salary, with HRA and DA set by three salary slabs.</div></div><div class="yr-q"><span class="yr-tag">MAR 2025</span><div class="q-text">Draw a flowchart for bubble sort.</div></div><div class="yr-q"><span class="yr-tag">OCT 2024</span><div class="q-text">Draw a flowchart for the HCF of two positive integers.</div></div><div class="yr-q"><span class="yr-tag">MAR 2024</span><div class="q-text">Draw a flowchart to find the greatest of three numbers.</div></div></div></div><div class="topic-card"><div class="topic-card-head"><h3>Arrays (1-D &amp; 2-D)</h3><span class="freq-tag">3 / 5 papers</span></div><div class="topic-card-body"><div class="yr-q"><span class="yr-tag">MAR 2026</span><div class="q-text">Write a program to rotate an array right by k steps (1 2 3 4 5, k = 2 → 4 5 1 2 3).</div></div><div class="yr-q"><span class="yr-tag">OCT 2025</span><div class="q-text">Find the address of B[3][4] in <code>int B[5][6]</code> (base 2000), D[1][2] in <code>double D[3][3]</code> (base 10000), and E[7][15] in <code>char E[10][20]</code> (base 3000). Separately: predict the output of two programs that modify an array inside a loop.</div></div><div class="yr-q"><span class="yr-tag">MAR 2024</span><div class="q-text">Insert a new value into an n × m 2-D array at a given row and column, shifting the other elements forward.</div></div></div></div><div class="topic-card"><div class="topic-card-head"><h3>Searching &amp; sorting</h3><span class="freq-tag">2 / 5 papers</span></div><div class="topic-card-body"><div class="yr-q"><span class="yr-tag">OCT 2024</span><div class="q-text">Fill in the boxes showing each pass of bubble sort on [44, 33, 55, 22, 11].</div></div><div class="yr-q"><span class="yr-tag">MAR 2024</span><div class="q-text">Write a program for binary search on an array sorted in ascending order.</div></div></div></div><div class="topic-card"><div class="topic-card-head"><h3>Debugging</h3><span class="freq-tag">1 / 5 papers</span></div><div class="topic-card-body"><div class="yr-q"><span class="yr-tag">OCT 2024</span><div class="q-text">Find and correct the errors in a 15-line factorial program by line number, without rewriting the whole code.</div></div></div></div>
-  </div><div class="section-block" id="s5">
-    <div class="section-head"><div class="section-num">5</div><h2>Syntax &amp; rules cheat sheet</h2></div>
-    <p class="section-note">For C, the "formulas" are the rules and patterns these papers kept testing.</p><div class="formula-group"><h4>Number systems</h4><div class="formula-card"><div class="expr">Unsigned: value = Σ bᵢ · 2ⁱ</div><div class="note">1010 0111 = 128 + 32 + 4 + 2 + 1 = 167.</div></div><div class="formula-card"><div class="expr">Sign-bit (sign-magnitude): first bit is the sign, the rest is the size</div><div class="note">1 means negative. 1010 0111 → −39. −43 → 1010 1011.</div></div><div class="formula-card"><div class="expr">2's complement: invert every bit, then add 1</div><div class="note">In 8 bits, the value is −128 × (first bit) + the rest. 1110 1001 → −23. −43 → 1101 0101. −99 → 1001 1101.</div></div><div class="formula-card"><div class="expr">Minimum bits</div><div class="note">n bits hold 0 to 2ⁿ − 1 unsigned. A signed number needs one more bit for the sign: +91 = 1011011 is 7 bits (8 with a sign bit); −69 needs 8 bits in both sign-bit and 2's complement.</div></div></div><div class="formula-group"><h4>Arrays &amp; strings</h4><div class="formula-card"><div class="expr">&amp;A[i][j] = base + (i × COLUMNS + j) × sizeof(type)</div><div class="note">Row-major order. B[3][4] in <code>int B[5][6]</code> at 2000 → 2000 + (3 × 6 + 4) × 4 = 2088.</div></div><div class="formula-card"><div class="expr">sizeof counts the '\0'; strlen doesn't</div><div class="note"><code>char A[] = "H"</code>: sizeof(A) = 2, strlen(A) = 1. In C, a character constant like 'H' is an int, so sizeof('H') = 4. The program prints <code>4 2 1</code>.</div></div><div class="formula-card"><div class="expr">'7' − '0' = 7, &nbsp; 7 + '0' = '7'</div><div class="note">Converts between a digit character and its number — used in the string-addition program.</div></div><div class="formula-card"><div class="expr">'a' − 'A' = 32</div><div class="note">Add or subtract 32 to flip case, or use toupper() / tolower() from &lt;ctype.h&gt;.</div></div><div class="formula-card"><div class="expr">Rotate right by k: out[(i + k) % n] = a[i]</div><div class="note">1 2 3 4 5 rotated by 2 gives 4 5 1 2 3.</div></div><div class="formula-card"><div class="expr">char words[ROWS][LONGEST + 1]</div><div class="note">Leave room for '\0': "ELEPHANT" has 8 letters, so each row needs at least 9.</div></div></div><div class="formula-group"><h4>Control flow</h4><div class="formula-card"><div class="expr">continue → next iteration; break → leave the loop or switch; return 0 → leave main()</div><div class="note">If <code>continue</code> comes before <code>i++</code>, i never changes and the loop runs forever.</div></div><div class="formula-card"><div class="expr">do { … } while (condition);</div><div class="note">The body always runs at least once. Note the semicolon after the condition.</div></div><div class="formula-card"><div class="expr">switch (x) { case 1: …; break; default: …; }</div><div class="note">Without <code>break</code>, execution falls through into the next case.</div></div><div class="formula-card"><div class="expr">result = (condition) ? value1 : value2;</div><div class="note">The ternary operator — a one-line if-else that produces a value.</div></div></div><div class="formula-group"><h4>Operators &amp; types</h4><div class="formula-card"><div class="expr">int / int truncates: 7 / 2 = 3, &nbsp; (float)7 / 2 = 3.5</div><div class="note">Cast before dividing. With a = 7, b = 2: a/b + (float)a/b + a/(float)b = 3 + 3.5 + 3.5 = 10.00. Casting all three terms gives 10.50.</div></div><div class="formula-card"><div class="expr">float: 4 bytes, ~6–7 digits · double: 8 bytes, ~15–16 digits</div><div class="note">printf uses %f for both; scanf needs %f for float and %lf for double.</div></div><div class="formula-card"><div class="expr">scanf("%d", &amp;num);</div><div class="note">Normal variables need &amp;. A char array read with %s does not.</div></div></div><div class="formula-group"><h4>Algorithms &amp; flowcharts</h4><div class="formula-card"><div class="expr">Binary search: mid = low + (high − low) / 2</div><div class="note">The array must already be sorted.</div></div><div class="formula-card"><div class="expr">Bubble sort: n − 1 passes; after pass p the p largest are in place</div><div class="note">[44, 33, 55, 22, 11] → [33, 44, 22, 11, 55] → [33, 22, 11, 44, 55] → [22, 11, 33, 44, 55] → [11, 22, 33, 44, 55].</div></div><div class="formula-card"><div class="expr">HCF (Euclid): while (b != 0) { t = b; b = a % b; a = t; } → answer is a</div><div class="note">hcf(6, 8) = 2.</div></div><div class="formula-card"><div class="expr">Flowchart symbols</div><div class="note">Oval: start/stop · Parallelogram: input/output · Rectangle: process · Diamond: decision · Arrows: flow, including loops back.</div></div></div>
-  </div><div class="section-block" id="s6">
-    <div class="section-head"><div class="section-num">6</div><h2>Common mistakes that lose marks</h2></div>
-    <p class="section-note">Specific traps these five papers set — each one costs easy marks.</p>
-    <div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>Missing &amp; in scanf</b><span><code>scanf("%d", factorial)</code> should be <code>scanf("%d", &amp;num)</code>. <em>Oct 2024</em></span></div></div><div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>Using a variable before it has a value</b><span><code>int num, factorial = num;</code> copies garbage — and a factorial must start at 1. <em>Oct 2024</em></span></div></div><div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>Commas instead of semicolons in a for loop</b><span><code>for (i = 1, i &lt;= num, ++i)</code> must use semicolons. <em>Oct 2024</em></span></div></div><div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>printf without a format specifier</b><span><code>printf("Factorial = n!", factorial)</code> never prints the value — it needs <code>%d</code>. <em>Oct 2024</em></span></div></div><div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>continue before the increment</b><span>The loop never reaches <code>i++</code>, so it prints "Before continue: i = 0" forever — it's an infinite loop, and "Loop exited" never prints. <em>Mar 2025</em></span></div></div><div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>sizeof vs strlen</b><span>sizeof(A) includes '\0'; strlen(A) doesn't. And sizeof('H') is 4 in C, not 1. <em>Mar 2025</em></span></div></div><div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>Integer division before the cast</b><span>7 / 2 is 3, not 3.5, so the Mar 2026 expression gives 10.00. Doing each division in float — for example casting every term — gives 10.50. <em>Mar 2026</em></span></div></div><div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>Tracing with the original array values</b><span>In <code>a[i] = a[i] + a[4 − i]</code>, a[1] and a[0] have already changed by the time i = 3 and 4. The output is 6 6 6 10 11, not 6 6 6 6 6. <em>Oct 2025</em></span></div></div><div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>Assuming the array changes</b><span><code>a[i] = a[a[i]/2 − 1]</code> on {2, 4, 6, 8, 10} copies each element onto itself — the output is 2 4 6 8 10. Trace, don't guess. <em>Oct 2025</em></span></div></div><div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>Multiplying by rows instead of columns</b><span>Row-major address uses i × (number of columns). <em>Oct 2025</em></span></div></div><div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>Mixing sign-bit and 2's complement</b><span>−43 is 1010 1011 in sign-bit but 1101 0101 in 2's complement. <em>Oct 2024, Mar 2025</em></span></div></div><div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>No room for '\0'</b><span>The second size of the 2-D char array must fit the longest word plus 1 — 9 for ELEPHANT. <em>Mar 2026</em></span></div></div><div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>Forgetting break in switch</b><span>Without it, the calculator runs every case below the matching one. <em>Mar 2024, Mar 2026</em></span></div></div><div class="mistake-item"><div class="mistake-mark">✕</div><div class="mistake-body"><b>Rewriting everything when asked for less</b><span>Papers explicitly asked for corrections by line number only, and blanks in order — and warned there's no partial credit for messy answers. <em>Oct 2024, Mar 2025, Oct 2025, Mar 2026</em></span></div></div>
   </div>
 
-  <div class="priority-box" id="s7">
-    <div class="section-head"><div class="section-num">7</div><h2>If you only have one evening</h2></div>
-    <ol class="priority-list">
-      <li><b>Number conversions</b> — unsigned, sign-bit, 2's complement, and minimum bits. In every paper.</li>
-      <li><b>Predict-the-output practice</b> — loops with continue/break, arrays changed inside a loop, sizeof vs strlen, integer division and casting. Trace each line on paper.</li>
-      <li><b>Flowcharts</b> — the symbols, plus bubble sort, HCF, and a condition-based calculation.</li>
-      <li><b>Strings</b> — loop until '\0', case flipping, and 2-D character arrays.</li>
-      <li><b>Arrays</b> — row-major address, rotation, and 2-D insertion.</li>
-      <li><b>Theory</b> — the standard differences list, life cycle of a C program, and do-while / switch syntax.</li>
-    </ol>
-  </div>  <div class="fb" id="fb">
+<div class="section-block" id="s8">
+    <div class="section-head"><div class="section-num">3</div><h2>Full question papers</h2></div>
+    <p class="section-note">All five papers as original scans, so every line of code is exactly as printed. Newest first. Try one as a timed 2-hour mock before looking at the analysis.</p>
+    <div class="scan"><div class="qp-head"><h3>MST — March 9, 2026</h3><p>UES103/UTA003: Programming for Problem Solving · 30 marks · 2 hours</p></div><img src="img/UES103-1.jpg" alt="MST — March 9, 2026 page 1" loading="lazy"><img src="img/UES103-2.jpg" alt="MST — March 9, 2026 page 2" loading="lazy"></div><div class="scan"><div class="qp-head"><h3>MST — October 17, 2025</h3><p>UTA003/UES103: Computer Programming / Programming for Problem Solving · 30 marks · 2 hours</p></div><img src="img/UES103-3.jpg" alt="MST — October 17, 2025 page 1" loading="lazy"><img src="img/UES103-4.jpg" alt="MST — October 17, 2025 page 2" loading="lazy"></div><div class="scan"><div class="qp-head"><h3>MST — March 1, 2025</h3><p>UTA003/UES103: Computer Programming / Programming for Problem Solving · 30 marks · 2 hours</p></div><img src="img/UES103-5.jpg" alt="MST — March 1, 2025 page 1" loading="lazy"><img src="img/UES103-6.jpg" alt="MST — March 1, 2025 page 2" loading="lazy"></div><div class="scan"><div class="qp-head"><h3>MST — October 21, 2024</h3><p>UTA003/UES103: Computer Programming / Programming for Problem Solving · 30 marks · 2 hours</p></div><img src="img/UES103-7.jpg" alt="MST — October 21, 2024 page 1" loading="lazy"><img src="img/UES103-8.jpg" alt="MST — October 21, 2024 page 2" loading="lazy"></div><div class="scan"><div class="qp-head"><h3>MST — March 19, 2024</h3><p>UES103: Programming for Problem Solving · 30 marks · 2 hours</p></div><img src="img/UES103-9.jpg" alt="MST — March 19, 2024 page 1" loading="lazy"><img src="img/UES103-10.jpg" alt="MST — March 19, 2024 page 2" loading="lazy"></div>
+  </div>
+
+<div class="lock-wrap">
+  <div class="lock-box">
+    <div class="lock-kicker">The rest of this guide</div>
+    <h2>Everything above is free. This is what is behind the rest.</h2>
+    <p class="lock-lede">One payment for C Programming (UES103) &mdash; it stays open on your Thapar account.</p>
+
+    <div class="lock-hero">
+      <span class="tagline">The main thing</span>
+      <h3>&#9998; Full PYQ solutions</h3>
+      <p>All 5 past papers solved, every part, step by step &mdash; written the way you
+         would put it in the answer sheet, with the method named at each step.
+         30 questions in total.</p>
+    </div>
+
+    <ul class="lock-list">
+      <li><span class="tick">&#10003;</span><span><b>Year-wise paper analysis</b> &mdash; <span class="d">what each paper actually asked, marks printed alongside</span></span></li>
+      <li><span class="tick">&#10003;</span><span><b>Topic deep-dive</b> &mdash; <span class="d">every repeated question grouped by topic, year by year</span></span></li>
+      <li><span class="tick">&#10003;</span><span><b>Formula and syntax sheet</b> &mdash; <span class="d">everything worth writing on your hand before the exam</span></span></li>
+      <li><span class="tick">&#10003;</span><span><b>Common mistakes that lose marks</b> &mdash; <span class="d">the slips that cost people marks in these exact papers</span></span></li>
+      <li><span class="tick">&#10003;</span><span><b>If you only have one evening</b> &mdash; <span class="d">the order to study in when you are out of time</span></span></li>
+    </ul>
+
+    <a class="lock-cta" href="https://freshstart-i39e.vercel.app/#unlock=UES103">Unlock for &#8377;19</a>
+
+    <p class="lock-why"><b>Why this part costs money:</b> this part took weeks &mdash; reading every past paper, counting the marks by hand, and solving every question. Running the site costs money too. Everything above stays free for everyone, always.</p>
+  </div>
+</div>
+
+<div class="fb" id="fb">
     <h3>Did this guide help you?</h3>
     <p class="sub2">This guide is made by a student, for students — free, no ads, and built by reading every past paper by hand. If it genuinely helps you, please take five seconds to vote and leave a line about what worked or what's missing. Your answer goes only to the student who made it, and it decides which subjects and guides get built next.</p>
     <div class="fb-btns">
@@ -479,12 +505,6 @@
   </div>
   <p class="share-done" id="share-done" style="display:none">Link copied.</p>
 </div>
-
-  <div class="section-block" id="s8">
-    <div class="section-head"><div class="section-num">8</div><h2>Full question papers</h2></div>
-    <p class="section-note">All five papers as original scans, so every line of code is exactly as printed. Newest first. Try one as a timed 2-hour mock before looking at the analysis.</p>
-    <div class="scan"><div class="qp-head"><h3>MST — March 9, 2026</h3><p>UES103/UTA003: Programming for Problem Solving · 30 marks · 2 hours</p></div><img src="img/UES103-1.jpg" alt="MST — March 9, 2026 page 1" loading="lazy"><img src="img/UES103-2.jpg" alt="MST — March 9, 2026 page 2" loading="lazy"></div><div class="scan"><div class="qp-head"><h3>MST — October 17, 2025</h3><p>UTA003/UES103: Computer Programming / Programming for Problem Solving · 30 marks · 2 hours</p></div><img src="img/UES103-3.jpg" alt="MST — October 17, 2025 page 1" loading="lazy"><img src="img/UES103-4.jpg" alt="MST — October 17, 2025 page 2" loading="lazy"></div><div class="scan"><div class="qp-head"><h3>MST — March 1, 2025</h3><p>UTA003/UES103: Computer Programming / Programming for Problem Solving · 30 marks · 2 hours</p></div><img src="img/UES103-5.jpg" alt="MST — March 1, 2025 page 1" loading="lazy"><img src="img/UES103-6.jpg" alt="MST — March 1, 2025 page 2" loading="lazy"></div><div class="scan"><div class="qp-head"><h3>MST — October 21, 2024</h3><p>UTA003/UES103: Computer Programming / Programming for Problem Solving · 30 marks · 2 hours</p></div><img src="img/UES103-7.jpg" alt="MST — October 21, 2024 page 1" loading="lazy"><img src="img/UES103-8.jpg" alt="MST — October 21, 2024 page 2" loading="lazy"></div><div class="scan"><div class="qp-head"><h3>MST — March 19, 2024</h3><p>UES103: Programming for Problem Solving · 30 marks · 2 hours</p></div><img src="img/UES103-9.jpg" alt="MST — March 19, 2024 page 1" loading="lazy"><img src="img/UES103-10.jpg" alt="MST — March 19, 2024 page 2" loading="lazy"></div>
-  </div>
 
   <footer>Compiled directly from five TIET UES103 MST papers (Mar 2024 → Mar 2026). No fabricated content — every question traces back to an actual paper, and every code output was verified with gcc. Stuck on something here? Ask in Doubts or grab a verified senior in Guidance.</footer>
 </div>

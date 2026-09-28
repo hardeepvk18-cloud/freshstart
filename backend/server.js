@@ -101,7 +101,7 @@ const PaymentClaim = mongoose.models.PaymentClaim || mongoose.model('PaymentClai
   email: { type: String, required: true, lowercase: true, index: true },
   code: { type: String, required: true, uppercase: true },   // which subject was paid for
   name: { type: String, default: '' },
-  utr: { type: String, required: true },
+  utr: { type: String, required: true, index: true },
   amount: { type: Number, default: 0 },
   screenshot: { type: String, default: '' },      // base64 data URL, resized by the browser
   revoked: { type: Boolean, default: false },
@@ -111,10 +111,16 @@ const PaymentClaim = mongoose.models.PaymentClaim || mongoose.model('PaymentClai
 // each subject is unlocked on its own
 /* Set to true to put the solved papers back behind the paywall.
    Everything else (claims, admin panel, unlock page) stays wired up. */
-const PAID_MODE = false;
+const PAID_MODE = true;
+
+/* Only these subjects are behind the paywall. Everything else stays open to any
+   signed-in student, so adding a subject here is what makes it paid.          */
+const PAID_CODES = ['UES103'];
 
 async function hasPaidAccess(email, code) {
-  if (!PAID_MODE) return !!String(email || '').trim();
+  const signedIn = !!String(email || '').trim();
+  if (!PAID_MODE) return signedIn;
+  if (!PAID_CODES.includes(String(code || '').toUpperCase())) return signedIn;
   const e = String(email || '').toLowerCase();
   const c = String(code || '').toUpperCase();
   if (!e || !c) return false;
@@ -123,11 +129,37 @@ async function hasPaidAccess(email, code) {
 }
 
 // every subject this account has unlocked
+/* Every subject this account can open: the ones it paid for, plus every subject
+   that is not behind the paywall at all.                                     */
 async function paidCodes(email) {
   const e = String(email || '').toLowerCase();
   if (!e) return [];
+  const codes = new Set();
+  if (PAID_MODE) {
+    everySubject().forEach(c => { if (!PAID_CODES.includes(c)) codes.add(c); });
+  } else {
+    everySubject().forEach(c => codes.add(c));
+  }
+  if (isAdminEmail(e)) { everySubject().forEach(c => codes.add(c)); return [...codes]; }
   const claims = await PaymentClaim.find({ email: e, revoked: false }).select('code').lean();
-  return [...new Set(claims.map(c => c.code))];
+  claims.forEach(c => codes.add(c.code));
+  return [...codes];
+}
+
+/* Subject codes that have something to open, read off the files on disk. */
+function everySubject() {
+  const codes = new Set();
+  if (fs.existsSync(SOLUTIONS_DIR)) {
+    fs.readdirSync(SOLUTIONS_DIR)
+      .filter(f => /-solutions\.html$/.test(f))
+      .forEach(f => codes.add(f.split('-')[0].toUpperCase()));
+  }
+  if (fs.existsSync(GUIDES_FULL_DIR)) {
+    fs.readdirSync(GUIDES_FULL_DIR)
+      .filter(f => /\.html$/.test(f))
+      .forEach(f => codes.add(f.replace(/\.html$/, '').toUpperCase()));
+  }
+  return [...codes];
 }
 
 const requireAdmin = (req, res, next) => {
@@ -782,7 +814,21 @@ app.post('/api/payment-claim', async (req, res) => {
     const utr = String(req.body.utr || '').trim();
     if (!email) return res.status(400).json({ message: 'Please sign in first.' });
     if (!/^[A-Z]{3}[0-9]{3}$/.test(code)) return res.status(400).json({ message: 'Unknown subject.' });
-    if (utr.length < 6) return res.status(400).json({ message: 'Enter the full UPI transaction id.' });
+    // a UPI reference number is always exactly 12 digits
+    if (!/^[0-9]{12}$/.test(utr)) {
+      return res.status(400).json({ message: 'The UPI transaction id is 12 digits. Check it and try again.' });
+    }
+
+    // one reference number opens one account, so it cannot be passed around
+    const seen = await PaymentClaim.findOne({ utr }).select('email code').lean();
+    if (seen && seen.email !== email) {
+      return res.status(409).json({
+        message: 'That transaction id has already been used on another account. Use the id from your own payment.'
+      });
+    }
+    if (seen && seen.code === code) {
+      return res.json({ ok: true, code });     // already claimed by this student
+    }
 
     let shot = String(req.body.screenshot || '');
     if (shot && !shot.startsWith('data:image/')) shot = '';     // ignore anything that is not an image
@@ -792,7 +838,7 @@ app.post('/api/payment-claim', async (req, res) => {
       email,
       code,
       name: String(req.body.name || '').slice(0, 80),
-      utr: utr.slice(0, 60),
+      utr,
       amount: Number(req.body.amount) || 0,
       screenshot: shot
     });
@@ -804,16 +850,11 @@ app.post('/api/payment-claim', async (req, res) => {
 });
 
 const SOLUTIONS_DIR = path.join(__dirname, 'solutions');
+const GUIDES_FULL_DIR = path.join(__dirname, 'guides-full');
 
 // the frontend asks this on load to decide what the solution cards look like
 app.get('/api/access', async (req, res) => {
   try {
-    if (!PAID_MODE) {
-      const dir = fs.existsSync(SOLUTIONS_DIR) ? fs.readdirSync(SOLUTIONS_DIR) : [];
-      return res.json({
-        codes: dir.filter(f => /-solutions\.html$/.test(f)).map(f => f.split('-')[0].toUpperCase())
-      });
-    }
     res.json({ codes: await paidCodes(req.query.email) });
   } catch (err) {
     res.json({ codes: [] });
@@ -823,20 +864,45 @@ app.get('/api/access', async (req, res) => {
 /* The solved papers live outside the public folder, so the only way to read
    them is through this route, which checks for a payment first.            */
 
+/* The full guide carries the paid sections and the solutions in one page.
+   The free half stays a public file; this is the version behind the payment. */
+app.get('/api/guide-full/:code', async (req, res) => {
+  try {
+    const code = String(req.params.code || '').toUpperCase();
+    if (!/^[A-Z]{3}[0-9]{3}$/.test(code)) return res.status(400).send('Unknown subject.');
+
+    if (!(await hasPaidAccess(req.query.email, code))) {
+      return res.status(402).send(lockedPage(code));
+    }
+
+    const file = path.join(GUIDES_FULL_DIR, code + '.html');
+    if (!fs.existsSync(file)) return res.status(404).send('That guide is not up yet.');
+
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader('Cache-Control', 'private, no-store');
+    fs.createReadStream(file).pipe(res);
+  } catch (err) {
+    res.status(500).send('Something went wrong.');
+  }
+});
+
+function lockedPage(code) {
+  return '<!doctype html><meta charset="utf-8">' +
+    '<meta name="viewport" content="width=device-width,initial-scale=1">' +
+    '<div style="font-family:system-ui,sans-serif;max-width:520px;margin:18vh auto;padding:0 20px;text-align:center;color:#16202C">' +
+    '<h2 style="font-weight:700">This part opens after payment</h2>' +
+    '<p style="color:#4A5866;line-height:1.6">Open FreshStart, go to this subject and unlock it there. ' +
+    'If you have already paid, sign in with the same Thapar email you used.</p>' +
+    '<p><a href="' + FRONTEND + '/#unlock=' + code + '" style="color:#0F766E;font-weight:600">Unlock it on FreshStart</a></p></div>';
+}
+
 app.get('/api/solutions/:code', async (req, res) => {
   try {
     const code = String(req.params.code || '').toUpperCase();
     if (!/^[A-Z]{3}[0-9]{3}$/.test(code)) return res.status(400).send('Unknown subject.');
 
     if (!(await hasPaidAccess(req.query.email, code))) {
-      return res.status(402).send(
-        '<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
-        '<div style="font-family:system-ui,sans-serif;max-width:520px;margin:18vh auto;padding:0 20px;text-align:center;color:#16202C">' +
-        '<h2 style="font-weight:700">This one is unlocked after payment</h2>' +
-        '<p style="color:#4A5866;line-height:1.6">Open FreshStart, go to Solved PYQs and unlock it there. ' +
-        'If you have already paid, sign in with the same Thapar email you used.</p>' +
-        '<p><a href="' + FRONTEND + '/#solutions" style="color:#0F766E;font-weight:600">Back to FreshStart</a></p></div>'
-      );
+      return res.status(402).send(lockedPage(code));
     }
 
     const file = path.join(SOLUTIONS_DIR, code + '-solutions.html');
