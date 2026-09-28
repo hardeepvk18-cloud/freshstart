@@ -111,7 +111,7 @@ const PaymentClaim = mongoose.models.PaymentClaim || mongoose.model('PaymentClai
 // each subject is unlocked on its own
 /* Set to true to put the solved papers back behind the paywall.
    Everything else (claims, admin panel, unlock page) stays wired up. */
-const PAID_MODE = true;
+const PAID_MODE = false;
 
 /* Only these subjects are behind the paywall. Everything else stays open to any
    signed-in student, so adding a subject here is what makes it paid.          */

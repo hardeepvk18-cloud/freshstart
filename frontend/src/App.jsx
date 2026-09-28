@@ -401,7 +401,7 @@ const SOLUTIONS = [
 /* ---- change these two and nothing else to alter the price or the UPI id ---- */
 /* Set to true to put the solved papers back behind the paywall.
    The unlock page, the claim form and the admin panel all stay in place. */
-const PAID_MODE = true;
+const PAID_MODE = false;
 const PRICE = 29;
 /* subjects whose guide has a free half and a paid half */
 const SPLIT_CODES = ['UES103', 'UES102'];
@@ -508,7 +508,7 @@ function GuideCard({ g, i, user, paid }) {
       style={{ animationDelay: i * 0.06 + 's', textDecoration: 'none', display: 'block' }}
     >
       {inner}
-      {hasFull && full && (
+      {PAID_MODE && hasFull && full && (
         <p style={{ ...noteStyle, background: 'rgba(16,150,120,.12)', borderColor: 'rgba(16,150,120,.35)', color: '#0c7057' }}>
           ✓ Unlocked
         </p>
