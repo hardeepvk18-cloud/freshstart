@@ -436,7 +436,7 @@ const UPI_ID = 'harpuneet61-1@oksbi';
    The free file is a public page; the full one is served by the backend only
    after a payment, which is why it must live in backend/solutions/ and never
    in frontend/public/.                                                       */
-const MOCK_PRICE = 49;
+const MOCK_PRICE = 29;
 const MOCKS = [
   {
     code: 'MOK102', subject: 'UES102', name: 'Manufacturing Processes',
@@ -791,6 +791,37 @@ function MockPapers({ user, go, paid }) {
             different way.
           </p>
         </div>
+      </div>
+
+      <div className="card" style={{ marginTop: '1.2rem' }}>
+        <b style={{ display: 'block', marginBottom: '.7rem' }}>What you get for ₹{MOCK_PRICE}</b>
+        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+          {[
+            ['All 8 questions solved in full',
+             'the way you would write it in the answer sheet, not just the final answer'],
+            ['The method for each, written as numbered steps',
+             'so it works on the question you actually get, not only on the one printed here'],
+            ['Every other form the question comes in',
+             'under each one: what changes if the same topic is asked a different way'],
+            ['Diagrams where the question needs one',
+             'circuits, machining setups and tooling, drawn out'],
+            ['Built from all 5 past MST papers',
+             'marks counted by hand, then the 8 questions chosen to cover every type that repeats'],
+            ['Question 1 is free',
+             'read it first and decide — it is the full thing, not a preview']
+          ].map(([head, tail]) => (
+            <li key={head} style={{
+              display: 'flex', gap: '.6rem', padding: '.5rem 0',
+              borderBottom: '1px solid #EEEEF4', fontSize: '.92rem', lineHeight: 1.6
+            }}>
+              <span style={{ color: '#0c7057', fontWeight: 700 }}>&#10003;</span>
+              <span><b>{head}</b> &mdash; <span style={{ color: '#5A6472' }}>{tail}</span></span>
+            </li>
+          ))}
+        </ul>
+        <p className="note" style={{ marginTop: '.9rem' }}>
+          One payment opens one subject. The analysis guides and every solved past paper stay free.
+        </p>
       </div>
 
       <div style={{
