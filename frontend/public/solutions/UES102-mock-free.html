@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>UES102 &mdash; The one paper to do</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<style>
+
+:root{
+  --bg:#F4F6F9; --paper:#FFFFFF; --ink:#16202C; --ink2:#4A5866; --ink3:#77838F;
+  --line:#DCE3EB; --line2:#EDF1F5; --teal:#0F766E; --teal-bg:#E7F4F1;
+  --accent:#5b54d6; --accent-bg:#EEEDFB;
+  --warn:#B4531A; --warn-bg:#FDF2E9; --warn-line:#F0DCC6;
+  --code-bg:#1E293B; --code-ink:#E2E8F0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);
+  font-family:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  line-height:1.62;-webkit-text-size-adjust:100%}
+.wrap{max-width:840px;margin:0 auto;padding:0 16px 80px}
+
+header{padding:40px 0 26px;border-bottom:1px solid var(--line)}
+.kicker{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--teal);font-weight:600}
+h1{font-family:'Source Serif 4',Georgia,serif;font-size:32px;line-height:1.18;margin:8px 0 10px;font-weight:700}
+.sub{color:var(--ink2);font-size:15px;max-width:62ch}
+
+.note{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:10px;
+  padding:14px 16px;margin:22px 0;font-size:14px;color:#6B3D18}
+.note b{color:var(--warn)}
+
+nav.toc{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:26px 0}
+nav.toc h2{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);font-weight:600;margin-bottom:12px}
+nav.toc ul{list-style:none}
+nav.toc li{margin:9px 0;font-size:15px;color:var(--ink2)}
+nav.toc li b{color:var(--ink)}
+
+.paper{margin-top:44px}
+h2.yr{font-family:'Source Serif 4',Georgia,serif;font-size:25px;font-weight:700;padding-top:12px}
+.yr-meta{color:var(--ink3);font-size:13.5px;margin-top:4px;
+  font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace}
+
+.q{background:var(--paper);border:1px solid var(--line);border-radius:12px;
+  padding:18px 20px;margin:16px 0}
+.q-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.q-no{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-weight:600;font-size:14px;
+  color:#fff;background:var(--teal);padding:3px 9px;border-radius:6px}
+.marks{font-size:12px;color:var(--ink3);font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace}
+.method{font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--accent);background:var(--accent-bg);padding:3px 9px;border-radius:20px}
+
+.qtext{font-size:15px;color:var(--ink);padding:12px 14px;background:#FAFBFD;
+  border-left:3px solid var(--line);border-radius:6px;margin-bottom:14px}
+
+h4.step{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);
+  font-weight:600;margin:16px 0 8px}
+
+pre.code{background:var(--code-bg);color:var(--code-ink);border-radius:9px;
+  padding:14px 16px;margin:10px 0;overflow-x:auto;
+  font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:13.2px;line-height:1.65}
+pre.code .c{color:#94A3B8}
+
+.m{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:14px;line-height:1.85;
+  background:#FAFBFD;border:1px solid var(--line2);border-radius:8px;
+  padding:12px 15px;margin:9px 0;overflow-x:auto;white-space:pre}
+p{font-size:15px;margin:9px 0}
+p.why{color:var(--ink2);font-size:14.3px}
+ul.pts{list-style:none;margin:8px 0}
+ul.pts li{position:relative;padding:5px 0 5px 20px;font-size:14.5px;color:var(--ink2)}
+ul.pts li::before{content:"";position:absolute;left:4px;top:14px;width:5px;height:5px;
+  border-radius:50%;background:var(--teal)}
+ol.steps{margin:8px 0 8px 20px}
+ol.steps li{font-size:14.6px;color:var(--ink2);padding:4px 0}
+
+.ans{background:var(--teal-bg);border:1px solid #C6E4DD;border-radius:10px;
+  padding:13px 16px;margin:14px 0 2px}
+.ans .lbl{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--teal);
+  font-weight:600;margin-bottom:6px}
+.ans .val{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:14.3px;
+  line-height:1.8;color:#123F39;white-space:pre-wrap}
+
+.trap{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:10px;
+  padding:12px 16px;margin:12px 0}
+.trap b{color:var(--warn);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.trap p{color:#6B3D18;font-size:14.3px;margin:6px 0 0}
+
+table{width:100%;border-collapse:collapse;font-size:14px;margin:10px 0}
+.tbl{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:10px 0;
+     border-radius:8px}
+.tbl>table{margin:0;min-width:100%}
+.tbl th,.tbl td{white-space:normal}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line2);vertical-align:top}
+th{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);
+  font-weight:600;border-bottom:1px solid var(--line)}
+td.mono{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:13.4px}
+
+footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:13.5px;color:var(--ink3)}
+
+.fb{border:2px solid var(--teal);border-radius:14px;padding:18px 20px;margin:34px 0 0;
+  background:var(--paper);box-shadow:0 2px 14px rgba(0,0,0,.05)}
+.fb h3{margin:0 0 6px;font-family:'Source Serif 4',Georgia,serif;font-size:19px;font-weight:700}
+.fb p.sub2{margin:0 0 14px;font-size:14.3px;color:var(--ink2)}
+.fb-btns{display:flex;gap:9px;flex-wrap:wrap}
+.fb-btn{font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;padding:9px 17px;
+  border-radius:30px;border:1px solid var(--line);background:#fff;color:var(--ink);
+  transition:border-color .2s,background .2s}
+.fb-btn:hover{border-color:var(--teal)}
+.fb-btn.on{background:var(--teal);border-color:var(--teal);color:#fff}
+.fb textarea{width:100%;margin-top:13px;padding:11px 13px;border-radius:10px;
+  border:1px solid var(--line);font-family:inherit;font-size:14px;resize:vertical;min-height:76px}
+.fb-send{margin-top:10px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;
+  padding:8px 18px;border-radius:30px;border:none;background:var(--teal);color:#fff}
+.fb-done{font-size:14.5px;color:var(--teal);font-weight:600}
+
+@media(max-width:560px){
+  h1{font-size:26px} h2.yr{font-size:21px}
+  .q{padding:15px 15px} .m,pre.code{font-size:12.6px} .ans .val{font-size:13.4px}
+}
+
+.share{border:1px solid var(--line);border-radius:14px;padding:17px 20px;margin:20px 0 0;
+  background:var(--paper)}
+.share h3{margin:0 0 5px;font-family:'Source Serif 4',Georgia,serif;font-size:18px;font-weight:700}
+.share p{margin:0 0 13px;font-size:14.2px;color:var(--ink-soft,#4A5866)}
+.share-row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.share-wa{display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+  font-family:inherit;font-size:14.5px;font-weight:600;padding:10px 18px;border-radius:30px;
+  background:#25D366;color:#fff;border:none;cursor:pointer}
+.share-wa:hover{background:#1FB855}
+.share-copy{font-family:inherit;font-size:14.5px;font-weight:600;cursor:pointer;
+  padding:10px 18px;border-radius:30px;border:1px solid var(--line);background:#fff;color:var(--ink,#16202C)}
+.share-copy:hover{border-color:#25D366}
+.share-done{font-size:13.8px;color:#1F7A4D;font-weight:600;margin:9px 0 0}
+
+.share-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  border:1px solid var(--line);border-radius:12px;padding:12px 15px;margin:0 0 22px;background:var(--paper)}
+.share-top span{font-size:14.2px;color:var(--ink-soft,#4A5866)}
+.share-top a{display:inline-flex;align-items:center;gap:7px;text-decoration:none;
+  font-family:inherit;font-size:13.8px;font-weight:600;padding:8px 15px;border-radius:30px;
+  background:#25D366;color:#fff;white-space:nowrap}
+.share-top a:hover{background:#1FB855}
+
+
+.tcard{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.2rem;margin:1.3rem 0 1.6rem}
+.tcard h3{font-size:.95rem;margin:0 0 .7rem;color:var(--ink)}
+.trow{display:flex;align-items:center;gap:.7rem;padding:.34rem 0;font-size:.87rem}
+.tname{flex:0 0 13rem;color:var(--ink)}
+.tbar{flex:1;height:9px;background:var(--line2);border-radius:5px;overflow:hidden}
+.tbar i{display:block;height:100%;background:var(--accent);border-radius:5px}
+.tnum{flex:0 0 5.6rem;text-align:right;color:var(--ink3);font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.8rem}
+.freq{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.04em;color:var(--ink3);margin-top:.3rem}
+.alt{background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:.95rem 1.1rem;margin:1rem 0 .2rem}
+.alt b.h{display:block;font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);margin-bottom:.55rem}
+.vh{font-size:.95rem;font-weight:600;color:var(--ink);margin:1.15rem 0 .4rem;line-height:1.4}
+.vh:first-of-type{margin-top:.2rem}
+.vp{font-size:.92rem;line-height:1.68;color:var(--ink2);margin:0 0 .55rem}
+.alt .m{margin:.2rem 0 .3rem}
+.lock{background:var(--paper);border:2px solid var(--teal);border-radius:16px;padding:1.9rem 1.7rem;margin:2rem 0 1rem;box-shadow:0 10px 30px rgba(15,118,110,.10)}
+.lock .k{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:.5rem}
+.lock h2{font-family:'Source Serif 4',Georgia,serif;font-size:1.5rem;margin:0 0 .5rem;color:var(--ink);line-height:1.25}
+.lock p.l{color:var(--ink2);font-size:.93rem;margin:0 0 1.2rem;line-height:1.6}
+.lock ul{list-style:none;padding:0;margin:0 0 1.3rem}
+.lock li{display:flex;gap:.7rem;padding:.5rem 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.lock li:last-child{border-bottom:0}
+.lock .tick{color:var(--teal);font-weight:700}
+.lock b{color:var(--ink);font-weight:600}
+.lock span.d{color:var(--ink2)}
+.lock a.cta{display:block;text-align:center;text-decoration:none;background:var(--teal);color:#fff;font-weight:600;font-size:1rem;padding:.95rem 1.2rem;border-radius:11px}
+.lock a.cta:hover{background:#0A5252}
+.lock p.why{margin:1.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--line);font-size:.845rem;color:var(--ink2);line-height:1.6}
+.rec{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:0 12px 12px 0;padding:1.05rem 1.2rem;margin:1.2rem 0 1.4rem}
+.rec b.h{display:block;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:.15rem}
+.rec p.sub{font-size:.855rem;color:var(--ink3);margin:0 0 .9rem;line-height:1.55}
+.rec h5{font-size:.95rem;font-weight:600;color:var(--ink);margin:1.25rem 0 .5rem;line-height:1.4}
+.rec h5:first-of-type{margin-top:0}
+.rec ol{margin:0;padding-left:0;list-style:none;counter-reset:rs}
+.rec ol li{counter-increment:rs;position:relative;padding:0 0 .55rem 2.1rem;font-size:.915rem;line-height:1.68;color:var(--ink2)}
+.rec ol li:last-child{padding-bottom:0}
+.rec ol li::before{content:counter(rs);position:absolute;left:0;top:.16rem;width:1.45rem;height:1.45rem;border-radius:50%;background:var(--accent-bg);color:var(--teal);font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.74rem;font-weight:600;display:flex;align-items:center;justify-content:center}
+.rec ol li b{color:var(--ink);font-weight:600}
+@media(max-width:560px){.rec{padding:.95rem 1rem}.rec ol li{padding-left:1.9rem;font-size:.89rem}}
+@media(max-width:560px){.tname{flex:0 0 8.5rem;font-size:.82rem}.tnum{flex:0 0 4.4rem}.lock{padding:1.5rem 1.2rem}}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">UES102 / UTA026 / UES018 &middot; Manufacturing Processes &middot; MST</div>
+  <h1>The one paper to do</h1>
+  <p class="sub">Every MANPRO MST for the last five years is built from eight question types. This paper has one of each, worked out in full &mdash; and under every question, the other shapes it has been asked in, so you are ready for the version you actually get.</p>
+</header>
+
+<div class="note">
+  <b>Why one paper is enough:</b> across the last five MST papers &mdash; 37 questions, 295 marks &mdash; there are
+  only <b>eight</b> question types. The same eight come back with different numbers. Four of them carry
+  <b>69%</b> of all marks and six carry <b>87%</b>. This paper has one question from each, so doing it properly
+  puts you in front of the whole paper rather than a corner of it.
+</div>
+
+<div class="tcard">
+  <h3>Every mark in the last five papers, by type</h3>
+  <div class="trow"><span class="tname">CNC programming</span><span class="tbar"><i style="width:100%"></i></span><span class="tnum">77 marks</span></div><div class="trow"><span class="tname">Rolling</span><span class="tbar"><i style="width:65%"></i></span><span class="tnum">50 marks</span></div><div class="trow"><span class="tname">Turning calculations</span><span class="tbar"><i style="width:60%"></i></span><span class="tnum">46 marks</span></div><div class="trow"><span class="tname">Forging</span><span class="tbar"><i style="width:42%"></i></span><span class="tnum">32 marks</span></div><div class="trow"><span class="tname">Tool geometry &amp; angles</span><span class="tbar"><i style="width:35%"></i></span><span class="tnum">27 marks</span></div><div class="trow"><span class="tname">Chips &amp; stress&ndash;strain</span><span class="tbar"><i style="width:34%"></i></span><span class="tnum">26 marks</span></div><div class="trow"><span class="tname">Additive manufacturing</span><span class="tbar"><i style="width:25%"></i></span><span class="tnum">19 marks</span></div><div class="trow"><span class="tname">Sheet metal &amp; dies</span><span class="tbar"><i style="width:23%"></i></span><span class="tnum">18 marks</span></div>
+  <p class="freq" style="margin-top:.8rem">Counted by hand from all five papers.</p>
+</div>
+
+<div class="note" style="border-left-color:#B4531A;background:#FDF2E9">
+  <b>Read this before you start:</b> this is not a prediction and it is not a leaked paper. It is one question
+  built from each recurring type, using numbers of our own. What is worth your time is the <b>method</b> and the
+  <b>&quot;different form&quot;</b> box under each question &mdash; that is what carries across to whatever the real
+  paper puts in front of you. Worked out with Claude Opus 5 and machine-checked; not official TIET answers.
+  FreshStart is a student project and is not an official TIET page.
+</div>
+
+<div class="paper">
+<h2 class="yr">The paper</h2>
+<p class="yr-meta">8 questions &middot; 60 marks &middot; 2 hours &middot; one question per type</p>
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1</span><span class="marks">14 marks</span><span class="method">CNC programming</span></div>
+  <p class="freq">5 of 5 papers &middot; 77 marks &middot; the biggest type by far</p>
+  <div class="qtext">Write a CNC part program in absolute mode to machine the stepped shaft below from a &Oslash;60 mm bar. Measured from the free end, turn &Oslash;35 over the first 30 mm and &Oslash;50 over the next 40 mm, giving a 70 mm stepped shaft. Use a 2 mm depth of cut for roughing and a 0.5 mm finishing cut. Spindle 800 rpm, feed 0.2 mm/rev.</div>
+  <figure style="margin:1.1rem 0 .4rem"><svg viewBox="0 0 560 290" width="100%" style="max-width:560px;height:auto;display:block;margin:1rem auto" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Stepped shaft: 35 mm diameter over the first 30 mm from the free end, then 50 mm diameter over the next 40 mm, machined from a 60 mm bar"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M100 103.636 L354 103.636 L354 196.364 L100 196.364 Z" stroke-dasharray="4 4" opacity=".45"/><text x="362" y="107.636" text-anchor="start" font-size="11.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" opacity=".6">&#216;60 bar</text><path d="M100 122.955 L202 122.955 L202 111.364 L338 111.364 L338 188.636 L202 188.636 L202 177.045 L100 177.045 L100 122.955"/><path d="M76 150 L372 150" stroke-dasharray="9 4 2 4" opacity=".55"/><text x="151" y="154" text-anchor="middle" font-size="13" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >&#216;35</text><text x="270" y="154" text-anchor="middle" font-size="13" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >&#216;50</text><path d="M100 230.364 L202 230.364"/><path d="M107 226.364 L100 230.364 L107 234.364"/><path d="M195 226.364 L202 230.364 L195 234.364"/><text x="151" y="222.364" text-anchor="middle" font-size="12.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >30</text><path d="M202 230.364 L338 230.364"/><path d="M209 226.364 L202 230.364 L209 234.364"/><path d="M331 226.364 L338 230.364 L331 234.364"/><text x="270" y="222.364" text-anchor="middle" font-size="12.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >40</text><path d="M100 202.364 L100 238.364"/><path d="M202 194.636 L202 238.364"/><path d="M338 194.636 L338 238.364"/><path d="M100 73.6364 L372 73.6364"/><path d="M108 69.6364 L100 73.6364 L108 77.6364"/><text x="92" y="77.6364" text-anchor="end" font-size="11.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >+Z</text><text x="100" y="64.6364" text-anchor="middle" font-size="11.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >Z 0</text><path d="M100 69.6364 L100 77.6364"/><text x="202" y="64.6364" text-anchor="middle" font-size="11.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >Z &#8722;30</text><text x="338" y="64.6364" text-anchor="middle" font-size="11.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >Z &#8722;70</text><path d="M202 69.6364 L202 77.6364"/><path d="M338 69.6364 L338 77.6364"/><text x="100" y="266.364" text-anchor="start" font-size="11.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" opacity=".65">all dimensions in mm &middot; origin at the free end</text></g></svg><figcaption class="freq" style="text-align:center;margin-top:.1rem">The network for this question</figcaption></figure>
+  <div class="rec">
+    <b class="h">How to do it &mdash; the method itself</b>
+    <p class="sub">The working below uses this paper&rsquo;s numbers. These are the steps on their own, so you can follow them on any question of this type.</p>
+    <h5>Writing any CNC turning program &mdash; the order to work in</h5>
+    <ol>
+      <li>Sketch the finished part and mark the origin. Convention is the <b>right-hand face of the finished part, on the axis</b>. Every coordinate you write afterwards is measured from there, so fixing it first prevents every later error.</li>
+      <li>Decide absolute (G90) or incremental (G91). Absolute is safer in an exam because each line stands alone and a single mistake does not cascade through the rest of the program.</li>
+      <li>Remember that on a lathe, <b>X is a diameter</b>, not a radius. A cut to &Oslash;35 is written X35, and the tool has moved only 12.5 mm inward from the &Oslash;60 bar, not 25. This single convention accounts for most lost marks on the question.</li>
+      <li>Write the opening block: G21 (metric), G90 (absolute), G28 U0 W0 (home), then the tool call, then S and M03 to start the spindle.</li>
+      <li>Rough the profile in passes. Each pass is the same three moves: rapid to the start in X, feed along Z, retract in X. Keep the depth of cut per pass to what the question allows.</li>
+      <li>Finish the profile in one continuous pass at a lighter feed.</li>
+      <li>Close the program: retract clear, M05 to stop the spindle, M30 to end and rewind.</li>
+      <li>Read back through and check that every <b>feed</b> move is G01 with an F value, and every <b>rapid</b> is G00 with none. A G00 with a feed, or a G01 without one, is a mark gone.</li>
+    </ol>
+    <h5>Using the canned cycle instead of longhand</h5>
+    <ol>
+      <li>If the question allows a canned cycle, G71 does the roughing in two lines instead of a dozen, so use it when the profile has several steps.</li>
+      <li>Line one: G71 U(depth per pass) R(retract). Line two: G71 P(first block of profile) Q(last block) U(X finishing allowance) W(Z allowance) F(feed).</li>
+      <li>Between P and Q, write the finished profile once as plain G01 moves. The cycle repeats it for you at increasing depths.</li>
+      <li>Then G70 P Q F runs the finishing pass along the same profile.</li>
+      <li>If the question says 'write the part program' without qualification, longhand is always accepted and canned cycles are a bonus. If it says 'using G71', longhand will not score.</li>
+    </ol>
+    <h5>Reading the common G and M codes</h5>
+    <ol>
+      <li>G00 rapid, G01 feed straight, G02 clockwise arc, G03 anticlockwise arc, G04 dwell.</li>
+      <li>G20 inch, G21 metric. G90 absolute, G91 incremental. G28 return to reference.</li>
+      <li>For an arc you must give the centre: I and K are the offsets from the <b>start point to the centre</b>, not from the origin. Alternatively give R.</li>
+      <li>M03 spindle clockwise, M04 anticlockwise, M05 stop, M06 tool change, M08 coolant on, M09 off, M30 program end and rewind.</li>
+    </ol>
+  </div>
+  <h4 class="step">Step 1 &mdash; set the origin and list every diameter change</h4>
+  <p class="why">Put the origin at the centre of the finished face. X is a <b>diameter</b> on a lathe, not a radius &mdash; X50 means &Oslash;50. Getting this wrong halves every cut.</p>
+  <div class="m">from the bar at D60, working from the free end inwards:
+  Z 0   to Z -30 :  D60 -&gt; D35   remove 12.5 mm on the radius
+  Z -30 to Z -70 :  D60 -&gt; D50   remove  5.0 mm on the radius
+
+roughing at 2 mm depth, leaving 0.5 mm for finishing:
+  D35 section : 12.0/2 = 6     -&gt; 6 roughing passes
+  D50 section :  4.5/2 = 2.25  -&gt; 3 roughing passes
+
+cut the D35 end first: it is the smallest, so the tool never has to
+cut past a larger step standing behind it</div>
+  <h4 class="step">Step 2 &mdash; the program</h4>
+  <p class="why">Write the safety block first, then rough, then finish in one continuous pass. A finishing pass that stops and restarts leaves a witness mark, which is a real answer-sheet detail.</p>
+  <div class="m">N10  G21 G90 G95          ; mm, absolute, feed per revolution
+N20  G28 U0 W0            ; reference return
+N30  M03 S800             ; spindle on, clockwise
+N40  T0101                ; roughing tool
+N50  G00 X62 Z2           ; rapid to clear start
+
+; ---- roughing the D35 end, Z0 to Z-30 ----
+N60  G00 X56 Z0
+N70  G01 Z-30 F0.2
+N80  G00 X62
+N90  G00 Z0
+; repeat at X52, X48, X44, X40, X36
+
+; ---- roughing the D50 part, Z-30 to Z-70 ----
+N100 G00 X56 Z0
+N110 G01 Z-70 F0.2
+N120 G00 X62
+; repeat at X52, X51
+
+; ---- finishing, one continuous pass ----
+N200 T0202                ; finishing tool
+N210 G00 X35 Z2
+N220 G01 Z-30 F0.1
+N230 X50
+N240 Z-70
+N250 X62
+N260 G00 X100 Z100
+N270 M05
+N280 M30</div>
+  <h4 class="step">Step 3 &mdash; if canned cycles are allowed, say so and use them</h4>
+  <p class="why">Most of these questions expect G71 for roughing. Writing it shows you know the machine does the repetition for you, and it saves you twenty lines of answer sheet.</p>
+  <div class="m">N60  G71 U2 R1            ; 2 mm depth, 1 mm retract
+N70  G71 P80 Q140 U0.5 W0.1 F0.2   ; finish allowance 0.5 on X, 0.1 on Z
+N80  G00 X35             ; profile start
+N90  G01 Z-30
+N100 X50
+N110 Z-70
+N140 X62                 ; profile end</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">The program above, with G71 as the preferred roughing route.</div>
+  </div>
+  <div class="alt"><b class="h">If the question comes in a different form</b>
+    <h5 class="vh">If it says milling instead of turning</h5>
+    <p class="vp">Everything about the structure stays the same &mdash; safety block, rough, finish &mdash; but two things change and both change every coordinate you write. On a lathe X is a diameter; on a mill X and Y are ordinary coordinates measured from the origin, so no halving and no doubling. And a milling cutter has width, so the tool centre cannot follow the profile line: it has to run offset by half the cutter diameter. Let the machine do that with G41 (offset left of the path) or G42 (offset right), and cancel it with G40 before you finish.</p>
+    <div class="m">turning : X50 means diameter 50, so the tool sits at radius 25
+milling : X50 means the tool centre is at x = 50
+
+with a 10 mm cutter on a 60 x 60 pocket:
+  G41 D01          ; offset left, tool radius 5 mm stored in D01
+  G01 X5 Y5        ; the machine now keeps the EDGE on the profile
+  ...
+  G40              ; cancel before retracting</div>
+    <h5 class="vh">If it asks for incremental instead of absolute</h5>
+    <p class="vp">G90 is absolute &mdash; every number is measured from the origin, which never moves. G91 is incremental &mdash; every number is the distance from wherever the tool is standing right now. Converting is mechanical: subtract each point from the one before it. The block where people go wrong is always the first one after switching, because that distance is measured from the last absolute position, not from the origin.</p>
+    <div class="m">absolute (G90)          incremental (G91)
+  X50 Z0                  X50 Z0      (from the start point)
+  X50 Z-30                X0  Z-30    (30 further along Z, X unchanged)
+  X35 Z-30                X-15 Z0     (15 in on X, Z unchanged)
+  X35 Z-70                X0  Z-40</div>
+    <h5 class="vh">If it also asks for machining time</h5>
+    <p class="vp">The program is then only half the marks. Time is computed per pass and multiplied, and the length you use is the cut length <i>plus</i> any approach or overtravel the question gives you. Questions state that approach distance deliberately &mdash; if it is mentioned, it is meant to be added.</p>
+    <div class="m">time per pass = (cut length + approach) / (feed x rpm)
+
+for 70 mm of cut, 5 mm approach, f = 0.2 mm/rev, N = 800:
+  = 75 / (0.2 x 800) = 0.47 min per pass
+  x 9 roughing passes + 1 finishing = 4.7 min</div>
+    <h5 class="vh">If canned cycles are not allowed</h5>
+    <p class="vp">Some papers say &quot;without using canned cycles&quot;. Then you write every pass out longhand, which is what the long version above does. Do not panic about the length &mdash; the marks are for the pattern being right, and you can write the first two passes in full and then put &quot;repeat at X48, X44, X40&quot; as a comment. Examiners accept that; writing forty near-identical blocks wastes time you need elsewhere.</p>
+    <h5 class="vh">One rule that applies whatever form it takes</h5>
+    <p class="vp">Always leave a finishing allowance. Rough down to the final size and there is nothing left for the finishing tool, which is the one thing examiners look for in every version of this question. Leave 0.5 mm on the radius and 0.1 mm on the face unless the question says otherwise.</p>
+  </div>
+</div>
+<div class="lock">
+  <div class="k">The other seven questions</div>
+  <h2>One question is open. The rest of the paper is behind this.</h2>
+  <p class="l">The question above is the whole method, free, so you can see exactly what you would be getting.
+  These are the other seven &mdash; one for every remaining question type, each worked out the same way, with the
+  same &quot;if it comes in a different form&quot; notes underneath.</p>
+  <ul><li><span class="tick">&#10003;</span><span><b>Turning calculations</b> &mdash; <span class="d">velocity per pass, MRR, machining time, parts per hour</span></span></li><li><span class="tick">&#10003;</span><span><b>Rolling</b> &mdash; <span class="d">stands, draft schedule, exit velocities, forward slip</span></span></li><li><span class="tick">&#10003;</span><span><b>Forging</b> &mdash; <span class="d">classification, flash, component sequences, defects</span></span></li><li><span class="tick">&#10003;</span><span><b>Tool geometry</b> &mdash; <span class="d">signature, rake angle choice, nose radius</span></span></li><li><span class="tick">&#10003;</span><span><b>Chips and stress&ndash;strain</b> &mdash; <span class="d">chip types and the conditions behind each</span></span></li><li><span class="tick">&#10003;</span><span><b>Additive manufacturing</b> &mdash; <span class="d">FDM against SLS, and choosing for an application</span></span></li><li><span class="tick">&#10003;</span><span><b>Sheet metal and dies</b> &mdash; <span class="d">punch and die sizing, force, progressive dies</span></span></li></ul>
+  <a class="cta" href="https://freshstart-i39e.vercel.app/#unlock=UES102-MOCK">Open the full paper for &#8377;49</a>
+  <p class="why"><b>Why this part costs something:</b> counting the marks in five papers by hand, grouping the
+  questions into types and working out every variant took weeks. The analysis guides and the solved papers stay
+  free for everyone, always &mdash; this one page is the part that is paid.</p>
+</div></div>
+<footer>
+  <p>Built from all five TIET UES102 MST papers &mdash; 37 questions, 295 marks, grouped into 8 recurring types.</p>
+</footer>
+</div>
+</body>
+</html>

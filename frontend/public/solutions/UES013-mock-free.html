@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>UES013 &mdash; The one paper to do</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<style>
+
+:root{
+  --bg:#F4F6F9; --paper:#FFFFFF; --ink:#16202C; --ink2:#4A5866; --ink3:#77838F;
+  --line:#DCE3EB; --line2:#EDF1F5; --teal:#0F766E; --teal-bg:#E7F4F1;
+  --accent:#5b54d6; --accent-bg:#EEEDFB;
+  --warn:#B4531A; --warn-bg:#FDF2E9; --warn-line:#F0DCC6;
+  --code-bg:#1E293B; --code-ink:#E2E8F0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);
+  font-family:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  line-height:1.62;-webkit-text-size-adjust:100%}
+.wrap{max-width:840px;margin:0 auto;padding:0 16px 80px}
+
+header{padding:40px 0 26px;border-bottom:1px solid var(--line)}
+.kicker{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--teal);font-weight:600}
+h1{font-family:'Source Serif 4',Georgia,serif;font-size:32px;line-height:1.18;margin:8px 0 10px;font-weight:700}
+.sub{color:var(--ink2);font-size:15px;max-width:62ch}
+
+.note{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:10px;
+  padding:14px 16px;margin:22px 0;font-size:14px;color:#6B3D18}
+.note b{color:var(--warn)}
+
+nav.toc{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:26px 0}
+nav.toc h2{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);font-weight:600;margin-bottom:12px}
+nav.toc ul{list-style:none}
+nav.toc li{margin:9px 0;font-size:15px;color:var(--ink2)}
+nav.toc li b{color:var(--ink)}
+
+.paper{margin-top:44px}
+h2.yr{font-family:'Source Serif 4',Georgia,serif;font-size:25px;font-weight:700;padding-top:12px}
+.yr-meta{color:var(--ink3);font-size:13.5px;margin-top:4px;
+  font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace}
+
+.q{background:var(--paper);border:1px solid var(--line);border-radius:12px;
+  padding:18px 20px;margin:16px 0}
+.q-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.q-no{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-weight:600;font-size:14px;
+  color:#fff;background:var(--teal);padding:3px 9px;border-radius:6px}
+.marks{font-size:12px;color:var(--ink3);font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace}
+.method{font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--accent);background:var(--accent-bg);padding:3px 9px;border-radius:20px}
+
+.qtext{font-size:15px;color:var(--ink);padding:12px 14px;background:#FAFBFD;
+  border-left:3px solid var(--line);border-radius:6px;margin-bottom:14px}
+
+h4.step{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);
+  font-weight:600;margin:16px 0 8px}
+
+pre.code{background:var(--code-bg);color:var(--code-ink);border-radius:9px;
+  padding:14px 16px;margin:10px 0;overflow-x:auto;
+  font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:13.2px;line-height:1.65}
+pre.code .c{color:#94A3B8}
+
+.m{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:14px;line-height:1.85;
+  background:#FAFBFD;border:1px solid var(--line2);border-radius:8px;
+  padding:12px 15px;margin:9px 0;overflow-x:auto;white-space:pre}
+p{font-size:15px;margin:9px 0}
+p.why{color:var(--ink2);font-size:14.3px}
+ul.pts{list-style:none;margin:8px 0}
+ul.pts li{position:relative;padding:5px 0 5px 20px;font-size:14.5px;color:var(--ink2)}
+ul.pts li::before{content:"";position:absolute;left:4px;top:14px;width:5px;height:5px;
+  border-radius:50%;background:var(--teal)}
+ol.steps{margin:8px 0 8px 20px}
+ol.steps li{font-size:14.6px;color:var(--ink2);padding:4px 0}
+
+.ans{background:var(--teal-bg);border:1px solid #C6E4DD;border-radius:10px;
+  padding:13px 16px;margin:14px 0 2px}
+.ans .lbl{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--teal);
+  font-weight:600;margin-bottom:6px}
+.ans .val{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:14.3px;
+  line-height:1.8;color:#123F39;white-space:pre-wrap}
+
+.trap{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:10px;
+  padding:12px 16px;margin:12px 0}
+.trap b{color:var(--warn);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.trap p{color:#6B3D18;font-size:14.3px;margin:6px 0 0}
+
+table{width:100%;border-collapse:collapse;font-size:14px;margin:10px 0}
+.tbl{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:10px 0;
+     border-radius:8px}
+.tbl>table{margin:0;min-width:100%}
+.tbl th,.tbl td{white-space:normal}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line2);vertical-align:top}
+th{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);
+  font-weight:600;border-bottom:1px solid var(--line)}
+td.mono{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:13.4px}
+
+footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:13.5px;color:var(--ink3)}
+
+.fb{border:2px solid var(--teal);border-radius:14px;padding:18px 20px;margin:34px 0 0;
+  background:var(--paper);box-shadow:0 2px 14px rgba(0,0,0,.05)}
+.fb h3{margin:0 0 6px;font-family:'Source Serif 4',Georgia,serif;font-size:19px;font-weight:700}
+.fb p.sub2{margin:0 0 14px;font-size:14.3px;color:var(--ink2)}
+.fb-btns{display:flex;gap:9px;flex-wrap:wrap}
+.fb-btn{font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;padding:9px 17px;
+  border-radius:30px;border:1px solid var(--line);background:#fff;color:var(--ink);
+  transition:border-color .2s,background .2s}
+.fb-btn:hover{border-color:var(--teal)}
+.fb-btn.on{background:var(--teal);border-color:var(--teal);color:#fff}
+.fb textarea{width:100%;margin-top:13px;padding:11px 13px;border-radius:10px;
+  border:1px solid var(--line);font-family:inherit;font-size:14px;resize:vertical;min-height:76px}
+.fb-send{margin-top:10px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;
+  padding:8px 18px;border-radius:30px;border:none;background:var(--teal);color:#fff}
+.fb-done{font-size:14.5px;color:var(--teal);font-weight:600}
+
+@media(max-width:560px){
+  h1{font-size:26px} h2.yr{font-size:21px}
+  .q{padding:15px 15px} .m,pre.code{font-size:12.6px} .ans .val{font-size:13.4px}
+}
+
+.share{border:1px solid var(--line);border-radius:14px;padding:17px 20px;margin:20px 0 0;
+  background:var(--paper)}
+.share h3{margin:0 0 5px;font-family:'Source Serif 4',Georgia,serif;font-size:18px;font-weight:700}
+.share p{margin:0 0 13px;font-size:14.2px;color:var(--ink-soft,#4A5866)}
+.share-row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.share-wa{display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+  font-family:inherit;font-size:14.5px;font-weight:600;padding:10px 18px;border-radius:30px;
+  background:#25D366;color:#fff;border:none;cursor:pointer}
+.share-wa:hover{background:#1FB855}
+.share-copy{font-family:inherit;font-size:14.5px;font-weight:600;cursor:pointer;
+  padding:10px 18px;border-radius:30px;border:1px solid var(--line);background:#fff;color:var(--ink,#16202C)}
+.share-copy:hover{border-color:#25D366}
+.share-done{font-size:13.8px;color:#1F7A4D;font-weight:600;margin:9px 0 0}
+
+.share-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  border:1px solid var(--line);border-radius:12px;padding:12px 15px;margin:0 0 22px;background:var(--paper)}
+.share-top span{font-size:14.2px;color:var(--ink-soft,#4A5866)}
+.share-top a{display:inline-flex;align-items:center;gap:7px;text-decoration:none;
+  font-family:inherit;font-size:13.8px;font-weight:600;padding:8px 15px;border-radius:30px;
+  background:#25D366;color:#fff;white-space:nowrap}
+.share-top a:hover{background:#1FB855}
+
+
+.tcard{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.2rem;margin:1.3rem 0 1.6rem}
+.tcard h3{font-size:.95rem;margin:0 0 .7rem;color:var(--ink)}
+.trow{display:flex;align-items:center;gap:.7rem;padding:.34rem 0;font-size:.87rem}
+.tname{flex:0 0 13rem;color:var(--ink)}
+.tbar{flex:1;height:9px;background:var(--line2);border-radius:5px;overflow:hidden}
+.tbar i{display:block;height:100%;background:var(--accent);border-radius:5px}
+.tnum{flex:0 0 5.6rem;text-align:right;color:var(--ink3);font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.8rem}
+.freq{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.04em;color:var(--ink3);margin-top:.3rem}
+.alt{background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:.95rem 1.1rem;margin:1rem 0 .2rem}
+.alt b.h{display:block;font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);margin-bottom:.55rem}
+.vh{font-size:.95rem;font-weight:600;color:var(--ink);margin:1.15rem 0 .4rem;line-height:1.4}
+.vh:first-of-type{margin-top:.2rem}
+.vp{font-size:.92rem;line-height:1.68;color:var(--ink2);margin:0 0 .55rem}
+.alt .m{margin:.2rem 0 .3rem}
+.lock{background:var(--paper);border:2px solid var(--teal);border-radius:16px;padding:1.9rem 1.7rem;margin:2rem 0 1rem;box-shadow:0 10px 30px rgba(15,118,110,.10)}
+.lock .k{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:.5rem}
+.lock h2{font-family:'Source Serif 4',Georgia,serif;font-size:1.5rem;margin:0 0 .5rem;color:var(--ink);line-height:1.25}
+.lock p.l{color:var(--ink2);font-size:.93rem;margin:0 0 1.2rem;line-height:1.6}
+.lock ul{list-style:none;padding:0;margin:0 0 1.3rem}
+.lock li{display:flex;gap:.7rem;padding:.5rem 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.lock li:last-child{border-bottom:0}
+.lock .tick{color:var(--teal);font-weight:700}
+.lock b{color:var(--ink);font-weight:600}
+.lock span.d{color:var(--ink2)}
+.lock a.cta{display:block;text-align:center;text-decoration:none;background:var(--teal);color:#fff;font-weight:600;font-size:1rem;padding:.95rem 1.2rem;border-radius:11px}
+.lock a.cta:hover{background:#0A5252}
+.lock p.why{margin:1.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--line);font-size:.845rem;color:var(--ink2);line-height:1.6}
+.rec{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:0 12px 12px 0;padding:1.05rem 1.2rem;margin:1.2rem 0 1.4rem}
+.rec b.h{display:block;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:.15rem}
+.rec p.sub{font-size:.855rem;color:var(--ink3);margin:0 0 .9rem;line-height:1.55}
+.rec h5{font-size:.95rem;font-weight:600;color:var(--ink);margin:1.25rem 0 .5rem;line-height:1.4}
+.rec h5:first-of-type{margin-top:0}
+.rec ol{margin:0;padding-left:0;list-style:none;counter-reset:rs}
+.rec ol li{counter-increment:rs;position:relative;padding:0 0 .55rem 2.1rem;font-size:.915rem;line-height:1.68;color:var(--ink2)}
+.rec ol li:last-child{padding-bottom:0}
+.rec ol li::before{content:counter(rs);position:absolute;left:0;top:.16rem;width:1.45rem;height:1.45rem;border-radius:50%;background:var(--accent-bg);color:var(--teal);font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.74rem;font-weight:600;display:flex;align-items:center;justify-content:center}
+.rec ol li b{color:var(--ink);font-weight:600}
+@media(max-width:560px){.rec{padding:.95rem 1rem}.rec ol li{padding-left:1.9rem;font-size:.89rem}}
+@media(max-width:560px){.tname{flex:0 0 8.5rem;font-size:.82rem}.tnum{flex:0 0 4.4rem}.lock{padding:1.5rem 1.2rem}}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">UES013 / UES001 &middot; Electrical &amp; Electronics Engineering &middot; MST</div>
+  <h1>The one paper to do</h1>
+  <p class="sub">Every Electrical MST for the last five years is built from eight question types. This paper has one of each, worked out in full &mdash; and under every question, the other shapes it has been asked in, so you are ready for the version you actually get.</p>
+</header>
+
+<div class="note">
+  <b>Why one paper is enough:</b> across the last five MST papers &mdash; 46 questions, 210 marks &mdash; there are
+  only <b>eight</b> question types. The same eight come back with different numbers. Four of them carry
+  <b>64%</b> of all marks and six carry <b>88%</b>. This paper has one question from each, so doing it properly
+  puts you in front of the whole paper rather than a corner of it.
+</div>
+
+<div class="tcard">
+  <h3>Every mark in the last five papers, by type</h3>
+  <div class="trow"><span class="tname">DC network theorems</span><span class="tbar"><i style="width:100%"></i></span><span class="tnum">45 marks</span></div><div class="trow"><span class="tname">Single-phase AC &amp; resonance</span><span class="tbar"><i style="width:76%"></i></span><span class="tnum">34 marks</span></div><div class="trow"><span class="tname">RL / RC transients</span><span class="tbar"><i style="width:69%"></i></span><span class="tnum">31 marks</span></div><div class="trow"><span class="tname">Nodal &amp; mesh analysis</span><span class="tbar"><i style="width:56%"></i></span><span class="tnum">25 marks</span></div><div class="trow"><span class="tname">Three-phase</span><span class="tbar"><i style="width:56%"></i></span><span class="tnum">25 marks</span></div><div class="trow"><span class="tname">Transformer</span><span class="tbar"><i style="width:53%"></i></span><span class="tnum">24 marks</span></div><div class="trow"><span class="tname">Magnetic circuits</span><span class="tbar"><i style="width:38%"></i></span><span class="tnum">17 marks</span></div><div class="trow"><span class="tname">Digital logic</span><span class="tbar"><i style="width:20%"></i></span><span class="tnum">9 marks</span></div>
+  <p class="freq" style="margin-top:.8rem">Counted by hand from all five papers.</p>
+</div>
+
+<div class="note" style="border-left-color:#B4531A;background:#FDF2E9">
+  <b>Read this before you start:</b> this is not a prediction and it is not a leaked paper. It is one question
+  built from each recurring type, using numbers of our own. What is worth your time is the <b>method</b> and the
+  <b>&quot;different form&quot;</b> box under each question &mdash; that is what carries across to whatever the real
+  paper puts in front of you. Worked out with Claude Opus 5 and machine-checked; not official TIET answers.
+  FreshStart is a student project and is not an official TIET page.
+</div>
+
+<div class="paper">
+<h2 class="yr">The paper</h2>
+<p class="yr-meta">8 questions &middot; 60 marks &middot; 2 hours &middot; one question per type</p>
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1</span><span class="marks">12 marks</span><span class="method">DC network theorems</span></div>
+  <p class="freq">5 of 5 papers &middot; 45 marks &middot; the biggest type</p>
+  <div class="qtext">For the network shown, a 24 V source feeds a 6 &Omega; resistor to node P. A 12 &Omega; resistor runs from P to ground and a 4 &Omega; resistor from P to terminal a. A 3 A current source drives into node a from ground. Find the Thevenin equivalent across a&ndash;b, and the value of R<sub>L</sub> that draws maximum power together with that power.</div>
+  <figure style="margin:1.1rem 0 .4rem"><svg viewBox="0 0 560 250" width="100%" style="max-width:560px;height:auto;display:block;margin:1rem auto" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Thevenin network: a 24 volt source through 6 ohm to node P, 12 ohm from P to ground, 4 ohm from P to terminal a, and a 3 amp source into a"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="70" cy="130" r="17"/><text x="70" y="126" text-anchor="middle" font-size="13" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >+</text><text x="70" y="141" text-anchor="middle" font-size="13" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >&#8722;</text><text x="45" y="134" text-anchor="end" font-size="12.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >24 V</text><path d="M70 113 L70 70"/><path d="M70 147 L70 190"/><path d="M70 70 L143 70"/><path d="M143 70 L153 70 L155.833 63 L161.5 77 L167.167 63 L172.833 77 L178.5 63 L184.167 77 L187 70 L197 70"/><text x="170" y="57" text-anchor="middle" font-size="12.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >6 &#937;</text><path d="M197 70 L270 70"/><circle cx="270" cy="70" r="3.2" fill="currentColor" stroke="none"/><text x="270" y="56" text-anchor="middle" font-size="12.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >P</text><path d="M270 70 L270 96"/><path d="M270 103 L270 113 L263 115.833 L277 121.5 L263 127.167 L277 132.833 L263 138.5 L277 144.167 L270 147 L270 157"/><text x="286" y="134" text-anchor="start" font-size="12.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >12 &#937;</text><path d="M270 164 L270 190"/><path d="M270 70 L343 70"/><path d="M343 70 L353 70 L355.833 63 L361.5 77 L367.167 63 L372.833 77 L378.5 63 L384.167 77 L387 70 L397 70"/><text x="370" y="57" text-anchor="middle" font-size="12.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >4 &#937;</text><path d="M397 70 L470 70"/><circle cx="470" cy="70" r="3.2" fill="currentColor" stroke="none"/><path d="M470 70 L470 113"/><circle cx="470" cy="130" r="17"/><path d="M470 139 L470 121 M470 121 l-4 5 M470 121 l4 5"/><text x="495" y="134" text-anchor="start" font-size="12.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >3 A</text><path d="M470 147 L470 190"/><path d="M70 190 L470 190"/><path d="M470 70 L520 70"/><circle cx="524" cy="70" r="4" fill="var(--paper,#fff)" stroke="currentColor"/><text x="524" y="56" text-anchor="middle" font-size="12.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >a</text><path d="M470 190 L520 190"/><circle cx="524" cy="190" r="4" fill="var(--paper,#fff)" stroke="currentColor"/><text x="524" y="212" text-anchor="middle" font-size="12.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >b</text><path d="M270 190 L270 199"/><path d="M259 199 L281 199"/><path d="M263 203 L277 203"/><path d="M267 207 L273 207"/></g></svg><figcaption class="freq" style="text-align:center;margin-top:.1rem">The network for this question</figcaption></figure>
+  <div class="rec">
+    <b class="h">How to do it &mdash; the method itself</b>
+    <p class="sub">The working below uses this paper&rsquo;s numbers. These are the steps on their own, so you can follow them on any question of this type.</p>
+    <h5>Thevenin's theorem &mdash; the full procedure</h5>
+    <ol>
+      <li>Remove R<sub>L</sub> from the circuit. Everything that follows is done with those two terminals left open.</li>
+      <li>Find the voltage across the open terminals. That is V<sub>th</sub>. Use whichever method suits the circuit &mdash; nodal, mesh, or a simple divider. Mark its polarity; you will need it when you redraw.</li>
+      <li>Find R<sub>th</sub>. Kill every <b>independent</b> source: replace each voltage source by a short and each current source by an open. Then look back into the terminals and reduce the resistors by series and parallel.</li>
+      <li>If any source is <b>dependent</b>, it cannot be killed. Instead short the terminals, find I<sub>sc</sub>, and take R<sub>th</sub> = V<sub>th</sub>/I<sub>sc</sub>.</li>
+      <li>Redraw: a source V<sub>th</sub> in series with R<sub>th</sub>, with R<sub>L</sub> reconnected across it. Then I<sub>L</sub> = V<sub>th</sub>/(R<sub>th</sub> + R<sub>L</sub>).</li>
+    </ol>
+    <h5>Norton's theorem &mdash; same work, different picture</h5>
+    <ol>
+      <li>Remove R<sub>L</sub>, exactly as for Thevenin.</li>
+      <li><b>Short</b> the two terminals together and find the current flowing through that short. That is I<sub>N</sub>.</li>
+      <li>Find R<sub>N</sub> the same way you found R<sub>th</sub> &mdash; kill the independent sources and reduce. R<sub>N</sub> is always equal to R<sub>th</sub> for the same circuit.</li>
+      <li>Redraw: a current source I<sub>N</sub> in <b>parallel</b> with R<sub>N</sub>, with R<sub>L</sub> across it. Then I<sub>L</sub> = I<sub>N</sub> &times; R<sub>N</sub>/(R<sub>N</sub> + R<sub>L</sub>) by current division.</li>
+      <li>The two equivalents convert straight into each other: V<sub>th</sub> = I<sub>N</sub>R<sub>N</sub> and I<sub>N</sub> = V<sub>th</sub>/R<sub>th</sub>. If you have found one, the other is a single line of work.</li>
+    </ol>
+    <h5>Superposition &mdash; one source at a time</h5>
+    <ol>
+      <li>Count the independent sources. You will do the circuit once per source, so with three sources you get three sub-circuits.</li>
+      <li>Keep one source live and kill all the others. A dead voltage source becomes a <b>short</b>; a dead current source becomes an <b>open</b>. Getting these two the wrong way round is the commonest error in the whole topic.</li>
+      <li>Solve the simplified circuit for the quantity you were asked for. Write down its value <i>and its direction</i>.</li>
+      <li>Repeat for every source, then add all the contributions algebraically &mdash; contributions in opposite directions subtract.</li>
+      <li>Superposition works for current and voltage only. It does <b>not</b> work for power, because power depends on the square of the current. If a question asks for power, superpose to get the total current first, then square it.</li>
+    </ol>
+    <h5>Source conversion &mdash; for collapsing a messy circuit</h5>
+    <ol>
+      <li>Look for a current source that has a resistor directly in parallel with it, or a voltage source with a resistor directly in series. Only those can be converted.</li>
+      <li>The conversion runs both ways. Multiply to go one way &mdash; a current source of I alongside R turns into a voltage source of value IR, now in series. Divide to come back &mdash; a voltage source of V in series with R turns into a current source of V/R, now in parallel.</li>
+      <li>Combine any series or parallel resistors the conversion has now brought together.</li>
+      <li>Repeat until the circuit is a single loop or a single node pair, then finish with one KVL or one KCL.</li>
+      <li>The resistor never changes value in a conversion &mdash; only the source does.</li>
+    </ol>
+    <h5>Maximum power transfer</h5>
+    <ol>
+      <li>Remove R<sub>L</sub> and find the Thevenin equivalent of everything else, as above.</li>
+      <li>The load that draws maximum power is R<sub>L</sub> = R<sub>th</sub>.</li>
+      <li>That maximum power is P<sub>max</sub> = V<sub>th</sub>&sup2;/(4R<sub>th</sub>).</li>
+      <li>If asked, note the efficiency: half the energy drawn from the source ends up heating R<sub>th</sub>, so only 50% reaches the load. Matching for maximum power is therefore a signal-circuit idea, never a power-system one.</li>
+    </ol>
+  </div>
+  <h4 class="step">Step 1 &mdash; open-circuit voltage</h4>
+  <p class="why">With a&ndash;b open nothing leaves at a, so all 3 A of the source has to go back through the 4 &Omega;. That fixes the voltage across the 4 &Omega; before you solve anything else.</p>
+  <div class="m">at node a (open):  (Va - Vp)/4 = 3   -&gt;   Va = Vp + 12
+
+at node P:  (Vp - 24)/6 + Vp/12 + (Vp - Va)/4 = 0
+            (Vp - 24)/6 + Vp/12 - 3 = 0
+  x12:      2(Vp - 24) + Vp - 36 = 0
+            3 Vp = 84      -&gt;   Vp = 28 V
+
+  Vth = Va = 28 + 12 = 40 V</div>
+  <h4 class="step">Step 2 &mdash; Thevenin resistance</h4>
+  <p class="why">Kill the independent sources: the voltage source becomes a short, the current source becomes an <b>open</b>. A dead current source is an open circuit, not a short &mdash; that one fact decides the answer.</p>
+  <div class="m">looking in from a:  4 ohm in series with (6 || 12)
+  6 || 12 = 72/18 = 4 ohm
+  Rth = 4 + 4 = 8 ohm</div>
+  <h4 class="step">Step 3 &mdash; confirm with the short-circuit current</h4>
+  <p class="why">Two independent routes to R<sub>th</sub> is what turns a plausible answer into a certain one.</p>
+  <div class="m">short a to b, so Va = 0:
+  (Vp - 24)/6 + Vp/12 + Vp/4 = 0   -&gt;   Vp = 8 V
+
+  Isc = Vp/4 + 3 = 2 + 3 = 5 A
+  Rth = Vth/Isc = 40/5 = 8 ohm      - agrees with step 2</div>
+  <h4 class="step">Step 4 &mdash; maximum power</h4>
+  <div class="m">R_L = Rth = 8 ohm
+P_max = Vth^2/(4 Rth) = 1600/32 = 50 W</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">V<sub>th</sub> = 40 V, R<sub>th</sub> = 8 &Omega;, R<sub>L</sub> = 8 &Omega; and P<sub>max</sub> = 50 W.</div>
+  </div>
+  <div class="alt"><b class="h">If the question comes in a different form</b>
+    <h5 class="vh">If the source is dependent rather than independent</h5>
+    <p class="vp">You cannot kill a dependent source, so the &quot;short the voltage source, open the current source&quot; route is not available. R<sub>th</sub> has to come from V<sub>th</sub> and I<sub>sc</sub>, exactly as in step 3. This has come up twice &mdash; a 2i<sub>x</sub> source in Mar 2024 and a 3V<sub>x</sub> source in Mar 2025 &mdash; and both times the marks were for noticing the difference, not for the arithmetic.</p>
+    <div class="m">with a dependent source:
+  1. find Vth with the terminals open  (source stays in)
+  2. find Isc with the terminals shorted (source stays in)
+  3. Rth = Vth / Isc
+
+never: &#x27;kill the sources and add the resistors&#x27; - that gives a wrong answer
+and an examiner spots it instantly</div>
+    <h5 class="vh">If it asks for Norton instead of Thevenin</h5>
+    <p class="vp">Same circuit, same work, different final picture. The Norton current is the short-circuit current you already computed, and the resistance is identical. If you have one you have the other.</p>
+    <div class="m">Norton:  I_N = Isc = 5 A  in parallel with  R_N = Rth = 8 ohm
+Thevenin: Vth = 40 V      in series   with  Rth = 8 ohm
+
+and the two are linked by  Vth = I_N x R_N  -&gt;  5 x 8 = 40 V</div>
+    <h5 class="vh">If it asks for superposition</h5>
+    <p class="vp">Take one source at a time and add the results <b>with their signs</b>. The rule people get backwards: a dead voltage source is a short, a dead current source is an open. Always state the two contributions separately before adding &mdash; the marks are for the method being visible.</p>
+    <div class="m">24 V alone (3 A source opened)   -&gt; contribution 1
+ 3 A alone (24 V source shorted) -&gt; contribution 2
+answer = contribution 1 + contribution 2, signs included
+
+check it by solving the full circuit once with both live</div>
+    <h5 class="vh">If it asks for source conversion</h5>
+    <p class="vp">Take a current source sitting beside a parallel R and rewrite it as a source of value IR placed in series with that same R; the reverse direction works too, and the other way round. Use it to collapse a circuit into a single loop, then one KVL finishes it.</p>
+    <div class="m">3 A in parallel with 4 ohm  ==  12 V in series with 4 ohm
+24 V in series with 6 ohm   ==   4 A in parallel with 6 ohm</div>
+    <h5 class="vh">The one check to run whatever the form</h5>
+    <p class="vp">R<sub>th</sub> for a circuit with only independent sources can never be negative and can never come out larger than the sum of all the resistances in the path. If it does, a source has been killed the wrong way &mdash; almost always a current source shorted instead of opened.</p>
+  </div>
+</div>
+<div class="lock">
+  <div class="k">The other seven questions</div>
+  <h2>One question is open. The rest of the paper is behind this.</h2>
+  <p class="l">The question above is the whole method, free, so you can see exactly what you would be getting.
+  These are the other seven &mdash; one for every remaining question type, each worked out the same way, with the
+  same &quot;if it comes in a different form&quot; notes underneath.</p>
+  <ul><li><span class="tick">&#10003;</span><span><b>Single-phase AC and resonance</b> &mdash; <span class="d">current, power factor, power, resonance, magnification</span></span></li><li><span class="tick">&#10003;</span><span><b>RL / RC transients</b> &mdash; <span class="d">switching both ways, capacitor form, the parallel-resistance trap</span></span></li><li><span class="tick">&#10003;</span><span><b>Nodal and mesh</b> &mdash; <span class="d">supernodes, supermeshes, sources inside branches</span></span></li><li><span class="tick">&#10003;</span><span><b>Three-phase</b> &mdash; <span class="d">star and delta, two-wattmeter method, negative readings</span></span></li><li><span class="tick">&#10003;</span><span><b>Transformer</b> &mdash; <span class="d">EMF equation, full-load currents, phasor diagrams</span></span></li><li><span class="tick">&#10003;</span><span><b>Magnetic circuits</b> &mdash; <span class="d">air gaps, saw cuts, coupled coils</span></span></li><li><span class="tick">&#10003;</span><span><b>Digital logic</b> &mdash; <span class="d">Karnaugh maps, two&rsquo;s complement, gate simplification</span></span></li></ul>
+  <a class="cta" href="https://freshstart-i39e.vercel.app/#unlock=UES013-MOCK">Open the full paper for &#8377;49</a>
+  <p class="why"><b>Why this part costs something:</b> counting the marks in five papers by hand, grouping the
+  questions into types and working out every variant took weeks. The analysis guides and the solved papers stay
+  free for everyone, always &mdash; this one page is the part that is paid.</p>
+</div></div>
+<footer>
+  <p>Built from all five TIET UES013 MST papers &mdash; 46 questions, 210 marks, grouped into 8 recurring types.</p>
+</footer>
+</div>
+</body>
+</html>

@@ -56,7 +56,7 @@ function LoginGate({ title, text }) {
       <h3>{title}</h3>
       <p>{text}</p>
       <ul className="perks">
-        <li><b>✦</b>PYQ solutions and analysis for all nine subjects</li>
+        <li><b>✦</b>PYQ analysis guides for all nine subjects</li>
         <li><b>✦</b>Every FAQ, fully unlocked</li>
         <li><b>✦</b>Topper tips for all ten subjects</li>
         <li><b>✦</b>The full answered doubts archive</li>
@@ -121,18 +121,10 @@ function SectionFeedback({ user }) {
   if (already) return null;
 
   return (
-    <div
-      className="highlight"
-      style={{
-        margin: '2rem 0',
-        border: '2px solid #6c63ff',
-        background: 'rgba(108, 99, 255, .1)',
-        boxShadow: '0 10px 30px rgba(108, 99, 255, .18)'
-      }}
-    >
+    <div className="highlight" style={{ marginTop: '2rem' }}>
       <span>&#128172;</span>
       <div style={{ width: '100%' }}>
-        <b style={{ fontSize: '1.05rem' }}>Did these guides help you?</b>
+        <b>Did this section help you?</b>
         {sent ? (
           <p style={{ marginTop: '.5rem' }}>Thanks — this genuinely helps. Good luck in the exam.</p>
         ) : (
@@ -176,28 +168,13 @@ const Spinner = () => <div className="spinner" />;
 
 /* ---------------- pages ---------------- */
 
-/* A student-run site, not an official Thapar page. Shown on the main pages. */
-function NotOfficial({ withErrorNote }) {
-  return (
-    <div style={{
-      margin: '1.2rem 0', padding: '.85rem 1.05rem', borderRadius: '10px',
-      background: '#F4F4F7', border: '1px solid #DEDEE6',
-      color: '#5A5A6E', fontSize: '.82rem', lineHeight: 1.6
-    }}>
-      FreshStart is built and run by one Thapar student, on their own.
-      It is not an official TIET page and has no connection with the institute or its administration.
-      {withErrorNote ? ' The solutions here were written with the help of AI, so a step can be wrong \u2014 always check against your own working, and tell us if you spot a mistake.' : ''}
-    </div>
-  );
-}
-
 function Home({ go }) {
   return (
     <div className="hero">
       <div className="hero-in">
         <h2 className="hero-title">Start first year <em>knowing what to expect</em></h2>
         <p>
-          PYQ solutions, subject guides, attendance rules, detention risk and answers from
+          PYQ analysis guides, subject guides, attendance rules, detention risk and answers from
           people who already survived it. Sign in with your @thapar.edu email to open everything.
         </p>
 
@@ -206,17 +183,14 @@ function Home({ go }) {
           <div className="mini" onClick={() => go('faqs')}><i>❓</i><h4>FAQs</h4><p>Real answers</p></div>
           <div className="mini" onClick={() => go('doubts')}><i>💬</i><h4>Doubts</h4><p>Ask anonymously</p></div>
           <div className="mini" onClick={() => go('pyq')}><i>📊</i><h4>PYQ Guides</h4><p>What repeats in MSTs</p></div>
-          <div className="mini" onClick={() => go('solutions')}><i>✎</i><h4>Solved PYQs</h4><p>Past papers worked out</p></div>
         </div>
-
-        <NotOfficial />
 
         <div className="senior-cta" onClick={() => go('pyq')} style={{ marginBottom: '1.2rem' }}>
           <div className="senior-cta-in">
             <span className="live">new</span>
-            <h3>PYQ solutions &mdash; papers solved step by step</h3>
-            <p>Every question from the past MST papers worked out the way you would write it in the answer sheet, with the method named at each step. Plus which topics repeat, a formula sheet, and the full papers to practise on.</p>
-            <span className="senior-cta-go">Open the solutions &rarr;</span>
+            <h3>PYQ analysis guides for 9 subjects</h3>
+            <p>We read every past MST paper of each subject and counted the marks. See which topics repeat, the questions asked each year, a formula sheet, the mistakes that cost marks, and the full papers to practise on.</p>
+            <span className="senior-cta-go">Open the guides &rarr;</span>
           </div>
         </div>
 
@@ -377,57 +351,6 @@ const GUIDES = [
 ];
 const GUIDE_CODES = GUIDES.map(g => g.code);
 
-// fully worked solutions to the past papers — a separate thing from the analysis guides
-const SOLUTIONS = [
-  {
-    code: 'UMA004',
-    file: 'UMA004-solutions.html',
-    name: 'Mathematics II',
-    pool: 'B',
-    papers: 3,
-    parts: 26,
-    note: 'Every part of the Mar 2024, Mar 2025 and Mar 2026 papers, solved step by step'
-  },
-  {
-    code: 'UES102',
-    file: 'UES102-solutions.html',
-    name: 'Manufacturing Processes',
-    pool: 'B',
-    papers: 5,
-    parts: 37,
-    note: 'All five MST papers solved — every CNC program written out and every numerical checked twice'
-  },
-  {
-    code: 'UES013',
-    file: 'UES013-solutions.html',
-    // served from the frontend for now: Railway deploys are paused, so the
-    // backend copy cannot go live yet. Move this back once Railway recovers.
-    staticFile: true,
-    name: 'Electrical & Electronics',
-    pool: 'A',
-    papers: 5,
-    parts: 46,
-    note: 'All five MST papers solved — every network re-solved a second way and every transient checked against the differential equation'
-  },
-  {
-    code: 'UES103',
-    file: 'UES103-solutions.html',
-    name: 'C Programming',
-    pool: 'A',
-    papers: 5,
-    parts: 30,
-    note: 'Five papers solved — every program compiled and run to check its output'
-  }
-];
-
-/* ---- change these two and nothing else to alter the price or the UPI id ---- */
-/* Set to true to put the solved papers back behind the paywall.
-   The unlock page, the claim form and the admin panel all stay in place. */
-const PAID_MODE = false;
-const PRICE = 29;
-const UPI_QR = "data:image/png;base64,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";
-const UPI_ID = 'harpuneet61-1@oksbi';
-
 // one free sample subject per pool — everything else needs a Thapar sign-in
 const OPEN_CODES = ['UEN008', 'UES102'];
 
@@ -435,48 +358,6 @@ const OPEN_CODES = ['UEN008', 'UES102'];
 function sortGuides(list, user) {
   if (user) return list;
   return [...list].sort((a, b) => (OPEN_CODES.includes(b.code) ? 1 : 0) - (OPEN_CODES.includes(a.code) ? 1 : 0));
-}
-
-/* 14 -> "2 pm", 0 -> "12 am" — hours read better than 24-hour numbers in prose */
-function fmtHour(h) {
-  const am = h < 12;
-  const twelve = h % 12 === 0 ? 12 : h % 12;
-  return twelve + (am ? ' am' : ' pm');
-}
-
-/* Turn the day by day record into a file worth keeping. A dashboard can be
-   reset or rebuilt; a downloaded CSV cannot. */
-function downloadDailyCsv(daily, hourly) {
-  const rows = [['date', 'visits', 'unique_visitors', 'new_signins', 'guides_opened']];
-  daily.days.forEach(d => {
-    rows.push([
-      d.date,
-      d.visits,
-      d.uniqueVisitors,
-      d.newSignins,
-      d.guides.map(g => g.path + '=' + g.n).join(' ')
-    ]);
-  });
-
-  if (hourly && hourly.hours) {
-    rows.push([]);
-    rows.push(['hour_of_day_' + hourly.timezone, 'visits', 'devices', 'window_days', '']);
-    hourly.hours.forEach(h => rows.push([String(h.hour).padStart(2, '0'), h.visits, h.devices, hourly.days, '']));
-  }
-  const csv = rows.map(r => r.map(v => {
-    const s = String(v);
-    return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
-  }).join(',')).join('\n');
-
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'freshstart-daily-' + new Date().toISOString().slice(0, 10) + '.csv';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
 }
 
 function GuideCard({ g, i, user }) {
@@ -533,236 +414,14 @@ function GuideCard({ g, i, user }) {
   );
 }
 
-const noteStyle = {
-  marginTop: '.9rem', padding: '.55rem .8rem', borderRadius: '10px',
-  background: 'rgba(108, 99, 255, .12)', border: '1px solid rgba(108, 99, 255, .35)',
-  color: '#4f48c4', fontSize: '.85rem', fontWeight: 600
-};
-
-/* ---- unlock page: pay by UPI, then enter the transaction id ---- */
-function Unlock({ user, go, onPaid, code }) {
-  const subject = SOLUTIONS.find(s => s.code === code);
-  const [utr, setUtr] = useState('');
-  const [busy, setBusy] = useState(false);
-  const [msg, setMsg] = useState('');
-
-  async function submit() {
-    const ref = utr.replace(/\s/g, '');
-    if (!/^[0-9]{12}$/.test(ref)) {
-      setMsg('Number poore 12 ank ka hona chahiye. Apne UPI app me payment pe tap karke dekho.');
-      return;
-    }
-    setBusy(true); setMsg('');
-
-    async function attempt() {
-      const r = await fetch(API + '/api/payment-claim', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: user.email, name: user.name || '', code,
-          utr: ref, amount: PRICE
-        })
-      });
-      let d = {};
-      try { d = await r.json(); } catch (e) {}
-      return { ok: r.ok, d };
-    }
-
-    let res = null;
-    try {
-      res = await attempt();
-    } catch (e) { res = null; }
-
-    if (res && res.ok) { onPaid(code); go('pyq'); return; }
-
-    setMsg(res && res.d && res.d.message
-      ? res.d.message
-      : 'Server tak request nahi pahunchi. Thodi der baad dobara try karo — paisa kata hai toh access pakka milega.');
-    setBusy(false);
-  }
-
-  return (
-    <div className="wrap">
-      <h2>Unlock {subject ? subject.name : 'these solutions'}</h2>
-      <p className="sub">
-        ₹{PRICE} opens the solved papers for {subject ? subject.name + ' (' + subject.code + ')' : 'this subject'} —
-        {subject ? ' all ' + subject.parts + ' questions from ' + subject.papers + ' past papers, ' : ' '}
-        worked out step by step. The analysis guides stay free for everyone.
-      </p>
-
-      <div className="sec-title" style={{ marginTop: '1.6rem' }}>Step 1 — pay ₹{PRICE}</div>
-
-      <div className="card" style={{ textAlign: 'center', padding: '1.4rem 1rem' }}>
-        <img src={UPI_QR} alt="UPI QR"
-          style={{ width: '190px', maxWidth: '64%', borderRadius: '12px' }} />
-        <p className="note" style={{ marginTop: '.7rem', marginBottom: '1.1rem' }}>
-          Scan with any UPI app and send <b>₹{PRICE}</b>
-        </p>
-
-        <div style={{ borderTop: '1px solid rgba(0,0,0,.08)', paddingTop: '1rem' }}>
-          <p className="note" style={{ margin: 0 }}>On your phone? Use the UPI id instead</p>
-          <p style={{ fontSize: '1.15rem', fontWeight: 700, color: '#5b54d6', wordBreak: 'break-all', margin: '.35rem 0 0' }}>
-            {UPI_ID}
-          </p>
-          <button className="btn btn-sm" style={{ marginTop: '.6rem' }}
-            onClick={() => {
-              try {
-                navigator.clipboard.writeText(UPI_ID);
-                setMsg('UPI id copied — paste it in your UPI app.');
-              } catch (e) { setMsg('Copy it by hand: ' + UPI_ID); }
-            }}>
-            Copy UPI id
-          </button>
-          <p className="note" style={{ marginTop: '.7rem' }}>
-            Open any UPI app, paste this id, send ₹{PRICE}.
-          </p>
-        </div>
-      </div>
-
-      <div className="sec-title" style={{ marginTop: "1.8rem" }}>Step 2 — enter the 12-digit number</div>
-      <p className="note" style={{ marginTop: 0 }}>
-        Har payment ka ek <b>12-digit number</b> hota hai. Wahi daalna hai — uske baad solutions
-        turant khul jayenge.
-      </p>
-
-      <div style={{
-        marginTop: '.9rem', padding: '.9rem 1rem', borderRadius: '10px',
-        background: '#F4F6FB', border: '1px solid #DCE2F0', fontSize: '.86rem', lineHeight: 1.65
-      }}>
-        <b style={{ display: 'block', marginBottom: '.4rem' }}>Wo number kahan milega</b>
-        <div style={{ color: '#4A5866' }}>
-          <b>PhonePe</b> &mdash; History → jo payment abhi ki uspe tap karo → neeche
-          <i> UTR</i> likha hoga<br />
-          <b>Google Pay</b> &mdash; payment pe tap karo → <i>UPI transaction ID</i><br />
-          <b>Paytm</b> &mdash; payment pe tap karo → <i>UPI Ref No.</i><br />
-          <b>Koi bhi app</b> &mdash; jo 12 ank ka lamba number dikhe, wahi hai
-        </div>
-      </div>
-
-      <label className="field" style={{ display: 'block', marginTop: '.9rem' }}>
-        <input placeholder="12-digit number" value={utr}
-          inputMode="numeric" maxLength={14}
-          onChange={e => setUtr(e.target.value.replace(/[^0-9]/g, '').slice(0, 12))} />
-        <span className="note" style={{
-          display: 'block', marginTop: '.35rem',
-          color: utr.length === 12 ? '#0c7057' : undefined,
-          fontWeight: utr.length === 12 ? 600 : undefined
-        }}>
-          {utr.length === 0
-            ? 'Sirf ank — 12 ka 12'
-            : utr.length === 12
-              ? '12 / 12 — theek hai'
-              : utr.length + ' / 12 ank'}
-        </span>
-      </label>
-
-      <button className="btn" style={{ marginTop: '1rem' }} onClick={submit} disabled={busy}>
-        {busy ? 'Khol raha hoon…' : 'Unlock karo'}
-      </button>
-      {msg && <p className="note" style={{ color: '#b91c1c' }}>{msg}</p>}
-
-      <p className="note" style={{ marginTop: '1.6rem' }}>
-        Paying with a different account than the one you signed in with is fine — access is tied to
-        the Thapar email you are signed in as ({user.email}). Trouble? Ask in Doubts and it gets sorted.
-      </p>
-    </div>
-  );
-}
-
-/* ---- Solved PYQs: its own section again, one card per subject ---- */
-const SOLVED_CODES = SOLUTIONS.map(s => s.code);
-
-function SolutionCard({ s, i, user }) {
-  const inner = (
-    <>
-      <h3>{s.name}{user ? '' : ' 🔒'}</h3>
-      <p>{s.code} · Pool {s.pool} · {s.papers} papers · {s.parts} questions solved</p>
-      <p style={{ marginTop: '.6rem', color: '#5b54d6', fontSize: '.9rem' }}>{s.note}</p>
-      <div className="tags" style={{ marginTop: '.9rem' }}>
-        <span className="tag">Step-by-step</span>
-        <span className="tag">Method named</span>
-        <span className="tag">Common slips</span>
-        <span className="tag">Year-wise</span>
-      </div>
-    </>
-  );
-
-  if (!user) {
-    return (
-      <div className="card clickable" onClick={startLogin} role="button"
-        style={{ animationDelay: i * 0.06 + 's', opacity: .85 }}>
-        {inner}
-        <p style={noteStyle}>🔒 Tap to sign in with your Thapar email</p>
-      </div>
-    );
-  }
-
-  // `staticFile` means the page is served from the frontend instead of the backend.
-  // Used when a subject's solutions need to go live before the backend can deploy.
-  return (
-    <a className="card clickable"
-      href={s.staticFile
-        ? '/solutions/' + s.file
-        : API + '/api/solutions/' + s.code + '?email=' + encodeURIComponent(user.email)}
-      target="_blank" rel="noopener noreferrer"
-      onClick={() => trackGuideOpen(s.code + '-SOL', user)}
-      style={{ animationDelay: i * 0.06 + 's', textDecoration: 'none', display: 'block' }}>
-      {inner}
-    </a>
-  );
-}
-
-function PyqSolutions({ user, go }) {
-  return (
-    <div className="wrap">
-      <h2>Past PYQ solutions</h2>
-      <p className="sub">
-        The analysis guides tell you which questions come. These go one step further &mdash; every
-        question from the past papers worked out fully, the way you would write it in the answer
-        sheet, with the method named at each step.
-      </p>
-
-      <div className="highlight" style={{ marginTop: '1.4rem' }}>
-        <span>&#9998;</span>
-        <div>
-          <b>What's inside</b>
-          <p>
-            Each paper, year by year &middot; every part solved step by step &middot; the method named
-            &middot; the final answer set apart &middot; and a note wherever students commonly lose marks.
-          </p>
-        </div>
-      </div>
-
-      <div className="grid" style={{ marginTop: '1.4rem' }}>
-        {SOLUTIONS.map((s, i) => <SolutionCard s={s} i={i} user={user} key={s.code} />)}
-      </div>
-
-      <div className="sec-title" style={{ marginTop: '2.2rem' }}>Coming soon</div>
-      <p className="note" style={{ marginTop: 0 }}>
-        Solutions for these are still being written. Their analysis guides are complete and open now.
-      </p>
-      <div className="tags" style={{ marginTop: '.6rem' }}>
-        {GUIDES.filter(g => !SOLVED_CODES.includes(g.code)).map(g => (
-          <span className="tag" key={g.code}>{g.name}</span>
-        ))}
-      </div>
-
-      <p className="note" style={{ marginTop: '1.6rem' }}>
-        Spotted a step that looks wrong? Say so in the box at the bottom of the solutions page &mdash;
-        it gets checked and fixed.
-      </p>
-    </div>
-  );
-}
-
-function PyqGuides({ user, go }) {
+function PyqGuides({ user }) {
   return (
     <div className="wrap">
       <h2>PYQ analysis guides</h2>
       <p className="sub">
-        Every guide is built from the actual MST papers of that subject &mdash; not guesswork. We counted
-        the marks question by question to show which topics keep repeating, how they were asked each
-        year, and where students lose easy marks.
+        Every guide is built from the actual MST papers of that subject — not guesswork. We counted the
+        marks question by question to show which topics keep repeating, how they were asked each year,
+        and where students lose easy marks.
       </p>
 
       {!user && (
@@ -777,9 +436,9 @@ function PyqGuides({ user, go }) {
         <div>
           <b>What's inside every guide</b>
           <p>
-            Must-do topics ranked by how often they came up &middot; a repeated-topics heatmap &middot;
-            every past question sorted by topic and year &middot; a formula sheet &middot; common
-            mistakes &middot; a one-evening plan &middot; and the full past papers.
+            Must-do topics ranked by how often they came up · a repeated-topics heatmap · every past
+            question sorted by topic and year · a formula sheet · common mistakes · a
+            one-evening plan · and the full past papers.
           </p>
         </div>
       </div>
@@ -788,8 +447,6 @@ function PyqGuides({ user, go }) {
       <div className="grid">
         {sortGuides(GUIDES.filter(g => g.pool === 'A'), user).map((g, i) => <GuideCard g={g} i={i} user={user} key={g.code} />)}
       </div>
-
-      <SectionFeedback user={user} />
 
       <div className="sec-title">Pool B</div>
       <div className="grid">
@@ -801,7 +458,7 @@ function PyqGuides({ user, go }) {
         cross-check the topic list against your own MST syllabus before planning.
       </p>
 
-
+      <SectionFeedback user={user} />
     </div>
   );
 }
@@ -858,9 +515,9 @@ function SubjectDetail({ code, user, go }) {
         >
           <span style={{ fontSize: '1.5rem' }}>&#128202;</span>
           <span style={{ flex: 1 }}>
-            <b style={{ display: 'block', fontSize: '1rem' }}>PYQ solutions &amp; analysis</b>
+            <b style={{ display: 'block', fontSize: '1rem' }}>PYQ analysis guide</b>
             <span style={{ fontSize: '.85rem', color: '#5A6472' }}>
-              Papers solved step by step, which topics repeat, formula sheet and the full past papers
+              Which topics repeat, formula sheet, common mistakes and full past papers
             </span>
           </span>
           <span style={{ fontSize: '1.2rem', color: '#5b54d6' }}>&rarr;</span>
@@ -987,15 +644,9 @@ function Admin({ user }) {
   const [denied, setDenied] = useState(false);
   const [mentorApps, setMentorApps] = useState([]);
   const [analytics, setAnalytics] = useState(null);
-  const [daily, setDaily] = useState(null);
-  const [hourly, setHourly] = useState(null);
-  const [opens, setOpens] = useState(null);
-  const [hoverHour, setHoverHour] = useState(null);
   const [logins, setLogins] = useState([]);
   const [feedback, setFeedback] = useState(null);
   const [answered, setAnswered] = useState([]);
-  const [payments, setPayments] = useState(null);
-  const [shots, setShots] = useState({});
 
   const load = useCallback(() => {
     if (!user) return;
@@ -1029,29 +680,9 @@ function Admin({ user }) {
       .then(d => { if (d) setFeedback(d); })
       .catch(() => {});
 
-    fetch(API + '/api/admin/payment-claims', { headers })
-      .then(r => r.ok ? r.json() : null)
-      .then(d => { if (d) setPayments(d); })
-      .catch(() => {});
-
     fetch(API + '/api/admin/analytics', { headers })
       .then(r => r.ok ? r.json() : null)
       .then(d => { if (d) setAnalytics(d); })
-      .catch(() => {});
-
-    fetch(API + '/api/admin/daily?days=90', { headers })
-      .then(r => r.ok ? r.json() : null)
-      .then(d => { if (d) setDaily(d); })
-      .catch(() => {});
-
-    fetch(API + '/api/admin/hourly?days=14', { headers })
-      .then(r => r.ok ? r.json() : null)
-      .then(d => { if (d) setHourly(d); })
-      .catch(() => {});
-
-    fetch(API + '/api/admin/solution-opens', { headers })
-      .then(r => r.ok ? r.json() : null)
-      .then(d => { if (d) setOpens(d); })
       .catch(() => {});
 
     fetch(API + '/api/admin/logins', { headers })
@@ -1123,12 +754,6 @@ function Admin({ user }) {
       )}
 
       <div className="sec-title">Live traffic</div>
-      <p className="note" style={{ marginTop: 0 }}>
-        A page view is counted once per page load and once each time a guide is opened.
-        A device is one browser — the same person on a phone and a laptop counts twice,
-        so <b>Users</b> above (one per signed-in Thapar account) is the firmer number.
-        Today means since midnight IST.
-      </p>
       {analytics && (
         <>
           <div className="stats">
@@ -1136,14 +761,9 @@ function Admin({ user }) {
               <b><span className="live" style={{ marginRight: '.4rem' }}></span>{analytics.activeNow}</b>
               <span>Active now</span>
             </div>
-            <div className="stat">
-              <b>{analytics.visitsCalendarToday != null ? analytics.visitsCalendarToday : analytics.visitsToday}</b>
-              <span>Page views today</span>
-            </div>
-            <div className="stat"><b>{analytics.visitsLast24h || analytics.visitsToday}</b><span>Last 24 hours</span></div>
-            <div className="stat"><b>{analytics.uniqueToday != null ? analytics.uniqueToday : '—'}</b><span>Devices today</span></div>
-            <div className="stat"><b>{analytics.totalVisits}</b><span>Page views, all time</span></div>
-            <div className="stat"><b>{analytics.uniqueVisitors}</b><span>Devices, all time</span></div>
+            <div className="stat"><b>{analytics.visitsToday}</b><span>Visits today</span></div>
+            <div className="stat"><b>{analytics.totalVisits}</b><span>Total visits</span></div>
+            <div className="stat"><b>{analytics.uniqueVisitors}</b><span>Unique visitors</span></div>
           </div>
           {analytics.topPages.length > 0 && (
             <div className="tags" style={{ marginBottom: '2rem' }}>
@@ -1152,217 +772,6 @@ function Admin({ user }) {
               ))}
             </div>
           )}
-        </>
-      )}
-
-      <div className="sec-title">Guides and solutions, subject by subject</div>
-      {!opens || !opens.subjects || opens.subjects.length === 0 ? (
-        <div className="empty">Nothing recorded yet.</div>
-      ) : (
-        <>
-          <p className="note" style={{ marginTop: 0 }}>
-            How many times each subject&rsquo;s guide was opened, and how many times its solved papers were.
-            The last column is what share of guide opens went on to the solutions &mdash; it says which
-            subjects people actually finish. All time.
-          </p>
-          <div className="tbl">
-            <table>
-              <thead>
-                <tr>
-                  <th>Subject</th>
-                  <th style={{ textAlign: 'right' }}>Guide opens</th>
-                  <th style={{ textAlign: 'right' }}>Solution opens</th>
-                  <th style={{ textAlign: 'right' }}>Devices</th>
-                  <th style={{ textAlign: 'right' }}>Went on to solutions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {opens.subjects.map(s => (
-                  <tr key={s.code}>
-                    <td><b>{s.code}</b></td>
-                    <td style={{ textAlign: 'right' }}>{s.guideOpens || '—'}</td>
-                    <td style={{ textAlign: 'right', color: s.solutionOpens ? '#6c63ff' : undefined }}>
-                      <b>{s.solutionOpens || '—'}</b>
-                    </td>
-                    <td style={{ textAlign: 'right' }}>{s.solutionDevices || '—'}</td>
-                    <td style={{ textAlign: 'right' }}>
-                      {s.solutionOpens && s.followThrough != null ? s.followThrough + '%' : '—'}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="note">
-            <b>{opens.totalSolutionOpens}</b> solution opens in total, against <b>{opens.totalGuideOpens}</b> guide opens.
-            A subject with no solutions yet shows a dash.
-          </p>
-        </>
-      )}
-
-      <div className="sec-title">When people are on the site</div>
-      {!hourly || !hourly.total ? (
-        <div className="empty">Nothing recorded yet.</div>
-      ) : (
-        <>
-          <p className="note" style={{ marginTop: 0 }}>
-            Page views by hour of day, added up over the last {hourly.days} days ({hourly.timezone}).
-            Each bar is {hourly.days} days of that hour, not one day.
-            Busiest is <b>{fmtHour(hourly.busiestHour)}</b> &mdash; {hourly.busiestVisits} views in {hourly.days} days,
-            about <b>{Math.round(hourly.busiestVisits / hourly.days)} a day</b>.
-            Every bar together comes to {hourly.total} views, roughly{' '}
-            {Math.round(hourly.total / hourly.days)} a day.
-          </p>
-
-          <div style={{
-            display: 'flex', alignItems: 'flex-end', gap: '2px',
-            height: '160px', marginTop: '1rem', padding: '18px 0 0'
-          }}>
-            {hourly.hours.map(h => {
-              const peak = hourly.busiestVisits || 1;
-              const pct = Math.round((h.visits / peak) * 100);
-              const isPeak = h.hour === hourly.busiestHour;
-              const showing = hoverHour === h.hour || (hoverHour === null && isPeak);
-              return (
-                <div key={h.hour}
-                  onMouseEnter={() => setHoverHour(h.hour)}
-                  onMouseLeave={() => setHoverHour(null)}
-                  style={{ flex: 1, height: '100%', display: 'flex', flexDirection: 'column',
-                           justifyContent: 'flex-end', position: 'relative', cursor: 'default' }}>
-                  {showing && (
-                    <span style={{
-                      position: 'absolute', top: '-16px', left: '50%', transform: 'translateX(-50%)',
-                      fontSize: '.72rem', fontWeight: 600, color: '#16202C', whiteSpace: 'nowrap'
-                    }}>{h.visits}</span>
-                  )}
-                  <div style={{
-                    height: Math.max(pct, h.visits > 0 ? 2 : 0) + '%',
-                    background: '#6c63ff',
-                    opacity: hoverHour === null || hoverHour === h.hour ? 1 : .45,
-                    borderRadius: '4px 4px 0 0',
-                    transition: 'opacity .12s'
-                  }} />
-                </div>
-              );
-            })}
-          </div>
-
-          <div style={{ display: 'flex', gap: '2px', marginTop: '.35rem' }}>
-            {hourly.hours.map(h => (
-              <div key={h.hour} style={{
-                flex: 1, textAlign: 'center', fontSize: '.62rem', color: '#8A94A6',
-                fontVariantNumeric: 'tabular-nums'
-              }}>{h.hour % 3 === 0 ? String(h.hour).padStart(2, '0') : ''}</div>
-            ))}
-          </div>
-          <p className="note" style={{ marginTop: '.5rem', fontSize: '.78rem' }}>
-            Hover a bar for its number. Use this to decide when to post &mdash; a new guide or a
-            story lands best an hour before the peak.
-          </p>
-        </>
-      )}
-
-      <div className="sec-title">Day by day record</div>
-      {!daily || !daily.days.length ? (
-        <div className="empty">Nothing recorded yet.</div>
-      ) : (
-        <>
-          <p className="note" style={{ marginTop: 0 }}>
-            Rebuilt from every stored visit, so it covers the days already gone. Times are {daily.timezone}.
-            Download it now and again after the exams &mdash; a saved file is proof, a dashboard is not.
-          </p>
-          <button className="btn btn-sm" style={{ marginBottom: '.8rem' }}
-            onClick={() => downloadDailyCsv(daily, hourly)}>
-            Download as CSV
-          </button>
-          <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '.86rem' }}>
-              <thead>
-                <tr style={{ textAlign: 'left', borderBottom: '2px solid #e4e4ef' }}>
-                  <th style={{ padding: '.45rem .5rem' }}>Date</th>
-                  <th style={{ padding: '.45rem .5rem' }}>Visits</th>
-                  <th style={{ padding: '.45rem .5rem' }}>Unique</th>
-                  <th style={{ padding: '.45rem .5rem' }}>New sign-ins</th>
-                  <th style={{ padding: '.45rem .5rem' }}>Most opened</th>
-                </tr>
-              </thead>
-              <tbody>
-                {daily.days.map(d => (
-                  <tr key={d.date} style={{ borderBottom: '1px solid #eee' }}>
-                    <td style={{ padding: '.45rem .5rem', whiteSpace: 'nowrap' }}>{d.date}</td>
-                    <td style={{ padding: '.45rem .5rem', fontWeight: 600 }}>{d.visits}</td>
-                    <td style={{ padding: '.45rem .5rem' }}>{d.uniqueVisitors}</td>
-                    <td style={{ padding: '.45rem .5rem' }}>{d.newSignins}</td>
-                    <td style={{ padding: '.45rem .5rem', color: '#5A6472' }}>
-                      {d.guides.length ? d.guides.slice(0, 3).map(g => g.path.replace('guide/', '') + ' ' + g.n).join(' · ') : '—'}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </>
-      )}
-
-      <div className="sec-title">Payments</div>
-      {!payments || payments.claims.length === 0 ? (
-        <div className="empty">No payments yet.</div>
-      ) : (
-        <>
-          <div className="tags" style={{ marginBottom: '.6rem' }}>
-            <span className="tag ok">&#8377;{payments.total} collected</span>
-            <span className="tag">{payments.activeCount} active unlocks</span>
-            <span className="tag">{payments.claims.length} total claims</span>
-            <span className="tag">
-              {new Set(payments.claims.filter(c => !c.revoked).map(c => c.email)).size} students
-            </span>
-          </div>
-          <div className="tags" style={{ marginBottom: '1rem' }}>
-            {SOLUTIONS.map(s => {
-              const n = payments.claims.filter(c => !c.revoked && c.code === s.code).length;
-              return <span className="tag" key={s.code}>{s.code} · {n} sold</span>;
-            })}
-          </div>
-          <div className="list">
-            {payments.claims.map(c => (
-              <div className="card" key={c._id} style={c.revoked ? { opacity: .55 } : null}>
-                <h4>{c.email}{c.revoked ? ' · revoked' : ''}</h4>
-                <div className="tags" style={{ marginTop: '.4rem' }}>
-                  <span className="tag">{c.code}</span>
-                  <span className="tag ok">&#8377;{c.amount}</span>
-                </div>
-                <p style={{ marginTop: '.5rem' }}>UTR <b>{c.utr}</b></p>
-                <p className="note">{c.name || 'no name'} · {new Date(c.createdAt).toLocaleString()}</p>
-                <div className="tags" style={{ marginTop: '.6rem' }}>
-                  <button className="btn btn-sm btn-ghost"
-                    onClick={() => {
-                      if (shots[c._id]) { setShots({ ...shots, [c._id]: null }); return; }
-                      fetch(API + '/api/admin/payment-claims/' + c._id + '/screenshot', { headers: Auth.adminHeaders(user.email) })
-                        .then(r => r.ok ? r.json() : null)
-                        .then(d => setShots({ ...shots, [c._id]: (d && d.screenshot) || 'none' }))
-                        .catch(() => {});
-                    }}>
-                    {shots[c._id] ? 'Hide screenshot' : 'View screenshot'}
-                  </button>
-                  <button className={'btn btn-sm' + (c.revoked ? ' btn-ghost' : ' btn-red')}
-                    onClick={() => {
-                      fetch(API + '/api/admin/payment-claims/' + c._id + '/revoke', {
-                        method: 'POST',
-                        headers: { ...Auth.adminHeaders(user.email), 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ revoked: !c.revoked })
-                      }).then(() => load()).catch(() => {});
-                    }}>
-                    {c.revoked ? 'Restore access' : 'Revoke access'}
-                  </button>
-                </div>
-                {shots[c._id] && shots[c._id] !== 'none' && (
-                  <img src={shots[c._id]} alt="payment screenshot"
-                    style={{ marginTop: '.8rem', maxWidth: '100%', borderRadius: '10px' }} />
-                )}
-                {shots[c._id] === 'none' && <p className="note">No screenshot was attached.</p>}
-              </div>
-            ))}
-          </div>
         </>
       )}
 
@@ -1780,8 +1189,6 @@ function Guidance({ user, go }) {
         Ask anything and a verified third year student will guide you, one to one. Both sides stay anonymous.
       </p>
 
-      <NotOfficial />
-
       <div className="highlight">
         <span>&#128172;</span>
         <div>
@@ -1978,73 +1385,18 @@ function Archive() {
 
 /* ---------------- root ---------------- */
 
-/* Instagram, Snapchat, Facebook and LinkedIn open links inside their own
-   browser, and Google refuses OAuth from there. Tell the visitor to switch. */
-function InAppBrowserNotice() {
-  const [hide, setHide] = useState(false);
-  const ua = typeof navigator !== 'undefined' ? navigator.userAgent || '' : '';
-  const inApp = /Instagram|FBAN|FBAV|FB_IAB|Snapchat|LinkedInApp|Line\/|Twitter/i.test(ua);
-  const isIOS = /iPhone|iPad|iPod/i.test(ua);
-  if (!inApp || hide) return null;
-
-  function copyLink() {
-    try {
-      navigator.clipboard.writeText(window.location.origin);
-      setHide(true);
-      window.alert('Link copied. Open Chrome or Safari and paste it there.');
-    } catch (e) {
-      window.alert('Copy this link and open it in Chrome or Safari: ' + window.location.origin);
-    }
-  }
-
-  return (
-    <div style={{
-      position: 'relative', zIndex: 30, margin: '1rem auto 0', maxWidth: '900px',
-      padding: '1rem 1.2rem', borderRadius: '12px',
-      background: '#FFF6E5', border: '1px solid #E8C98A', color: '#7A5518', fontSize: '.92rem'
-    }}>
-      <b>Open this in Chrome{isIOS ? ' or Safari' : ''} to sign in.</b>
-      <p style={{ margin: '.45rem 0 0', lineHeight: 1.5 }}>
-        You opened this from inside another app, and Google will not let you sign in here.
-        Tap the <b>{isIOS ? '\u22ef' : '\u22ee'}</b> menu at the {isIOS ? 'bottom' : 'top'} right and choose
-        <b> Open in {isIOS ? 'Safari' : 'Chrome'}</b> \u2014 or copy the link and paste it in your browser.
-      </p>
-      <div className="tags" style={{ marginTop: '.7rem' }}>
-        <button className="btn btn-sm" onClick={copyLink}>Copy link</button>
-        <button className="btn btn-sm btn-ghost" onClick={() => setHide(true)}>Dismiss</button>
-      </div>
-    </div>
-  );
-}
-
 export default function App() {
   const [page, setPage] = useState('home');
   const [subjectCode, setSubjectCode] = useState(null);
   const [user, setUser] = useState(Auth.get());
   const [isAdmin, setIsAdmin] = useState(false);
   const [loginError, setLoginError] = useState('');
-  const [paid, setPaid] = useState([]);   // subject codes this account has unlocked
   const [history, setHistory] = useState([]);
-
-  // has this account unlocked the solved papers?
-  useEffect(() => {
-    if (!user) { setPaid([]); return; }
-    fetch(API + '/api/access?email=' + encodeURIComponent(user.email))
-      .then(r => r.ok ? r.json() : null)
-      .then(d => { if (d) setPaid(d.codes || []); })
-      .catch(() => {});
-  }, [user]);
 
   // open a section straight from a shared link, e.g. /#pyq or /#doubts
   useEffect(() => {
-    const raw = (window.location.hash || '').replace('#', '');
-    const [target, arg] = raw.split('=');
-    if (target === 'unlock' && /^[A-Za-z]{3}[0-9]{3}$/.test(arg || '')) {
-      setSubjectCode(arg.toUpperCase());
-      setPage('unlock');
-      return;
-    }
-    if (['pyq', 'solutions', 'unlock', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target)) {
+    const target = (window.location.hash || '').replace('#', '');
+    if (['pyq', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target)) {
       setPage(target);
     }
   }, []);
@@ -2092,7 +1444,7 @@ export default function App() {
 
   const go = (target, code) => {
     try {
-      const hash = ['pyq', 'solutions', 'unlock', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target) ? '#' + target : '';
+      const hash = ['pyq', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target) ? '#' + target : '';
       window.history.replaceState({}, '', window.location.pathname + hash);
     } catch (e) {}
     setHistory(h => (target === page && (code || null) === subjectCode) ? h : [...h, { page, subjectCode }]);
@@ -2128,8 +1480,6 @@ export default function App() {
         <div className="orb orb3" />
       </div>
 
-      <InAppBrowserNotice />
-
       {loginError && (
         <div
           onClick={() => setLoginError('')}
@@ -2152,7 +1502,6 @@ export default function App() {
 
         <div className="nav-links">
           <button className={'nav-link' + (page === 'pyq' ? ' on' : '')} onClick={() => go('pyq')}>PYQ Guides</button>
-          <button className={'nav-link' + (page === 'solutions' ? ' on' : '')} onClick={() => go('solutions')}>Solved PYQs</button>
           <button className={'nav-link' + (page === 'faqs' ? ' on' : '')} onClick={() => go('faqs')}>FAQs</button>
           <button className={'nav-link' + (page.startsWith('subject') ? ' on' : '')} onClick={() => go('subjects')}>Subjects</button>
           <button className={'nav-link' + (page === 'doubts' ? ' on' : '')} onClick={() => go('doubts')}>Doubts</button>
@@ -2179,9 +1528,7 @@ export default function App() {
         </div>
       )}
 
-      {page === 'pyq' && <PyqGuides user={user} go={go} />}
-      {page === 'solutions' && <PyqSolutions user={user} go={go} />}
-      {page === 'unlock' && user && subjectCode && <Unlock user={user} go={go} code={subjectCode} onPaid={c => setPaid(p => [...p, c])} />}
+      {page === 'pyq' && <PyqGuides user={user} />}
       {page === 'faqs' && <FAQs user={user} />}
       {page === 'subjects' && <Subjects user={user} go={go} />}
       {page === 'subject' && <SubjectDetail code={subjectCode} user={user} go={go} />}
