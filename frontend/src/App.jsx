@@ -1139,8 +1139,12 @@ function Admin({ user }) {
       ) : (
         <>
           <p className="note" style={{ marginTop: 0 }}>
-            Page views by hour of day, last {hourly.days} days, {hourly.timezone}.
-            Busiest hour is <b>{fmtHour(hourly.busiestHour)}</b> with {hourly.busiestVisits} views.
+            Page views by hour of day, added up over the last {hourly.days} days ({hourly.timezone}).
+            Each bar is {hourly.days} days of that hour, not one day.
+            Busiest is <b>{fmtHour(hourly.busiestHour)}</b> &mdash; {hourly.busiestVisits} views in {hourly.days} days,
+            about <b>{Math.round(hourly.busiestVisits / hourly.days)} a day</b>.
+            Every bar together comes to {hourly.total} views, roughly{' '}
+            {Math.round(hourly.total / hourly.days)} a day.
           </p>
 
           <div style={{
