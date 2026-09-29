@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>UES102 &mdash; The one paper to do</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<style>
+
+:root{
+  --bg:#F4F6F9; --paper:#FFFFFF; --ink:#16202C; --ink2:#4A5866; --ink3:#77838F;
+  --line:#DCE3EB; --line2:#EDF1F5; --teal:#0F766E; --teal-bg:#E7F4F1;
+  --accent:#5b54d6; --accent-bg:#EEEDFB;
+  --warn:#B4531A; --warn-bg:#FDF2E9; --warn-line:#F0DCC6;
+  --code-bg:#1E293B; --code-ink:#E2E8F0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);
+  font-family:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  line-height:1.62;-webkit-text-size-adjust:100%}
+.wrap{max-width:840px;margin:0 auto;padding:0 16px 80px}
+
+header{padding:40px 0 26px;border-bottom:1px solid var(--line)}
+.kicker{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--teal);font-weight:600}
+h1{font-family:'Source Serif 4',Georgia,serif;font-size:32px;line-height:1.18;margin:8px 0 10px;font-weight:700}
+.sub{color:var(--ink2);font-size:15px;max-width:62ch}
+
+.note{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:10px;
+  padding:14px 16px;margin:22px 0;font-size:14px;color:#6B3D18}
+.note b{color:var(--warn)}
+
+nav.toc{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:26px 0}
+nav.toc h2{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);font-weight:600;margin-bottom:12px}
+nav.toc ul{list-style:none}
+nav.toc li{margin:9px 0;font-size:15px;color:var(--ink2)}
+nav.toc li b{color:var(--ink)}
+
+.paper{margin-top:44px}
+h2.yr{font-family:'Source Serif 4',Georgia,serif;font-size:25px;font-weight:700;padding-top:12px}
+.yr-meta{color:var(--ink3);font-size:13.5px;margin-top:4px;
+  font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace}
+
+.q{background:var(--paper);border:1px solid var(--line);border-radius:12px;
+  padding:18px 20px;margin:16px 0}
+.q-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.q-no{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-weight:600;font-size:14px;
+  color:#fff;background:var(--teal);padding:3px 9px;border-radius:6px}
+.marks{font-size:12px;color:var(--ink3);font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace}
+.method{font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--accent);background:var(--accent-bg);padding:3px 9px;border-radius:20px}
+
+.qtext{font-size:15px;color:var(--ink);padding:12px 14px;background:#FAFBFD;
+  border-left:3px solid var(--line);border-radius:6px;margin-bottom:14px}
+
+h4.step{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);
+  font-weight:600;margin:16px 0 8px}
+
+pre.code{background:var(--code-bg);color:var(--code-ink);border-radius:9px;
+  padding:14px 16px;margin:10px 0;overflow-x:auto;
+  font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:13.2px;line-height:1.65}
+pre.code .c{color:#94A3B8}
+
+.m{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:14px;line-height:1.85;
+  background:#FAFBFD;border:1px solid var(--line2);border-radius:8px;
+  padding:12px 15px;margin:9px 0;overflow-x:auto;white-space:pre}
+p{font-size:15px;margin:9px 0}
+p.why{color:var(--ink2);font-size:14.3px}
+ul.pts{list-style:none;margin:8px 0}
+ul.pts li{position:relative;padding:5px 0 5px 20px;font-size:14.5px;color:var(--ink2)}
+ul.pts li::before{content:"";position:absolute;left:4px;top:14px;width:5px;height:5px;
+  border-radius:50%;background:var(--teal)}
+ol.steps{margin:8px 0 8px 20px}
+ol.steps li{font-size:14.6px;color:var(--ink2);padding:4px 0}
+
+.ans{background:var(--teal-bg);border:1px solid #C6E4DD;border-radius:10px;
+  padding:13px 16px;margin:14px 0 2px}
+.ans .lbl{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--teal);
+  font-weight:600;margin-bottom:6px}
+.ans .val{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:14.3px;
+  line-height:1.8;color:#123F39;white-space:pre-wrap}
+
+.trap{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:10px;
+  padding:12px 16px;margin:12px 0}
+.trap b{color:var(--warn);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.trap p{color:#6B3D18;font-size:14.3px;margin:6px 0 0}
+
+table{width:100%;border-collapse:collapse;font-size:14px;margin:10px 0}
+.tbl{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:10px 0;
+     border-radius:8px}
+.tbl>table{margin:0;min-width:100%}
+.tbl th,.tbl td{white-space:normal}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line2);vertical-align:top}
+th{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);
+  font-weight:600;border-bottom:1px solid var(--line)}
+td.mono{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:13.4px}
+
+footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:13.5px;color:var(--ink3)}
+
+.fb{border:2px solid var(--teal);border-radius:14px;padding:18px 20px;margin:34px 0 0;
+  background:var(--paper);box-shadow:0 2px 14px rgba(0,0,0,.05)}
+.fb h3{margin:0 0 6px;font-family:'Source Serif 4',Georgia,serif;font-size:19px;font-weight:700}
+.fb p.sub2{margin:0 0 14px;font-size:14.3px;color:var(--ink2)}
+.fb-btns{display:flex;gap:9px;flex-wrap:wrap}
+.fb-btn{font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;padding:9px 17px;
+  border-radius:30px;border:1px solid var(--line);background:#fff;color:var(--ink);
+  transition:border-color .2s,background .2s}
+.fb-btn:hover{border-color:var(--teal)}
+.fb-btn.on{background:var(--teal);border-color:var(--teal);color:#fff}
+.fb textarea{width:100%;margin-top:13px;padding:11px 13px;border-radius:10px;
+  border:1px solid var(--line);font-family:inherit;font-size:14px;resize:vertical;min-height:76px}
+.fb-send{margin-top:10px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;
+  padding:8px 18px;border-radius:30px;border:none;background:var(--teal);color:#fff}
+.fb-done{font-size:14.5px;color:var(--teal);font-weight:600}
+
+@media(max-width:560px){
+  h1{font-size:26px} h2.yr{font-size:21px}
+  .q{padding:15px 15px} .m,pre.code{font-size:12.6px} .ans .val{font-size:13.4px}
+}
+
+.share{border:1px solid var(--line);border-radius:14px;padding:17px 20px;margin:20px 0 0;
+  background:var(--paper)}
+.share h3{margin:0 0 5px;font-family:'Source Serif 4',Georgia,serif;font-size:18px;font-weight:700}
+.share p{margin:0 0 13px;font-size:14.2px;color:var(--ink-soft,#4A5866)}
+.share-row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.share-wa{display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+  font-family:inherit;font-size:14.5px;font-weight:600;padding:10px 18px;border-radius:30px;
+  background:#25D366;color:#fff;border:none;cursor:pointer}
+.share-wa:hover{background:#1FB855}
+.share-copy{font-family:inherit;font-size:14.5px;font-weight:600;cursor:pointer;
+  padding:10px 18px;border-radius:30px;border:1px solid var(--line);background:#fff;color:var(--ink,#16202C)}
+.share-copy:hover{border-color:#25D366}
+.share-done{font-size:13.8px;color:#1F7A4D;font-weight:600;margin:9px 0 0}
+
+.share-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  border:1px solid var(--line);border-radius:12px;padding:12px 15px;margin:0 0 22px;background:var(--paper)}
+.share-top span{font-size:14.2px;color:var(--ink-soft,#4A5866)}
+.share-top a{display:inline-flex;align-items:center;gap:7px;text-decoration:none;
+  font-family:inherit;font-size:13.8px;font-weight:600;padding:8px 15px;border-radius:30px;
+  background:#25D366;color:#fff;white-space:nowrap}
+.share-top a:hover{background:#1FB855}
+
+
+.tcard{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.2rem;margin:1.3rem 0 1.6rem}
+.tcard h3{font-size:.95rem;margin:0 0 .7rem;color:var(--ink)}
+.trow{display:flex;align-items:center;gap:.7rem;padding:.34rem 0;font-size:.87rem}
+.tname{flex:0 0 13rem;color:var(--ink)}
+.tbar{flex:1;height:9px;background:var(--line2);border-radius:5px;overflow:hidden}
+.tbar i{display:block;height:100%;background:var(--accent);border-radius:5px}
+.tnum{flex:0 0 5.6rem;text-align:right;color:var(--ink3);font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.8rem}
+.freq{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.04em;color:var(--ink3);margin-top:.3rem}
+.alt{background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:.95rem 1.1rem;margin:1rem 0 .2rem}
+.alt b.h{display:block;font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);margin-bottom:.55rem}
+.vh{font-size:.95rem;font-weight:600;color:var(--ink);margin:1.15rem 0 .4rem;line-height:1.4}
+.vh:first-of-type{margin-top:.2rem}
+.vp{font-size:.92rem;line-height:1.68;color:var(--ink2);margin:0 0 .55rem}
+.alt .m{margin:.2rem 0 .3rem}
+.lock{background:var(--paper);border:2px solid var(--teal);border-radius:16px;padding:1.9rem 1.7rem;margin:2rem 0 1rem;box-shadow:0 10px 30px rgba(15,118,110,.10)}
+.lock .k{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:.5rem}
+.lock h2{font-family:'Source Serif 4',Georgia,serif;font-size:1.5rem;margin:0 0 .5rem;color:var(--ink);line-height:1.25}
+.lock p.l{color:var(--ink2);font-size:.93rem;margin:0 0 1.2rem;line-height:1.6}
+.lock ul{list-style:none;padding:0;margin:0 0 1.3rem}
+.lock li{display:flex;gap:.7rem;padding:.5rem 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.lock li:last-child{border-bottom:0}
+.lock .tick{color:var(--teal);font-weight:700}
+.lock b{color:var(--ink);font-weight:600}
+.lock span.d{color:var(--ink2)}
+.lock a.cta{display:block;text-align:center;text-decoration:none;background:var(--teal);color:#fff;font-weight:600;font-size:1rem;padding:.95rem 1.2rem;border-radius:11px}
+.lock a.cta:hover{background:#0A5252}
+.lock p.why{margin:1.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--line);font-size:.845rem;color:var(--ink2);line-height:1.6}
+.rec{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:0 12px 12px 0;padding:1.05rem 1.2rem;margin:1.2rem 0 1.4rem}
+.rec b.h{display:block;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:.15rem}
+.rec p.sub{font-size:.855rem;color:var(--ink3);margin:0 0 .9rem;line-height:1.55}
+.rec h5{font-size:.95rem;font-weight:600;color:var(--ink);margin:1.25rem 0 .5rem;line-height:1.4}
+.rec h5:first-of-type{margin-top:0}
+.rec ol{margin:0;padding-left:0;list-style:none;counter-reset:rs}
+.rec ol li{counter-increment:rs;position:relative;padding:0 0 .55rem 2.1rem;font-size:.915rem;line-height:1.68;color:var(--ink2)}
+.rec ol li:last-child{padding-bottom:0}
+.rec ol li::before{content:counter(rs);position:absolute;left:0;top:.16rem;width:1.45rem;height:1.45rem;border-radius:50%;background:var(--accent-bg);color:var(--teal);font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.74rem;font-weight:600;display:flex;align-items:center;justify-content:center}
+.rec ol li b{color:var(--ink);font-weight:600}
+@media(max-width:560px){.rec{padding:.95rem 1rem}.rec ol li{padding-left:1.9rem;font-size:.89rem}}
+.lock .how{margin:1.2rem 0 0;padding:1rem 1.1rem;background:var(--accent-bg);border-radius:11px}
+.lock .how b.hk{display:block;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:.6rem}
+.lock .how ol{list-style:none;padding:0;margin:0;counter-reset:hs}
+.lock .how ol li{display:block;counter-increment:hs;position:relative;padding:0 0 .6rem 1.9rem;font-size:.9rem;line-height:1.62;color:var(--ink2);border-bottom:0}
+.lock .how ol li:last-child{padding-bottom:0}
+.lock .how ol li::before{content:counter(hs);position:absolute;left:0;top:.14rem;width:1.35rem;height:1.35rem;border-radius:50%;background:var(--teal);color:#fff;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.72rem;font-weight:600;display:flex;align-items:center;justify-content:center}
+.lock .how p.hn{margin:.85rem 0 0;font-size:.83rem;line-height:1.6;color:var(--ink3)}
+@media(max-width:560px){.tname{flex:0 0 8.5rem;font-size:.82rem}.tnum{flex:0 0 4.4rem}.lock{padding:1.5rem 1.2rem}}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">UES102 / UTA026 / UES018 &middot; Manufacturing Processes &middot; MST</div>
+  <h1>The one paper to do</h1>
+  <p class="sub">Every MANPRO MST for the last five years is built from eight question types. This paper has one of each, worked out in full &mdash; and under every question, the other shapes it has been asked in, so you are ready for the version you actually get.</p>
+</header>
+
+<div class="note">
+  <b>Why one paper is enough:</b> across the last five MST papers &mdash; 37 questions, 295 marks &mdash; there are
+  only <b>eight</b> question types. The same eight come back with different numbers. Four of them carry
+  <b>69%</b> of all marks and six carry <b>87%</b>. This paper has one question from each, so doing it properly
+  puts you in front of the whole paper rather than a corner of it.
+</div>
+
+<div class="tcard">
+  <h3>Every mark in the last five papers, by type</h3>
+  <div class="trow"><span class="tname">CNC programming</span><span class="tbar"><i style="width:100%"></i></span><span class="tnum">77 marks</span></div><div class="trow"><span class="tname">Rolling</span><span class="tbar"><i style="width:65%"></i></span><span class="tnum">50 marks</span></div><div class="trow"><span class="tname">Turning calculations</span><span class="tbar"><i style="width:60%"></i></span><span class="tnum">46 marks</span></div><div class="trow"><span class="tname">Forging</span><span class="tbar"><i style="width:42%"></i></span><span class="tnum">32 marks</span></div><div class="trow"><span class="tname">Tool geometry &amp; angles</span><span class="tbar"><i style="width:35%"></i></span><span class="tnum">27 marks</span></div><div class="trow"><span class="tname">Chips &amp; stress&ndash;strain</span><span class="tbar"><i style="width:34%"></i></span><span class="tnum">26 marks</span></div><div class="trow"><span class="tname">Additive manufacturing</span><span class="tbar"><i style="width:25%"></i></span><span class="tnum">19 marks</span></div><div class="trow"><span class="tname">Sheet metal &amp; dies</span><span class="tbar"><i style="width:23%"></i></span><span class="tnum">18 marks</span></div>
+  <p class="freq" style="margin-top:.8rem">Counted by hand from all five papers.</p>
+</div>
+
+<div class="note" style="border-left-color:#B4531A;background:#FDF2E9">
+  <b>Read this before you start:</b> this is not a prediction and it is not a leaked paper. It is one question
+  built from each recurring type, using numbers of our own. What is worth your time is the <b>method</b> and the
+  <b>&quot;different form&quot;</b> box under each question &mdash; that is what carries across to whatever the real
+  paper puts in front of you. Worked out with Claude Opus 5 and machine-checked; not official TIET answers.
+  FreshStart is a student project and is not an official TIET page.
+</div>
+
+<div class="paper">
+<h2 class="yr">The paper</h2>
+<p class="yr-meta">8 questions &middot; 60 marks &middot; 2 hours &middot; one question per type</p>
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1</span><span class="marks">14 marks</span><span class="method">CNC programming</span></div>
+  <p class="freq">5 of 5 papers &middot; 77 marks &middot; the biggest type by far</p>
+  <div class="qtext">Write a CNC part program in absolute mode to machine the stepped shaft below from a &Oslash;60 mm bar. Measured from the free end, turn &Oslash;35 over the first 30 mm and &Oslash;50 over the next 40 mm, giving a 70 mm stepped shaft. Use a 2 mm depth of cut for roughing and a 0.5 mm finishing cut. Spindle 800 rpm, feed 0.2 mm/rev.</div>
+  <figure style="margin:1.1rem 0 .4rem"><svg viewBox="0 0 560 290" width="100%" style="max-width:560px;height:auto;display:block;margin:1rem auto" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Stepped shaft: 35 mm diameter over the first 30 mm from the free end, then 50 mm diameter over the next 40 mm, machined from a 60 mm bar"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M100 103.636 L354 103.636 L354 196.364 L100 196.364 Z" stroke-dasharray="4 4" opacity=".45"/><text x="362" y="107.636" text-anchor="start" font-size="11.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" opacity=".6">&#216;60 bar</text><path d="M100 122.955 L202 122.955 L202 111.364 L338 111.364 L338 188.636 L202 188.636 L202 177.045 L100 177.045 L100 122.955"/><path d="M76 150 L372 150" stroke-dasharray="9 4 2 4" opacity=".55"/><text x="151" y="154" text-anchor="middle" font-size="13" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >&#216;35</text><text x="270" y="154" text-anchor="middle" font-size="13" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >&#216;50</text><path d="M100 230.364 L202 230.364"/><path d="M107 226.364 L100 230.364 L107 234.364"/><path d="M195 226.364 L202 230.364 L195 234.364"/><text x="151" y="222.364" text-anchor="middle" font-size="12.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >30</text><path d="M202 230.364 L338 230.364"/><path d="M209 226.364 L202 230.364 L209 234.364"/><path d="M331 226.364 L338 230.364 L331 234.364"/><text x="270" y="222.364" text-anchor="middle" font-size="12.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >40</text><path d="M100 202.364 L100 238.364"/><path d="M202 194.636 L202 238.364"/><path d="M338 194.636 L338 238.364"/><path d="M100 73.6364 L372 73.6364"/><path d="M108 69.6364 L100 73.6364 L108 77.6364"/><text x="92" y="77.6364" text-anchor="end" font-size="11.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >+Z</text><text x="100" y="64.6364" text-anchor="middle" font-size="11.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >Z 0</text><path d="M100 69.6364 L100 77.6364"/><text x="202" y="64.6364" text-anchor="middle" font-size="11.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >Z &#8722;30</text><text x="338" y="64.6364" text-anchor="middle" font-size="11.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >Z &#8722;70</text><path d="M202 69.6364 L202 77.6364"/><path d="M338 69.6364 L338 77.6364"/><text x="100" y="266.364" text-anchor="start" font-size="11.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" opacity=".65">all dimensions in mm &middot; origin at the free end</text></g></svg><figcaption class="freq" style="text-align:center;margin-top:.1rem">The network for this question</figcaption></figure>
+  <div class="rec">
+    <b class="h">How to do it &mdash; the method itself</b>
+    <p class="sub">The working below uses this paper&rsquo;s numbers. These are the steps on their own, so you can follow them on any question of this type.</p>
+    <h5>Writing any CNC turning program &mdash; the order to work in</h5>
+    <ol>
+      <li>Sketch the finished part and mark the origin. Convention is the <b>right-hand face of the finished part, on the axis</b>. Every coordinate you write afterwards is measured from there, so fixing it first prevents every later error.</li>
+      <li>Decide absolute (G90) or incremental (G91). Absolute is safer in an exam because each line stands alone and a single mistake does not cascade through the rest of the program.</li>
+      <li>Remember that on a lathe, <b>X is a diameter</b>, not a radius. A cut to &Oslash;35 is written X35, and the tool has moved only 12.5 mm inward from the &Oslash;60 bar, not 25. This single convention accounts for most lost marks on the question.</li>
+      <li>Write the opening block: G21 (metric), G90 (absolute), G28 U0 W0 (home), then the tool call, then S and M03 to start the spindle.</li>
+      <li>Rough the profile in passes. Each pass is the same three moves: rapid to the start in X, feed along Z, retract in X. Keep the depth of cut per pass to what the question allows.</li>
+      <li>Finish the profile in one continuous pass at a lighter feed.</li>
+      <li>Close the program: retract clear, M05 to stop the spindle, M30 to end and rewind.</li>
+      <li>Read back through and check that every <b>feed</b> move is G01 with an F value, and every <b>rapid</b> is G00 with none. A G00 with a feed, or a G01 without one, is a mark gone.</li>
+    </ol>
+    <h5>Using the canned cycle instead of longhand</h5>
+    <ol>
+      <li>If the question allows a canned cycle, G71 does the roughing in two lines instead of a dozen, so use it when the profile has several steps.</li>
+      <li>Line one: G71 U(depth per pass) R(retract). Line two: G71 P(first block of profile) Q(last block) U(X finishing allowance) W(Z allowance) F(feed).</li>
+      <li>Between P and Q, write the finished profile once as plain G01 moves. The cycle repeats it for you at increasing depths.</li>
+      <li>Then G70 P Q F runs the finishing pass along the same profile.</li>
+      <li>If the question says 'write the part program' without qualification, longhand is always accepted and canned cycles are a bonus. If it says 'using G71', longhand will not score.</li>
+    </ol>
+    <h5>Reading the common G and M codes</h5>
+    <ol>
+      <li>G00 rapid, G01 feed straight, G02 clockwise arc, G03 anticlockwise arc, G04 dwell.</li>
+      <li>G20 inch, G21 metric. G90 absolute, G91 incremental. G28 return to reference.</li>
+      <li>For an arc you must give the centre: I and K are the offsets from the <b>start point to the centre</b>, not from the origin. Alternatively give R.</li>
+      <li>M03 spindle clockwise, M04 anticlockwise, M05 stop, M06 tool change, M08 coolant on, M09 off, M30 program end and rewind.</li>
+    </ol>
+  </div>
+  <h4 class="step">Step 1 &mdash; set the origin and list every diameter change</h4>
+  <p class="why">Put the origin at the centre of the finished face. X is a <b>diameter</b> on a lathe, not a radius &mdash; X50 means &Oslash;50. Getting this wrong halves every cut.</p>
+  <div class="m">from the bar at D60, working from the free end inwards:
+  Z 0   to Z -30 :  D60 -&gt; D35   remove 12.5 mm on the radius
+  Z -30 to Z -70 :  D60 -&gt; D50   remove  5.0 mm on the radius
+
+roughing at 2 mm depth, leaving 0.5 mm for finishing:
+  D35 section : 12.0/2 = 6     -&gt; 6 roughing passes
+  D50 section :  4.5/2 = 2.25  -&gt; 3 roughing passes
+
+cut the D35 end first: it is the smallest, so the tool never has to
+cut past a larger step standing behind it</div>
+  <h4 class="step">Step 2 &mdash; the program</h4>
+  <p class="why">Write the safety block first, then rough, then finish in one continuous pass. A finishing pass that stops and restarts leaves a witness mark, which is a real answer-sheet detail.</p>
+  <div class="m">N10  G21 G90 G95          ; mm, absolute, feed per revolution
+N20  G28 U0 W0            ; reference return
+N30  M03 S800             ; spindle on, clockwise
+N40  T0101                ; roughing tool
+N50  G00 X62 Z2           ; rapid to clear start
+
+; ---- roughing the D35 end, Z0 to Z-30 ----
+N60  G00 X56 Z0
+N70  G01 Z-30 F0.2
+N80  G00 X62
+N90  G00 Z0
+; repeat at X52, X48, X44, X40, X36
+
+; ---- roughing the D50 part, Z-30 to Z-70 ----
+N100 G00 X56 Z0
+N110 G01 Z-70 F0.2
+N120 G00 X62
+; repeat at X52, X51
+
+; ---- finishing, one continuous pass ----
+N200 T0202                ; finishing tool
+N210 G00 X35 Z2
+N220 G01 Z-30 F0.1
+N230 X50
+N240 Z-70
+N250 X62
+N260 G00 X100 Z100
+N270 M05
+N280 M30</div>
+  <h4 class="step">Step 3 &mdash; if canned cycles are allowed, say so and use them</h4>
+  <p class="why">Most of these questions expect G71 for roughing. Writing it shows you know the machine does the repetition for you, and it saves you twenty lines of answer sheet.</p>
+  <div class="m">N60  G71 U2 R1            ; 2 mm depth, 1 mm retract
+N70  G71 P80 Q140 U0.5 W0.1 F0.2   ; finish allowance 0.5 on X, 0.1 on Z
+N80  G00 X35             ; profile start
+N90  G01 Z-30
+N100 X50
+N110 Z-70
+N140 X62                 ; profile end</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">The program above, with G71 as the preferred roughing route.</div>
+  </div>
+  <div class="alt"><b class="h">If the question comes in a different form</b>
+    <h5 class="vh">If it says milling instead of turning</h5>
+    <p class="vp">Everything about the structure stays the same &mdash; safety block, rough, finish &mdash; but two things change and both change every coordinate you write. On a lathe X is a diameter; on a mill X and Y are ordinary coordinates measured from the origin, so no halving and no doubling. And a milling cutter has width, so the tool centre cannot follow the profile line: it has to run offset by half the cutter diameter. Let the machine do that with G41 (offset left of the path) or G42 (offset right), and cancel it with G40 before you finish.</p>
+    <div class="m">turning : X50 means diameter 50, so the tool sits at radius 25
+milling : X50 means the tool centre is at x = 50
+
+with a 10 mm cutter on a 60 x 60 pocket:
+  G41 D01          ; offset left, tool radius 5 mm stored in D01
+  G01 X5 Y5        ; the machine now keeps the EDGE on the profile
+  ...
+  G40              ; cancel before retracting</div>
+    <h5 class="vh">If it asks for incremental instead of absolute</h5>
+    <p class="vp">G90 is absolute &mdash; every number is measured from the origin, which never moves. G91 is incremental &mdash; every number is the distance from wherever the tool is standing right now. Converting is mechanical: subtract each point from the one before it. The block where people go wrong is always the first one after switching, because that distance is measured from the last absolute position, not from the origin.</p>
+    <div class="m">absolute (G90)          incremental (G91)
+  X50 Z0                  X50 Z0      (from the start point)
+  X50 Z-30                X0  Z-30    (30 further along Z, X unchanged)
+  X35 Z-30                X-15 Z0     (15 in on X, Z unchanged)
+  X35 Z-70                X0  Z-40</div>
+    <h5 class="vh">If it also asks for machining time</h5>
+    <p class="vp">The program is then only half the marks. Time is computed per pass and multiplied, and the length you use is the cut length <i>plus</i> any approach or overtravel the question gives you. Questions state that approach distance deliberately &mdash; if it is mentioned, it is meant to be added.</p>
+    <div class="m">time per pass = (cut length + approach) / (feed x rpm)
+
+for 70 mm of cut, 5 mm approach, f = 0.2 mm/rev, N = 800:
+  = 75 / (0.2 x 800) = 0.47 min per pass
+  x 9 roughing passes + 1 finishing = 4.7 min</div>
+    <h5 class="vh">If canned cycles are not allowed</h5>
+    <p class="vp">Some papers say &quot;without using canned cycles&quot;. Then you write every pass out longhand, which is what the long version above does. Do not panic about the length &mdash; the marks are for the pattern being right, and you can write the first two passes in full and then put &quot;repeat at X48, X44, X40&quot; as a comment. Examiners accept that; writing forty near-identical blocks wastes time you need elsewhere.</p>
+    <h5 class="vh">One rule that applies whatever form it takes</h5>
+    <p class="vp">Always leave a finishing allowance. Rough down to the final size and there is nothing left for the finishing tool, which is the one thing examiners look for in every version of this question. Leave 0.5 mm on the radius and 0.1 mm on the face unless the question says otherwise.</p>
+  </div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2</span><span class="marks">10 marks</span><span class="method">Turning calculations</span></div>
+  <p class="freq">4 of 5 papers &middot; 46 marks</p>
+  <div class="qtext">A &Oslash;60 mm bar, 200 mm long, is turned in two passes with a 2 mm depth of cut per pass. The cutting speed is 60 m/min and the feed 0.25 mm/rev. The tool approaches 10 mm before the cut starts. Find (i) the spindle speed, (ii) the cutting velocity in each pass, (iii) the MRR in each pass, and (iv) the total machining time.</div>
+  <div class="rec">
+    <b class="h">How to do it &mdash; the method itself</b>
+    <p class="sub">The working below uses this paper&rsquo;s numbers. These are the steps on their own, so you can follow them on any question of this type.</p>
+    <h5>Riser design &mdash; Chvorinov's rule, step by step</h5>
+    <ol>
+      <li>Chvorinov's rule is t = k(V/A)&sup2;. The whole of riser design is the single requirement that the <b>riser must freeze later than the casting</b>, which means the riser needs the larger V/A.</li>
+      <li>Work out V and A for the casting from its dimensions. Be careful about which faces are exposed &mdash; a face against the mould counts, a face covered by the riser does not.</li>
+      <li>Work out V and A for the riser in terms of its unknown dimension. For a cylindrical riser of diameter D and height H, V = &pi;D&sup2;H/4 and A = &pi;DH + &pi;D&sup2;/4 for a top riser open on one face.</li>
+      <li>If the question fixes the shape, such as H = D, substitute that relation first so you are left with one unknown.</li>
+      <li>Set (V/A)<sub>riser</sub> equal to or greater than (V/A)<sub>casting</sub> and solve for the dimension.</li>
+      <li>State the freezing ratio you achieved. Anything slightly above 1 is correct; a value below 1 means the riser would freeze first and is useless, so re-check.</li>
+      <li>A cylinder with H = D gives the largest V/A for a given volume, which is why it is the standard shape. Say so if asked to justify the choice.</li>
+    </ol>
+    <h5>Naming and explaining a casting defect</h5>
+    <ol>
+      <li>Give the defect a one-line definition &mdash; what it physically is, not just where it appears.</li>
+      <li>Give its cause in terms of a mechanism: gas trapped, metal solidifying too early, mould material washing away, uneven contraction.</li>
+      <li>Give the remedy, and make it follow directly from the cause you just stated. A remedy that does not answer your own stated cause reads as memorised and loses marks.</li>
+      <li>If a sketch is asked for, show the defect on a section of the casting with the mould around it.</li>
+      <li>Structure your answer as: what it is, why it happens, how to prevent it. Three short lines each beat one long paragraph.</li>
+    </ol>
+  </div>
+  <h4 class="step">Step 1 &mdash; spindle speed from the <i>starting</i> diameter</h4>
+  <p class="why">The speed is set once, at the start, and then stays fixed. Every later change in velocity comes from the diameter shrinking, not from the machine.</p>
+  <div class="m">N = 1000 V / (pi D0) = 1000 x 60 / (pi x 60) = 318.3 rev/min
+set N = 320 rev/min   (machines take discrete steps)</div>
+  <h4 class="step">Step 2 &mdash; velocity falls with every pass</h4>
+  <p class="why">This is the whole point of the question. With N fixed, a smaller diameter means a lower surface speed.</p>
+  <div class="m">pass 1:  D = 60 mm   V = pi D N /1000 = pi x 60 x 320/1000 = 60.32 m/min
+pass 2:  D = 56 mm   V = pi x 56 x 320/1000             = 56.30 m/min
+                     (D drops by 2d = 4 mm, not by 2 mm)
+
+average over the two passes = 58.31 m/min</div>
+  <h4 class="step">Step 3 &mdash; MRR per pass</h4>
+  <div class="m">MRR = 1000 x V x f x d
+pass 1: 1000 x 60.32 x 0.25 x 2 = 30 159 mm3/min
+pass 2: 1000 x 56.30 x 0.25 x 2 = 28 149 mm3/min
+
+check the other way: MRR = f x d x (pi D N) = 0.25 x 2 x pi x 60 x 320
+                         = 30 159 mm3/min   - agrees</div>
+  <h4 class="step">Step 4 &mdash; time, including the approach</h4>
+  <p class="why">The approach distance is given for a reason. Add it to the length.</p>
+  <div class="m">time per pass = (L + approach)/(f N) = (200 + 10)/(0.25 x 320) = 2.625 min
+total for 2 passes = 5.25 min</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">N = 320 rev/min &middot; V = 60.32 and 56.30 m/min &middot; MRR = 30 159 and 28 149 mm&sup3;/min &middot; total time 5.25 min.</div>
+  </div>
+  <div class="alt"><b class="h">If the question comes in a different form</b>
+    <h5 class="vh">If it asks for parts per hour instead of machining time</h5>
+    <p class="vp">Work out the time for one part exactly as above, then remember that a machine is not cutting the whole time. If the question gives a handling or loading time, that has to go into the same sum &mdash; the machine is idle during it but the clock is not.</p>
+    <div class="m">parts per hour = 60 / (machining time + handling time)
+
+machining 3.07 min, handling 0 min      -&gt; 60/3.07 = 19.5 parts/hour
+machining 3.07 min, handling 0.5 min    -&gt; 60/3.57 = 16.8 parts/hour</div>
+    <h5 class="vh">If it gives you the time and asks for the feed</h5>
+    <p class="vp">Same three relations, run backwards. This catches people out only because it looks unfamiliar; the algebra is one line. Rearrange the time formula for f and put the numbers in.</p>
+    <div class="m">time = (L + approach)/(f N)     -&gt;     f = (L + approach)/(time x N)
+
+for 160 mm of travel, 3.2 min over 2 passes, N = 320:
+  time per pass = 1.6 min
+  f = 160/(1.6 x 320) = 0.31 mm/rev</div>
+    <h5 class="vh">If roughing and finishing have different depths</h5>
+    <p class="vp">Take the finishing cut out of the total <i>before</i> you divide, then add it back as one pass. Dividing the whole depth by the roughing depth gives a fractional number of passes and a wrong answer.</p>
+    <div class="m">total depth 5 mm, roughing 1.5 mm/pass, finishing 0.5 mm:
+
+  wrong : 5 / 1.5 = 3.33 passes
+  right : (5 - 0.5)/1.5 = 3 roughing passes, then 1 finishing = 4 total</div>
+    <h5 class="vh">If the word &quot;maximum&quot; appears anywhere</h5>
+    <p class="vp">The spindle speed is fixed, so the cutting velocity is highest at the largest diameter and falls as the bar gets thinner. If the question asks for maximum cutting velocity, quote the value at the starting diameter. If it asks for the velocity &quot;in each pass&quot;, you must give one value per pass &mdash; a single averaged number will not score.</p>
+    <h5 class="vh">If the depth of cut is what you are given</h5>
+    <p class="vp">Remember it comes off the radius, so the diameter falls by twice the depth. A 2 mm cut on a &Oslash;60 bar leaves &Oslash;56, not &Oslash;58. Every velocity and MRR after that point depends on getting this right, so it is worth writing the diameter sequence down before you start calculating.</p>
+    <div class="m">D0 = 60,  d = 2 mm per pass:
+  after pass 1 : 60 - 2(2) = 56 mm
+  after pass 2 : 56 - 2(2) = 52 mm
+  after pass 3 : 52 - 2(2) = 48 mm</div>
+  </div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q3</span><span class="marks">10 marks</span><span class="method">Rolling</span></div>
+  <p class="freq">5 of 5 papers &middot; 50 marks</p>
+  <div class="qtext">A slab 36 mm thick is to be rolled down to 16 mm on a tandem mill. The coefficient of friction is 0.15 and the roll radius is 250 mm. The slab enters the first stand at 18 m/min and the width increases by 5% at each stand. Find the minimum number of stands, the thickness after each stand, and the velocity leaving each stand.</div>
+  <figure style="margin:1.1rem 0 .4rem"><svg viewBox="0 0 560 330" width="100%" style="max-width:560px;height:auto;display:block;margin:1rem auto" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A rolling stand: a slab of thickness h zero entering between two rolls of radius R and leaving at thickness h one"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="285" cy="76" r="62"/><circle cx="285" cy="224" r="62"/><circle cx="285" cy="76" r="2.4" fill="currentColor" stroke="none"/><circle cx="285" cy="224" r="2.4" fill="currentColor" stroke="none"/><path d="M285 76 L342.04 76"/><text x="350.04" y="80" text-anchor="start" font-size="13" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >R</text><path d="M269 28 L301 28"/><path d="M301 28 L295.474 30.3365 L295.474 25.6635" fill="currentColor" stroke="none"/><path d="M301 272 L269 272"/><path d="M269 272 L274.526 269.663 L274.526 274.337" fill="currentColor" stroke="none"/><clipPath id="c3429"><rect x="72" y="132" width="148" height="36"/></clipPath><g clip-path="url(#c3429)" opacity=".38" stroke-width="1"><path d="M36 168 L72 132"/><path d="M43 168 L79 132"/><path d="M50 168 L86 132"/><path d="M57 168 L93 132"/><path d="M64 168 L100 132"/><path d="M71 168 L107 132"/><path d="M78 168 L114 132"/><path d="M85 168 L121 132"/><path d="M92 168 L128 132"/><path d="M99 168 L135 132"/><path d="M106 168 L142 132"/><path d="M113 168 L149 132"/><path d="M120 168 L156 132"/><path d="M127 168 L163 132"/><path d="M134 168 L170 132"/><path d="M141 168 L177 132"/><path d="M148 168 L184 132"/><path d="M155 168 L191 132"/><path d="M162 168 L198 132"/><path d="M169 168 L205 132"/><path d="M176 168 L212 132"/><path d="M183 168 L219 132"/><path d="M190 168 L226 132"/><path d="M197 168 L233 132"/><path d="M204 168 L240 132"/><path d="M211 168 L247 132"/><path d="M218 168 L254 132"/><path d="M225 168 L261 132"/></g><path d="M72 132 L220 132"/><path d="M72 168 L220 168"/><path d="M72 132 L72 168"/><clipPath id="c3093"><rect x="352" y="138" width="136" height="24"/></clipPath><g clip-path="url(#c3093)" opacity=".38" stroke-width="1"><path d="M328 162 L352 138"/><path d="M335 162 L359 138"/><path d="M342 162 L366 138"/><path d="M349 162 L373 138"/><path d="M356 162 L380 138"/><path d="M363 162 L387 138"/><path d="M370 162 L394 138"/><path d="M377 162 L401 138"/><path d="M384 162 L408 138"/><path d="M391 162 L415 138"/><path d="M398 162 L422 138"/><path d="M405 162 L429 138"/><path d="M412 162 L436 138"/><path d="M419 162 L443 138"/><path d="M426 162 L450 138"/><path d="M433 162 L457 138"/><path d="M440 162 L464 138"/><path d="M447 162 L471 138"/><path d="M454 162 L478 138"/><path d="M461 162 L485 138"/><path d="M468 162 L492 138"/><path d="M475 162 L499 138"/><path d="M482 162 L506 138"/><path d="M489 162 L513 138"/></g><path d="M352 138 L488 138"/><path d="M352 162 L488 162"/><path d="M488 138 L488 162"/><path d="M220 132 Q 258 131 352 138"/><path d="M220 168 Q 258 169 352 162"/><path d="M54 132 L54 168"/><path d="M54 168 L51.6635 162.474 L56.3365 162.474" fill="currentColor" stroke="none"/><path d="M54 168 L54 132"/><path d="M54 132 L56.3365 137.526 L51.6635 137.526" fill="currentColor" stroke="none"/><text x="46" y="154" text-anchor="end" font-size="13" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >h&#8320;</text><path d="M506 138 L506 162"/><path d="M506 162 L503.663 156.474 L508.337 156.474" fill="currentColor" stroke="none"/><path d="M506 162 L506 138"/><path d="M506 138 L508.337 143.526 L503.663 143.526" fill="currentColor" stroke="none"/><text x="514" y="154" text-anchor="start" font-size="13" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >h&#8321;</text><path d="M96 194 L152 194"/><path d="M152 194 L146.474 196.337 L146.474 191.663" fill="currentColor" stroke="none"/><text x="124" y="188" text-anchor="middle" font-size="12.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >v&#8320;</text><path d="M394 188 L456 188"/><path d="M456 188 L450.474 190.337 L450.474 185.663" fill="currentColor" stroke="none"/><text x="425" y="182" text-anchor="middle" font-size="12.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >v&#8321;</text><text x="280" y="316" text-anchor="middle" font-size="12.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >draft d = h&#8320; &#8722; h&#8321;      maximum draft d = &#956;&#178;R      and h&#8320;w&#8320;v&#8320; = h&#8321;w&#8321;v&#8321;</text></g></svg><figcaption class="freq" style="text-align:center;margin-top:.1rem">The network for this question</figcaption></figure>
+  <div class="rec">
+    <b class="h">How to do it &mdash; the method itself</b>
+    <p class="sub">The working below uses this paper&rsquo;s numbers. These are the steps on their own, so you can follow them on any question of this type.</p>
+    <h5>Any rolling numerical &mdash; the standard route</h5>
+    <ol>
+      <li>Write down the draft first: &Delta;h = h<sub>0</sub> &minus; h<sub>1</sub>. Almost everything else is expressed in terms of it.</li>
+      <li>Maximum possible draft is &Delta;h<sub>max</sub> = &mu;&sup2;R. If the question asks whether a given draft is achievable, compare against this and say so explicitly.</li>
+      <li>Contact length L = &radic;(R&Delta;h). This is the approximation used throughout, and the question expects it.</li>
+      <li>Roll force F = L &times; w &times; Y&#772;, where w is the strip width and Y&#772; is the average flow stress.</li>
+      <li>True strain &epsilon; = ln(h<sub>0</sub>/h<sub>1</sub>). Average flow stress for a strain-hardening material is Y&#772; = K&epsilon;<sup>n</sup>/(1+n).</li>
+      <li>Torque per roll T = FL/2, and power for two rolls P = 2&pi;NT with N in revolutions per second.</li>
+      <li>Check the units before the last line. N given in rpm must be divided by 60, and a power answer should come out in tens or hundreds of kW &mdash; if you get megawatts, the rpm conversion is missing.</li>
+    </ol>
+    <h5>Volume constancy &mdash; the shortcut that saves the question</h5>
+    <ol>
+      <li>In all bulk deformation, volume is conserved: h<sub>0</sub>w<sub>0</sub>L<sub>0</sub> = h<sub>1</sub>w<sub>1</sub>L<sub>1</sub>.</li>
+      <li>In flat rolling the width barely changes, so w<sub>0</sub> &asymp; w<sub>1</sub> and it reduces to h<sub>0</sub>L<sub>0</sub> = h<sub>1</sub>L<sub>1</sub>.</li>
+      <li>That gives the exit length or the exit velocity in one line: v<sub>1</sub> = v<sub>0</sub>h<sub>0</sub>/h<sub>1</sub>.</li>
+      <li>The same principle answers forging height-to-diameter questions, and extrusion and drawing area questions, without any force analysis at all. If a question only asks for a final dimension, reach for this before anything else.</li>
+    </ol>
+  </div>
+  <h4 class="step">Step 1 &mdash; maximum draft, and mind the radius</h4>
+  <p class="why">The maximum bite a stand can take is fixed by friction and roll radius. The relation uses the <b>radius</b>, not the diameter &mdash; this is where most marks are lost on this question.</p>
+  <div class="m">d_max = mu^2 R = 0.15^2 x 250 = 5.625 mm</div>
+  <h4 class="step">Step 2 &mdash; number of stands</h4>
+  <div class="m">total reduction = 36 - 16 = 20 mm
+stands = ceil(20 / 5.625) = ceil(3.56) = 4 stands</div>
+  <h4 class="step">Step 3 &mdash; the schedule, with the last stand taking the remainder</h4>
+  <p class="why">The first three stands take the full draft; the last takes only what is left. Giving the last stand its maximum too would overshoot the finished thickness.</p>
+  <div class="m">36.00 -&gt; 30.38 -&gt; 24.75 -&gt; 19.12 -&gt; 16.00 mm
+drafts:  5.62 , 5.62 , 5.62 , 3.12 mm</div>
+  <h4 class="step">Step 4 &mdash; velocities by volume constancy</h4>
+  <p class="why">Volume in equals volume out at every stand: h &times; w &times; v is constant. The width grows 5% each time, and that growth <b>compounds</b>.</p>
+  <div class="m">h0 w0 v0 = h1 w1 v1
+
+  entry   : h = 36.00   w = 1.000   v = 18.00 m/min
+  stand 1 : h = 30.38   w = 1.050   v = 20.32 m/min
+  stand 2 : h = 24.75   w = 1.103   v = 23.75 m/min
+  stand 3 : h = 19.12   w = 1.158   v = 29.27 m/min
+  stand 4 : h = 16.00   w = 1.216   v = 33.32 m/min</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>4 stands</b> &middot; 36 &rarr; 30.38 &rarr; 24.75 &rarr; 19.12 &rarr; 16 mm &middot; exit velocities 20.32, 23.75, 29.27 and 33.32 m/min.</div>
+  </div>
+  <div class="alt"><b class="h">If the question comes in a different form</b>
+    <h5 class="vh">If it asks for the minimum coefficient of friction</h5>
+    <p class="vp">Same relation, solved for &mu; instead of for the draft. The question usually gives a draft it wants achieved in a single pass and asks what friction is needed to bite it.</p>
+    <div class="m">d_max = mu^2 R        -&gt;      mu_min = sqrt(d / R)
+
+to take a 15 mm draft on a roll of 600 mm DIAMETER:
+  R = 300 mm  (not 600)
+  mu_min = sqrt(15/300) = 0.224</div>
+    <h5 class="vh">If it asks for forward slip</h5>
+    <p class="vp">Forward slip is how much faster the strip leaves than the roll surface moves. You need the exit velocity first, so if the parts are printed in an order that makes that impossible, do them out of order and say so in one line &mdash; examiners accept that and it costs you nothing.</p>
+    <div class="m">s = (v_exit - v_roll) / v_roll
+
+roll surface 45.92 m/min, strip leaving at 50.00 m/min:
+  s = (50.00 - 45.92)/45.92 = 0.0889 = 8.89 %
+
+and the roll surface speed itself is v_roll = pi D N / 1000</div>
+    <h5 class="vh">If the width is said to stay constant</h5>
+    <p class="vp">Some papers say plane strain, or simply do not mention spreading. Then the width cancels out of the volume relation entirely and the arithmetic gets much shorter &mdash; h x v alone is constant. Read that line before you start, because carrying a width term that was never there wastes time and invites a slip.</p>
+    <div class="m">width growing 5 % each pass:   h0 w0 v0 = h1 w1 v1
+width constant             :   h0 v0    = h1 v1
+
+  36 x 18 = 30.38 x v1     -&gt;    v1 = 21.33 m/min
+  (against 20.32 m/min when the width grows)</div>
+    <h5 class="vh">If it asks how many passes rather than how many stands</h5>
+    <p class="vp">Same number. A tandem mill has one stand per pass, so the answers are identical &mdash; the question is just worded from the material's point of view instead of the mill's. Do not go looking for a different method.</p>
+    <h5 class="vh">The one thing to check in every version</h5>
+    <p class="vp">Whether you have been given the roll diameter or the roll radius. The relation needs the radius. A 500 mm diameter roll is R = 250 mm, and putting 500 in doubles every draft, which changes the number of stands and therefore every velocity after it. Write &quot;R = ...&quot; as your first line and the mistake becomes impossible.</p>
+  </div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q4</span><span class="marks">6 marks</span><span class="method">Forging</span></div>
+  <p class="freq">5 of 5 papers &middot; 32 marks</p>
+  <div class="qtext">Classify forging processes and explain, with a neat sketch, the function of flash in closed die forging. Why is a flashless process used at all?</div>
+  <figure style="margin:1.1rem 0 .4rem"><svg viewBox="0 0 560 265" width="100%" style="max-width:560px;height:auto;display:block;margin:1rem auto" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Closed die forging: upper and lower dies with the part between them and surplus metal escaping sideways through the thin flash land"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M80 46 L480 46 L480 92 L360 92 L340 114 L220 114 L200 92 L80 92 L80 46"/><clipPath id="c9401"><rect x="80" y="46" width="400" height="46"/></clipPath><g clip-path="url(#c9401)" opacity=".38" stroke-width="1"><path d="M34 92 L80 46"/><path d="M41 92 L87 46"/><path d="M48 92 L94 46"/><path d="M55 92 L101 46"/><path d="M62 92 L108 46"/><path d="M69 92 L115 46"/><path d="M76 92 L122 46"/><path d="M83 92 L129 46"/><path d="M90 92 L136 46"/><path d="M97 92 L143 46"/><path d="M104 92 L150 46"/><path d="M111 92 L157 46"/><path d="M118 92 L164 46"/><path d="M125 92 L171 46"/><path d="M132 92 L178 46"/><path d="M139 92 L185 46"/><path d="M146 92 L192 46"/><path d="M153 92 L199 46"/><path d="M160 92 L206 46"/><path d="M167 92 L213 46"/><path d="M174 92 L220 46"/><path d="M181 92 L227 46"/><path d="M188 92 L234 46"/><path d="M195 92 L241 46"/><path d="M202 92 L248 46"/><path d="M209 92 L255 46"/><path d="M216 92 L262 46"/><path d="M223 92 L269 46"/><path d="M230 92 L276 46"/><path d="M237 92 L283 46"/><path d="M244 92 L290 46"/><path d="M251 92 L297 46"/><path d="M258 92 L304 46"/><path d="M265 92 L311 46"/><path d="M272 92 L318 46"/><path d="M279 92 L325 46"/><path d="M286 92 L332 46"/><path d="M293 92 L339 46"/><path d="M300 92 L346 46"/><path d="M307 92 L353 46"/><path d="M314 92 L360 46"/><path d="M321 92 L367 46"/><path d="M328 92 L374 46"/><path d="M335 92 L381 46"/><path d="M342 92 L388 46"/><path d="M349 92 L395 46"/><path d="M356 92 L402 46"/><path d="M363 92 L409 46"/><path d="M370 92 L416 46"/><path d="M377 92 L423 46"/><path d="M384 92 L430 46"/><path d="M391 92 L437 46"/><path d="M398 92 L444 46"/><path d="M405 92 L451 46"/><path d="M412 92 L458 46"/><path d="M419 92 L465 46"/><path d="M426 92 L472 46"/><path d="M433 92 L479 46"/><path d="M440 92 L486 46"/><path d="M447 92 L493 46"/><path d="M454 92 L500 46"/><path d="M461 92 L507 46"/><path d="M468 92 L514 46"/><path d="M475 92 L521 46"/><path d="M482 92 L528 46"/></g><path d="M80 216 L480 216 L480 170 L360 170 L340 148 L220 148 L200 170 L80 170 L80 216"/><clipPath id="c353"><rect x="80" y="170" width="400" height="46"/></clipPath><g clip-path="url(#c353)" opacity=".38" stroke-width="1"><path d="M34 216 L80 170"/><path d="M41 216 L87 170"/><path d="M48 216 L94 170"/><path d="M55 216 L101 170"/><path d="M62 216 L108 170"/><path d="M69 216 L115 170"/><path d="M76 216 L122 170"/><path d="M83 216 L129 170"/><path d="M90 216 L136 170"/><path d="M97 216 L143 170"/><path d="M104 216 L150 170"/><path d="M111 216 L157 170"/><path d="M118 216 L164 170"/><path d="M125 216 L171 170"/><path d="M132 216 L178 170"/><path d="M139 216 L185 170"/><path d="M146 216 L192 170"/><path d="M153 216 L199 170"/><path d="M160 216 L206 170"/><path d="M167 216 L213 170"/><path d="M174 216 L220 170"/><path d="M181 216 L227 170"/><path d="M188 216 L234 170"/><path d="M195 216 L241 170"/><path d="M202 216 L248 170"/><path d="M209 216 L255 170"/><path d="M216 216 L262 170"/><path d="M223 216 L269 170"/><path d="M230 216 L276 170"/><path d="M237 216 L283 170"/><path d="M244 216 L290 170"/><path d="M251 216 L297 170"/><path d="M258 216 L304 170"/><path d="M265 216 L311 170"/><path d="M272 216 L318 170"/><path d="M279 216 L325 170"/><path d="M286 216 L332 170"/><path d="M293 216 L339 170"/><path d="M300 216 L346 170"/><path d="M307 216 L353 170"/><path d="M314 216 L360 170"/><path d="M321 216 L367 170"/><path d="M328 216 L374 170"/><path d="M335 216 L381 170"/><path d="M342 216 L388 170"/><path d="M349 216 L395 170"/><path d="M356 216 L402 170"/><path d="M363 216 L409 170"/><path d="M370 216 L416 170"/><path d="M377 216 L423 170"/><path d="M384 216 L430 170"/><path d="M391 216 L437 170"/><path d="M398 216 L444 170"/><path d="M405 216 L451 170"/><path d="M412 216 L458 170"/><path d="M419 216 L465 170"/><path d="M426 216 L472 170"/><path d="M433 216 L479 170"/><path d="M440 216 L486 170"/><path d="M447 216 L493 170"/><path d="M454 216 L500 170"/><path d="M461 216 L507 170"/><path d="M468 216 L514 170"/><path d="M475 216 L521 170"/><path d="M482 216 L528 170"/></g><text x="86" y="40" text-anchor="start" font-size="12" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >upper die</text><text x="86" y="232" text-anchor="start" font-size="12" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >lower die</text><path d="M220 114 L340 114 L360 131 L340 148 L220 148 L200 131 Z" fill="currentColor" opacity=".13" stroke="none"/><path d="M220 114 L340 114 L360 131 L340 148 L220 148 L200 131 L220 114"/><text x="280" y="135" text-anchor="middle" font-size="12.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >the part</text><path d="M200 124 L82 124 L82 138 L200 138 Z" fill="currentColor" opacity=".28" stroke="none"/><path d="M174 131 L98 131"/><path d="M98 131 L103.526 128.663 L103.526 133.337" fill="currentColor" stroke="none"/><path d="M360 124 L478 124 L478 138 L360 138 Z" fill="currentColor" opacity=".28" stroke="none"/><path d="M386 131 L462 131"/><path d="M462 131 L456.474 133.337 L456.474 128.663" fill="currentColor" stroke="none"/><text x="142" y="118" text-anchor="middle" font-size="12.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >flash</text><text x="418" y="118" text-anchor="middle" font-size="12.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >flash</text><path d="M198 176 L198 144"/><path d="M198 144 L199.947 148.605 L196.053 148.605" fill="currentColor" stroke="none"/><text x="198" y="192" text-anchor="middle" font-size="11.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >flash land</text><text x="280" y="254" text-anchor="middle" font-size="12" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >the thin land resists escape, so pressure inside the cavity rises and fills the detail</text></g></svg><figcaption class="freq" style="text-align:center;margin-top:.1rem">The network for this question</figcaption></figure>
+  <div class="rec">
+    <b class="h">How to do it &mdash; the method itself</b>
+    <p class="sub">The working below uses this paper&rsquo;s numbers. These are the steps on their own, so you can follow them on any question of this type.</p>
+    <h5>Describing any forging, extrusion or drawing process</h5>
+    <ol>
+      <li>Open with one sentence saying what the process does &mdash; the shape change it produces.</li>
+      <li>Draw the sketch before writing the paragraph. If the question says 'with a neat sketch', the sketch carries marks of its own and an unlabelled drawing scores nothing.</li>
+      <li>Label the workpiece, the tooling, the direction of force and the direction of material flow. Those four labels are what the examiner looks for.</li>
+      <li>Then describe the sequence in three or four steps: how the work is loaded, what the tool does, what happens to the material, how the part comes out.</li>
+      <li>State one advantage and one limitation. This is almost always worth a mark and is almost always left out.</li>
+      <li>If the question asks you to compare two processes, use a two-column table. It is faster to write and easier to mark than prose.</li>
+    </ol>
+    <h5>Open-die versus closed-die forging &mdash; the points that matter</h5>
+    <ol>
+      <li>Open die: the work is not fully enclosed, so material spreads freely sideways. Simple tooling, wide range of sizes, poor dimensional control.</li>
+      <li>Closed die (impression die): the cavity defines the shape. Good accuracy and good grain flow, but expensive tooling, so it needs volume to pay off.</li>
+      <li><b>Flash</b> is the thin ring of excess metal squeezed out at the parting line. It is deliberate, not a defect: its resistance to flow is what forces the metal to fill the cavity completely.</li>
+      <li>Flashless forging needs the billet volume controlled precisely, because there is nowhere for excess metal to go.</li>
+    </ol>
+  </div>
+  <h4 class="step">Step 1 &mdash; the classification, on two axes</h4>
+  <p class="why">Answer on both axes. Answering on only one is what turns a full-mark answer into half marks.</p>
+  <div class="m">by temperature:   hot forging | warm forging | cold forging
+by die type:      open die | impression (closed) die | flashless
+by equipment:     hammer (impact) | press (squeeze)</div>
+  <h4 class="step">Step 2 &mdash; what flash actually does</h4>
+  <p class="why">Flash is not waste that happens by accident. It is a designed restriction, and it does two jobs.</p>
+  <div class="m">1. It acts as a pressure valve. Once the thin flash land fills, metal can only
+   escape slowly, so pressure inside the cavity rises sharply and forces the
+   metal into the thin and detailed parts of the die.
+
+2. It takes the excess. The billet is deliberately oversized so the cavity is
+   certainly full; the surplus has to go somewhere, and the flash gully takes it.
+
+   thin flash land -&gt; higher resistance -&gt; higher die pressure -&gt; better filling</div>
+  <h4 class="step">Step 3 &mdash; and why flashless exists</h4>
+  <div class="m">Flash is trimmed off and scrapped, so it is wasted material and a second
+operation. Flashless forging needs an exactly measured billet - too little and
+the cavity does not fill, too much and the dies are damaged. It buys material
+saving at the cost of much tighter billet control.</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">Classification on all three axes, flash as a pressure valve <i>and</i> an overflow, and flashless as the material-saving trade against billet accuracy.</div>
+  </div>
+  <div class="alt"><b class="h">If the question comes in a different form</b>
+    <h5 class="vh">If it names a specific component</h5>
+    <p class="vp">Crankshaft, connecting rod, spanner, hand tools &mdash; the answer becomes the sequence of operations rather than the classification. Name the stages in order and say what each one does to the metal.</p>
+    <div class="m">billet -&gt; fullering    (reduce section where the part is thin)
+       -&gt; edging       (gather metal where the part is thick)
+       -&gt; blocking     (rough shape, generous radii)
+       -&gt; finishing    (final impression, flash forms)
+       -&gt; trimming     (flash cut off)
+
+and the reason it is forged at all: the grain flow follows the shape
+instead of being cut across, which is what gives fatigue strength</div>
+    <h5 class="vh">If it asks open die versus closed die</h5>
+    <p class="vp">Answer as a table on five headings. A paragraph covering the same ground scores less because the examiner has to hunt for each point.</p>
+    <div class="m">                    open die              closed die
+die cost            low                   high
+shape complexity    simple only           complex possible
+material waste      high                  lower (flash only)
+production rate     low                   high
+tolerance           poor                  good
+suits               one-off, large        mass production</div>
+    <h5 class="vh">If it asks about forging defects</h5>
+    <p class="vp">Name the defect, then its cause &mdash; the cause is where the marks are. Just listing names gets about half.</p>
+    <div class="m">lap                metal folds over itself, usually from a sharp corner
+                   or too large a draft in one blow
+cold shut          two metal fronts meet but do not weld, from a
+                   too-cold billet or too-thin a section
+incomplete filling not enough material, or too fast a blow so the
+                   metal cannot reach the thin parts
+die shift          top and bottom dies misaligned, so the part steps</div>
+    <h5 class="vh">If it asks why flash exists at all</h5>
+    <p class="vp">This is the part that separates answers. Flash is not an accident and it is not only waste. The thin flash land resists the metal escaping, so pressure inside the cavity rises sharply, and that pressure is what forces metal into the thin and detailed corners of the die. The overflow function is the second reason, not the first.</p>
+  </div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q5</span><span class="marks">6 marks</span><span class="method">Tool geometry &amp; angles</span></div>
+  <p class="freq">4 of 5 papers &middot; 27 marks</p>
+  <div class="qtext">A single point cutting tool has the signature 8&ndash;6&ndash;7&ndash;7&ndash;10&ndash;15&ndash;0.8. Identify each element. Explain the effect of the rake angle and the nose radius on the cutting operation.</div>
+  <figure style="margin:1.1rem 0 .4rem"><svg viewBox="0 0 620 300" width="100%" style="max-width:620px;height:auto;display:block;margin:1rem auto" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A single point cutting tool in side view and top view with the rake, relief, cutting edge angles and nose radius marked"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><text x="150" y="34" text-anchor="middle" font-size="12.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" opacity=".65">side view</text><path d="M58 130 L198 130 L198 196 L58 196 L58 130"/><clipPath id="c5366"><rect x="58" y="130" width="140" height="66"/></clipPath><g clip-path="url(#c5366)" opacity=".38" stroke-width="1"><path d="M-8 196 L58 130"/><path d="M-1 196 L65 130"/><path d="M6 196 L72 130"/><path d="M13 196 L79 130"/><path d="M20 196 L86 130"/><path d="M27 196 L93 130"/><path d="M34 196 L100 130"/><path d="M41 196 L107 130"/><path d="M48 196 L114 130"/><path d="M55 196 L121 130"/><path d="M62 196 L128 130"/><path d="M69 196 L135 130"/><path d="M76 196 L142 130"/><path d="M83 196 L149 130"/><path d="M90 196 L156 130"/><path d="M97 196 L163 130"/><path d="M104 196 L170 130"/><path d="M111 196 L177 130"/><path d="M118 196 L184 130"/><path d="M125 196 L191 130"/><path d="M132 196 L198 130"/><path d="M139 196 L205 130"/><path d="M146 196 L212 130"/><path d="M153 196 L219 130"/><path d="M160 196 L226 130"/><path d="M167 196 L233 130"/><path d="M174 196 L240 130"/><path d="M181 196 L247 130"/><path d="M188 196 L254 130"/><path d="M195 196 L261 130"/><path d="M202 196 L268 130"/></g><path d="M198 130 L272 130" stroke-dasharray="4 3" opacity=".55"/><path d="M198 130 L264 100"/><text x="208" y="90" text-anchor="start" font-size="11.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >back rake</text><path d="M198 130 L198 222" stroke-dasharray="4 3" opacity=".55"/><path d="M198 130 L172 222"/><text x="166" y="238" text-anchor="middle" font-size="11.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >end relief</text><text x="128" y="168" text-anchor="middle" font-size="12" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >tool</text><text x="452" y="34" text-anchor="middle" font-size="12.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" opacity=".65">top view</text><path d="M352 120 L480 120 L480 196 L352 196 L352 120"/><clipPath id="c4632"><rect x="352" y="120" width="128" height="76"/></clipPath><g clip-path="url(#c4632)" opacity=".38" stroke-width="1"><path d="M276 196 L352 120"/><path d="M283 196 L359 120"/><path d="M290 196 L366 120"/><path d="M297 196 L373 120"/><path d="M304 196 L380 120"/><path d="M311 196 L387 120"/><path d="M318 196 L394 120"/><path d="M325 196 L401 120"/><path d="M332 196 L408 120"/><path d="M339 196 L415 120"/><path d="M346 196 L422 120"/><path d="M353 196 L429 120"/><path d="M360 196 L436 120"/><path d="M367 196 L443 120"/><path d="M374 196 L450 120"/><path d="M381 196 L457 120"/><path d="M388 196 L464 120"/><path d="M395 196 L471 120"/><path d="M402 196 L478 120"/><path d="M409 196 L485 120"/><path d="M416 196 L492 120"/><path d="M423 196 L499 120"/><path d="M430 196 L506 120"/><path d="M437 196 L513 120"/><path d="M444 196 L520 120"/><path d="M451 196 L527 120"/><path d="M458 196 L534 120"/><path d="M465 196 L541 120"/><path d="M472 196 L548 120"/><path d="M479 196 L555 120"/><path d="M486 196 L562 120"/></g><path d="M480 138 A 18 18 0 0 1 462 120" fill="none"/><path d="M480 138 L480 196"/><path d="M352 120 L462 120"/><path d="M514 172 L476 144"/><path d="M476 144 L480.863 145.164 L478.553 148.299" fill="currentColor" stroke="none"/><text x="518" y="182" text-anchor="start" font-size="11.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >nose radius</text><path d="M462 120 L462 86" stroke-dasharray="4 3" opacity=".55"/><path d="M462 120 L436 88"/><text x="430" y="80" text-anchor="end" font-size="11.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >SCEA</text><path d="M480 138 L520 138" stroke-dasharray="4 3" opacity=".55"/><path d="M480 138 L514 112"/><text x="518" y="106" text-anchor="start" font-size="11.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >ECEA</text><text x="310" y="286" text-anchor="middle" font-size="11.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >signature order: back rake, side rake, end relief, side relief, ECEA, SCEA, nose radius</text></g></svg><figcaption class="freq" style="text-align:center;margin-top:.1rem">The network for this question</figcaption></figure>
+  <div class="rec">
+    <b class="h">How to do it &mdash; the method itself</b>
+    <p class="sub">The working below uses this paper&rsquo;s numbers. These are the steps on their own, so you can follow them on any question of this type.</p>
+    <h5>Answering any cutting-tool or machining-parameter question</h5>
+    <ol>
+      <li>Identify which of the three parameters the question is about: cutting speed v (m/min), feed f (mm/rev), depth of cut d (mm).</li>
+      <li>Cutting speed and spindle speed are linked by v = &pi;DN/1000 with D in mm. Almost every machining numerical starts by rearranging this.</li>
+      <li>Machining time = length of cut / (f &times; N). Add the approach and overtravel to the length if the question gives them.</li>
+      <li>Material removal rate for turning = 1000 &times; v &times; f &times; d in mm&sup3;/min.</li>
+      <li>For tool life use Taylor's equation vT<sup>n</sup> = C. Given two conditions, divide one equation by the other &mdash; C cancels and you are left with a single unknown.</li>
+    </ol>
+    <h5>Tool signature &mdash; reading the seven numbers</h5>
+    <ol>
+      <li>The order is fixed: back rake, side rake, end relief, side relief, end cutting edge angle, side cutting edge angle, nose radius. Learn the order, because the question often just gives seven numbers.</li>
+      <li><b>Rake</b> angles control chip flow and cutting force. Positive rake cuts more easily and is for softer materials; negative rake is stronger and is for hard materials and interrupted cuts.</li>
+      <li><b>Relief</b> angles stop the tool flank rubbing the finished surface. Too small and the tool burnishes and wears; too large and the cutting edge is weak.</li>
+      <li><b>Nose radius</b> improves surface finish and edge strength, but too large increases the radial force and invites chatter.</li>
+      <li>If asked to explain one angle, always give both what it does and what goes wrong at each extreme. That pair is the full mark.</li>
+    </ol>
+  </div>
+  <h4 class="step">Step 1 &mdash; the signature, in its fixed order</h4>
+  <p class="why">The order never changes. Learn it once and this part is free marks.</p>
+  <div class="m">8   deg   back rake angle
+6   deg   side rake angle
+7   deg   end relief angle
+7   deg   side relief angle
+10  deg   end cutting edge angle  (ECEA)
+15  deg   side cutting edge angle (SCEA)
+0.8 mm    nose radius
+
+order: the two rakes, then the two reliefs, then the two cutting edge angles,
+       then the nose radius in mm - the only one that is not in degrees</div>
+  <h4 class="step">Step 2 &mdash; rake angle, both directions</h4>
+  <p class="why">Every angle question wants the trade, not just one side.</p>
+  <div class="m">positive rake : lower cutting force and power, better chip flow, better finish
+                on ductile material - but a weaker cutting edge
+
+negative rake : strong edge, takes impact and interrupted cuts, suits hard
+                material and high speed - but higher force and power
+
+zero rake     : form tools and threading, where the profile must be preserved</div>
+  <h4 class="step">Step 3 &mdash; nose radius, and the answer that gets the extra mark</h4>
+  <div class="m">larger nose radius -&gt; better surface finish, stronger tip, longer tool life
+                  -&gt; BUT higher radial force
+
+and that radial force is what makes a long slender workpiece chatter -
+at which point the finish gets worse, not better. Say that sentence.</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">All seven elements named in order, and both angles answered as a trade rather than a single benefit.</div>
+  </div>
+  <div class="alt"><b class="h">If the question comes in a different form</b>
+    <h5 class="vh">If it asks you to choose the rake angle for a given material</h5>
+    <p class="vp">Do not write about chips alone. The question names cutting parameters &mdash; speed, feed, depth &mdash; and expects a level against each one. Put them in a table and you cannot leave one out.</p>
+    <div class="m">                    negative rake         positive rake
+cutting speed       high                  low to medium
+feed                high                  low to medium
+depth of cut        high                  low to medium
+cutting force       high                  low
+chip produced       discontinuous         continuous
+tool edge           strong                weaker
+suits               hard material,        ductile material,
+                    interrupted cuts      finishing</div>
+    <h5 class="vh">If it says &quot;for machining a ductile material&quot;</h5>
+    <p class="vp">That qualifier decides the answer and it is there on purpose. On a ductile material positive rake gives the better finish. On a hard or brittle material the answer flips &mdash; negative rake can finish better because the edge does not chip. Answering without noticing the qualifier is how a correct-looking answer loses marks.</p>
+    <h5 class="vh">If it asks about the nose radius</h5>
+    <p class="vp">Give both directions. A larger radius gives a better finish, a stronger tip and longer tool life, but it also raises the radial force &mdash; and on a long slender workpiece that force causes chatter, at which point the finish gets worse rather than better. That last sentence is usually the mark that separates answers.</p>
+    <h5 class="vh">If the signature is given in a different system</h5>
+    <p class="vp">ASA and ORS number the same tool differently. If the question names a system, say which one you are reading and then interpret in that order. If it names none, state that you are using ASA and carry on &mdash; stating the assumption protects the marks.</p>
+    <div class="m">ASA order:  back rake, side rake, end relief, side relief,
+            ECEA, SCEA, nose radius
+
+the quick way to remember it: two rakes, two reliefs,
+two cutting edge angles, then the radius</div>
+  </div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q6</span><span class="marks">5 marks</span><span class="method">Chips &amp; stress&ndash;strain</span></div>
+  <p class="freq">4 of 5 papers &middot; 26 marks</p>
+  <div class="qtext">Name the types of chips produced in metal cutting. For copper and for grey cast iron, state which chip forms and explain the machining conditions that promote it.</div>
+  <div class="rec">
+    <b class="h">How to do it &mdash; the method itself</b>
+    <p class="sub">The working below uses this paper&rsquo;s numbers. These are the steps on their own, so you can follow them on any question of this type.</p>
+    <h5>Explaining any welding process</h5>
+    <ol>
+      <li>State the heat source in the first line &mdash; arc, resistance, chemical, or friction. Every other difference follows from it.</li>
+      <li>Say whether it is consumable or non-consumable electrode, and whether filler is added separately.</li>
+      <li>Say how the weld pool is shielded: a gas, a flux, a slag, or a vacuum. If the process has no shielding, say what happens as a result.</li>
+      <li>Draw the joint in section: base metals, weld pool, electrode, shielding, and the heat-affected zone.</li>
+      <li>For a comparison, pick the axes yourself and keep them consistent: heat source, shielding, filler, typical thickness, cost, one application each.</li>
+    </ol>
+    <h5>Heat input and the heat-affected zone</h5>
+    <ol>
+      <li>Heat input per unit length H = VI/v, with v the travel speed. Higher current or slower travel means more heat into the joint.</li>
+      <li>More heat means a wider HAZ, larger grains in it, and lower strength there. That chain of three is the answer to most HAZ questions.</li>
+      <li>Melting efficiency and heat transfer efficiency both multiply the input. If the question gives them, apply both &mdash; the useful heat is H &times; f<sub>1</sub> &times; f<sub>2</sub>.</li>
+    </ol>
+  </div>
+  <h4 class="step">Step 1 &mdash; the three types, with the condition behind each</h4>
+  <div class="m">continuous            ductile material, positive rake, high speed,
+                      small feed, good lubrication
+
+continuous with BUE   ductile material, low to medium speed, high friction,
+                      poor lubrication
+
+discontinuous         brittle material, negative rake, low speed,
+                      large feed and depth</div>
+  <h4 class="step">Step 2 &mdash; apply it to the two materials named</h4>
+  <p class="why">The question names two materials on purpose &mdash; one ductile, one brittle.</p>
+  <div class="m">copper    - ductile, so a continuous chip, with a built-up edge at low and
+            medium speed. Raise the speed and use positive rake with a small
+            feed to get a clean continuous chip.
+
+cast iron - brittle, so a discontinuous chip. It fractures ahead of the tool
+            instead of flowing over it. Negative rake, lower speed and a larger
+            feed suit it, and chip disposal is easy because it breaks itself.</div>
+  <h4 class="step">Step 3 &mdash; if a stress&ndash;strain curve is given instead</h4>
+  <p class="why">Read it along the strain axis, not the stress axis.</p>
+  <div class="m">chip type follows DUCTILITY - how far the curve runs along strain -
+not strength, which is how high it goes. A material can be both strong
+and ductile and will still give a continuous chip.</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">Three chip types with their conditions; copper &rarr; continuous with BUE at low speed, cast iron &rarr; discontinuous.</div>
+  </div>
+  <div class="alt"><b class="h">If the question comes in a different form</b>
+    <h5 class="vh">If it gives you stress&ndash;strain curves and asks for the chip</h5>
+    <p class="vp">Read the curves along the <b>strain</b> axis, not the stress axis. Chip type follows ductility &mdash; how far the material stretches before it breaks &mdash; not strength, which is how high the curve goes. A material can be both strong and ductile and it will still give a continuous chip.</p>
+    <div class="m">long run along strain, breaks late   -&gt; ductile   -&gt; continuous chip
+short run, breaks early              -&gt; brittle   -&gt; discontinuous chip
+
+height of the curve tells you the force needed, not the chip</div>
+    <h5 class="vh">If it asks about built-up edge on its own</h5>
+    <p class="vp">The answer the examiner is waiting for is that BUE is not simply a defect. Once a layer of work material seizes onto the rake face it becomes the cutting edge, and while it stays put it shields the real edge from wear &mdash; in roughing that can be worth having. The damage comes from the unstable version, which grows, breaks away, drags across the finished surface and carries off a little tool material each time. The mark is for separating stable from unstable, not for condemning it outright.</p>
+    <div class="m">BUE forms when:  ductile material, low to medium speed,
+                 high friction, poor lubrication
+
+to get rid of it: raise the cutting speed, increase the rake angle,
+                  use a good cutting fluid, reduce the feed</div>
+    <h5 class="vh">If it asks where forming and machining sit on the curve</h5>
+    <p class="vp">One line, often left blank, always worth a mark. Forming works in the plastic region between yield and ultimate &mdash; you want the metal to change shape and stay in one piece. Machining works past the ultimate point, at fracture &mdash; you want the metal to separate. Mark and shade the two bands on the ductile curve.</p>
+    <h5 class="vh">If it names two materials</h5>
+    <p class="vp">Pick them apart by ductility first, then give conditions for each. The examiner has almost certainly chosen one ductile and one brittle material on purpose &mdash; copper and cast iron, aluminium and grey iron, mild steel and bronze. Say which is which in your first line and the rest follows.</p>
+  </div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q7</span><span class="marks">5 marks</span><span class="method">Additive manufacturing</span></div>
+  <p class="freq">3 of 5 papers &middot; 19 marks</p>
+  <div class="qtext">Compare FDM and SLS on principle, materials, accuracy, support requirement and typical application. Which would you choose for a functional prototype of a load-bearing bracket, and why?</div>
+  <div class="rec">
+    <b class="h">How to do it &mdash; the method itself</b>
+    <p class="sub">The working below uses this paper&rsquo;s numbers. These are the steps on their own, so you can follow them on any question of this type.</p>
+    <h5>Answering a pattern, mould or allowance question</h5>
+    <ol>
+      <li>List the allowances in the order they are applied: shrinkage, machining, draft, distortion, shake. Naming them in order is often half the mark.</li>
+      <li>Say what each one compensates for, in one line. Shrinkage for the metal contracting as it cools; machining for material that will be cut away later; draft so the pattern lifts without tearing the sand; distortion for warping in thin sections; shake for the pattern rapping loose.</li>
+      <li>Note which way each is applied. Shrinkage and machining make the pattern <b>larger</b> than the casting; shake makes it slightly <b>smaller</b>.</li>
+      <li>For a numerical, apply them multiplicatively to each dimension in turn and state the final pattern dimension clearly.</li>
+      <li>For the moulding sand, the four requirements are permeability, cohesiveness, refractoriness and collapsibility. Define each in one line and say what fails if it is absent.</li>
+    </ol>
+  </div>
+  <h4 class="step">Step 1 &mdash; the comparison, as a table</h4>
+  <p class="why">A table earns more than a paragraph here, and it is faster to write.</p>
+  <div class="m">                FDM                          SLS
+principle       filament melted and          powder bed fused by laser,
+                extruded layer by layer      layer by layer
+material        thermoplastic filament       polymer / metal powder
+                (PLA, ABS, PETG)             (nylon, PA12, metals)
+accuracy        lower, visible layer lines   higher, finer detail
+supports        needed for overhangs         not needed - loose powder
+                and must be removed          supports the part
+strength        anisotropic, weak between    near isotropic, stronger
+                layers
+cost            low                          high
+typical use     concept models, jigs         functional and end-use parts</div>
+  <h4 class="step">Step 2 &mdash; the choice, with the reason stated</h4>
+  <p class="why">The second half of the question is where the marks separate. Commit to an answer and justify it.</p>
+  <div class="m">Choose SLS.
+
+A load-bearing bracket is loaded in more than one direction, and FDM parts are
+weak between layers - they split along the build direction. SLS parts are close
+to isotropic, so the bracket holds whichever way it is loaded. SLS also needs no
+supports, so internal features come out clean.
+
+FDM would only win if this were a shape check, where cost and speed matter more
+than strength.</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">The five-row comparison, and SLS chosen for the bracket on the isotropy argument.</div>
+  </div>
+  <div class="alt"><b class="h">If the question comes in a different form</b>
+    <h5 class="vh">If it asks about one process in depth instead of a comparison</h5>
+    <p class="vp">Give the full cycle rather than a description of the machine. The cycle is the same for every AM process and it is what the marks are for.</p>
+    <div class="m">CAD model -&gt; export as STL (surface as triangles)
+          -&gt; slice into layers, generate tool path and supports
+          -&gt; build layer by layer
+          -&gt; remove from the machine, take off supports
+          -&gt; post-process: sanding, curing, machining, heat treat</div>
+    <h5 class="vh">If it names an application and asks which process</h5>
+    <p class="vp">Commit to a process and give the reason. The reason is the mark; the process name alone is not.</p>
+    <div class="m">medical implant   -&gt; metal SLS or EBM: biocompatible titanium,
+                     and porous lattices that bone can grow into
+concept model     -&gt; FDM or SLA: cheap and fast, strength irrelevant
+functional part   -&gt; SLS: near isotropic, no supports needed
+fine detail       -&gt; SLA: best resolution and surface finish
+large tooling     -&gt; FDM with a big build volume</div>
+    <h5 class="vh">If it asks the advantages and limitations of AM generally</h5>
+    <p class="vp">Answer in two columns. The limitations half is the one people rush, and it usually carries the same marks as the advantages.</p>
+    <div class="m">advantages          any geometry, no tooling, no setup cost,
+                    one-off parts economic, mass customisation,
+                    internal channels impossible to machine
+
+limitations         small build volume, slow for quantity,
+                    limited material range, surface finish,
+                    anisotropy in some processes, cost per part</div>
+    <h5 class="vh">If it asks you to compare on named headings</h5>
+    <p class="vp">Use exactly the headings the question gives, in the order given, as rows in a table. If it names five, write five rows. Adding your own extra headings is fine; leaving one of theirs out is where the marks go.</p>
+  </div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q8</span><span class="marks">4 marks</span><span class="method">Sheet metal &amp; dies</span></div>
+  <p class="freq">2 of 5 papers &middot; 18 marks</p>
+  <div class="qtext">A washer of 80 mm outside diameter with a 30 mm hole is to be produced from sheet. The clearance is 0.6 mm per side. Determine the punch and die sizes for both the blanking and the punching operation.</div>
+  <figure style="margin:1.1rem 0 .4rem"><svg viewBox="0 0 600 330" width="100%" style="max-width:600px;height:auto;display:block;margin:1rem auto" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Blanking against punching: in blanking the die opening is the finished size and the punch is smaller; in punching the punch is the finished size and the die opening is larger"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><text x="152" y="26" text-anchor="middle" font-size="13.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >BLANKING</text><path d="M121 62 L183 62 L183 112 L121 112 L121 62"/><clipPath id="c5170"><rect x="121" y="62" width="62" height="50"/></clipPath><g clip-path="url(#c5170)" opacity=".38" stroke-width="1"><path d="M71 112 L121 62"/><path d="M78 112 L128 62"/><path d="M85 112 L135 62"/><path d="M92 112 L142 62"/><path d="M99 112 L149 62"/><path d="M106 112 L156 62"/><path d="M113 112 L163 62"/><path d="M120 112 L170 62"/><path d="M127 112 L177 62"/><path d="M134 112 L184 62"/><path d="M141 112 L191 62"/><path d="M148 112 L198 62"/><path d="M155 112 L205 62"/><path d="M162 112 L212 62"/><path d="M169 112 L219 62"/><path d="M176 112 L226 62"/><path d="M183 112 L233 62"/><path d="M190 112 L240 62"/></g><text x="152" y="92" text-anchor="middle" font-size="12" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >punch</text><path d="M121 52 L183 52"/><path d="M183 52 L178.395 53.9471 L178.395 50.0529" fill="currentColor" stroke="none"/><path d="M183 52 L121 52"/><path d="M121 52 L125.605 50.0529 L125.605 53.9471" fill="currentColor" stroke="none"/><text x="152" y="46" text-anchor="middle" font-size="11.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >punch 78.80</text><path d="M24 132 L280 132 L280 150 L24 150 L24 132"/><text x="32" y="145" text-anchor="start" font-size="11" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >sheet</text><path d="M24 150 L102 150 L102 204 L24 204 L24 150"/><path d="M202 150 L280 150 L280 204 L202 204 L202 150"/><clipPath id="c5714"><rect x="24" y="150" width="78" height="54"/></clipPath><g clip-path="url(#c5714)" opacity=".38" stroke-width="1"><path d="M-30 204 L24 150"/><path d="M-23 204 L31 150"/><path d="M-16 204 L38 150"/><path d="M-9 204 L45 150"/><path d="M-2 204 L52 150"/><path d="M5 204 L59 150"/><path d="M12 204 L66 150"/><path d="M19 204 L73 150"/><path d="M26 204 L80 150"/><path d="M33 204 L87 150"/><path d="M40 204 L94 150"/><path d="M47 204 L101 150"/><path d="M54 204 L108 150"/><path d="M61 204 L115 150"/><path d="M68 204 L122 150"/><path d="M75 204 L129 150"/><path d="M82 204 L136 150"/><path d="M89 204 L143 150"/><path d="M96 204 L150 150"/><path d="M103 204 L157 150"/></g><clipPath id="c8565"><rect x="202" y="150" width="78" height="54"/></clipPath><g clip-path="url(#c8565)" opacity=".38" stroke-width="1"><path d="M148 204 L202 150"/><path d="M155 204 L209 150"/><path d="M162 204 L216 150"/><path d="M169 204 L223 150"/><path d="M176 204 L230 150"/><path d="M183 204 L237 150"/><path d="M190 204 L244 150"/><path d="M197 204 L251 150"/><path d="M204 204 L258 150"/><path d="M211 204 L265 150"/><path d="M218 204 L272 150"/><path d="M225 204 L279 150"/><path d="M232 204 L286 150"/><path d="M239 204 L293 150"/><path d="M246 204 L300 150"/><path d="M253 204 L307 150"/><path d="M260 204 L314 150"/><path d="M267 204 L321 150"/><path d="M274 204 L328 150"/><path d="M281 204 L335 150"/></g><text x="40" y="182" text-anchor="start" font-size="12" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >die</text><path d="M102 218 L202 218"/><path d="M202 218 L197.395 219.947 L197.395 216.053" fill="currentColor" stroke="none"/><path d="M202 218 L102 218"/><path d="M102 218 L106.605 216.053 L106.605 219.947" fill="currentColor" stroke="none"/><text x="152" y="234" text-anchor="middle" font-size="11.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >die 80.00</text><text x="152" y="256" text-anchor="middle" font-size="11.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >the BLANK is kept &rarr; the DIE is made to size</text><text x="448" y="26" text-anchor="middle" font-size="13.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >PUNCHING</text><path d="M398 62 L498 62 L498 112 L398 112 L398 62"/><clipPath id="c4139"><rect x="398" y="62" width="100" height="50"/></clipPath><g clip-path="url(#c4139)" opacity=".38" stroke-width="1"><path d="M348 112 L398 62"/><path d="M355 112 L405 62"/><path d="M362 112 L412 62"/><path d="M369 112 L419 62"/><path d="M376 112 L426 62"/><path d="M383 112 L433 62"/><path d="M390 112 L440 62"/><path d="M397 112 L447 62"/><path d="M404 112 L454 62"/><path d="M411 112 L461 62"/><path d="M418 112 L468 62"/><path d="M425 112 L475 62"/><path d="M432 112 L482 62"/><path d="M439 112 L489 62"/><path d="M446 112 L496 62"/><path d="M453 112 L503 62"/><path d="M460 112 L510 62"/><path d="M467 112 L517 62"/><path d="M474 112 L524 62"/><path d="M481 112 L531 62"/><path d="M488 112 L538 62"/><path d="M495 112 L545 62"/><path d="M502 112 L552 62"/></g><text x="448" y="92" text-anchor="middle" font-size="12" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >punch</text><path d="M398 52 L498 52"/><path d="M498 52 L493.395 53.9471 L493.395 50.0529" fill="currentColor" stroke="none"/><path d="M498 52 L398 52"/><path d="M398 52 L402.605 50.0529 L402.605 53.9471" fill="currentColor" stroke="none"/><text x="448" y="46" text-anchor="middle" font-size="11.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >punch 30.00</text><path d="M320 132 L576 132 L576 150 L320 150 L320 132"/><text x="328" y="145" text-anchor="start" font-size="11" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >sheet</text><path d="M320 150 L379 150 L379 204 L320 204 L320 150"/><path d="M517 150 L576 150 L576 204 L517 204 L517 150"/><clipPath id="c949"><rect x="320" y="150" width="59" height="54"/></clipPath><g clip-path="url(#c949)" opacity=".38" stroke-width="1"><path d="M266 204 L320 150"/><path d="M273 204 L327 150"/><path d="M280 204 L334 150"/><path d="M287 204 L341 150"/><path d="M294 204 L348 150"/><path d="M301 204 L355 150"/><path d="M308 204 L362 150"/><path d="M315 204 L369 150"/><path d="M322 204 L376 150"/><path d="M329 204 L383 150"/><path d="M336 204 L390 150"/><path d="M343 204 L397 150"/><path d="M350 204 L404 150"/><path d="M357 204 L411 150"/><path d="M364 204 L418 150"/><path d="M371 204 L425 150"/><path d="M378 204 L432 150"/><path d="M385 204 L439 150"/></g><clipPath id="c6747"><rect x="517" y="150" width="59" height="54"/></clipPath><g clip-path="url(#c6747)" opacity=".38" stroke-width="1"><path d="M463 204 L517 150"/><path d="M470 204 L524 150"/><path d="M477 204 L531 150"/><path d="M484 204 L538 150"/><path d="M491 204 L545 150"/><path d="M498 204 L552 150"/><path d="M505 204 L559 150"/><path d="M512 204 L566 150"/><path d="M519 204 L573 150"/><path d="M526 204 L580 150"/><path d="M533 204 L587 150"/><path d="M540 204 L594 150"/><path d="M547 204 L601 150"/><path d="M554 204 L608 150"/><path d="M561 204 L615 150"/><path d="M568 204 L622 150"/><path d="M575 204 L629 150"/><path d="M582 204 L636 150"/></g><text x="336" y="182" text-anchor="start" font-size="12" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >die</text><path d="M379 218 L517 218"/><path d="M517 218 L512.395 219.947 L512.395 216.053" fill="currentColor" stroke="none"/><path d="M517 218 L379 218"/><path d="M379 218 L383.605 216.053 L383.605 219.947" fill="currentColor" stroke="none"/><text x="448" y="234" text-anchor="middle" font-size="11.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >die 31.20</text><text x="448" y="256" text-anchor="middle" font-size="11.5" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >the HOLE is kept &rarr; the PUNCH is made to size</text><text x="300" y="322" text-anchor="middle" font-size="12" fill="currentColor" stroke="none" font-family="IBM Plex Sans, system-ui, sans-serif" >in both cases the punch is smaller than its die &mdash; the clearance goes on the other member</text></g></svg><figcaption class="freq" style="text-align:center;margin-top:.1rem">The network for this question</figcaption></figure>
+  <div class="rec">
+    <b class="h">How to do it &mdash; the method itself</b>
+    <p class="sub">The working below uses this paper&rsquo;s numbers. These are the steps on their own, so you can follow them on any question of this type.</p>
+    <h5>Any sheet metal numerical</h5>
+    <ol>
+      <li>Decide first whether it is blanking or piercing, because the clearance goes on opposite members. In <b>blanking</b> the part is the slug, so the <b>die</b> is at size and the punch is smaller by twice the clearance. In <b>piercing</b> the part is the hole, so the <b>punch</b> is at size and the die is larger.</li>
+      <li>Getting that one decision right is worth more than the rest of the question, so write it down explicitly before any arithmetic.</li>
+      <li>Clearance per side c is usually given as a fraction of thickness, often around 5%. Total difference between punch and die is 2c.</li>
+      <li>Cutting force F = L &times; t &times; &tau;, where L is the <b>full perimeter being cut</b> and &tau; is the shear strength. For a circle L = &pi;d; for a rectangle it is the whole way round.</li>
+      <li>If shear strength is not given but tensile strength is, take &tau; &asymp; 0.7&sigma;<sub>u</sub> and say you are doing so.</li>
+      <li>Stripping force is usually a stated percentage of the cutting force.</li>
+      <li>Work done = F &times; t &times; a penetration factor if one is given; otherwise state the assumption.</li>
+    </ol>
+    <h5>Bending: what to add to the length</h5>
+    <ol>
+      <li>Bend allowance BA = 2&pi;(A/360)(R + kt), where A is the bend angle, R the inside radius and k the position of the neutral axis &mdash; take 0.33 for R &lt; 2t and 0.5 for R &ge; 2t.</li>
+      <li>Blank length = sum of the flat lengths + the bend allowance for each bend. Do not measure flats round the corner.</li>
+      <li>Springback means the finished angle opens out slightly, so the tool must overbend. Mention it even when no number is asked for.</li>
+    </ol>
+  </div>
+  <h4 class="step">Step 1 &mdash; the rule that decides everything</h4>
+  <p class="why">One sentence decides both answers, and it is the only thing worth memorising here:</p>
+  <div class="m">The member that produces the REQUIRED size is made to that size,
+and the clearance is given to the other member.
+
+blanking : the blank is the product -&gt; the DIE sets the size
+punching : the hole is the product  -&gt; the PUNCH sets the size</div>
+  <h4 class="step">Step 2 &mdash; apply it</h4>
+  <div class="m">BLANKING the 80 mm washer:
+  die   = 80.00 mm          (the blank size)
+  punch = 80 - 2(0.6) = 78.80 mm
+
+PUNCHING the 30 mm hole:
+  punch = 30.00 mm          (the hole size)
+  die   = 30 + 2(0.6) = 31.20 mm</div>
+  <h4 class="step">Step 3 &mdash; the sanity check</h4>
+  <div class="m">The punch is always smaller than its die, in both operations.
+If yours is not, the operations have been swapped.</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">Blanking: die 80.00 mm, punch 78.80 mm. Punching: punch 30.00 mm, die 31.20 mm.</div>
+  </div>
+  <div class="alt"><b class="h">If the question comes in a different form</b>
+    <h5 class="vh">If it also asks for the force</h5>
+    <p class="vp">Two formulas, and the punch force needs the cut perimeter, not the area. For a round part the perimeter is &pi;D; for a rectangle it is twice the sum of the sides.</p>
+    <div class="m">punch force    F = perimeter x thickness x shear strength
+
+for the 80 mm blank, 2 mm sheet, shear strength 300 N/mm2:
+  F = (pi x 80) x 2 x 300 = 150 800 N = 150.8 kN
+
+stripping force is usually taken as 5 to 20 % of the punch force,
+and press capacity is quoted with a factor on top of the total</div>
+    <h5 class="vh">If the clearance is given as a percentage of thickness</h5>
+    <p class="vp">Convert it to millimetres first and then nothing else changes. Percentage clearance is always per side unless the question says otherwise.</p>
+    <div class="m">clearance 5 % of a 2 mm sheet:
+  c = 0.05 x 2 = 0.1 mm per side
+
+blanking an 80 mm blank:  die 80.00, punch 80 - 2(0.1) = 79.80 mm
+punching a 30 mm hole  :  punch 30.00, die 30 + 2(0.1) = 30.20 mm</div>
+    <h5 class="vh">If it asks about a progressive die or the order of operations</h5>
+    <p class="vp">The hole is punched <b>before</b> the blank is cut out. The reason is the mark: while the strip is still whole, it is located by the pilot holes and the feed; once the blank is cut free there is nothing holding it in position to punch accurately.</p>
+    <h5 class="vh">The check that works in every version</h5>
+    <p class="vp">The punch is always smaller than its die, in both blanking and punching. If your numbers come out the other way, you have swapped which operation gets the clearance. It takes five seconds and it catches the single most common error in this topic.</p>
+    <div class="m">blanking : die 80.00  &gt;  punch 78.80     correct
+punching : die 31.20  &gt;  punch 30.00     correct</div>
+  </div>
+</div></div>
+<footer>
+  <p>Built from all five TIET UES102 MST papers &mdash; 37 questions, 295 marks, grouped into 8 recurring types.
+  Every numerical on this page was solved and checked a second, independent way.</p>
+</footer>
+</div>
+</body>
+</html>

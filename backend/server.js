@@ -117,8 +117,23 @@ const PAID_MODE = false;
    signed-in student, so adding a subject here is what makes it paid.          */
 const PAID_CODES = ['UES103', 'UES102'];
 
+/* The mock papers are paid on their own terms, whatever PAID_MODE is set to.
+   That switch decides whether the solved past papers are free; it must not
+   quietly hand out the mocks along with them. Their files are read by the same
+   route as the solutions, so each one lives in solutions/ as <CODE>-solutions.html. */
+const ALWAYS_PAID_CODES = ['MOK102', 'MOK013'];
+const isAlwaysPaid = code => ALWAYS_PAID_CODES.includes(String(code || '').toUpperCase());
+
 async function hasPaidAccess(email, code) {
   const signedIn = !!String(email || '').trim();
+  if (isAlwaysPaid(code)) {
+    const e = String(email || '').toLowerCase();
+    if (!e) return false;
+    if (isAdminEmail(e)) return true;
+    return !!(await PaymentClaim.findOne({
+      email: e, code: String(code).toUpperCase(), revoked: false
+    }).select('_id').lean());
+  }
   if (!PAID_MODE) return signedIn;
   if (!PAID_CODES.includes(String(code || '').toUpperCase())) return signedIn;
   const e = String(email || '').toLowerCase();
@@ -140,7 +155,14 @@ async function paidCodes(email) {
   } else {
     everySubject().forEach(c => codes.add(c));
   }
-  if (isAdminEmail(e)) { everySubject().forEach(c => codes.add(c)); return [...codes]; }
+  if (isAdminEmail(e)) {
+    everySubject().forEach(c => codes.add(c));
+    ALWAYS_PAID_CODES.forEach(c => codes.add(c));
+    return [...codes];
+  }
+  // everySubject() reads the files on disk, so a mock file would otherwise be
+  // listed as free here; drop anything that is paid on its own terms.
+  ALWAYS_PAID_CODES.forEach(c => codes.delete(c));
   const claims = await PaymentClaim.find({ email: e, revoked: false }).select('code').lean();
   claims.forEach(c => codes.add(c.code));
   return [...codes];
@@ -762,7 +784,7 @@ app.get('/api/admin/analytics', requireAdmin, async (req, res) => {
       Visit.aggregate([
         { $group: { _id: '$path', count: { $sum: 1 } } },
         { $sort: { count: -1 } },
-        { $limit: 6 }
+        { $limit: 14 }
       ])
     ]);
 
@@ -775,6 +797,57 @@ app.get('/api/admin/analytics', requireAdmin, async (req, res) => {
       uniqueToday: uniqueToday.length,              // distinct browsers since midnight IST
       activeNow,
       topPages: topPagesRaw.map(p => ({ path: p._id || 'unknown', count: p.count }))
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+/* How often each subject's guide was opened, and how often its solutions were.
+ * Guide opens are recorded as  guide/<CODE>  and solution opens as  guide/<CODE>-SOL,
+ * so one pass over the visits gives both and lets them be compared per subject. */
+app.get('/api/admin/solution-opens', requireAdmin, async (req, res) => {
+  try {
+    const days = parseInt(req.query.days, 10) || 0;      // 0 means all time
+    const match = { path: { $regex: '^guide/' } };
+    if (days > 0) match.createdAt = { $gte: new Date(Date.now() - days * 24 * 60 * 60 * 1000) };
+
+    const rows = await Visit.aggregate([
+      { $match: match },
+      { $group: { _id: '$path', opens: { $sum: 1 }, devices: { $addToSet: '$visitorId' } } },
+      { $project: { _id: 0, path: '$_id', opens: 1, devices: { $size: '$devices' } } }
+    ]);
+
+    const bySubject = {};
+    rows.forEach(r => {
+      const name = String(r.path).replace(/^guide\//, '');
+      const isSol = /-SOL$/i.test(name);
+      const code = name.replace(/-SOL$/i, '').toUpperCase();
+      if (!bySubject[code]) {
+        bySubject[code] = { code, guideOpens: 0, guideDevices: 0, solutionOpens: 0, solutionDevices: 0 };
+      }
+      if (isSol) {
+        bySubject[code].solutionOpens += r.opens;
+        bySubject[code].solutionDevices += r.devices;
+      } else {
+        bySubject[code].guideOpens += r.opens;
+        bySubject[code].guideDevices += r.devices;
+      }
+    });
+
+    const subjects = Object.values(bySubject)
+      .map(s => ({
+        ...s,
+        // of the people who opened the guide, how many went on to the solutions
+        followThrough: s.guideOpens ? Math.round((s.solutionOpens / s.guideOpens) * 100) : null
+      }))
+      .sort((a, b) => (b.solutionOpens - a.solutionOpens) || (b.guideOpens - a.guideOpens));
+
+    res.json({
+      days: days || null,
+      subjects,
+      totalSolutionOpens: subjects.reduce((n, s) => n + s.solutionOpens, 0),
+      totalGuideOpens: subjects.reduce((n, s) => n + s.guideOpens, 0)
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
