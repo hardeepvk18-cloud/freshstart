@@ -441,13 +441,13 @@ const MOCKS = [
   {
     code: 'MOK102', subject: 'UES102', name: 'Manufacturing Processes',
     free: 'UES102-mock-free.html',
-    questions: 8, marks: 60, papers: 5, methods: 16, steps: 83, figures: 5,
+    questions: 8, marks: 60, papers: 5, methods: 16, steps: 83, figures: 5, coverage: 87,
     note: 'Eight questions covering every type the last five papers asked, each with the method written out as steps you can follow on any question of that type'
   },
   {
     code: 'MOK013', subject: 'UES013', name: 'Electrical & Electronics',
     free: 'UES013-mock-free.html',
-    questions: 8, marks: 60, papers: 5, methods: 19, steps: 99, figures: 3,
+    questions: 8, marks: 60, papers: 5, methods: 19, steps: 99, figures: 3, coverage: 88,
     note: 'Thevenin, Norton and superposition each written out as their own procedure, plus nodal against mesh, and every network checked a second way'
   }
 ];
@@ -724,6 +724,7 @@ function MockCard({ m, i, user, paid, go }) {
       <p>{m.subject} · {m.questions} questions · {m.marks} marks · built from {m.papers} past papers</p>
       <p style={{ marginTop: '.6rem', color: '#5b54d6', fontSize: '.9rem' }}>{m.note}</p>
       <div className="tags" style={{ marginTop: '.9rem' }}>
+        <span className="tag">{m.coverage}% of the marks</span>
         <span className="tag">{m.methods} methods written out</span>
         <span className="tag">{m.steps} steps</span>
         {m.figures > 0 && <span className="tag">{m.figures} diagrams</span>}
@@ -762,8 +763,30 @@ function MockPapers({ user, go, paid }) {
     <div className="wrap">
       <h2>Mock papers</h2>
       <p className="sub">
-        One paper per subject, written from what the past papers repeat. Open one to see what is in it.
+        If you have barely started, this is the one thing worth doing tonight.
       </p>
+
+      <div className="highlight" style={{ marginTop: '1.3rem' }}>
+        <span>&#9998;</span>
+        <div>
+          <b>Why one paper is enough to cover most of the subject</b>
+          <p>
+            These are not eight random questions. We read all five past MST papers, counted what every
+            topic was worth, and then wrote one question for each topic that keeps coming back. The
+            topics these eight cover carried close to <b>90% of the marks</b> in those five papers.
+          </p>
+          <p style={{ marginTop: '.6rem' }}>
+            And no question is just solved and left there. Each one carries its method written out as
+            numbered steps, so you can follow it on whatever version of that question your paper
+            actually has &mdash; and underneath, what changes when the same topic is asked a different
+            way. That is the part that turns one paper into revision for the whole subject.
+          </p>
+          <p style={{ marginTop: '.6rem' }}>
+            Work through one properly and very little in the MST should look unfamiliar. Open either
+            one below and see for yourself.
+          </p>
+        </div>
+      </div>
 
       <div className="grid" style={{ marginTop: '1.4rem' }}>
         {MOCKS.map((m, i) => <MockCard key={m.code} m={m} i={i} user={user} paid={paid} go={go} />)}
