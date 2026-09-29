@@ -428,6 +428,33 @@ const PRICE = 29;
 const UPI_QR = "data:image/png;base64,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";
 const UPI_ID = 'harpuneet61-1@oksbi';
 
+/* ---- mock papers ----------------------------------------------------------
+   A different product from the solved papers, so it carries its own price and
+   its own codes. The codes keep the ^[A-Z]{3}[0-9]{3}$ shape that the unlock
+   router, the claim endpoint and the file route all check, so nothing else
+   needed changing to make these payable.
+   The free file is a public page; the full one is served by the backend only
+   after a payment, which is why it must live in backend/solutions/ and never
+   in frontend/public/.                                                       */
+const MOCK_PRICE = 49;
+const MOCKS = [
+  {
+    code: 'MOK102', subject: 'UES102', name: 'Manufacturing Processes',
+    free: 'UES102-mock-free.html',
+    questions: 8, marks: 60, papers: 5, methods: 16, steps: 83, figures: 5,
+    note: 'Eight questions covering every type the last five papers asked, each with the method written out as steps you can follow on any question of that type'
+  },
+  {
+    code: 'MOK013', subject: 'UES013', name: 'Electrical & Electronics',
+    free: 'UES013-mock-free.html',
+    questions: 8, marks: 60, papers: 5, methods: 19, steps: 99, figures: 3,
+    note: 'Thevenin, Norton and superposition each written out as their own procedure, plus nodal against mesh, and every network checked a second way'
+  }
+];
+
+const isMockCode = c => MOCKS.some(m => m.code === c);
+const priceFor = c => (isMockCode(c) ? MOCK_PRICE : PRICE);
+
 // one free sample subject per pool — everything else needs a Thapar sign-in
 const OPEN_CODES = ['UEN008', 'UES102'];
 
@@ -541,7 +568,9 @@ const noteStyle = {
 
 /* ---- unlock page: pay by UPI, then enter the transaction id ---- */
 function Unlock({ user, go, onPaid, code }) {
-  const subject = SOLUTIONS.find(s => s.code === code);
+  const mock = MOCKS.find(m => m.code === code);
+  const subject = mock || SOLUTIONS.find(s => s.code === code);
+  const price = priceFor(code);
   const [utr, setUtr] = useState('');
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState('');
@@ -560,7 +589,7 @@ function Unlock({ user, go, onPaid, code }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email: user.email, name: user.name || '', code,
-          utr: ref, amount: PRICE
+          utr: ref, amount: price
         })
       });
       let d = {};
@@ -573,7 +602,19 @@ function Unlock({ user, go, onPaid, code }) {
       res = await attempt();
     } catch (e) { res = null; }
 
-    if (res && res.ok) { onPaid(code); go('pyq'); return; }
+    if (res && res.ok) {
+      onPaid(code);
+      // Paid for a mock, so open the paper itself right away rather than
+      // dropping the student on another page to go looking for it. Same-tab
+      // navigation, so no popup blocker gets in the way.
+      if (mock) {
+        window.location.href = API + '/api/solutions/' + code +
+          '?email=' + encodeURIComponent(user.email);
+        return;
+      }
+      go('pyq');
+      return;
+    }
 
     setMsg(res && res.d && res.d.message
       ? res.d.message
@@ -583,20 +624,25 @@ function Unlock({ user, go, onPaid, code }) {
 
   return (
     <div className="wrap">
-      <h2>Unlock {subject ? subject.name : 'these solutions'}</h2>
+      <h2>Unlock {mock ? mock.name + ' mock paper' : subject ? subject.name : 'these solutions'}</h2>
       <p className="sub">
-        ₹{PRICE} opens the solved papers for {subject ? subject.name + ' (' + subject.code + ')' : 'this subject'} —
-        {subject ? ' all ' + subject.parts + ' questions from ' + subject.papers + ' past papers, ' : ' '}
-        worked out step by step. The analysis guides stay free for everyone.
+        {mock
+          ? '₹' + price + ' opens the other ' + (mock.questions - 1) + ' questions of the ' + mock.subject +
+            ' mock — ' + mock.marks + ' marks in all, each question worked out in full with the method written ' +
+            'out as steps. The first question stays free so you can see the standard before paying.'
+          : '₹' + price + ' opens the solved papers for ' +
+            (subject ? subject.name + ' (' + subject.code + ')' : 'this subject') +
+            (subject ? ' — all ' + subject.parts + ' questions from ' + subject.papers + ' past papers, ' : ' ') +
+            'worked out step by step. The analysis guides stay free for everyone.'}
       </p>
 
-      <div className="sec-title" style={{ marginTop: '1.6rem' }}>Step 1 — pay ₹{PRICE}</div>
+      <div className="sec-title" style={{ marginTop: '1.6rem' }}>Step 1 — pay ₹{price}</div>
 
       <div className="card" style={{ textAlign: 'center', padding: '1.4rem 1rem' }}>
         <img src={UPI_QR} alt="UPI QR"
           style={{ width: '190px', maxWidth: '64%', borderRadius: '12px' }} />
         <p className="note" style={{ marginTop: '.7rem', marginBottom: '1.1rem' }}>
-          Scan with any UPI app and send <b>₹{PRICE}</b>
+          Scan with any UPI app and send <b>₹{price}</b>
         </p>
 
         <div style={{ borderTop: '1px solid rgba(0,0,0,.08)', paddingTop: '1rem' }}>
@@ -614,7 +660,7 @@ function Unlock({ user, go, onPaid, code }) {
             Copy UPI id
           </button>
           <p className="note" style={{ marginTop: '.7rem' }}>
-            Open any UPI app, paste this id, send ₹{PRICE}.
+            Open any UPI app, paste this id, send ₹{price}.
           </p>
         </div>
       </div>
@@ -622,7 +668,7 @@ function Unlock({ user, go, onPaid, code }) {
       <div className="sec-title" style={{ marginTop: "1.8rem" }}>Step 2 — enter the 12-digit number</div>
       <p className="note" style={{ marginTop: 0 }}>
         Har payment ka ek <b>12-digit number</b> hota hai. Wahi daalna hai — uske baad solutions
-        turant khul jayenge.
+        turant khul jayega.
       </p>
 
       <div style={{
@@ -664,6 +710,107 @@ function Unlock({ user, go, onPaid, code }) {
       <p className="note" style={{ marginTop: '1.6rem' }}>
         Paying with a different account than the one you signed in with is fine — access is tied to
         the Thapar email you are signed in as ({user.email}). Trouble? Ask in Doubts and it gets sorted.
+      </p>
+    </div>
+  );
+}
+
+/* ---- Mock papers: the paid section, kept apart from the free solved papers ---- */
+function MockCard({ m, i, user, paid, go }) {
+  const owned = paid.includes(m.code);
+  const body = (
+    <>
+      <h3>{m.name}{user ? (owned ? '' : '') : ' 🔒'}</h3>
+      <p>{m.subject} · {m.questions} questions · {m.marks} marks · built from {m.papers} past papers</p>
+      <p style={{ marginTop: '.6rem', color: '#5b54d6', fontSize: '.9rem' }}>{m.note}</p>
+      <div className="tags" style={{ marginTop: '.9rem' }}>
+        <span className="tag">{m.methods} methods written out</span>
+        <span className="tag">{m.steps} steps</span>
+        {m.figures > 0 && <span className="tag">{m.figures} diagrams</span>}
+        <span className="tag">If it comes differently</span>
+      </div>
+    </>
+  );
+
+  if (!user) {
+    return (
+      <div className="card clickable" onClick={startLogin} role="button"
+        style={{ animationDelay: i * 0.06 + 's', opacity: .85 }}>
+        {body}
+        <p style={noteStyle}>🔒 Tap to sign in with your Thapar email</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="card" style={{ animationDelay: i * 0.06 + 's' }}>
+      {body}
+      <div style={{ display: 'flex', gap: '.6rem', flexWrap: 'wrap', marginTop: '1rem' }}>
+        <a className="btn btn-sm" href={'/solutions/' + m.free}
+          target="_blank" rel="noopener noreferrer"
+          onClick={() => trackGuideOpen(m.code + '-FREE', user)}
+          style={{ textDecoration: 'none' }}>
+          Read question 1 free
+        </a>
+        {owned ? (
+          <a className="btn btn-sm" href={API + '/api/solutions/' + m.code + '?email=' + encodeURIComponent(user.email)}
+            target="_blank" rel="noopener noreferrer"
+            onClick={() => trackGuideOpen(m.code + '-FULL', user)}
+            style={{ textDecoration: 'none' }}>
+            Open the full paper
+          </a>
+        ) : (
+          <button className="btn btn-sm btn-red" onClick={() => go('unlock', m.code)}>
+            Unlock all {m.questions} for ₹{MOCK_PRICE}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function MockPapers({ user, go, paid }) {
+  return (
+    <div className="wrap">
+      <h2>Mock papers</h2>
+      <p className="sub">
+        Haven&rsquo;t studied much and the MST is close? Do this one paper properly. Eight questions,
+        chosen so that between them they cover every type the last five papers actually asked &mdash;
+        and each one carries the method written out as steps, so it works on the question you get
+        rather than only on the one printed here.
+      </p>
+
+      <div className="highlight" style={{ marginTop: '1.4rem' }}>
+        <span>&#9998;</span>
+        <div>
+          <b>What makes these different from the solved papers</b>
+          <p>
+            The solved papers answer the questions that were asked. These answer the question you
+            are about to get: every question carries a plain-English procedure you can follow on any
+            question of that type, and underneath it, what changes if the same topic is asked a
+            different way.
+          </p>
+        </div>
+      </div>
+
+      <div style={{
+        marginTop: '1.2rem', padding: '.95rem 1.1rem', borderRadius: '10px',
+        background: '#FFF7ED', border: '1px solid #FED7AA', fontSize: '.88rem', lineHeight: 1.65
+      }}>
+        <b style={{ display: 'block', marginBottom: '.3rem' }}>This is not a prediction</b>
+        <span style={{ color: '#7C4A16' }}>
+          Nobody here knows what will be asked. These questions are written from what the past papers
+          repeated, nothing more. Treat it as practice, not as a leaked paper.
+        </span>
+      </div>
+
+      <div className="grid" style={{ marginTop: '1.5rem' }}>
+        {MOCKS.map((m, i) => <MockCard key={m.code} m={m} i={i} user={user} paid={paid} go={go} />)}
+      </div>
+
+      <p className="note" style={{ marginTop: '1.6rem' }}>
+        The analysis guides and every solved past paper stay free, always. One question of each mock
+        is free too &mdash; read it before you decide whether the rest is worth ₹{MOCK_PRICE}.
       </p>
     </div>
   );
@@ -735,6 +882,21 @@ function PyqSolutions({ user, go }) {
 
       <div className="grid" style={{ marginTop: '1.4rem' }}>
         {SOLUTIONS.map((s, i) => <SolutionCard s={s} i={i} user={user} key={s.code} />)}
+      </div>
+
+      <div className="highlight" style={{ marginTop: '1.6rem' }}>
+        <span>&#9998;</span>
+        <div>
+          <b>Short on time before the MST?</b>
+          <p>
+            There are mock papers for{' '}
+            {MOCKS.map(m => m.subject).join(' and ')} &mdash; eight questions that between them cover
+            every type these papers repeat, each with the method written out as steps. One question of
+            each is free.
+          </p>
+          <button className="btn btn-sm" style={{ marginTop: '.6rem' }}
+            onClick={() => go('mocks')}>See the mock papers</button>
+        </div>
       </div>
 
       <div className="sec-title" style={{ marginTop: '2.2rem' }}>Coming soon</div>
@@ -2044,7 +2206,7 @@ export default function App() {
       setPage('unlock');
       return;
     }
-    if (['pyq', 'solutions', 'unlock', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target)) {
+    if (['pyq', 'solutions', 'mocks', 'unlock', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target)) {
       setPage(target);
     }
   }, []);
@@ -2092,7 +2254,7 @@ export default function App() {
 
   const go = (target, code) => {
     try {
-      const hash = ['pyq', 'solutions', 'unlock', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target) ? '#' + target : '';
+      const hash = ['pyq', 'solutions', 'mocks', 'unlock', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target) ? '#' + target : '';
       window.history.replaceState({}, '', window.location.pathname + hash);
     } catch (e) {}
     setHistory(h => (target === page && (code || null) === subjectCode) ? h : [...h, { page, subjectCode }]);
@@ -2153,6 +2315,7 @@ export default function App() {
         <div className="nav-links">
           <button className={'nav-link' + (page === 'pyq' ? ' on' : '')} onClick={() => go('pyq')}>PYQ Guides</button>
           <button className={'nav-link' + (page === 'solutions' ? ' on' : '')} onClick={() => go('solutions')}>Solved PYQs</button>
+          <button className={'nav-link' + (page === 'mocks' ? ' on' : '')} onClick={() => go('mocks')}>Mock papers</button>
           <button className={'nav-link' + (page === 'faqs' ? ' on' : '')} onClick={() => go('faqs')}>FAQs</button>
           <button className={'nav-link' + (page.startsWith('subject') ? ' on' : '')} onClick={() => go('subjects')}>Subjects</button>
           <button className={'nav-link' + (page === 'doubts' ? ' on' : '')} onClick={() => go('doubts')}>Doubts</button>
@@ -2181,6 +2344,7 @@ export default function App() {
 
       {page === 'pyq' && <PyqGuides user={user} go={go} />}
       {page === 'solutions' && <PyqSolutions user={user} go={go} />}
+      {page === 'mocks' && <MockPapers user={user} go={go} paid={paid} />}
       {page === 'unlock' && user && subjectCode && <Unlock user={user} go={go} code={subjectCode} onPaid={c => setPaid(p => [...p, c])} />}
       {page === 'faqs' && <FAQs user={user} />}
       {page === 'subjects' && <Subjects user={user} go={go} />}
