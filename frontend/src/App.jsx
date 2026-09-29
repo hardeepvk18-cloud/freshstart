@@ -720,7 +720,7 @@ function MockCard({ m, i, user, paid, go }) {
   const owned = paid.includes(m.code);
   const body = (
     <>
-      <h3>{m.name}{user ? (owned ? '' : '') : ' 🔒'}</h3>
+      <h3>{m.name}{user ? '' : ' 🔒'}</h3>
       <p>{m.subject} · {m.questions} questions · {m.marks} marks · built from {m.papers} past papers</p>
       <p style={{ marginTop: '.6rem', color: '#5b54d6', fontSize: '.9rem' }}>{m.note}</p>
       <div className="tags" style={{ marginTop: '.9rem' }}>
@@ -742,30 +742,18 @@ function MockCard({ m, i, user, paid, go }) {
     );
   }
 
+  // One way in. The paper itself carries what is included, what it costs and
+  // how to pay, so none of that is repeated out here.
   return (
-    <div className="card" style={{ animationDelay: i * 0.06 + 's' }}>
+    <a className="card clickable"
+      href={owned
+        ? API + '/api/solutions/' + m.code + '?email=' + encodeURIComponent(user.email)
+        : '/solutions/' + m.free}
+      target="_blank" rel="noopener noreferrer"
+      onClick={() => trackGuideOpen(m.code + (owned ? '-FULL' : '-FREE'), user)}
+      style={{ animationDelay: i * 0.06 + 's', textDecoration: 'none', display: 'block' }}>
       {body}
-      <div style={{ display: 'flex', gap: '.6rem', flexWrap: 'wrap', marginTop: '1rem' }}>
-        <a className="btn btn-sm" href={'/solutions/' + m.free}
-          target="_blank" rel="noopener noreferrer"
-          onClick={() => trackGuideOpen(m.code + '-FREE', user)}
-          style={{ textDecoration: 'none' }}>
-          Read question 1 free
-        </a>
-        {owned ? (
-          <a className="btn btn-sm" href={API + '/api/solutions/' + m.code + '?email=' + encodeURIComponent(user.email)}
-            target="_blank" rel="noopener noreferrer"
-            onClick={() => trackGuideOpen(m.code + '-FULL', user)}
-            style={{ textDecoration: 'none' }}>
-            Open the full paper
-          </a>
-        ) : (
-          <button className="btn btn-sm btn-red" onClick={() => go('unlock', m.code)}>
-            Unlock all {m.questions} for ₹{MOCK_PRICE}
-          </button>
-        )}
-      </div>
-    </div>
+    </a>
   );
 }
 
@@ -774,64 +762,12 @@ function MockPapers({ user, go, paid }) {
     <div className="wrap">
       <h2>Mock papers</h2>
       <p className="sub">
-        Haven&rsquo;t studied much and the MST is close? Do this one paper properly. Eight questions,
-        chosen so that between them they cover every type the last five papers actually asked &mdash;
-        and each one carries the method written out as steps, so it works on the question you get
-        rather than only on the one printed here.
+        One paper per subject, written from what the past papers repeat. Open one to see what is in it.
       </p>
 
-      <div className="highlight" style={{ marginTop: '1.4rem' }}>
-        <span>&#9998;</span>
-        <div>
-          <b>What makes these different from the solved papers</b>
-          <p>
-            The solved papers answer the questions that were asked. These answer the question you
-            are about to get: every question carries a plain-English procedure you can follow on any
-            question of that type, and underneath it, what changes if the same topic is asked a
-            different way.
-          </p>
-        </div>
-      </div>
-
-      <div className="card" style={{ marginTop: '1.2rem' }}>
-        <b style={{ display: 'block', marginBottom: '.7rem' }}>What you get for ₹{MOCK_PRICE}</b>
-        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-          {[
-            ['All 8 questions solved in full',
-             'the way you would write it in the answer sheet, not just the final answer'],
-            ['The method for each, written as numbered steps',
-             'so it works on the question you actually get, not only on the one printed here'],
-            ['Every other form the question comes in',
-             'under each one: what changes if the same topic is asked a different way'],
-            ['Diagrams where the question needs one',
-             'circuits, machining setups and tooling, drawn out'],
-            ['Built from all 5 past MST papers',
-             'marks counted by hand, then the 8 questions chosen to cover every type that repeats'],
-            ['Question 1 is free',
-             'read it first and decide — it is the full thing, not a preview']
-          ].map(([head, tail]) => (
-            <li key={head} style={{
-              display: 'flex', gap: '.6rem', padding: '.5rem 0',
-              borderBottom: '1px solid #EEEEF4', fontSize: '.92rem', lineHeight: 1.6
-            }}>
-              <span style={{ color: '#0c7057', fontWeight: 700 }}>&#10003;</span>
-              <span><b>{head}</b> &mdash; <span style={{ color: '#5A6472' }}>{tail}</span></span>
-            </li>
-          ))}
-        </ul>
-        <p className="note" style={{ marginTop: '.9rem' }}>
-          One payment opens one subject. The analysis guides and every solved past paper stay free.
-        </p>
-      </div>
-
-      <div className="grid" style={{ marginTop: '1.5rem' }}>
+      <div className="grid" style={{ marginTop: '1.4rem' }}>
         {MOCKS.map((m, i) => <MockCard key={m.code} m={m} i={i} user={user} paid={paid} go={go} />)}
       </div>
-
-      <p className="note" style={{ marginTop: '1.6rem' }}>
-        The analysis guides and every solved past paper stay free, always. One question of each mock
-        is free too &mdash; read it before you decide whether the rest is worth ₹{MOCK_PRICE}.
-      </p>
     </div>
   );
 }
@@ -911,8 +847,7 @@ function PyqSolutions({ user, go }) {
           <p>
             There are mock papers for{' '}
             {MOCKS.map(m => m.subject).join(' and ')} &mdash; eight questions that between them cover
-            every type these papers repeat, each with the method written out as steps. One question of
-            each is free.
+            every type these papers repeat, each with the method written out as steps.
           </p>
           <button className="btn btn-sm" style={{ marginTop: '.6rem' }}
             onClick={() => go('mocks')}>See the mock papers</button>
