@@ -398,6 +398,15 @@ const SOLUTIONS = [
     note: 'All five MST papers solved — every CNC program written out and every numerical checked twice'
   },
   {
+    code: 'UES013',
+    file: 'UES013-solutions.html',
+    name: 'Electrical & Electronics',
+    pool: 'A',
+    papers: 5,
+    parts: 46,
+    note: 'All five MST papers solved — every network re-solved a second way and every transient checked against the differential equation'
+  },
+  {
     code: 'UES103',
     file: 'UES103-solutions.html',
     name: 'C Programming',
