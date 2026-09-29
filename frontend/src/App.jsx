@@ -824,17 +824,6 @@ function MockPapers({ user, go, paid }) {
         </p>
       </div>
 
-      <div style={{
-        marginTop: '1.2rem', padding: '.95rem 1.1rem', borderRadius: '10px',
-        background: '#FFF7ED', border: '1px solid #FED7AA', fontSize: '.88rem', lineHeight: 1.65
-      }}>
-        <b style={{ display: 'block', marginBottom: '.3rem' }}>This is not a prediction</b>
-        <span style={{ color: '#7C4A16' }}>
-          Nobody here knows what will be asked. These questions are written from what the past papers
-          repeated, nothing more. Treat it as practice, not as a leaked paper.
-        </span>
-      </div>
-
       <div className="grid" style={{ marginTop: '1.5rem' }}>
         {MOCKS.map((m, i) => <MockCard key={m.code} m={m} i={i} user={user} paid={paid} go={go} />)}
       </div>
