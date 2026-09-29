@@ -400,6 +400,9 @@ const SOLUTIONS = [
   {
     code: 'UES013',
     file: 'UES013-solutions.html',
+    // served from the frontend for now: Railway deploys are paused, so the
+    // backend copy cannot go live yet. Move this back once Railway recovers.
+    staticFile: true,
     name: 'Electrical & Electronics',
     pool: 'A',
     papers: 5,
@@ -694,9 +697,13 @@ function SolutionCard({ s, i, user }) {
     );
   }
 
+  // `staticFile` means the page is served from the frontend instead of the backend.
+  // Used when a subject's solutions need to go live before the backend can deploy.
   return (
     <a className="card clickable"
-      href={API + '/api/solutions/' + s.code + '?email=' + encodeURIComponent(user.email)}
+      href={s.staticFile
+        ? '/solutions/' + s.file
+        : API + '/api/solutions/' + s.code + '?email=' + encodeURIComponent(user.email)}
       target="_blank" rel="noopener noreferrer"
       onClick={() => trackGuideOpen(s.code + '-SOL', user)}
       style={{ animationDelay: i * 0.06 + 's', textDecoration: 'none', display: 'block' }}>
@@ -982,6 +989,7 @@ function Admin({ user }) {
   const [analytics, setAnalytics] = useState(null);
   const [daily, setDaily] = useState(null);
   const [hourly, setHourly] = useState(null);
+  const [opens, setOpens] = useState(null);
   const [hoverHour, setHoverHour] = useState(null);
   const [logins, setLogins] = useState([]);
   const [feedback, setFeedback] = useState(null);
@@ -1039,6 +1047,11 @@ function Admin({ user }) {
     fetch(API + '/api/admin/hourly?days=14', { headers })
       .then(r => r.ok ? r.json() : null)
       .then(d => { if (d) setHourly(d); })
+      .catch(() => {});
+
+    fetch(API + '/api/admin/solution-opens', { headers })
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d) setOpens(d); })
       .catch(() => {});
 
     fetch(API + '/api/admin/logins', { headers })
@@ -1139,6 +1152,51 @@ function Admin({ user }) {
               ))}
             </div>
           )}
+        </>
+      )}
+
+      <div className="sec-title">Guides and solutions, subject by subject</div>
+      {!opens || !opens.subjects || opens.subjects.length === 0 ? (
+        <div className="empty">Nothing recorded yet.</div>
+      ) : (
+        <>
+          <p className="note" style={{ marginTop: 0 }}>
+            How many times each subject&rsquo;s guide was opened, and how many times its solved papers were.
+            The last column is what share of guide opens went on to the solutions &mdash; it says which
+            subjects people actually finish. All time.
+          </p>
+          <div className="tbl">
+            <table>
+              <thead>
+                <tr>
+                  <th>Subject</th>
+                  <th style={{ textAlign: 'right' }}>Guide opens</th>
+                  <th style={{ textAlign: 'right' }}>Solution opens</th>
+                  <th style={{ textAlign: 'right' }}>Devices</th>
+                  <th style={{ textAlign: 'right' }}>Went on to solutions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {opens.subjects.map(s => (
+                  <tr key={s.code}>
+                    <td><b>{s.code}</b></td>
+                    <td style={{ textAlign: 'right' }}>{s.guideOpens || '—'}</td>
+                    <td style={{ textAlign: 'right', color: s.solutionOpens ? '#6c63ff' : undefined }}>
+                      <b>{s.solutionOpens || '—'}</b>
+                    </td>
+                    <td style={{ textAlign: 'right' }}>{s.solutionDevices || '—'}</td>
+                    <td style={{ textAlign: 'right' }}>
+                      {s.solutionOpens && s.followThrough != null ? s.followThrough + '%' : '—'}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="note">
+            <b>{opens.totalSolutionOpens}</b> solution opens in total, against <b>{opens.totalGuideOpens}</b> guide opens.
+            A subject with no solutions yet shows a dash.
+          </p>
         </>
       )}
 

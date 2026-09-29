@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UES013 Solved Papers</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"></noscript>
+<style>
+
+:root{
+  --bg:#F4F6F9; --paper:#FFFFFF; --ink:#16202C; --ink2:#4A5866; --ink3:#77838F;
+  --line:#DCE3EB; --line2:#EDF1F5; --teal:#0F766E; --teal-bg:#E7F4F1;
+  --accent:#5b54d6; --accent-bg:#EEEDFB;
+  --warn:#B4531A; --warn-bg:#FDF2E9; --warn-line:#F0DCC6;
+  --code-bg:#1E293B; --code-ink:#E2E8F0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);
+  font-family:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  line-height:1.62;-webkit-text-size-adjust:100%}
+.wrap{max-width:840px;margin:0 auto;padding:0 16px 80px}
+
+header{padding:40px 0 26px;border-bottom:1px solid var(--line)}
+.kicker{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--teal);font-weight:600}
+h1{font-family:'Source Serif 4',Georgia,serif;font-size:32px;line-height:1.18;margin:8px 0 10px;font-weight:700}
+.sub{color:var(--ink2);font-size:15px;max-width:62ch}
+
+.note{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:10px;
+  padding:14px 16px;margin:22px 0;font-size:14px;color:#6B3D18}
+.note b{color:var(--warn)}
+
+nav.toc{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:26px 0}
+nav.toc h2{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);font-weight:600;margin-bottom:12px}
+nav.toc ul{list-style:none}
+nav.toc li{margin:9px 0;font-size:15px;color:var(--ink2)}
+nav.toc li b{color:var(--ink)}
+
+.paper{margin-top:44px}
+h2.yr{font-family:'Source Serif 4',Georgia,serif;font-size:25px;font-weight:700;padding-top:12px}
+.yr-meta{color:var(--ink3);font-size:13.5px;margin-top:4px;
+  font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace}
+
+.q{background:var(--paper);border:1px solid var(--line);border-radius:12px;
+  padding:18px 20px;margin:16px 0}
+.q-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.q-no{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-weight:600;font-size:14px;
+  color:#fff;background:var(--teal);padding:3px 9px;border-radius:6px}
+.marks{font-size:12px;color:var(--ink3);font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace}
+.method{font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--accent);background:var(--accent-bg);padding:3px 9px;border-radius:20px}
+
+.qtext{font-size:15px;color:var(--ink);padding:12px 14px;background:#FAFBFD;
+  border-left:3px solid var(--line);border-radius:6px;margin-bottom:14px}
+
+h4.step{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);
+  font-weight:600;margin:16px 0 8px}
+
+pre.code{background:var(--code-bg);color:var(--code-ink);border-radius:9px;
+  padding:14px 16px;margin:10px 0;overflow-x:auto;
+  font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:13.2px;line-height:1.65}
+pre.code .c{color:#94A3B8}
+
+.m{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:14px;line-height:1.85;
+  background:#FAFBFD;border:1px solid var(--line2);border-radius:8px;
+  padding:12px 15px;margin:9px 0;overflow-x:auto;white-space:pre}
+p{font-size:15px;margin:9px 0}
+p.why{color:var(--ink2);font-size:14.3px}
+ul.pts{list-style:none;margin:8px 0}
+ul.pts li{position:relative;padding:5px 0 5px 20px;font-size:14.5px;color:var(--ink2)}
+ul.pts li::before{content:"";position:absolute;left:4px;top:14px;width:5px;height:5px;
+  border-radius:50%;background:var(--teal)}
+ol.steps{margin:8px 0 8px 20px}
+ol.steps li{font-size:14.6px;color:var(--ink2);padding:4px 0}
+
+.ans{background:var(--teal-bg);border:1px solid #C6E4DD;border-radius:10px;
+  padding:13px 16px;margin:14px 0 2px}
+.ans .lbl{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--teal);
+  font-weight:600;margin-bottom:6px}
+.ans .val{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:14.3px;
+  line-height:1.8;color:#123F39;white-space:pre-wrap}
+
+.trap{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:10px;
+  padding:12px 16px;margin:12px 0}
+.trap b{color:var(--warn);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.trap p{color:#6B3D18;font-size:14.3px;margin:6px 0 0}
+
+table{width:100%;border-collapse:collapse;font-size:14px;margin:10px 0}
+.tbl{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:10px 0;
+     border-radius:8px}
+.tbl>table{margin:0;min-width:100%}
+.tbl th,.tbl td{white-space:normal}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line2);vertical-align:top}
+th{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);
+  font-weight:600;border-bottom:1px solid var(--line)}
+td.mono{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:13.4px}
+
+footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:13.5px;color:var(--ink3)}
+
+.fb{border:2px solid var(--teal);border-radius:14px;padding:18px 20px;margin:34px 0 0;
+  background:var(--paper);box-shadow:0 2px 14px rgba(0,0,0,.05)}
+.fb h3{margin:0 0 6px;font-family:'Source Serif 4',Georgia,serif;font-size:19px;font-weight:700}
+.fb p.sub2{margin:0 0 14px;font-size:14.3px;color:var(--ink2)}
+.fb-btns{display:flex;gap:9px;flex-wrap:wrap}
+.fb-btn{font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;padding:9px 17px;
+  border-radius:30px;border:1px solid var(--line);background:#fff;color:var(--ink);
+  transition:border-color .2s,background .2s}
+.fb-btn:hover{border-color:var(--teal)}
+.fb-btn.on{background:var(--teal);border-color:var(--teal);color:#fff}
+.fb textarea{width:100%;margin-top:13px;padding:11px 13px;border-radius:10px;
+  border:1px solid var(--line);font-family:inherit;font-size:14px;resize:vertical;min-height:76px}
+.fb-send{margin-top:10px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;
+  padding:8px 18px;border-radius:30px;border:none;background:var(--teal);color:#fff}
+.fb-done{font-size:14.5px;color:var(--teal);font-weight:600}
+
+@media(max-width:560px){
+  h1{font-size:26px} h2.yr{font-size:21px}
+  .q{padding:15px 15px} .m,pre.code{font-size:12.6px} .ans .val{font-size:13.4px}
+}
+
+.share{border:1px solid var(--line);border-radius:14px;padding:17px 20px;margin:20px 0 0;
+  background:var(--paper)}
+.share h3{margin:0 0 5px;font-family:'Source Serif 4',Georgia,serif;font-size:18px;font-weight:700}
+.share p{margin:0 0 13px;font-size:14.2px;color:var(--ink-soft,#4A5866)}
+.share-row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.share-wa{display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+  font-family:inherit;font-size:14.5px;font-weight:600;padding:10px 18px;border-radius:30px;
+  background:#25D366;color:#fff;border:none;cursor:pointer}
+.share-wa:hover{background:#1FB855}
+.share-copy{font-family:inherit;font-size:14.5px;font-weight:600;cursor:pointer;
+  padding:10px 18px;border-radius:30px;border:1px solid var(--line);background:#fff;color:var(--ink,#16202C)}
+.share-copy:hover{border-color:#25D366}
+.share-done{font-size:13.8px;color:#1F7A4D;font-weight:600;margin:9px 0 0}
+
+.share-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  border:1px solid var(--line);border-radius:12px;padding:12px 15px;margin:0 0 22px;background:var(--paper)}
+.share-top span{font-size:14.2px;color:var(--ink-soft,#4A5866)}
+.share-top a{display:inline-flex;align-items:center;gap:7px;text-decoration:none;
+  font-family:inherit;font-size:13.8px;font-weight:600;padding:8px 15px;border-radius:30px;
+  background:#25D366;color:#fff;white-space:nowrap}
+.share-top a:hover{background:#1FB855}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">UES013 / UES001 &middot; Electrical &amp; Electronics Engineering &middot; MST</div>
+  <h1>Past papers, fully solved</h1>
+  <p class="sub">All 46 questions from the last five MST papers, worked out step by step &mdash;
+  210 marks in total. Every network was solved and then re-solved a second way, every transient was checked against
+  the differential equation, and the digital questions were verified over every possible input.</p>
+</header>
+
+<div class="note">
+  <b>Read this first:</b> every numerical answer on this page was solved and then checked a second, independent way &mdash;
+  network problems by re-solving the circuit from a different set of equations, transients by solving the differential
+  equation directly, and the digital questions by evaluating every input combination. Where a scan or a figure could be read
+  more than one way, the reading used is stated in the solution and the alternative is given, so you can match it against
+  your own copy of the paper.
+</div>
+
+<div class="note" style="border-left-color:#B4531A;background:#FDF2E9">
+  <b>How this was made:</b> these solutions were worked out with Claude Opus 5, an AI model, and every number was
+  machine-checked as described above. They are not model answers issued by TIET, and no lecturer has reviewed them.
+  Use them to check your own working and to see the method &mdash; not as a substitute for it. If you find a step that
+  looks wrong, say so in the box at the bottom and it will be corrected for everyone.
+  FreshStart is a student project and is not an official TIET page.
+</div>
+
+<nav class="toc">
+  <h2>What is in here</h2>
+  <ul>
+    <li><b>March 2026</b> &mdash; Thevenin, nodal, source conversion, a dependent source, an RL transient,
+        air-gap mmf, capacitor on AC, series resonance, star-connection derivation, transformer EMF and phasor diagram</li>
+    <li><b>October 2025</b> &mdash; RL growth derivation and numerical, maximum power transfer derivation,
+        supernode analysis, circuit parameters from v and i, resonance with stray capacitance, coupled inductors,
+        transformer EMF and numerical, balanced star load, delta derivation</li>
+    <li><b>March 2025</b> &mdash; nodal with a source in a branch, Thevenin, supermesh, maximum power with a dependent
+        source, RL and RC transients, two's complement arithmetic, Karnaugh map, Boolean simplification</li>
+    <li><b>October 2024</b> &mdash; nodal, superposition, Thevenin and maximum power, RC discharge, series RLC,
+        two-wattmeter method, iron ring with an air gap, transformer principle and numerical</li>
+    <li><b>March 2024</b> &mdash; nodal with a fixed node, Thevenin with a dependent source, RC charge and discharge,
+        half-rectified square wave, cast steel ring with a saw cut, coil on AC, balanced star with two wattmeters,
+        transformer numerical and no-load phasor diagram</li>
+  </ul>
+</nav>
+<div class="paper" id="y2026">
+
+<h2 class="yr">March 2026</h2>
+
+<p class="yr-meta">10-03-2026 &middot; 60 marks (weightage 30) &middot; 2 hours</p>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1</span><span class="marks">6 marks</span><span class="method">Thevenin's theorem</span></div>
+  <div class="qtext">Find the Thevenin's equivalent circuit for the network in Fig. 1 from the load terminals <i>a</i> and <i>b</i>. R<sub>1</sub> = 5 &Omega; sits in parallel with a 10 A source; that pair is in series with R<sub>2</sub> = 4 &Omega; to terminal b.</div>
+  <h4 class="step">Step 1 &mdash; read the topology before touching a formula</h4>
+  <p class="why">The 5 &Omega; and the 10 A source share both of their ends, so they are <b>in parallel</b>, and that pair sits between the left node and terminal a. R<sub>2</sub> = 4 &Omega; runs from the left node down to b. Getting this one fact right is most of the question: if you read the 5 &Omega; as being in series with the source instead, every number afterwards is wrong.</p>
+  <h4 class="step">Step 2 &mdash; open-circuit voltage</h4>
+  <p class="why">With a&ndash;b open no current can leave at a. The 10 A the source pushes has nowhere to go except back through the 5 &Omega;, so the 5 &Omega; carries the full 10 A and the pair delivers <b>zero</b> net current into the left node. No current in R<sub>2</sub> means no drop across it, so the left node sits at 0 V.</p>
+  <div class="m">current in the 5 ohm = 10 A  (it simply circulates with the source)
+V(left node) = 0 V            (R2 carries nothing, so no drop)
+V_th = V_a - V_b = 10 A x 5 ohm = 50 V,  with a positive</div>
+  <h4 class="step">Step 3 &mdash; Thevenin resistance</h4>
+  <p class="why">Turn the independent current source off, which means <b>open</b> it (a dead current source is an open circuit, not a short &mdash; this is the single most common slip in this question). What is left from a to b is 5 &Omega; then 4 &Omega; in series.</p>
+  <div class="m">R_th = 5 + 4 = 9 ohm</div>
+  <h4 class="step">Step 4 &mdash; check it a second, independent way</h4>
+  <p class="why">Short a to b and find the short-circuit current; R<sub>th</sub> must come out as V<sub>th</sub>/I<sub>sc</sub>. This catches a wrong topology, which the first method alone would not.</p>
+  <div class="m">with a-b shorted:   V(left node) = -200/9 V
+I_sc = 10 + (-200/9)/5 = 50/9 = 5.556 A
+R_th = V_th / I_sc = 50 / 5.556 = 9 ohm    - agrees</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">V<sub>th</sub> = 50 V (terminal a positive), R<sub>th</sub> = 9 &Omega;. The equivalent is a 50 V source in series with 9 &Omega;.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>2 marks for V<sub>th</sub>, 2 for R<sub>th</sub>, 2 for the drawn equivalent circuit with polarity marked. Opening the current source rather than shorting it is where most of the lost marks are.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2</span><span class="marks">6 marks</span><span class="method">Nodal analysis</span></div>
+  <div class="qtext">Apply nodal analysis to determine the voltage V<sub>L</sub> for the network in Fig. 2. Three branches (R<sub>1</sub> = 5 &Omega; with E<sub>1</sub> = 10 V, R<sub>2</sub> = 4 &Omega; with E<sub>2</sub> = 16 V, R<sub>3</sub> = 2 &Omega; with E<sub>3</sub> = 8 V) and R<sub>L</sub> = 3 &Omega; all hang between one top node and the bottom rail.</div>
+  <h4 class="step">Step 1 &mdash; one node does the whole job</h4>
+  <p class="why">Every element in this circuit runs from the same top rail to the same bottom rail, so there is exactly <b>one</b> unknown node voltage. Call it V; that is also V<sub>L</sub>, because R<sub>L</sub> is connected straight across the same two rails.</p>
+  <h4 class="step">Step 2 &mdash; the polarity of E<sub>2</sub> is the trap</h4>
+  <p class="why">E<sub>1</sub> and E<sub>3</sub> are drawn with <b>+ at the top</b> of the source, so the bottom of R<sub>1</sub> sits at +10 V and the bottom of R<sub>3</sub> at +8 V. E<sub>2</sub> is drawn the other way round &mdash; <b>&minus; at the top, + at the bottom</b> &mdash; so the bottom of R<sub>2</sub> sits at &minus;16 V, not +16 V. Miss this and you get 7.79 V instead of 1.56 V.</p>
+  <div class="m">branch bottoms, measured from the bottom rail:
+  through E1:  +10 V      (+ at top)
+  through E2:  -16 V      (- at top)   &lt;-- the reversed one
+  through E3:   +8 V      (+ at top)</div>
+  <h4 class="step">Step 3 &mdash; write KCL and solve</h4>
+  <p class="why">Take every branch current as leaving the top node and set the sum to zero.</p>
+  <div class="m">(V - 10)/5 + (V + 16)/4 + (V - 8)/2 + V/3 = 0
+
+multiply through by 60:
+  12(V - 10) + 15(V + 16) + 30(V - 8) + 20V = 0
+  12V - 120 + 15V + 240 + 30V - 240 + 20V = 0
+  77V - 120 = 0
+  V = 120/77 = 1.558 V</div>
+  <h4 class="step">Step 4 &mdash; check by adding the branch currents</h4>
+  <p class="why">The four currents must sum to zero. They do, to machine precision &mdash; and notice how large they are compared with the answer: the branches are fighting each other, which is exactly why V<sub>L</sub> ends up small.</p>
+  <div class="m">R1 : -1.68831 A
+R2 : +4.38961 A
+R3 : -3.22078 A
+RL : +0.51948 A
+           ---------
+     sum   0.00000 A</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">V<sub>L</sub> = 120/77 = <b>1.558 V</b>, and I<sub>L</sub> = V<sub>L</sub>/3 = 40/77 = <b>0.519 A</b> downward.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>1 mark for identifying the single node, 3 for the node equation with the correct source polarities, 2 for solving and stating V<sub>L</sub>. An ugly fraction is not a sign of error here &mdash; 1/5 + 1/4 + 1/2 + 1/3 = 77/60, so the 77 is unavoidable.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q3</span><span class="marks">6 marks</span><span class="method">Source conversion</span></div>
+  <div class="qtext">Apply the source conversion method to compute the current passing through R<sub>L</sub> for the network in Fig. 3. I<sub>1</sub> = 10 mA with R<sub>1</sub> = 2 k&Omega;, I<sub>2</sub> = 8 mA with R<sub>2</sub>, R<sub>L</sub> = 6.8 k&Omega;, I<sub>3</sub> = 4 mA with R<sub>3</sub> = 8.2 k&Omega;.</div>
+  <h4 class="step">A reading of the scan that has to be flagged</h4>
+  <p class="why">On the scan R<sub>2</sub> reads <b>4.7 &Omega;</b>, but every other resistor in the figure is in the kilohm range and they are all standard E24 values &mdash; 2 k, 6.8 k, 8.2 k. A 4.7 &Omega; sitting among them makes no sense as a design, so this is almost certainly <b>4.7 k&Omega;</b> with the 'k' lost in the scan. Both readings are solved below; check yours against the original paper.</p>
+  <h4 class="step">Step 1 &mdash; convert each current source to a voltage source</h4>
+  <p class="why">A current source I in parallel with R becomes a voltage source IR in series with the same R. That is the whole method: it turns a circuit full of parallel sources into one loop you can walk round.</p>
+  <div class="m">I1 || R1 : 10 mA x 2 kohm  = 20 V in series with 2 kohm
+I2 || R2 : 8 mA x 4.7 kohm = 37.6 V in series with 4.7 kohm
+I3 || R3 : 4 mA x 8.2 kohm = 32.8 V in series with 8.2 kohm</div>
+  <h4 class="step">Step 2 &mdash; solve (nodal used here as the cross-check)</h4>
+  <p class="why">Taking the bottom rail as reference and solving the three node voltages gives the current in R<sub>L</sub> directly. The source-conversion route and the nodal route must agree, and they do.</p>
+  <div class="m">with R2 = 4.7 kohm:
+  V_A = 24.645 V   V_B = -2.039 V   V_C = 13.755 V
+  I through RL = 2.323 mA, flowing from C towards B
+
+with R2 = 4.7 ohm (the literal scan reading):
+  I through RL = 0.755 mA</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>I<sub>RL</sub> = 2.32 mA</b> on the 4.7 k&Omega; reading (0.75 mA if R<sub>2</sub> really is 4.7 &Omega;). State which reading you used &mdash; an examiner will accept either if the working is right.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>3 marks for carrying out the conversions correctly, 3 for the final current. The direction matters: the current flows from the right-hand node back towards R<sub>L</sub>, not the way the figure's arrow suggests.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q4</span><span class="marks">6 marks</span><span class="method">Dependent source</span></div>
+  <div class="qtext">Find V<sub>o</sub> in the circuit in Fig. 4. A 10 &Omega; vertical and a 10 &Omega; horizontal are fed by a 25 A source and a dependent source 2V<sub>o</sub>, where V<sub>o</sub> is the voltage across the horizontal 10 &Omega;.</div>
+  <h4 class="step">Step 1 &mdash; why this one cannot be done by inspection</h4>
+  <p class="why">The 2V<sub>o</sub> source depends on the very quantity you are asked for, so there is no order in which you can just "work it out". You have to write the circuit down as equations and let V<sub>o</sub> appear on both sides.</p>
+  <h4 class="step">Step 2 &mdash; spot the series path</h4>
+  <p class="why">The two 10 &Omega; resistors are in series from the right-hand node down to ground, so everything both sources inject has to come back through that same 20 &Omega;. Call that current I.</p>
+  <div class="m">V2 = 20 I          (both 10 ohm in series)
+V1 = 10 I          (only the vertical one)
+Vo = V1 - V2 = 10I - 20I = -10 I</div>
+  <h4 class="step">Step 3 &mdash; close the loop on itself</h4>
+  <p class="why">The current the two sources inject is 25 + 2V<sub>o</sub>, and that must equal I. Substituting V<sub>o</sub> = &minus;10I turns it into one equation in one unknown.</p>
+  <div class="m">I = 25 + 2 Vo = 25 + 2(-10 I) = 25 - 20 I
+21 I = 25
+I = 25/21 = 1.1905 A
+Vo = -10 I = -250/21 = -11.905 V</div>
+  <h4 class="step">Step 4 &mdash; check</h4>
+  <p class="why">Put the answer back into the dependent source and see that the injected current really is I.</p>
+  <div class="m">25 + 2(-11.905) = 1.1905 A   =  I  - consistent
+nodal solution independently: V1 = 250/21, V2 = 500/21, Vo = -250/21  - same</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>V<sub>o</sub> = &minus;250/21 = &minus;11.90 V.</b> The minus sign is real: the right-hand node is at a higher potential than the left, so the polarity marked on the figure is the opposite of the actual one.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>2 marks for setting up with the dependent source kept symbolic, 3 for solving, 1 for stating the sign and what it means. Writing V<sub>o</sub> as a number too early is the usual way this one is lost.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q5</span><span class="marks">6 marks</span><span class="method">RL transient</span></div>
+  <div class="qtext">Find <i>i(t)</i> in the circuit of Fig. 5 for t &gt; 0. The switch has been closed for a long time. 10 V source, 2 &Omega; and 3 &Omega; in series, inductor 1/3 H; the switch is connected across the 3 &Omega;.</div>
+  <h4 class="step">Step 1 &mdash; what the switch actually does</h4>
+  <p class="why">The switch bridges the two ends of the 3 &Omega;, so while it is closed the 3 &Omega; is <b>short-circuited</b> and carries no current. It has been closed a long time, so at t = 0 it opens and the 3 &Omega; comes back into the circuit.</p>
+  <h4 class="step">Step 2 &mdash; the initial current</h4>
+  <p class="why">Long time closed means steady state, and in steady DC an inductor behaves as a plain wire. So the current is set by the 2 &Omega; alone. Inductor current cannot jump, so this value carries across t = 0.</p>
+  <div class="m">i(0-) = 10 / 2 = 5 A        and  i(0+) = i(0-) = 5 A</div>
+  <h4 class="step">Step 3 &mdash; the final current and the time constant</h4>
+  <p class="why">With the switch open the loop resistance is 2 + 3 = 5 &Omega;. The time constant uses the resistance the inductor <i>sees after</i> the switching, never the one before.</p>
+  <div class="m">i(inf) = 10 / 5 = 2 A
+tau = L/R = (1/3)/5 = 1/15 s   -&gt;   1/tau = 15</div>
+  <h4 class="step">Step 4 &mdash; assemble and verify</h4>
+  <p class="why">Any first-order circuit follows x(t) = x(&infin;) + [x(0) &minus; x(&infin;)]e<sup>&minus;t/&tau;</sup>. Solving the differential equation directly gives exactly the same expression, with a difference of zero.</p>
+  <div class="m">i(t) = 2 + (5 - 2) e^(-15t) = 2 + 3 e^(-15t)  A
+
+solving  (1/3) di/dt + 5 i = 10  with i(0) = 5 gives
+i(t) = 2 + 3 exp(-15t)       difference from the formula: exactly 0
+
+  t = 0      5.000 A
+  t = 0.05   3.417 A
+  t = 0.2    2.149 A
+  t -&gt; inf   2.000 A</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>i(t) = 2 + 3e<sup>&minus;15t</sup> A for t &gt; 0</b>, starting at 5 A and settling to 2 A with a time constant of 1/15 s (about 67 ms).</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>2 marks for i(0), 2 for i(&infin;) and &tau;, 2 for the assembled expression. Using the pre-switching resistance in &tau; is the standard error and costs both of the middle marks.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q6</span><span class="marks">6 marks</span><span class="method">Magnetic circuit</span></div>
+  <div class="qtext">Calculate the magnetomotive force (mmf) required to produce a flux of 0.015 Wb across an air gap 2.5 mm long, having an effective area of 200 cm&sup2;.</div>
+  <h4 class="step">Step 1 &mdash; convert the area before anything else</h4>
+  <p class="why">200 cm&sup2; is <b>not</b> 2 m&sup2;. Area scales with the square of the length unit, so 1 cm&sup2; = 10<sup>&minus;4</sup> m&sup2;. This single conversion is where most of the marks are lost on air-gap questions.</p>
+  <div class="m">A = 200 cm^2 = 200 x 1e-4 = 0.02 m^2
+l = 2.5 mm = 2.5e-3 m</div>
+  <h4 class="step">Step 2 &mdash; flux density, then field strength</h4>
+  <p class="why">In air there is no iron to help, so &mu; = &mu;<sub>0</sub> and H is simply B/&mu;<sub>0</sub>.</p>
+  <div class="m">B = phi/A = 0.015 / 0.02 = 0.75 T
+H = B/mu0 = 0.75 / (4 pi x 1e-7) = 596 831 A/m</div>
+  <h4 class="step">Step 3 &mdash; mmf</h4>
+  <p class="why">mmf is H multiplied by the length of the path it acts over &mdash; here only the gap.</p>
+  <div class="m">mmf = H l = 596 831 x 2.5e-3 = 1492 ampere-turns</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>mmf &asymp; 1492 AT</b> (ampere-turns).</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>2 marks for B, 2 for H, 2 for the mmf. Note how large H is in air compared with iron &mdash; a few millimetres of gap needs more mmf than a metre of iron, which is the physical point the question is testing.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q7</span><span class="marks">6 marks</span><span class="method">Capacitor on AC</span></div>
+  <div class="qtext">A capacitor of 8.0 &micro;F takes a current of 1.0 A when the alternating voltage applied across it is 230 V. Calculate (a) the frequency of the applied voltage, and (b) the resistance to be connected in series with the capacitor to reduce the current in the circuit to 0.5 A at the same frequency.</div>
+  <h4 class="step">Part (a) &mdash; find the reactance first</h4>
+  <p class="why">A pure capacitor has only reactance, so Ohm's law gives X<sub>C</sub> straight away, and the frequency follows from it.</p>
+  <div class="m">Xc = V/I = 230 / 1.0 = 230 ohm
+Xc = 1/(2 pi f C)   -&gt;   f = 1/(2 pi Xc C)
+f = 1 / (2 pi x 230 x 8e-6) = 86.50 Hz</div>
+  <h4 class="step">Part (b) &mdash; R and X add as a right triangle, never straight</h4>
+  <p class="why">Adding R does not reduce the current by R's share &mdash; R and X<sub>C</sub> combine as the two sides of a right angle. X<sub>C</sub> is unchanged because the frequency is unchanged.</p>
+  <div class="m">for I = 0.5 A:   Z = V/I = 230 / 0.5 = 460 ohm
+Z^2 = R^2 + Xc^2
+R = sqrt(460^2 - 230^2) = sqrt(158700) = 398.4 ohm</div>
+  <h4 class="step">Worth noticing</h4>
+  <p class="why">Halving the current needed a resistance of 398 &Omega; &mdash; far more than the 230 &Omega; of reactance already there. That is the whole point of phasor addition: quantities at right angles do not add the way scalars do.</p>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">(a) <b>f = 86.5 Hz</b>. (b) <b>R = 398.4 &Omega;</b>.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>3 marks for the frequency, 3 for the resistance. Writing R = 460 &minus; 230 = 230 &Omega; is the classic wrong answer and earns nothing.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q8</span><span class="marks">6 marks</span><span class="method">Series resonance</span></div>
+  <div class="qtext">A circuit having a resistance of 4.0 &Omega;, an inductance of 0.50 H and a variable capacitance in series is connected across a 100 V, 50 Hz supply. Calculate (a) the capacitance to give resonance, and (b) the voltages across the inductance and capacitance.</div>
+  <h4 class="step">Part (a) &mdash; resonance means the two reactances cancel</h4>
+  <p class="why">At resonance X<sub>L</sub> = X<sub>C</sub>, so the capacitance follows from the inductance and the frequency alone &mdash; R plays no part in it.</p>
+  <div class="m">XL = 2 pi f L = 2 pi x 50 x 0.5 = 157.08 ohm
+at resonance Xc = XL, so
+C = 1/(w^2 L) = 1/((2 pi x 50)^2 x 0.5) = 20.26 uF</div>
+  <h4 class="step">Part (b) &mdash; the current is limited by R alone</h4>
+  <p class="why">With the reactances cancelled the impedance collapses to just R, so the current is as large as it can be.</p>
+  <div class="m">I = V/R = 100 / 4 = 25 A
+VL = I XL = 25 x 157.08 = 3927 V
+VC = I XC = 25 x 157.08 = 3927 V</div>
+  <h4 class="step">This answer is not a mistake &mdash; read this before crossing it out</h4>
+  <p class="why">3927 V across a component on a 100 V supply looks impossible, and every year students assume they have gone wrong here. They have not. This is <b>voltage magnification</b>: at resonance V<sub>L</sub> and V<sub>C</sub> are equal and exactly opposite, so they cancel each other across the pair, and only the 100 V across R survives. The magnification factor is the Q of the circuit.</p>
+  <div class="m">Q = XL/R = 157.08/4 = 39.3
+VL = VC = Q x V = 39.3 x 100 = 3927 V     - consistent
+and VL + VC = 0 as phasors, leaving V_R = 100 V = the supply</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">(a) <b>C = 20.26 &micro;F</b>. (b) <b>V<sub>L</sub> = V<sub>C</sub> = 3927 V</b>, in antiphase, so they cancel and the supply still sees only 100 V.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>2 marks for C, 2 for the current, 2 for the two voltages. A line explaining the magnification is usually worth a mark on its own and shows the examiner you know the answer is not an arithmetic slip.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q9</span><span class="marks">6 marks</span><span class="method">Three-phase star &mdash; derivation</span></div>
+  <div class="qtext">Derive the relationship between line voltage and phase voltage, and between line current and phase current, in a 3-phase star-connected system.</div>
+  <h4 class="step">Step 1 &mdash; set up the three phase voltages</h4>
+  <p class="why">In a balanced star the three phase voltages are equal in size and 120&deg; apart, measured from each line to the star point N.</p>
+  <div class="m">V_RN = Vph /_ 0
+V_YN = Vph /_ -120
+V_BN = Vph /_ -240  (= /_ +120)</div>
+  <h4 class="step">Step 2 &mdash; a line voltage is the difference of two phase voltages</h4>
+  <p class="why">V<sub>RY</sub> is measured between two lines, so it is V<sub>RN</sub> &minus; V<sub>YN</sub>. Subtracting two equal phasors 120&deg; apart gives one that is &radic;3 times as long and leads by 30&deg;.</p>
+  <div class="m">V_RY = V_RN - V_YN
+     = Vph /_0  -  Vph /_-120
+     = Vph [ (1 + j0) - (-0.5 - j0.866) ]
+     = Vph (1.5 + j0.866)
+     = Vph x 1.732 /_ 30
+
+so  V_L = sqrt(3) x V_ph,  leading the phase voltage by 30 degrees</div>
+  <h4 class="step">Step 3 &mdash; the current relation is the easy half</h4>
+  <p class="why">In star, each line is in series with one phase winding &mdash; there is no junction between them for current to divide at. So whatever flows in the phase flows in the line.</p>
+  <div class="m">I_L = I_ph</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">For a star connection: <b>V<sub>L</sub> = &radic;3 V<sub>ph</sub></b> (line voltage leading by 30&deg;) and <b>I<sub>L</sub> = I<sub>ph</sub></b>.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>3 marks for the voltage derivation with the phasor subtraction actually shown, 1 for the 30&deg; phase relation, 2 for the current relation with a reason. Quoting &radic;3 without the subtraction gets about half.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q10</span><span class="marks">6 marks</span><span class="method">Transformer &mdash; EMF equation and phasor diagram</span></div>
+  <div class="qtext">(a) Derive the EMF equation of a transformer. (b) Draw and explain a neatly labelled phasor diagram of a transformer on load.</div>
+  <h4 class="step">Part (a) &mdash; start from Faraday, not from the formula</h4>
+  <p class="why">The flux in the core is sinusoidal, &phi; = &phi;<sub>m</sub> sin &omega;t. Faraday's law gives the induced emf in one turn, and N turns multiply it.</p>
+  <div class="m">phi = phi_m sin(wt)
+e = -N dphi/dt = -N w phi_m cos(wt)
+peak emf = N w phi_m = N (2 pi f) phi_m
+
+rms = peak / sqrt(2):
+E = 2 pi f N phi_m / sqrt(2) = 4.44 f N phi_m
+
+so   E1 = 4.44 f N1 phi_m      E2 = 4.44 f N2 phi_m
+and  E1/E2 = N1/N2  - the turns ratio falls straight out</div>
+  <h4 class="step">Part (b) &mdash; what the on-load phasor diagram has to show</h4>
+  <p class="why">Build it in this order and label every phasor; an unlabelled diagram earns very little.</p>
+  <div class="m">1. phi_m  - the core flux, drawn along the reference
+2. E1 and E2 - both lag phi_m by 90 degrees (from -N dphi/dt)
+3. I0 - the no-load current, leading phi_m slightly;
+       its two parts: Iw in phase with V1 (core loss),
+       and Imag in phase with phi_m (magnetising)
+4. I2 - the secondary load current, lagging E2 by the load angle phi2
+5. I2&#x27; - the primary counterpart of I2, equal to I2 x (N2/N1), drawn opposite to I2
+6. I1 = I0 + I2&#x27;  - phasor sum, this is the primary current
+7. V1 = -E1 + I1 R1 + j I1 X1  - add the primary drops
+8. V2 = E2 - I2 R2 - j I2 X2   - subtract the secondary drops</div>
+  <h4 class="step">The one idea being tested</h4>
+  <p class="why">Extra load current in the secondary is immediately answered by extra current in the primary, in the exact ratio of the turns, so the core flux stays practically constant from no load to full load. Say that sentence explicitly &mdash; it is usually worth a mark.</p>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>E = 4.44 f N &phi;<sub>m</sub></b> for each winding, giving E<sub>1</sub>/E<sub>2</sub> = N<sub>1</sub>/N<sub>2</sub>; and the on-load phasor diagram built in the eight steps above.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>3 marks for the derivation (the &radic;2 step must be visible), 3 for a labelled phasor diagram. Leaving out the primary and secondary impedance drops turns it into a no-load diagram and loses a mark.</p></div>
+</div>
+
+</div>
+
+<div class="paper" id="y2025o">
+
+<h2 class="yr">October 2025</h2>
+
+<p class="yr-meta">October 2025 &middot; 50 marks (weightage 50%) &middot; 2 hours</p>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1 (a)</span><span class="marks">5 marks</span><span class="method">RL growth &mdash; derivation</span></div>
+  <div class="qtext">Derive the expression for current when a resistance R and an inductance L are connected in series and a DC supply of voltage E is applied. The circuit is initially relaxed. Draw the graph of i against t, and find i when t = the time constant.</div>
+  <h4 class="step">Step 1 &mdash; write KVL and solve it as a differential equation</h4>
+  <p class="why">The inductor opposes change, so the current cannot appear instantly; that resistance to change is what the exponential describes.</p>
+  <div class="m">E = i R + L di/dt
+L di/dt = E - iR
+di/(E - iR) = dt/L
+
+integrating:   -(1/R) ln(E - iR) = t/L + K
+at t = 0 the circuit is relaxed, so i = 0:  K = -(1/R) ln E
+
+-(1/R) ln[(E - iR)/E] = t/L
+(E - iR)/E = e^(-Rt/L)
+i = (E/R) [1 - e^(-Rt/L)]</div>
+  <h4 class="step">Step 2 &mdash; the graph</h4>
+  <p class="why">It starts at zero with an initial slope of E/L, bends over, and approaches E/R without ever quite reaching it. Mark E/R as a dashed asymptote and mark the time constant on the t axis &mdash; both are expected in the sketch.</p>
+  <h4 class="step">Step 3 &mdash; the value at one time constant</h4>
+  <p class="why">&tau; = L/R. Substituting t = &tau; makes the exponent exactly &minus;1, which is where the familiar 63.2% comes from.</p>
+  <div class="m">at t = tau = L/R:
+i = (E/R)[1 - e^-1] = (E/R)(1 - 0.3679) = 0.632 E/R
+
+so the current reaches 63.2% of its final value in one time constant</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>i = (E/R)[1 &minus; e<sup>&minus;Rt/L</sup>]</b>, and at t = &tau; the current is <b>0.632 E/R</b>.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>3 marks for the derivation with the integration shown, 1 for a graph with the asymptote and &tau; marked, 1 for the 63.2% figure. Quoting the result without integrating loses the three.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1 (b)</span><span class="marks">5 marks</span><span class="method">RL transient &mdash; numerical</span></div>
+  <div class="qtext">Find the steady state current in the circuit shown in Figure 1 when switch S is open. Also calculate the current at t = 0.6 s after the switch is closed. (20 V source, 15 &Omega; and 5 &Omega; in series, 4 H; S is connected across the 5 &Omega;.)</div>
+  <h4 class="step">Step 1 &mdash; switch open, steady state</h4>
+  <p class="why">In steady DC the inductor is just a wire, so only the resistors matter. With S open both resistors are in the loop.</p>
+  <div class="m">I = 20 / (15 + 5) = 1.0 A</div>
+  <h4 class="step">Step 2 &mdash; closing S removes the 5 &Omega;</h4>
+  <p class="why">S bridges the 5 &Omega;, so closing it short-circuits that resistor. The loop resistance drops to 15 &Omega;, and the time constant must be computed with the <b>new</b> resistance.</p>
+  <div class="m">i(0) = 1.0 A          (inductor current cannot jump)
+i(inf) = 20/15 = 1.3333 A
+tau = L/R = 4/15 = 0.2667 s      -&gt;  1/tau = 3.75</div>
+  <h4 class="step">Step 3 &mdash; assemble and evaluate at 0.6 s</h4>
+  <div class="m">i(t) = 1.3333 + (1.0 - 1.3333) e^(-3.75 t)
+     = 1.3333 - 0.3333 e^(-3.75 t)  A
+
+at t = 0.6 s:
+  e^(-3.75 x 0.6) = e^(-2.25) = 0.10540
+  i = 1.3333 - 0.3333 x 0.10540 = 1.2982 A
+
+solving the differential equation directly gives the same 1.2982 A</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">Steady current with S open = <b>1.0 A</b>; at t = 0.6 s after closing, <b>i = 1.298 A</b> (on its way to 1.333 A).</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>2 marks for the steady value, 1 for recognising the short across the 5 &Omega;, 2 for the transient value.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2 (a)</span><span class="marks">5 marks</span><span class="method">Maximum power transfer &mdash; derivation</span></div>
+  <div class="qtext">Derive the condition for maximum power transfer through R<sub>L</sub> in a circuit having the series elements R<sub>Th</sub> (equivalent Thevenin resistance) and R<sub>L</sub> (variable load resistance) supplied by a voltage source V<sub>Th</sub>. Also find the expression for maximum power.</div>
+  <h4 class="step">Step 1 &mdash; write the power in the load as a function of R<sub>L</sub></h4>
+  <div class="m">I = V_th / (R_th + R_L)
+P = I^2 R_L = V_th^2 R_L / (R_th + R_L)^2</div>
+  <h4 class="step">Step 2 &mdash; differentiate and set to zero</h4>
+  <p class="why">R<sub>L</sub> is the variable; V<sub>th</sub> and R<sub>th</sub> are fixed by the source network.</p>
+  <div class="m">dP/dR_L = V_th^2 [ (R_th + R_L)^2 - R_L . 2(R_th + R_L) ] / (R_th + R_L)^4
+
+set the numerator to zero:
+  (R_th + R_L)^2 = 2 R_L (R_th + R_L)
+  R_th + R_L = 2 R_L
+  R_L = R_th</div>
+  <h4 class="step">Step 3 &mdash; the maximum power itself</h4>
+  <p class="why">Put R<sub>L</sub> = R<sub>th</sub> back in.</p>
+  <div class="m">P_max = V_th^2 R_th / (2 R_th)^2 = V_th^2 / (4 R_th)</div>
+  <h4 class="step">The point that is usually missed</h4>
+  <p class="why">At this condition the efficiency is only <b>50%</b> &mdash; as much power is burnt in R<sub>th</sub> as reaches the load. That is why power systems are never run at maximum power transfer; it is a communications and instrumentation criterion, not a power one.</p>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">Maximum power when <b>R<sub>L</sub> = R<sub>th</sub></b>, and then <b>P<sub>max</sub> = V<sub>th</sub>&sup2;/(4R<sub>th</sub>)</b>, at 50% efficiency.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>3 marks for the differentiation, 1 for P<sub>max</sub>, 1 for the efficiency remark.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2 (b)</span><span class="marks">5 marks</span><span class="method">Nodal analysis</span></div>
+  <div class="qtext">Find the voltage at node c of the circuit shown in Figure 2 using nodal analysis. (Nodes a, b, c; 10 &Omega; from a to b, 40 &Omega; from b to c, 5 A into a, 2 A out of c, 12 V from b to the bottom rail, 10 V connecting a and c along the top.)</div>
+  <h4 class="step">A note on the hand-drawn figure</h4>
+  <p class="why">Figure 2 is hand-drawn and the polarity marks on the 10 V and 12 V sources are not crisp on the scan. The reading used here is the natural one (12 V positive at b, and a positive with respect to c by 10 V). The other readings are given at the end so you can match whichever your copy shows.</p>
+  <h4 class="step">Step 1 &mdash; a and c form a supernode</h4>
+  <p class="why">The 10 V source sits directly between a and c with no resistance, so neither node voltage can be found on its own. Enclose both in one supernode and write a single KCL for the pair, plus the constraint the source imposes.</p>
+  <div class="m">constraint:   V_a - V_c = 10
+node b is fixed by its source:  V_b = 12 V</div>
+  <h4 class="step">Step 2 &mdash; KCL around the supernode</h4>
+  <p class="why">Sum the currents leaving the boundary that encloses both a and c. The 10 V source is inside, so it never appears in this equation.</p>
+  <div class="m">-5 + (V_a - 12)/10 + 2 + (V_c - 12)/40 = 0</div>
+  <h4 class="step">Step 3 &mdash; substitute and solve</h4>
+  <div class="m">V_a = V_c + 10:
+  -5 + (V_c + 10 - 12)/10 + 2 + (V_c - 12)/40 = 0
+  -3 + (V_c - 2)/10 + (V_c - 12)/40 = 0
+
+multiply by 40:
+  -120 + 4(V_c - 2) + (V_c - 12) = 0
+  -120 + 4V_c - 8 + V_c - 12 = 0
+  5 V_c = 140
+  V_c = 28 V      (and V_a = 38 V)</div>
+  <h4 class="step">If your copy shows different polarities</h4>
+  <p class="why">The method is identical; only the two signs change. For completeness:</p>
+  <div class="m">V_b = +12, V_a - V_c = +10   -&gt;   V_c = 28 V   (used above)
+V_b = +12, V_a - V_c = -10   -&gt;   V_c = 44 V
+V_b = -12, V_a - V_c = +10   -&gt;   V_c =  4 V</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>V<sub>c</sub> = 28 V</b> (with V<sub>a</sub> = 38 V), on the polarities read from the scan.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>2 marks for recognising and forming the supernode, 2 for the KCL equation, 1 for the answer. Trying to write separate equations for a and c without the supernode is the usual dead end.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q3 (a)</span><span class="marks">4 marks</span><span class="method">Circuit parameters from v and i</span></div>
+  <div class="qtext">A series circuit consisting of two elements is connected to a supply voltage v = 220&radic;2 sin(314t + 15&deg;) V. The current in the circuit is i = 22&radic;2 cos(314t &minus; 30&deg;) A. Determine the circuit's parameters and draw the phasor diagram.</div>
+  <h4 class="step">Step 1 &mdash; put both waveforms in the same form first</h4>
+  <p class="why">The voltage is a sine and the current is a cosine. Comparing their angles directly is the trap in this question &mdash; convert the cosine to a sine before doing anything else.</p>
+  <div class="m">cos(x) = sin(x + 90)
+i = 22 sqrt2 cos(314t - 30) = 22 sqrt2 sin(314t - 30 + 90)
+                            = 22 sqrt2 sin(314t + 60)
+
+so:  V = 220 V rms at +15 deg
+     I =  22 A rms at +60 deg</div>
+  <h4 class="step">Step 2 &mdash; the phase angle tells you which two elements they are</h4>
+  <p class="why">The current angle is larger than the voltage angle, so the current <b>leads</b>. A leading current in a two-element series circuit means resistance and capacitance.</p>
+  <div class="m">phi = theta_v - theta_i = 15 - 60 = -45 deg
+current leads voltage by 45 deg  -&gt;  R and C in series</div>
+  <h4 class="step">Step 3 &mdash; extract R and C</h4>
+  <div class="m">|Z| = V/I = 220/22 = 10 ohm
+Z = 10 /_-45 = 10 cos45 - j 10 sin45 = 7.071 - j 7.071
+
+R  = 7.071 ohm
+Xc = 7.071 ohm
+C  = 1/(w Xc) = 1/(314 x 7.071) = 450.4 uF
+
+check: sqrt(R^2 + Xc^2) = 10.000 ohm  - agrees with |Z|</div>
+  <h4 class="step">The phasor diagram</h4>
+  <p class="why">Draw V along a reference at 15&deg;, I at 60&deg; (45&deg; ahead of V), then V<sub>R</sub> in phase with I and V<sub>C</sub> lagging I by 90&deg;; V<sub>R</sub> and V<sub>C</sub> add at right angles to give V.</p>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>R = 7.07 &Omega; and C = 450.4 &micro;F in series</b>, with the current leading the voltage by 45&deg;.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>1 mark for the cos-to-sin conversion, 1 for identifying R&ndash;C from the leading current, 1 for the values, 1 for the phasor diagram. Reading the angle as 15 &minus; (&minus;30) = 45&deg; lagging is the wrong answer this question is built to catch.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q3 (b)</span><span class="marks">6 marks</span><span class="method">Resonance with stray capacitance</span></div>
+  <div class="qtext">A coil having inductance L is connected in series with a variable capacitor C. The circuit possesses a fixed stray capacitance C<sub>s</sub>, assumed constant and effectively in parallel with C. When C = 1200 pF the resonant frequency is 91.5 kHz; when C = 600 pF it is 125.6 kHz. Determine (a) C<sub>s</sub> and (b) L.</div>
+  <h4 class="step">Step 1 &mdash; the stray capacitance simply adds</h4>
+  <p class="why">C<sub>s</sub> is in parallel with C, so the capacitance that actually resonates with L is C + C<sub>s</sub>. Write the resonance condition for each of the two measurements.</p>
+  <div class="m">f = 1/(2 pi sqrt(L (C + Cs)))
+
+f1^2 (C1 + Cs) = 1/(4 pi^2 L)
+f2^2 (C2 + Cs) = 1/(4 pi^2 L)
+
+the right-hand sides are the same, so the left-hand sides are equal</div>
+  <h4 class="step">Step 2 &mdash; eliminate L to get C<sub>s</sub></h4>
+  <p class="why">This is the point of giving two measurements: it lets you remove the unknown L entirely.</p>
+  <div class="m">f1^2 C1 + f1^2 Cs = f2^2 C2 + f2^2 Cs
+Cs (f1^2 - f2^2) = f2^2 C2 - f1^2 C1
+
+Cs = (f2^2 C2 - f1^2 C1)/(f1^2 - f2^2)
+
+with f1 = 91 500 Hz, C1 = 1200 pF, f2 = 125 600 Hz, C2 = 600 pF:
+  f1^2 C1 = 10.047     f2^2 C2 = 9.465
+  Cs = (9.465 - 10.047)/(8.372e9 - 1.5775e10)
+     = (-0.582)/(-7.403e9)
+  Cs = 78.55 pF</div>
+  <h4 class="step">Step 3 &mdash; now L from either measurement</h4>
+  <div class="m">L = 1/(4 pi^2 f1^2 (C1 + Cs))
+  = 1/(4 pi^2 x 8.372e9 x 1278.55e-12)
+L = 2.366 mH</div>
+  <h4 class="step">Step 4 &mdash; check against the measurement you did not use</h4>
+  <p class="why">Feed L and C<sub>s</sub> back into the <i>second</i> condition. If the arithmetic is right it must return 125.6 kHz exactly, and it does. This is the strongest check available on this question.</p>
+  <div class="m">f = 1/(2 pi sqrt(L (C2 + Cs)))
+  = 1/(2 pi sqrt(2.366e-3 x 678.55e-12))
+  = 125.6 kHz        - matches the given value exactly</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>C<sub>s</sub> = 78.5 pF</b> and <b>L = 2.37 mH</b>.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>3 marks for eliminating L correctly, 2 for C<sub>s</sub>, 1 for L. Watch the picofarads &mdash; 1 pF = 10<sup>&minus;12</sup> F, and a factor of 10&sup3; here throws L out by a million.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q4 (a)</span><span class="marks">3 marks</span><span class="method">Coupled inductors</span></div>
+  <div class="qtext">Derive the equivalent inductance for (i) flux aiding and (ii) flux opposing, when two inductors L<sub>1</sub> and L<sub>2</sub> are connected in series with a mutual inductance of M.</div>
+  <h4 class="step">Set up the induced voltages</h4>
+  <p class="why">Each coil sees two effects: its own changing current (self inductance) and the other coil's changing current through the mutual coupling. In series they carry the same current.</p>
+  <div class="m">v1 = L1 di/dt  +/-  M di/dt
+v2 = L2 di/dt  +/-  M di/dt
+
+v = v1 + v2 = (L1 + L2 +/- 2M) di/dt
+and by definition v = L_eq di/dt</div>
+  <h4 class="step">(i) flux aiding &mdash; the fields help each other</h4>
+  <p class="why">Current enters both coils at the dotted ends, so the two fluxes add and the mutual term reinforces the self terms.</p>
+  <div class="m">L_eq = L1 + L2 + 2M</div>
+  <h4 class="step">(ii) flux opposing &mdash; the fields fight</h4>
+  <p class="why">Current enters one coil at the dot and the other away from it, so the mutual term subtracts.</p>
+  <div class="m">L_eq = L1 + L2 - 2M</div>
+  <h4 class="step">Why the 2M and not M</h4>
+  <p class="why">M appears <b>twice</b> &mdash; once as coil 2's effect on coil 1 and once as coil 1's effect on coil 2. Writing L<sub>1</sub> + L<sub>2</sub> &plusmn; M is the standard error here.</p>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>L<sub>eq</sub> = L<sub>1</sub> + L<sub>2</sub> + 2M</b> (aiding) and <b>L<sub>eq</sub> = L<sub>1</sub> + L<sub>2</sub> &minus; 2M</b> (opposing).</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>1 mark each for the two results, 1 for the derivation showing why M is counted twice.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q4 (b)(i)</span><span class="marks">3 marks</span><span class="method">Transformer EMF equation</span></div>
+  <div class="qtext">Derive the EMF equation of a single-phase transformer.</div>
+  <h4 class="step">From Faraday's law to 4.44</h4>
+  <p class="why">The same derivation as March 2026 Q10(a): differentiate a sinusoidal flux, take the peak, then divide by &radic;2 for rms.</p>
+  <div class="m">phi = phi_m sin(wt)
+e = -N dphi/dt = -N w phi_m cos(wt)
+E_peak = N w phi_m = 2 pi f N phi_m
+E_rms  = 2 pi f N phi_m / sqrt2 = 4.44 f N phi_m</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>E = 4.44 f N &phi;<sub>m</sub></b> volts per winding.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>3 marks, and the &radic;2 step has to be visible &mdash; that is what separates a derivation from a quoted formula.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q4 (b)(ii)</span><span class="marks">4 marks</span><span class="method">Transformer numerical</span></div>
+  <div class="qtext">A 60 kVA single-phase transformer has 600 turns on the primary and 100 turns on the secondary. The primary is connected to a 3000 V, 50 Hz supply. Calculate (I) the secondary voltage for open circuit, (II) the current flowing through the two windings on full load, and (III) the peak value of flux.</div>
+  <h4 class="step">(I) secondary voltage</h4>
+  <p class="why">On open circuit the secondary voltage is just the turns ratio applied to the primary voltage.</p>
+  <div class="m">V2 = V1 x N2/N1 = 3000 x 100/600 = 500 V</div>
+  <h4 class="step">(II) full-load currents</h4>
+  <p class="why">The kVA rating is the same seen from either side, so divide it by each winding's voltage.</p>
+  <div class="m">I1 = S/V1 = 60 000 / 3000 = 20 A
+I2 = S/V2 = 60 000 / 500  = 120 A
+
+check: I1/I2 = 20/120 = 1/6 = N2/N1  - correct, current ratio is the inverse of the turns ratio</div>
+  <h4 class="step">(III) peak flux</h4>
+  <p class="why">Rearrange the EMF equation for &phi;<sub>m</sub>.</p>
+  <div class="m">phi_m = V1/(4.44 f N1) = 3000/(4.44 x 50 x 600) = 0.02252 Wb
+
+check: E2 = 4.44 x 50 x 100 x 0.02252 = 500 V  - matches part (I)</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>V<sub>2</sub> = 500 V, I<sub>1</sub> = 20 A, I<sub>2</sub> = 120 A, &phi;<sub>m</sub> = 22.5 mWb.</b></div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>1 mark for V<sub>2</sub>, 2 for the currents, 1 for the flux. A one-line check that I<sub>1</sub>V<sub>1</sub> = I<sub>2</sub>V<sub>2</sub> = 60 kVA is worth writing.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q5 (a)</span><span class="marks">5 marks</span><span class="method">Balanced star load</span></div>
+  <div class="qtext">A balanced three-phase star-connected load is connected across a 400 V, 50 Hz three-phase supply. The current per phase is 28 A (lagging). The total active power taken by the load is 14 kW. Determine (i) resistance and reactance of the load, (ii) reactive power absorbed, and (iii) total apparent power.</div>
+  <h4 class="step">Step 1 &mdash; phase voltage and impedance</h4>
+  <p class="why">In star the phase voltage is the line voltage divided by &radic;3, and the phase current equals the line current.</p>
+  <div class="m">Vph = 400/sqrt3 = 230.94 V
+Iph = IL = 28 A
+Zph = Vph/Iph = 230.94/28 = 8.248 ohm</div>
+  <h4 class="step">Step 2 &mdash; power factor from the given power</h4>
+  <p class="why">The active power is given, so the power factor follows from S, not the other way round.</p>
+  <div class="m">S = sqrt3 x VL x IL = sqrt3 x 400 x 28 = 19 399 VA
+cos(phi) = P/S = 14 000/19 399 = 0.7217 lagging
+phi = 43.81 deg</div>
+  <h4 class="step">Step 3 &mdash; split the impedance and find Q</h4>
+  <div class="m">R = Zph cos(phi) = 8.248 x 0.7217 = 5.952 ohm
+X = Zph sin(phi) = 8.248 x 0.6922 = 5.709 ohm
+
+Q = sqrt(S^2 - P^2) = sqrt(19399^2 - 14000^2) = 13 428 VAR</div>
+  <h4 class="step">Step 4 &mdash; check</h4>
+  <p class="why">The three phase resistances must dissipate exactly the stated 14 kW.</p>
+  <div class="m">3 Iph^2 R = 3 x 28^2 x 5.952 = 14 000 W    - matches the given value</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>R = 5.95 &Omega;, X = 5.71 &Omega; per phase; Q = 13.43 kVAR; S = 19.40 kVA</b>, at a power factor of 0.722 lagging.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>2 marks for V<sub>ph</sub> and Z<sub>ph</sub>, 1 for the power factor, 2 for R, X, Q and S. Using 400 V as the phase voltage is the standard star-connection mistake.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q5 (b)</span><span class="marks">5 marks</span><span class="method">Delta connection &mdash; derivation</span></div>
+  <div class="qtext">Draw the phasor diagram for a delta-connected circuit and prove that V<sub>L</sub> = V<sub>ph</sub> and I<sub>L</sub> = &radic;3 I<sub>ph</sub>.</div>
+  <h4 class="step">The voltage relation is immediate</h4>
+  <p class="why">In delta each phase winding is connected directly between two lines, so the voltage across a phase <i>is</i> the line voltage. There is nothing to derive &mdash; but say why, because the mark is for the reason.</p>
+  <div class="m">V_L = V_ph</div>
+  <h4 class="step">The current relation needs a phasor subtraction</h4>
+  <p class="why">At each corner of the delta, the line current is the difference of the two phase currents meeting there. Two equal phasors 120&deg; apart subtract to give &radic;3 times the size.</p>
+  <div class="m">I_R = I_RY - I_BR
+    = Iph /_0  -  Iph /_120
+    = Iph [ (1 + j0) - (-0.5 + j0.866) ]
+    = Iph (1.5 - j0.866)
+    = Iph x 1.732 /_-30
+
+so  I_L = sqrt(3) I_ph,  lagging the phase current by 30 degrees</div>
+  <h4 class="step">Symmetry worth noting</h4>
+  <p class="why">Star and delta are mirror images: star multiplies the <i>voltage</i> by &radic;3 and leaves the current alone; delta multiplies the <i>current</i> by &radic;3 and leaves the voltage alone. In both cases the total power is &radic;3 V<sub>L</sub>I<sub>L</sub>cos&phi;.</p>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>V<sub>L</sub> = V<sub>ph</sub></b> and <b>I<sub>L</sub> = &radic;3 I<sub>ph</sub></b>, the line current lagging its phase current by 30&deg;.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>2 marks for the phasor diagram, 3 for the current derivation with the subtraction actually carried out.</p></div>
+</div>
+
+</div>
+
+<div class="paper" id="y2025m">
+
+<h2 class="yr">March 2025</h2>
+
+<p class="yr-meta">10-03-2025 &middot; 30 marks &middot; 2 hours</p>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1 (a)</span><span class="marks">3 marks</span><span class="method">Nodal analysis</span></div>
+  <div class="qtext">In Fig. 1, find node voltages v<sub>1</sub> and v<sub>2</sub> using nodal analysis. Also find v. (18 mA into v<sub>1</sub>, 6 mA into v<sub>2</sub>, 4 k&Omega; from each node to ground, 12 k&Omega; between them, and a branch of 6 k&Omega; in series with a 9 V source across the top.)</div>
+  <h4 class="step">Step 1 &mdash; handle the 6 k&Omega; + 9 V branch carefully</h4>
+  <p class="why">This branch has both a resistor and a source, so its current is not simply the node difference over the resistance. Walk through it: from v<sub>1</sub> through the 6 k&Omega;, then through the source which drops 9 V, arriving at v<sub>2</sub>.</p>
+  <div class="m">current from v1 to v2 through that branch = (v1 - v2 - 9)/6000</div>
+  <h4 class="step">Step 2 &mdash; KCL at both nodes</h4>
+  <div class="m">at v1:  -18e-3 + v1/4000 + (v1 - v2)/12000 + (v1 - v2 - 9)/6000 = 0
+at v2:   -6e-3 + v2/4000 + (v2 - v1)/12000 + (v2 - v1 + 9)/6000 = 0</div>
+  <h4 class="step">Step 3 &mdash; solve</h4>
+  <div class="m">v1 = 58 V
+v2 = 38 V
+v  = v1 - v2 = 20 V   (+ at the v1 end, as marked)
+
+KCL residual at v1 after substituting: 2e-18  - effectively zero</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>v<sub>1</sub> = 58 V, v<sub>2</sub> = 38 V, v = 20 V.</b></div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>1 mark for the two node equations, 1 for handling the source-in-series branch, 1 for the answers. Treating that branch as plain (v<sub>1</sub>&minus;v<sub>2</sub>)/6k is the error this question is built around.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1 (b)</span><span class="marks">4 marks</span><span class="method">Thevenin's theorem</span></div>
+  <div class="qtext">For the circuit shown in Fig. 2, draw the Thevenin equivalent circuit across ab. (9 V source, 20 &Omega; along the top, 5 &Omega; and 25 &Omega; on the left, a 1.8 A source, 60 &Omega; across the terminals, 10 &Omega; at the bottom.)</div>
+  <h4 class="step">Step 1 &mdash; open-circuit voltage</h4>
+  <p class="why">With a&ndash;b open, solve the three node voltages and take the difference across the terminals.</p>
+  <div class="m">node P:  (Vp - 9)/5 + Vp/25 + 1.8 = 0
+node N:  (Vn - 9)/20 - 1.8 + (Vn - Vq)/60 = 0
+node Q:  (Vq - Vn)/60 + Vq/10 = 0
+
+Vn = 35 V, Vq = 5 V
+V_th = Vn - Vq = 30 V</div>
+  <h4 class="step">Step 2 &mdash; Thevenin resistance</h4>
+  <p class="why">Short the 9 V source and open the 1.8 A source. Once the current source is opened, the 5 &Omega; and 25 &Omega; branch is left dangling with no return path, so it cannot affect the terminals at all &mdash; ignore it.</p>
+  <div class="m">from a: 60 ohm directly across the terminals,
+        in parallel with (20 + 10) ohm going round the other way
+
+R_th = 60 || 30 = (60 x 30)/90 = 20 ohm</div>
+  <h4 class="step">Step 3 &mdash; confirm with the short-circuit current</h4>
+  <div class="m">with a-b shorted, both terminals sit at 15 V and the 60 ohm carries nothing:
+  (15 - 9)/20 - 1.8 + I_sc = 0
+  I_sc = 1.5 A
+
+R_th = V_th/I_sc = 30/1.5 = 20 ohm     - agrees with step 2</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>V<sub>th</sub> = 30 V, R<sub>th</sub> = 20 &Omega;</b> &mdash; a 30 V source in series with 20 &Omega;.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>2 marks for V<sub>th</sub>, 2 for R<sub>th</sub>. Spotting that the 5&ndash;25 &Omega; branch goes dead once the current source is opened saves a lot of unnecessary work.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2 (a)</span><span class="marks">3 marks</span><span class="method">Mesh analysis with a current source</span></div>
+  <div class="qtext">Find the currents i<sub>1</sub> and i<sub>2</sub> using mesh analysis of the circuit shown in Fig. 3. (10 V and 5 &Omega; on the left, 1 A source in the shared middle branch, 10 &Omega; and 20 V on the right.)</div>
+  <h4 class="step">Step 1 &mdash; why an ordinary mesh equation will not work</h4>
+  <p class="why">The 1 A source sits in the branch <b>shared</b> by both meshes. The voltage across a current source is unknown, so you cannot write KVL through it. The fix is a supermesh: go round the outside of both loops, avoiding that branch entirely.</p>
+  <h4 class="step">Step 2 &mdash; the constraint the source imposes</h4>
+  <p class="why">Taking both mesh currents clockwise, i<sub>1</sub> flows down the middle branch and i<sub>2</sub> flows up it. The net upward current is what the source fixes.</p>
+  <div class="m">i2 - i1 = 1</div>
+  <h4 class="step">Step 3 &mdash; supermesh KVL round the outside</h4>
+  <div class="m">starting bottom-left, going clockwise:
+  +10        through the 10 V source (- to +)
+  -5 i1      across the 5 ohm
+  -10 i2     across the 10 ohm
+  -20        through the 20 V source (+ to -)
+
+10 - 5 i1 - 10 i2 - 20 = 0</div>
+  <h4 class="step">Step 4 &mdash; solve</h4>
+  <div class="m">from the constraint:  i2 = i1 + 1
+  10 - 5 i1 - 10(i1 + 1) - 20 = 0
+  -15 i1 - 20 = 0
+  i1 = -4/3 = -1.333 A
+  i2 = -1/3 = -0.333 A
+
+check: i2 - i1 = 1 A  - the source current, as required
+check: KVL residual = 0</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>i<sub>1</sub> = &minus;1.333 A and i<sub>2</sub> = &minus;0.333 A.</b> Both are negative, meaning both mesh currents actually circulate anticlockwise, not clockwise as assumed.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>1 mark for forming the supermesh, 1 for the constraint equation, 1 for the answers. A negative mesh current is not an error &mdash; say what it means and you keep the mark.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2 (b)</span><span class="marks">4 marks</span><span class="method">Maximum power with a dependent source</span></div>
+  <div class="qtext">Determine R<sub>L</sub> for maximum power transfer for the circuit shown in Fig. 4, and calculate the value of maximum power. (9 V source, 2 &Omega; with V<sub>x</sub> across it, 1 &Omega; in series with a dependent source 3V<sub>x</sub>, and 4 &Omega; feeding R<sub>L</sub>.)</div>
+  <h4 class="step">Step 1 &mdash; the dependent source rules out the easy route</h4>
+  <p class="why">You cannot find R<sub>th</sub> by killing the sources here: a dependent source is not an independent one and must stay in the circuit. The reliable route is V<sub>th</sub> and I<sub>sc</sub>, then R<sub>th</sub> = V<sub>th</sub>/I<sub>sc</sub>.</p>
+  <h4 class="step">Step 2 &mdash; open-circuit voltage</h4>
+  <p class="why">With R<sub>L</sub> removed the 4 &Omega; carries nothing, so the terminal voltage equals the node voltage.</p>
+  <div class="m">Vx = 9 - Vm      and the 2 ohm carries Vx/2
+going down: Vm - (Vx/2)(1) - 3Vx = 0
+
+  (9 - Vx) - Vx/2 - 3Vx = 0
+  9 = 4.5 Vx
+  Vx = 2 V,   Vm = 7 V
+
+V_th = 7 V</div>
+  <h4 class="step">Step 3 &mdash; short-circuit current</h4>
+  <div class="m">with the terminals shorted the 4 ohm now goes to ground:
+  (9 - Vm)/2 = Vm/4 + (Vm - 3(9 - Vm))
+  Vm = 126/19 = 6.632 V
+  I_sc = Vm/4 = 63/38 = 1.658 A</div>
+  <h4 class="step">Step 4 &mdash; R<sub>th</sub>, R<sub>L</sub> and the power</h4>
+  <div class="m">R_th = V_th/I_sc = 7 / 1.658 = 38/9 = 4.222 ohm
+R_L  = R_th = 4.222 ohm
+P_max = V_th^2/(4 R_th) = 49/(4 x 38/9) = 441/152 = 2.901 W
+
+check: reconnect R_L = 4.222 ohm and compute the power in it directly
+       -&gt; 2.9013 W  - identical</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>R<sub>L</sub> = 38/9 = 4.22 &Omega;</b> and <b>P<sub>max</sub> = 441/152 = 2.90 W</b>.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>1 mark for realising the sources cannot be killed, 1 for V<sub>th</sub>, 1 for I<sub>sc</sub>, 1 for R<sub>L</sub> and P<sub>max</sub>.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q3 (a)</span><span class="marks">3 marks</span><span class="method">RL transient</span></div>
+  <div class="qtext">In the circuit shown in Fig. 5, the battery has been applied for a long time. Find the complete expression for the current after closing the switch, which removes R<sub>1</sub> from the circuit. (12 V, R<sub>1</sub> = 2 &Omega;, R<sub>2</sub> = 4 &Omega;, L = 2 H.)</div>
+  <h4 class="step">Step 1 &mdash; before the switch closes</h4>
+  <p class="why">Long time applied means steady state, so the inductor is a short and only the resistors matter. Both are in the loop.</p>
+  <div class="m">i(0) = 12/(2 + 4) = 2 A</div>
+  <h4 class="step">Step 2 &mdash; after closing</h4>
+  <p class="why">The switch bridges R<sub>1</sub>, removing it, so only R<sub>2</sub> = 4 &Omega; is left. The time constant uses that new resistance.</p>
+  <div class="m">i(inf) = 12/4 = 3 A
+tau = L/R = 2/4 = 0.5 s</div>
+  <h4 class="step">Step 3 &mdash; assemble</h4>
+  <p class="why">Here the current <i>rises</i> because removing resistance raises the final value &mdash; the opposite of March 2026 Q5, where the switch opened and added resistance.</p>
+  <div class="m">i(t) = 3 + (2 - 3) e^(-t/0.5)
+     = 3 - e^(-2t)  A
+
+solving 2 di/dt + 4i = 12 with i(0) = 2 gives exactly 3 - exp(-2t)</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>i(t) = 3 &minus; e<sup>&minus;2t</sup> A</b>, rising from 2 A to 3 A with a time constant of 0.5 s.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>1 mark for i(0), 1 for i(&infin;) and &tau;, 1 for the assembled expression.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q3 (b)</span><span class="marks">4 marks</span><span class="method">RC transient with a switched source</span></div>
+  <div class="qtext">The switch in Fig. 6 has been in position 'a' for a long time. At t = 0 it moves to position 'b'. Calculate V<sub>c</sub>(t) for all t &gt; 0. (20 V at a, 60 V at b, 6 &Omega; in series, 3 &Omega; and a 2 &micro;F capacitor to the rail.)</div>
+  <h4 class="step">Step 1 &mdash; the initial voltage, set by the 20 V source</h4>
+  <p class="why">In steady state the capacitor is an open circuit, so the current flows only through the 6 &Omega; and 3 &Omega; and the capacitor simply sits at the voltage across the 3 &Omega;.</p>
+  <div class="m">v(0-) = 20 x 3/(6 + 3) = 6.667 V
+and capacitor voltage cannot jump, so v(0+) = 6.667 V</div>
+  <h4 class="step">Step 2 &mdash; the final voltage, set by the 60 V source</h4>
+  <p class="why">Same divider, new source.</p>
+  <div class="m">v(inf) = 60 x 3/(6 + 3) = 20 V</div>
+  <h4 class="step">Step 3 &mdash; the time constant uses the resistance the capacitor sees</h4>
+  <p class="why">Look back from the capacitor's terminals with the source shorted: the 3 &Omega; and the 6 &Omega; appear in <b>parallel</b>, not series. This is the step that is usually got wrong.</p>
+  <div class="m">R seen by C = 6 || 3 = 2 ohm
+tau = RC = 2 x 2e-6 = 4 us
+1/tau = 250 000 per second</div>
+  <h4 class="step">Step 4 &mdash; assemble and check</h4>
+  <div class="m">v(t) = 20 + (6.667 - 20) e^(-t/4us)
+     = 20 - 13.333 e^(-250000 t)  V
+
+differential-equation solution: 20 - 13.3333 exp(-250000 t)  - identical
+
+  t = 0      6.667 V
+  t = 2 us  11.913 V
+  t = 10 us 18.906 V</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>V<sub>c</sub>(t) = 20 &minus; 13.33 e<sup>&minus;250000t</sup> V</b>, rising from 6.67 V to 20 V with a 4 &micro;s time constant.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>1 mark for v(0), 1 for v(&infin;), 1 for &tau; with the parallel combination, 1 for the expression. Using 6 + 3 = 9 &Omega; for &tau; loses two of them.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q4 (a)</span><span class="marks">2 marks</span><span class="method">Two's complement arithmetic</span></div>
+  <div class="qtext">Perform the operation (29)<sub>10</sub> &minus; (27)<sub>10</sub> using eight-bit signed two's complement arithmetic.</div>
+  <h4 class="step">Step 1 &mdash; write both numbers in 8 bits</h4>
+  <div class="m">+29 = 0001 1101
++27 = 0001 1011</div>
+  <h4 class="step">Step 2 &mdash; form &minus;27 in two's complement</h4>
+  <p class="why">Invert every bit, then add one. Subtraction becomes addition, which is the whole reason this representation is used.</p>
+  <div class="m">27       = 0001 1011
+1s comp  = 1110 0100
+add 1    = 1110 0101   = -27</div>
+  <h4 class="step">Step 3 &mdash; add, and discard the carry out of the sign bit</h4>
+  <div class="m">  0001 1101     (+29)
++ 1110 0101     (-27)
+-------------
+ 1 0000 0010
+ ^
+ carry out of bit 8 - discard it
+
+result = 0000 0010 = +2</div>
+  <h4 class="step">Why discarding the carry is correct here</h4>
+  <p class="why">In two's complement a carry out of the most significant bit is <b>not</b> an overflow when the two operands have opposite signs. Here we added a positive and a negative number, so the result cannot overflow and the carry is simply dropped.</p>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>0000 0010 = +2</b>, which is 29 &minus; 27.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>1 mark for forming the two's complement, 1 for the addition and the correct treatment of the carry.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q4 (b)</span><span class="marks">4 marks</span><span class="method">Karnaugh map</span></div>
+  <div class="qtext">Draw the Karnaugh map for F = &Sigma;m(0, 5, 6, 8, 12, 13) with input variables ABCD and implement it using logic gates.</div>
+  <h4 class="step">Step 1 &mdash; plot the map in Gray-code order</h4>
+  <p class="why">The columns and rows must go 00, 01, 11, 10 &mdash; not 00, 01, 10, 11. Gray order is what makes adjacent cells differ by one bit, which is the whole basis of the method.</p>
+  <div class="m">           CD=00  01   11   10
+  AB=00      1    0    0    0
+  AB=01      0    1    0    1
+  AB=11      1    1    0    0
+  AB=10      1    0    0    0</div>
+  <h4 class="step">Step 2 &mdash; group, remembering the map wraps around</h4>
+  <p class="why">The map is a torus: the top row is adjacent to the bottom row and the left column to the right. That is how minterms 0 and 8 pair up even though they are drawn at opposite ends.</p>
+  <div class="m">0 and 8   -&gt; B&#x27;C&#x27;D&#x27;   (wraps top row to bottom row)
+8 and 12  -&gt; AC&#x27;D&#x27;
+5 and 13  -&gt; BC&#x27;D
+6 alone   -&gt; A&#x27;BCD&#x27;   (no adjacent 1, so it stays a full minterm)</div>
+  <h4 class="step">Step 3 &mdash; the minimal expression</h4>
+  <p class="why">Four terms, thirteen literals. A first attempt often yields A'B'C'D' instead of B'C'D' and ends up with fourteen literals &mdash; correct but not minimal, and worth a mark less.</p>
+  <div class="m">F = A&#x27;BCD&#x27; + B&#x27;C&#x27;D&#x27; + BC&#x27;D + AC&#x27;D&#x27;
+
+verified by evaluating all 16 input combinations against the
+original minterm list: every row matches</div>
+  <h4 class="step">Step 4 &mdash; the gate implementation</h4>
+  <p class="why">Four AND gates feeding one OR gate, with inverters on A, B, C and D as needed. Draw the inverters explicitly &mdash; a diagram that uses A' without showing where it comes from usually loses a mark.</p>
+  <div class="m">A&#x27;--+
+B --+--[AND]--+
+C --+          |
+D&#x27;--+          |
+               |
+B&#x27;--+          |
+C&#x27;--+--[AND]---+
+D&#x27;--+          +--[OR]--&gt; F
+               |
+B --+          |
+C&#x27;--+--[AND]---+
+D --+          |
+               |
+A --+          |
+C&#x27;--+--[AND]---+
+D&#x27;--+</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>F = A'BCD' + B'C'D' + BC'D + AC'D'</b> &mdash; four AND gates into one OR gate.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>2 marks for a correctly plotted map in Gray order, 1 for the groupings including the wrap-around, 1 for the gate diagram.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q4 (c)</span><span class="marks">3 marks</span><span class="method">Boolean simplification</span></div>
+  <div class="qtext">Find the logic function F of Fig. 7 and further simplify it using Boolean algebra. (Inputs A, B, C, D, E; an inverter on B feeding a three-input AND with A and C; a second three-input AND on A, B, C; an OR of C and D; an inverter on D feeding an OR with E; those two ORs into an AND; everything into a final OR.)</div>
+  <h4 class="step">Step 1 &mdash; read the circuit gate by gate</h4>
+  <p class="why">Trace each gate's inputs back to the input lines before simplifying anything. The two junction dots on the C line and the one on the B line are what make gate 1 a three-input gate.</p>
+  <div class="m">gate 1 (AND) : A . B&#x27; . C
+gate 2 (AND) : A . B . C
+gate 3 (OR)  : C + D
+gate 4 (OR)  : D&#x27; + E
+gate 5 (AND) : (C + D)(D&#x27; + E)
+gate 6 (OR)  : F = A.B&#x27;.C + A.B.C + (C + D)(D&#x27; + E)</div>
+  <h4 class="step">Step 2 &mdash; the first pair collapses</h4>
+  <p class="why">B appears once true and once complemented with everything else identical, so it drops out entirely.</p>
+  <div class="m">A.B&#x27;.C + A.B.C = A.C(B&#x27; + B) = A.C . 1 = A.C</div>
+  <h4 class="step">Step 3 &mdash; expand the product of sums</h4>
+  <div class="m">(C + D)(D&#x27; + E) = C.D&#x27; + C.E + D.D&#x27; + D.E
+D.D&#x27; = 0, so
+                = C.D&#x27; + C.E + D.E</div>
+  <h4 class="step">Step 4 &mdash; drop the consensus term</h4>
+  <p class="why">C.E is the consensus of C.D' and D.E with respect to D: whenever C.E is true, either D is 0 (so C.D' is true) or D is 1 (so D.E is true). It can never be the only term that is true, so it is redundant.</p>
+  <div class="m">C.D&#x27; + C.E + D.E = C.D&#x27; + D.E
+
+F = A.C + C.D&#x27; + D.E</div>
+  <h4 class="step">Step 5 &mdash; verify</h4>
+  <p class="why">The simplified form was checked against the as-wired expression for all 32 input combinations. They agree on every row.</p>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>F = A.C + C.D' + D.E</b>, down from six gates' worth of logic to three product terms.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>1 mark for reading the circuit correctly, 1 for the B + B' collapse, 1 for the consensus removal. Stopping at C.D' + C.E + D.E is still a correct answer but not fully simplified.</p></div>
+</div>
+
+</div>
+
+<div class="paper" id="y2024o">
+
+<h2 class="yr">October 2024</h2>
+
+<p class="yr-meta">14-10-2024 &middot; 40 marks &middot; 2 hours</p>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1</span><span class="marks">5 marks</span><span class="method">Nodal analysis</span></div>
+  <div class="qtext">Find out the node voltages for the circuit shown in Fig. 1. (400 V source, 20 &Omega;, node 1, 80 &Omega; to ground, 15 &Omega;, node 2, 90 &Omega; to ground, 10 &Omega;, 200 V source.)</div>
+  <h4 class="step">Step 1 &mdash; the two source nodes are already known</h4>
+  <p class="why">Each voltage source sits directly between a rail and ground, so the outer nodes are fixed at 400 V and 200 V. Only nodes 1 and 2 are unknown.</p>
+  <h4 class="step">Step 2 &mdash; KCL at each unknown node</h4>
+  <div class="m">node 1:  (V1 - 400)/20 + V1/80 + (V1 - V2)/15 = 0
+node 2:  (V2 - V1)/15 + V2/90 + (V2 - 200)/10 = 0</div>
+  <h4 class="step">Step 3 &mdash; solve and check</h4>
+  <div class="m">V1 = 264 V
+V2 = 211.5 V
+
+KCL residual at node 1: 0.00e+00
+KCL residual at node 2: 0.00e+00</div>
+  <h4 class="step">A sanity check worth doing</h4>
+  <p class="why">Both node voltages should land between 200 V and 400 V, and they do &mdash; 264 V and 211.5 V. A node voltage outside that range would mean a sign error somewhere.</p>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>V<sub>1</sub> = 264 V and V<sub>2</sub> = 211.5 V.</b></div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>2 marks for the two node equations, 2 for solving, 1 for a check or comment on the result.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2</span><span class="marks">5 marks</span><span class="method">Superposition theorem</span></div>
+  <div class="qtext">Compute the current I using the superposition theorem for the network shown in Fig. 2. (50 V source, 30 &Omega;, 10 &Omega; carrying I, 5 A source, 20 &Omega;, and a 20 &Omega; in the bottom rail.)</div>
+  <h4 class="step">Step 1 &mdash; the rule for killing each source</h4>
+  <p class="why">Superposition means finding the contribution of each source with the others switched off. A voltage source off is a <b>short</b>; a current source off is an <b>open</b>. Getting these two the wrong way round is the most common failure in the whole topic.</p>
+  <h4 class="step">Step 2 &mdash; the 50 V source acting alone</h4>
+  <p class="why">Open the 5 A source and solve.</p>
+  <div class="m">I&#x27; = +1.0 A      (flowing left to right through the 10 ohm)</div>
+  <h4 class="step">Step 3 &mdash; the 5 A source acting alone</h4>
+  <p class="why">Short the 50 V source and solve.</p>
+  <div class="m">I&#x27;&#x27; = -2.0 A     (flowing right to left)</div>
+  <h4 class="step">Step 4 &mdash; add, then check against the full circuit</h4>
+  <p class="why">The two contributions are added <b>with their signs</b>. The check is to solve the original circuit with both sources present at once; superposition is only valid if the two agree, and they do.</p>
+  <div class="m">I = I&#x27; + I&#x27;&#x27; = 1.0 + (-2.0) = -1.0 A
+
+solving the full circuit with both sources live: I = -1.0 A   - agrees exactly</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>I = &minus;1.0 A</b> &mdash; one ampere, flowing in the direction opposite to the arrow marked on the figure.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>2 marks for each individual contribution, 1 for the signed sum. A missing minus sign turns +1 A into the wrong answer even though all the arithmetic was right.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q3</span><span class="marks">5 marks</span><span class="method">Thevenin and maximum power</span></div>
+  <div class="qtext">Obtain the Thevenin's equivalent of the circuit shown in Fig. 3. Find also the maximum power delivered by the circuit. (12 V, 6 &Omega;, 12 &Omega;, 3 &Omega;, a 2 A source, 2 &Omega;, terminals a&ndash;b with R<sub>L</sub>.)</div>
+  <h4 class="step">Step 1 &mdash; open-circuit voltage</h4>
+  <p class="why">With R<sub>L</sub> removed the 2 &Omega; carries no current, so there is no drop across it and the terminal voltage equals the voltage at the node before it. The 2 A source forces the whole of its current through the 3 &Omega;.</p>
+  <div class="m">node Q is fixed by the source:  (Vq - Vp)/3 = 2
+node P:  (Vp - 12)/6 + Vp/12 + (Vp - Vq)/3 = 0
+
+Vp = 16 V
+Vq = 22 V  =  V_th</div>
+  <h4 class="step">Step 2 &mdash; Thevenin resistance</h4>
+  <p class="why">Short the 12 V source, open the 2 A source, then walk back from the terminals.</p>
+  <div class="m">6 || 12 = 4 ohm
+then in series with 3 ohm and 2 ohm:
+R_th = 2 + 3 + 4 = 9 ohm</div>
+  <h4 class="step">Step 3 &mdash; maximum power</h4>
+  <p class="why">Maximum power is delivered when R<sub>L</sub> = R<sub>th</sub>.</p>
+  <div class="m">R_L = 9 ohm
+P_max = V_th^2/(4 R_th) = 22^2/(4 x 9) = 484/36 = 13.44 W</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>V<sub>th</sub> = 22 V, R<sub>th</sub> = 9 &Omega;</b>, and <b>P<sub>max</sub> = 13.44 W</b> with R<sub>L</sub> = 9 &Omega;.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>2 marks for V<sub>th</sub>, 2 for R<sub>th</sub>, 1 for P<sub>max</sub>.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q4</span><span class="marks">5 marks</span><span class="method">RC transient</span></div>
+  <div class="qtext">The switch in the circuit in Fig. 4 has been closed for a long time and is opened at t = 0. Calculate the voltage across the capacitor at t = 0. Also determine v(t) for t &ge; 0. (20 V, 3 &Omega;, switch, 9 &Omega;, 1 &Omega;, 20 mF capacitor.)</div>
+  <h4 class="step">Step 1 &mdash; the voltage at t = 0</h4>
+  <p class="why">Closed for a long time means steady state, and a capacitor in steady DC is an open circuit. No current flows in the 1 &Omega; branch, so there is no drop across it and the capacitor sits at the voltage across the 9 &Omega;.</p>
+  <div class="m">v(0) = 20 x 9/(3 + 9) = 15 V</div>
+  <h4 class="step">Step 2 &mdash; what opening the switch does</h4>
+  <p class="why">Opening the switch disconnects the source and the 3 &Omega; completely. The capacitor is left with only the 1 &Omega; and the 9 &Omega; to discharge through, and they are now in <b>series</b>.</p>
+  <div class="m">R = 1 + 9 = 10 ohm
+tau = RC = 10 x 20e-3 = 0.2 s</div>
+  <h4 class="step">Step 3 &mdash; the discharge</h4>
+  <p class="why">There is no source left, so the final value is zero and the expression is a pure decay.</p>
+  <div class="m">v(t) = 15 e^(-t/0.2) = 15 e^(-5t)  V
+
+  t = 0      15.00 V
+  t = 0.2 s   5.52 V   (one time constant, 36.8%)
+  t = 1.0 s   0.10 V</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>v(0) = 15 V</b> and <b>v(t) = 15e<sup>&minus;5t</sup> V</b> for t &ge; 0.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>2 marks for v(0), 1 for spotting that the 3 &Omega; leaves the circuit, 1 for &tau;, 1 for the expression.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q5</span><span class="marks">5 marks</span><span class="method">Series RLC on AC</span></div>
+  <div class="qtext">A resistance of 10 &Omega;, an inductance of 0.16 H and a capacitance of 100 &micro;F are connected in series across a 110 V, 50 Hz supply. Calculate (i) the phase difference between current and supply voltage, (ii) power consumed, (iii) draw the phasor diagram of supply voltage and line current.</div>
+  <h4 class="step">Step 1 &mdash; the two reactances</h4>
+  <div class="m">XL = 2 pi f L = 2 pi x 50 x 0.16 = 50.27 ohm
+XC = 1/(2 pi f C) = 1/(2 pi x 50 x 100e-6) = 31.83 ohm
+X = XL - XC = 18.43 ohm      (inductive, since XL &gt; XC)</div>
+  <h4 class="step">Step 2 &mdash; impedance, current, angle</h4>
+  <div class="m">Z = sqrt(R^2 + X^2) = sqrt(10^2 + 18.43^2) = 20.97 ohm
+I = V/Z = 110/20.97 = 5.245 A
+phi = arctan(X/R) = arctan(18.43/10) = 61.52 deg, lagging</div>
+  <h4 class="step">Step 3 &mdash; power, checked two ways</h4>
+  <div class="m">P = V I cos(phi) = 110 x 5.245 x cos(61.52) = 275.1 W
+check: P = I^2 R = 5.245^2 x 10 = 275.1 W    - agrees</div>
+  <h4 class="step">The phasor diagram</h4>
+  <p class="why">Take I along the reference. V<sub>R</sub> = IR is in phase with I; V<sub>L</sub> = IX<sub>L</sub> leads I by 90&deg;; V<sub>C</sub> = IX<sub>C</sub> lags I by 90&deg;. V<sub>L</sub> and V<sub>C</sub> are directly opposed, so draw their difference, then add it to V<sub>R</sub> at right angles to get V, which ends up 61.5&deg; ahead of I.</p>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">(i) <b>61.5&deg;, current lagging</b>. (ii) <b>P = 275.1 W</b>. (iii) phasor diagram as described.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>2 marks for the reactances and Z, 1 for the angle, 1 for the power, 1 for the diagram. The two independent routes to P are worth showing &mdash; they cost one line and catch a wrong power factor.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q6</span><span class="marks">5 marks</span><span class="method">Two-wattmeter method</span></div>
+  <div class="qtext">The two-wattmeter method produces wattmeter readings P<sub>1</sub> = 1580 W and P<sub>2</sub> = 2150 W when connected to a delta-connected load. If the line voltage is 230 V, calculate (i) the per-phase average power, (ii) the per-phase reactive power, (iii) the power factor, (iv) the per-phase impedance.</div>
+  <h4 class="step">Step 1 &mdash; total power and the angle</h4>
+  <p class="why">The two readings add to the total power; their difference carries the reactive information.</p>
+  <div class="m">P = P1 + P2 = 1580 + 2150 = 3730 W
+per phase = 3730/3 = 1243.3 W
+
+tan(phi) = sqrt3 (P2 - P1)/(P1 + P2)
+         = sqrt3 (2150 - 1580)/3730 = 0.2647
+phi = 14.83 deg
+power factor = cos(phi) = 0.9667</div>
+  <h4 class="step">Step 2 &mdash; reactive power</h4>
+  <div class="m">Q = sqrt3 (P2 - P1) = sqrt3 x 570 = 987.3 VAR
+per phase = 987.3/3 = 329.1 VAR</div>
+  <h4 class="step">Step 3 &mdash; impedance per phase</h4>
+  <p class="why">In delta the phase voltage equals the line voltage, and the phase current is the line current divided by &radic;3.</p>
+  <div class="m">S = sqrt(P^2 + Q^2) = 3858.5 VA
+IL = S/(sqrt3 VL) = 3858.5/(sqrt3 x 230) = 9.686 A
+Iph = IL/sqrt3 = 5.592 A
+
+Vph = VL = 230 V   (delta)
+Zph = 230/5.592 = 41.13 ohm</div>
+  <h4 class="step">Step 4 &mdash; check</h4>
+  <div class="m">3 Iph^2 R = 3 x 5.592^2 x (41.13 x 0.9667) = 3730 W
+which is exactly P1 + P2  - consistent</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">(i) <b>1243.3 W</b> per phase, (ii) <b>329.1 VAR</b> per phase, (iii) <b>pf = 0.967 lagging</b>, (iv) <b>Z<sub>ph</sub> = 41.13 &Omega;</b>.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>1 mark for the total, 2 for tan&phi; and the power factor, 1 for Q, 1 for the impedance. Using V<sub>ph</sub> = V<sub>L</sub>/&radic;3 here is wrong &mdash; that is the star relation, and this load is delta.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q7</span><span class="marks">5 marks</span><span class="method">Iron ring with an air gap</span></div>
+  <div class="qtext">An iron ring has an air-gap of 0.5 mm, 500 turns and a length of 150 cm. Determine the flux density when a current of 2 A flows through the coil. Assume the permeability of iron to be 300 and &micro;<sub>0</sub> = 4&pi; &times; 10<sup>&minus;7</sup> H/m.</div>
+  <h4 class="step">A note on the wording</h4>
+  <p class="why">The paper writes "permeability of iron to be 300 H/m". 300 H/m is not a physical value for any material &mdash; &mu;<sub>0</sub> alone is 1.26 &times; 10<sup>&minus;6</sup> H/m. It has to mean <b>relative</b> permeability &mu;<sub>r</sub> = 300, and that is how it is solved here. Write that assumption down in the exam; it is the reading every solution uses.</p>
+  <h4 class="step">Step 1 &mdash; the mmf is shared between iron and air</h4>
+  <p class="why">The same flux passes through both, so the mmf divides between them in proportion to their reluctances. Half a millimetre of air takes more mmf than a metre and a half of iron, which is the physical point of the question.</p>
+  <div class="m">mmf = N I = 500 x 2 = 1000 AT
+
+mmf = H_iron x l_iron  +  H_gap x l_gap
+    = (B/(mu0 mu_r)) l_iron  +  (B/mu0) l_gap</div>
+  <h4 class="step">Step 2 &mdash; solve for B</h4>
+  <div class="m">l_iron = 1.50 - 0.0005 = 1.4995 m
+l_gap  = 0.0005 m
+
+1000 = (B/mu0) [ 1.4995/300 + 0.0005 ]
+     = (B/mu0) [ 0.004998 + 0.0005 ]
+     = (B/mu0) x 0.005498
+
+B = 1000 x 4 pi x 1e-7 / 0.005498 = 0.2286 T</div>
+  <h4 class="step">Step 3 &mdash; check the split</h4>
+  <div class="m">mmf across the iron = 0.2286/(mu0 x 300) x 1.4995 =  909 AT
+mmf across the gap  = 0.2286/mu0 x 0.0005         =   91 AT
+                                              total = 1000 AT  - correct</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>B &asymp; 0.229 T</b>.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>1 mark for stating the &mu;<sub>r</sub> reading, 2 for the mmf split between iron and gap, 2 for B. Ignoring the air gap gives 0.377 T and earns almost nothing &mdash; the gap is the whole question.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q8</span><span class="marks">5 marks</span><span class="method">Transformer &mdash; principle and numerical</span></div>
+  <div class="qtext">(i) Discuss the principle of operation of a single phase transformer with a neat and clean diagram. (ii) A 1000 kVA transformer has primary and secondary turns of 400 and 100 respectively and the induced voltage in the secondary is 1000 V. Find (i) the primary voltage and (ii) the primary and secondary full load currents.</div>
+  <h4 class="step">Part (i) &mdash; the principle in four sentences</h4>
+  <p class="why">Say these four things and draw the two windings on a laminated core:</p>
+  <div class="m">1. An alternating voltage on the primary drives an alternating current,
+   which sets up an alternating flux in the laminated iron core.
+2. Almost all of that flux links the secondary winding as well.
+3. By Faraday&#x27;s law the changing flux induces an emf in both windings,
+   E = 4.44 f N phi_m, so the emfs are in the ratio of the turns.
+4. Nothing rotates and nothing touches: energy crosses from one winding
+   to the other entirely through the magnetic field. This is why a
+   transformer only works on AC - a steady DC flux induces nothing.</div>
+  <h4 class="step">Part (ii) &mdash; primary voltage</h4>
+  <div class="m">E1 = E2 x N1/N2 = 1000 x 400/100 = 4000 V</div>
+  <h4 class="step">Part (ii) &mdash; full load currents</h4>
+  <p class="why">The kVA rating is common to both windings.</p>
+  <div class="m">I1 = S/E1 = 1 000 000/4000 = 250 A
+I2 = S/E2 = 1 000 000/1000 = 1000 A
+
+check: I1 E1 = I2 E2 = 1000 kVA   - as it must be
+check: I1/I2 = 250/1000 = 1/4 = N2/N1</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>E<sub>1</sub> = 4000 V, I<sub>1</sub> = 250 A, I<sub>2</sub> = 1000 A.</b></div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>3 marks for the principle with a labelled diagram, 1 for the primary voltage, 1 for the two currents.</p></div>
+</div>
+
+</div>
+
+<div class="paper" id="y2024m">
+
+<h2 class="yr">March 2024</h2>
+
+<p class="yr-meta">11-03-2024 &middot; 30 marks &middot; 2 hours</p>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q1</span><span class="marks">3 marks</span><span class="method">Nodal analysis</span></div>
+  <div class="qtext">In Figure 1, find node voltage v<sub>1</sub> and v<sub>2</sub> using nodal analysis. (1 A source into v<sub>1</sub>, 2 &Omega; to node 3, a 10 V source from node 3 to ground, 10 &Omega; to v<sub>2</sub>, 5 &Omega; from v<sub>2</sub> to ground, and 5 &Omega; across the top from v<sub>1</sub> to v<sub>2</sub>.)</div>
+  <h4 class="step">Step 1 &mdash; node 3 is not an unknown</h4>
+  <p class="why">The 10 V source connects node 3 straight to ground, so node 3 sits at exactly 10 V. That removes one unknown before you start and is the key observation in this question.</p>
+  <div class="m">V(node 3) = 10 V</div>
+  <h4 class="step">Step 2 &mdash; KCL at the two real unknowns</h4>
+  <div class="m">at v1:  -1 + (v1 - 10)/2 + (v1 - v2)/5 = 0
+at v2:  (v2 - 10)/10 + v2/5 + (v2 - v1)/5 = 0</div>
+  <h4 class="step">Step 3 &mdash; solve and check</h4>
+  <div class="m">v1 = 10.3226 V      (320/31)
+v2 =  6.1290 V      (190/31)
+
+KCL residual at v1: -2.2e-16
+KCL residual at v2:  1.1e-16</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>v<sub>1</sub> = 10.32 V and v<sub>2</sub> = 6.13 V.</b></div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>1 mark for fixing node 3 at 10 V, 1 for the equations, 1 for the answers.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q2</span><span class="marks">4 marks</span><span class="method">Thevenin with a dependent source</span></div>
+  <div class="qtext">For the circuit as shown in Figure 2, draw the Thevenin equivalent circuit across AB. (10 V source, 5 &Omega; carrying i<sub>x</sub>, a dependent current source 2i<sub>x</sub>, and 10 &Omega; across the terminals.)</div>
+  <h4 class="step">Step 1 &mdash; why R<sub>th</sub> cannot be found the usual way</h4>
+  <p class="why">The source is <b>dependent</b>, so it cannot be killed. R<sub>th</sub> has to come from V<sub>th</sub> and I<sub>sc</sub>, or from a test source. Killing it and writing 5 &Omega; &parallel; 10 &Omega; is the wrong answer this question is designed to produce.</p>
+  <h4 class="step">Step 2 &mdash; open-circuit voltage</h4>
+  <p class="why">With A&ndash;B open, the current arriving at the node from the 5 &Omega; and from the dependent source must all leave through the 10 &Omega;.</p>
+  <div class="m">ix = (10 - Vm)/5
+ix + 2ix = Vm/10
+3(10 - Vm)/5 = Vm/10
+6(10 - Vm) = Vm
+60 = 7 Vm
+Vm = 60/7 = 8.571 V  =  V_th</div>
+  <h4 class="step">Step 3 &mdash; short-circuit current</h4>
+  <p class="why">Shorting A to B pulls the node to 0 V, which makes i<sub>x</sub> easy to read off directly.</p>
+  <div class="m">with Vm = 0:   ix = 10/5 = 2 A
+the 10 ohm now carries nothing, so everything goes through the short:
+I_sc = ix + 2ix = 3 x 2 = 6 A</div>
+  <h4 class="step">Step 4 &mdash; R<sub>th</sub></h4>
+  <div class="m">R_th = V_th/I_sc = (60/7)/6 = 10/7 = 1.429 ohm</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>V<sub>th</sub> = 60/7 = 8.57 V, R<sub>th</sub> = 10/7 = 1.43 &Omega;.</b></div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>1 mark for recognising the dependent source cannot be killed, 1 for V<sub>th</sub>, 1 for I<sub>sc</sub>, 1 for R<sub>th</sub>.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q3</span><span class="marks">3 marks</span><span class="method">RC charge and discharge</span></div>
+  <div class="qtext">An RC charging-discharging circuit is shown in Figure 3 (R<sub>1</sub> = 220 k&Omega;, C = 0.5 &micro;F, R<sub>2</sub> = 110 k&Omega;, E = 150 V). The switch has been in position 1 for a long time. (i) The switch is moved to position 2 &mdash; find the time constant and the voltage stored in the capacitor, and write the expression for the charging of the capacitor voltage. (ii) After the capacitor is fully charged the switch is moved back to position 1 &mdash; find the expression for the voltage across the capacitor.</div>
+  <h4 class="step">Step 1 &mdash; read which loop each position makes</h4>
+  <p class="why">The pivot of the switch connects up through R<sub>1</sub> and C to the right-hand rail. In position 1 the pivot goes to R<sub>2</sub>, so the loop is C&ndash;R<sub>1</sub>&ndash;R<sub>2</sub> with <b>no source in it</b>. In position 2 the pivot goes to E, so the loop is C&ndash;R<sub>1</sub>&ndash;E and R<sub>2</sub> is out.</p>
+  <div class="m">position 1:  discharge loop, R1 + R2, no source
+position 2:  charge loop, R1 only, driven by E</div>
+  <h4 class="step">Step 2 &mdash; part (i), charging</h4>
+  <p class="why">It sat in position 1 for a long time, so it had fully discharged and starts from zero.</p>
+  <div class="m">tau_charge = R1 C = 220e3 x 0.5e-6 = 0.11 s
+final voltage = E = 150 V   (no current at steady state, so no drop across R1)
+
+v(t) = 150 [1 - e^(-t/0.11)]  V</div>
+  <h4 class="step">Step 3 &mdash; part (ii), discharging</h4>
+  <p class="why">Now the capacitor starts fully charged at 150 V and has no source, so it decays to zero. The discharge path includes <b>both</b> resistors, which is why this time constant is larger.</p>
+  <div class="m">tau_discharge = (R1 + R2) C = 330e3 x 0.5e-6 = 0.165 s
+
+v(t) = 150 e^(-t/0.165)  V</div>
+  <h4 class="step">Worth noticing</h4>
+  <p class="why">The two time constants differ because the charging path and the discharging path are not the same circuit. Assuming one time constant for both is the usual error here.</p>
+  <div class="m">charging   tau = 0.110 s   (R1 alone)
+discharging tau = 0.165 s  (R1 + R2)
+
+after 5 tau of charging: v = 148.99 V, i.e. 99.3% of 150 V</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">(i) <b>&tau; = 0.11 s, final voltage 150 V, v(t) = 150(1 &minus; e<sup>&minus;t/0.11</sup>) V.</b> (ii) <b>v(t) = 150 e<sup>&minus;t/0.165</sup> V.</b></div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>1 mark for each time constant, 1 for the two expressions. The marks are really for noticing that R<sub>2</sub> is only in the discharge path.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q4</span><span class="marks">3 marks</span><span class="method">Half-rectified square wave</span></div>
+  <div class="qtext">Calculate the rms value, average value, peak and form factor of a half-rectified square wave voltage shown in Figure 4. The time period of the waveform is 0.1 seconds and the peak value is 100 V.</div>
+  <h4 class="step">A note on the figure</h4>
+  <p class="why">The time axis in the figure is labelled t(ms) while the text says the period is 0.1 seconds. The two do not match, but it makes no difference: rms, average, peak and form factor are all <b>ratios over one period</b> and none of them depends on the time scale at all.</p>
+  <h4 class="step">Step 1 &mdash; rms</h4>
+  <p class="why">The wave is at 100 V for half the period and zero for the other half. Square, average, root.</p>
+  <div class="m">mean of v^2 = (100^2 x T/2 + 0 x T/2)/T = 100^2/2 = 5000
+V_rms = sqrt(5000) = 70.71 V   = Vp/sqrt2</div>
+  <h4 class="step">Step 2 &mdash; average</h4>
+  <div class="m">V_avg = (100 x T/2 + 0 x T/2)/T = 50 V   = Vp/2</div>
+  <h4 class="step">Step 3 &mdash; form factor and peak factor</h4>
+  <div class="m">form factor = V_rms/V_avg = 70.71/50 = 1.414  = sqrt2
+peak factor = Vp/V_rms   = 100/70.71 = 1.414 = sqrt2
+
+verified by numerical integration over one full period:
+  V_rms = 70.7107 V,  V_avg = 50.0000 V</div>
+  <h4 class="step">The comparison the examiner is after</h4>
+  <p class="why">For a full sine wave the form factor is 1.11 and the peak factor 1.414. For this half-rectified square wave both come out at 1.414. Saying so shows you understand that these factors describe the <i>shape</i> of the wave, not its size.</p>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>Peak = 100 V, V<sub>rms</sub> = 70.71 V, V<sub>avg</sub> = 50 V, form factor = 1.414.</b></div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>1 mark each for rms, average and form factor. Averaging over only the conducting half instead of the full period gives 100 V and 70.71 V and loses two marks.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q5</span><span class="marks">3 marks</span><span class="method">Cast steel ring with a saw cut</span></div>
+  <div class="qtext">A cast steel ring has a circular cross section 3 cm in diameter and a mean circumference of 80 cm. The ring is uniformly wound with a coil of 600 turns. The permeability of cast steel is 1000. (i) Estimate the current required to produce a flux of 0.5 mWb in the ring. (ii) If a saw cut 5 mm wide is made in the ring, find approximately the flux produced by the current found in (i).</div>
+  <h4 class="step">Step 1 &mdash; part (i), the solid ring</h4>
+  <div class="m">A = pi d^2/4 = pi x 0.03^2/4 = 7.0686e-4 m^2
+B = phi/A = 0.5e-3 / 7.0686e-4 = 0.7074 T
+H = B/(mu0 mu_r) = 0.7074/(4 pi 1e-7 x 1000) = 562.9 A/m
+mmf = H l = 562.9 x 0.80 = 450.3 AT
+I = mmf/N = 450.3/600 = 0.7505 A</div>
+  <h4 class="step">Step 2 &mdash; part (ii), what the saw cut changes</h4>
+  <p class="why">The same current means the <b>same mmf</b> of 450.3 AT. But now that mmf has to push flux through 5 mm of air as well as 795 mm of iron, and air is a thousand times harder.</p>
+  <div class="m">l_iron = 0.80 - 0.005 = 0.795 m
+l_gap  = 0.005 m
+
+450.3 = (B/mu0)[ 0.795/1000 + 0.005 ]
+      = (B/mu0)[ 0.000795 + 0.005 ]
+      = (B/mu0) x 0.005795
+
+B = 450.3 x 4 pi 1e-7 / 0.005795 = 0.09765 T
+phi = B A = 0.09765 x 7.0686e-4 = 6.90e-5 Wb = 0.069 mWb</div>
+  <h4 class="step">The result is the point of the question</h4>
+  <p class="why">A 5 mm cut in an 800 mm ring &mdash; less than one per cent of the path &mdash; drops the flux from 0.5 mWb to 0.069 mWb, a fall of about <b>86%</b>. Look at the reluctance split and you can see why: the tiny gap now takes 0.005 of the 0.005795, which is 86% of the total.</p>
+  <div class="m">check: H_iron l_iron + H_gap l_gap = 450.3 AT  - correct
+reluctance share:  iron 13.7%,  air gap 86.3%</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val">(i) <b>I = 0.75 A.</b> (ii) <b>&phi; &asymp; 0.069 mWb</b> &mdash; about 14% of the original flux.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>1.5 marks for part (i), 1.5 for part (ii). A sentence on why such a small gap matters so much is usually rewarded.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q6</span><span class="marks">4 marks</span><span class="method">Coil on AC supply</span></div>
+  <div class="qtext">A coil having a resistance of 5 &Omega; and inductance of 30 mH in series is connected across a 230 V, 50 Hz supply. Calculate (i) current in the circuit, (ii) power factor, (iii) active, reactive and apparent power, (iv) draw the phasor diagram.</div>
+  <h4 class="step">Step 1 &mdash; reactance and impedance</h4>
+  <div class="m">XL = 2 pi f L = 2 pi x 50 x 0.030 = 9.425 ohm
+Z = sqrt(5^2 + 9.425^2) = 10.669 ohm</div>
+  <h4 class="step">Step 2 &mdash; current and power factor</h4>
+  <div class="m">I = V/Z = 230/10.669 = 21.56 A
+cos(phi) = R/Z = 5/10.669 = 0.4686 lagging
+phi = 62.05 deg</div>
+  <h4 class="step">Step 3 &mdash; the three powers</h4>
+  <div class="m">S = V I           = 230 x 21.56  = 4958 VA
+P = V I cos(phi)  = 4958 x 0.4686 = 2324 W
+Q = V I sin(phi)  = 4958 x 0.8835 = 4380 VAR
+
+check: I^2 R = 21.56^2 x 5 = 2324 W          - matches P
+check: sqrt(P^2 + Q^2) = 4958 VA             - matches S</div>
+  <h4 class="step">The phasor diagram</h4>
+  <p class="why">Take I along the reference. V<sub>R</sub> = IR in phase with I, V<sub>L</sub> = IX<sub>L</sub> at 90&deg; ahead of I; their right-angle sum is V, sitting 62&deg; ahead of I. Note this coil has a poor power factor &mdash; the reactance is nearly twice the resistance.</p>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>I = 21.56 A, pf = 0.469 lagging, P = 2324 W, Q = 4380 VAR, S = 4958 VA.</b></div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>1 mark for Z and I, 1 for the power factor, 2 for the three powers and the diagram.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q7</span><span class="marks">4 marks</span><span class="method">Balanced star with two wattmeters</span></div>
+  <div class="qtext">A balanced star-connected load is supplied from a symmetrical 3-phase, 440 V, 50 Hz supply system. The current in each phase is 20 A and lags behind its phase voltage by an angle of 40&deg;. Calculate (i) phase voltage, (ii) load parameters, (iii) total power, (iv) reading of two wattmeters connected in the load circuit to measure total power.</div>
+  <h4 class="step">Step 1 &mdash; phase voltage and impedance</h4>
+  <div class="m">Vph = VL/sqrt3 = 440/1.732 = 254.03 V
+Zph = Vph/Iph = 254.03/20 = 12.70 ohm</div>
+  <h4 class="step">Step 2 &mdash; load parameters</h4>
+  <div class="m">R  = Zph cos40 = 12.70 x 0.766 = 9.73 ohm
+XL = Zph sin40 = 12.70 x 0.643 = 8.16 ohm
+L  = XL/(2 pi f) = 8.16/(2 pi x 50) = 0.026 H = 26 mH</div>
+  <h4 class="step">Step 3 &mdash; total power</h4>
+  <div class="m">P = sqrt3 VL IL cos(phi) = 1.732 x 440 x 20 x cos40 = 11 676 W</div>
+  <h4 class="step">Step 4 &mdash; the two wattmeter readings</h4>
+  <p class="why">The standard expressions. Note the two readings are very different even at a fairly good power factor.</p>
+  <div class="m">W1 = VL IL cos(30 - phi) = 440 x 20 x cos(-10) = 8666 W
+W2 = VL IL cos(30 + phi) = 440 x 20 x cos(70)  = 3010 W
+
+check: W1 + W2 = 11 676 W    - equals the total power
+check: sqrt3 (W1 - W2)/(W1 + W2) = tan(phi)
+       -&gt; phi = 40.00 deg      - recovers the given angle exactly</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>V<sub>ph</sub> = 254 V, R = 9.73 &Omega;, L = 26 mH, P = 11.68 kW, W<sub>1</sub> = 8666 W, W<sub>2</sub> = 3010 W.</b></div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>1 mark for V<sub>ph</sub>, 1 for the load parameters, 1 for the total power, 1 for the two readings. The two checks in step 4 take one line each and prove the whole answer.</p></div>
+</div>
+
+<div class="q">
+  <div class="q-head"><span class="q-no">Q8</span><span class="marks">6 marks</span><span class="method">Transformer numerical and phasor diagram</span></div>
+  <div class="qtext">(a) A 25 kVA transformer has 500 turns on the primary and 50 turns on the secondary winding. The primary is connected to a 3000 V, 50 Hz supply. Find (i) full load primary current, (ii) the induced voltage in the secondary winding, (iii) the maximum flux in the core. (b) Draw the phasor diagram of a practical transformer at no load.</div>
+  <h4 class="step">Part (a) &mdash; the three quantities</h4>
+  <div class="m">(i)   I1 = S/V1 = 25 000/3000 = 8.33 A
+(ii)  E2 = V1 x N2/N1 = 3000 x 50/500 = 300 V
+(iii) phi_m = V1/(4.44 f N1) = 3000/(4.44 x 50 x 500)
+            = 0.02703 Wb = 27.03 mWb</div>
+  <h4 class="step">Cross-checks</h4>
+  <div class="m">E2 from the EMF equation: 4.44 x 50 x 50 x 0.02703 = 300 V  - matches (ii)
+I2 = S/E2 = 25 000/300 = 83.3 A
+I1/I2 = 8.33/83.3 = 0.1 = N2/N1                             - correct</div>
+  <h4 class="step">Part (b) &mdash; the no-load phasor diagram</h4>
+  <p class="why">At no load the secondary carries no current, so the diagram is much simpler than the on-load one. Draw and label:</p>
+  <div class="m">1. phi_m along the reference
+2. E1 and E2 lagging phi_m by 90 degrees
+3. I0 - the no-load current, leading phi_m by a small angle
+      Imag = I0 sin(phi0), in phase with phi_m   (magnetising)
+      Iw   = I0 cos(phi0), in phase with V1      (core loss)
+4. V1 = -E1 (plus the very small I0 R1 and I0 X1 drops)
+
+phi0 is close to 90 degrees, so the no-load power factor is very poor -
+typically 0.1 to 0.2. That is expected: almost all of I0 is magnetising
+current, which carries no real power.</div>
+  <div class="ans">
+    <div class="lbl">Answer</div>
+    <div class="val"><b>I<sub>1</sub> = 8.33 A, E<sub>2</sub> = 300 V, &phi;<sub>m</sub> = 27.03 mWb</b>, plus the labelled no-load phasor diagram.</div>
+  </div>
+  <div class="trap"><b>Where marks go</b><p>3 marks for part (a), 3 for the diagram. The two components of I<sub>0</sub> must be shown and named &mdash; that split is what the diagram is for.</p></div>
+</div>
+
+</div>
+<div class="fb" id="fb">
+  <h3>Did these solutions help?</h3>
+  <p>Two clicks really help: a vote, and a line saying what was useful &mdash; or, more importantly,
+  <b>if you found a step that looks wrong</b>. Anything you report gets checked and fixed for everyone.
+  It only goes to the student who made this.</p>
+  <div class="fb-btns">
+    <button class="fb-btn" id="fb-yes" type="button">&#128077; Yes, it helped</button>
+    <button class="fb-btn" id="fb-no" type="button">&#128078; Not really</button>
+  </div>
+  <div id="fb-more" style="display:none">
+    <textarea id="fb-text" placeholder="What helped, or which step looks wrong? (optional, but really useful)"></textarea>
+    <button class="fb-send" id="fb-send" type="button">Send</button>
+  </div>
+  <p class="fb-done" id="fb-done" style="display:none">Thanks &mdash; this genuinely helps. Good luck in the exam.</p>
+</div>
+
+<footer>
+  <p>Worked out from the Mar 2024, Oct 2024, Mar 2025, Oct 2025 and Mar 2026 TIET UES013 / UES001 MST papers
+  &mdash; 46 questions, 210 marks. Solved with Claude Opus 5 and machine-checked; not official TIET answers.</p>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  var CODE = 'UES013-SOL';
+  var choice = null;
+  var yes = document.getElementById('fb-yes'), no = document.getElementById('fb-no');
+  var more = document.getElementById('fb-more'), done = document.getElementById('fb-done');
+  var send = document.getElementById('fb-send'), text = document.getElementById('fb-text');
+  function visitorId() {
+    try {
+      var id = localStorage.getItem('fs_visitor');
+      if (!id) { id = 'v_' + Math.random().toString(36).slice(2) + Date.now(); localStorage.setItem('fs_visitor', id); }
+      return id;
+    } catch (e) { return 'anon'; }
+  }
+  function post(comment) {
+    var email; try { email = localStorage.getItem('fs_email') || undefined; } catch (e) {}
+    fetch('/api/guide-feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code: CODE, helpful: choice, comment: comment || '', visitorId: visitorId(), email: email })
+    }).catch(function () {});
+  }
+  function pick(val) {
+    choice = val;
+    yes.classList.toggle('on', val === true);
+    no.classList.toggle('on', val === false);
+    more.style.display = 'block';
+    post('');
+  }
+  yes.addEventListener('click', function () { pick(true); });
+  no.addEventListener('click', function () { pick(false); });
+  send.addEventListener('click', function () {
+    if (choice === null) return;
+    post(text.value);
+    more.style.display = 'none';
+    done.style.display = 'block';
+  });
+})();
+</script>
+
+</body>
+</html>
