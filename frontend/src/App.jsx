@@ -715,6 +715,34 @@ function Unlock({ user, go, onPaid, code }) {
   );
 }
 
+/* ---- the pointer to the final sheet, shown at the top of both PYQ sections ---- */
+function FinalSheetBanner({ go }) {
+  return (
+    <div style={{
+      marginTop: '1.2rem', marginBottom: '.4rem', padding: '1rem 1.15rem', borderRadius: '12px',
+      background: 'linear-gradient(135deg, #EEF0FF 0%, #E7F5F1 100%)', border: '1px solid #D8DCF5'
+    }}>
+      <div style={{
+        fontSize: '.72rem', letterSpacing: '.1em', textTransform: 'uppercase',
+        color: '#0c7057', fontWeight: 700, marginBottom: '.35rem'
+      }}>
+        Short on time?
+      </div>
+      <b style={{ display: 'block', fontSize: '1.02rem', marginBottom: '.35rem' }}>
+        Do the final sheet instead
+      </b>
+      <p style={{ margin: 0, fontSize: '.92rem', lineHeight: 1.62, color: '#4A5866' }}>
+        One question for every topic that keeps coming back, each with its method written out as steps
+        you can follow on any version of it. The topics on it carried close to <b>90% of the marks</b> in
+        the last five papers &mdash; and it is written for someone who has not studied the concept yet.
+      </p>
+      <button className="btn btn-sm" style={{ marginTop: '.75rem' }} onClick={() => go('mocks')}>
+        Open the final sheet
+      </button>
+    </div>
+  );
+}
+
 /* ---- The final sheet: the paid section, kept apart from the free solved papers ---- */
 function MockCard({ m, i, user, paid, go }) {
   const owned = paid.includes(m.code);
@@ -868,6 +896,8 @@ function PyqSolutions({ user, go }) {
         sheet, with the method named at each step.
       </p>
 
+      <FinalSheetBanner go={go} />
+
       <div className="highlight" style={{ marginTop: '1.4rem' }}>
         <span>&#9998;</span>
         <div>
@@ -883,19 +913,6 @@ function PyqSolutions({ user, go }) {
         {SOLUTIONS.map((s, i) => <SolutionCard s={s} i={i} user={user} key={s.code} />)}
       </div>
 
-      <div className="highlight" style={{ marginTop: '1.6rem' }}>
-        <span>&#9998;</span>
-        <div>
-          <b>Short on time before the MST?</b>
-          <p>
-            There is a final sheet for{' '}
-            {MOCKS.map(m => m.subject).join(' and ')} &mdash; one question for every topic that keeps
-            coming back, each with its method written out as steps you can follow on any version of it.
-          </p>
-          <button className="btn btn-sm" style={{ marginTop: '.6rem' }}
-            onClick={() => go('mocks')}>Open the final sheet</button>
-        </div>
-      </div>
 
       <div className="sec-title" style={{ marginTop: '2.2rem' }}>Coming soon</div>
       <p className="note" style={{ marginTop: 0 }}>
@@ -924,6 +941,8 @@ function PyqGuides({ user, go }) {
         the marks question by question to show which topics keep repeating, how they were asked each
         year, and where students lose easy marks.
       </p>
+
+      <FinalSheetBanner go={go} />
 
       {!user && (
         <p className="note" style={{ marginBottom: '1.2rem' }}>
