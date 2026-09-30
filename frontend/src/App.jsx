@@ -624,11 +624,11 @@ function Unlock({ user, go, onPaid, code }) {
 
   return (
     <div className="wrap">
-      <h2>Unlock {mock ? mock.name + ' mock paper' : subject ? subject.name : 'these solutions'}</h2>
+      <h2>Unlock the {mock ? mock.name + ' final sheet' : subject ? subject.name : 'these solutions'}</h2>
       <p className="sub">
         {mock
           ? '₹' + price + ' opens the other ' + (mock.questions - 1) + ' questions of the ' + mock.subject +
-            ' mock — ' + mock.marks + ' marks in all, each question worked out in full with the method written ' +
+            ' sheet — ' + mock.marks + ' marks in all, each question worked out in full with the method written ' +
             'out as steps. The first question stays free so you can see the standard before paying.'
           : '₹' + price + ' opens the solved papers for ' +
             (subject ? subject.name + ' (' + subject.code + ')' : 'this subject') +
@@ -715,7 +715,7 @@ function Unlock({ user, go, onPaid, code }) {
   );
 }
 
-/* ---- Mock papers: the paid section, kept apart from the free solved papers ---- */
+/* ---- The final sheet: the paid section, kept apart from the free solved papers ---- */
 function MockCard({ m, i, user, paid, go }) {
   const owned = paid.includes(m.code);
   const body = (
@@ -761,31 +761,51 @@ function MockCard({ m, i, user, paid, go }) {
 function MockPapers({ user, go, paid }) {
   return (
     <div className="wrap">
-      <h2>Mock papers</h2>
+      <h2>The final sheet</h2>
       <p className="sub">
-        If you have barely started, this is the one thing worth doing tonight.
+        The last thing to do before the exam. If you are short on time &mdash; or the concepts have
+        not clicked yet &mdash; this is the one that gives you the most back per hour.
       </p>
 
       <div className="highlight" style={{ marginTop: '1.3rem' }}>
         <span>&#9998;</span>
         <div>
-          <b>Why one paper is enough to cover most of the subject</b>
+          <b>Why this one sheet covers most of the subject</b>
           <p>
-            These are not eight random questions. We read all five past MST papers, counted what every
-            topic was worth, and then wrote one question for each topic that keeps coming back. The
-            topics these eight cover carried close to <b>90% of the marks</b> in those five papers.
-          </p>
-          <p style={{ marginTop: '.6rem' }}>
-            And no question is just solved and left there. Each one carries its method written out as
-            numbered steps, so you can follow it on whatever version of that question your paper
-            actually has &mdash; and underneath, what changes when the same topic is asked a different
-            way. That is the part that turns one paper into revision for the whole subject.
-          </p>
-          <p style={{ marginTop: '.6rem' }}>
-            Work through one properly and very little in the MST should look unfamiliar. Open either
-            one below and see for yourself.
+            We read all five past MST papers, counted what every topic was worth, and then wrote one
+            question for each topic that keeps coming back. The topics on this sheet carried close to{' '}
+            <b>90% of the marks</b> in those five papers. Work through it properly and very little in
+            the exam should look unfamiliar.
           </p>
         </div>
+      </div>
+
+      <div className="card" style={{ marginTop: '1.2rem' }}>
+        <b style={{ display: 'block', marginBottom: '.75rem' }}>
+          How this is different from the solved past papers
+        </b>
+        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+          {[
+            ['You get the method, not just the answer',
+             'The solved papers work out the question that was asked. Here every question also carries its ' +
+             'procedure written as numbered steps, so it works on whatever version of that question your ' +
+             'paper actually has.'],
+            ['Every other form the question comes in',
+             'Under each one: if the same topic is asked a different way, what changes and what stays. ' +
+             'One question ends up teaching you the whole topic.'],
+            ['It assumes you have not studied it yet',
+             'Nothing is left as "obvious". If a concept has not clicked, the steps are written so you can ' +
+             'follow them from scratch and still get the marks.']
+          ].map(([head, tail]) => (
+            <li key={head} style={{
+              display: 'flex', gap: '.65rem', padding: '.65rem 0',
+              borderBottom: '1px solid #EEEEF4', fontSize: '.93rem', lineHeight: 1.62
+            }}>
+              <span style={{ color: '#0c7057', fontWeight: 700 }}>&#10003;</span>
+              <span><b>{head}</b><br /><span style={{ color: '#5A6472' }}>{tail}</span></span>
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div className="grid" style={{ marginTop: '1.4rem' }}>
@@ -868,12 +888,12 @@ function PyqSolutions({ user, go }) {
         <div>
           <b>Short on time before the MST?</b>
           <p>
-            There are mock papers for{' '}
-            {MOCKS.map(m => m.subject).join(' and ')} &mdash; eight questions that between them cover
-            every type these papers repeat, each with the method written out as steps.
+            There is a final sheet for{' '}
+            {MOCKS.map(m => m.subject).join(' and ')} &mdash; one question for every topic that keeps
+            coming back, each with its method written out as steps you can follow on any version of it.
           </p>
           <button className="btn btn-sm" style={{ marginTop: '.6rem' }}
-            onClick={() => go('mocks')}>See the mock papers</button>
+            onClick={() => go('mocks')}>Open the final sheet</button>
         </div>
       </div>
 
@@ -2297,7 +2317,7 @@ export default function App() {
         <div className="nav-links">
           <button className={'nav-link' + (page === 'pyq' ? ' on' : '')} onClick={() => go('pyq')}>PYQ Guides</button>
           <button className={'nav-link' + (page === 'solutions' ? ' on' : '')} onClick={() => go('solutions')}>Solved PYQs</button>
-          <button className={'nav-link' + (page === 'mocks' ? ' on' : '')} onClick={() => go('mocks')}>Mock papers</button>
+          <button className={'nav-link' + (page === 'mocks' ? ' on' : '')} onClick={() => go('mocks')}>Final sheet</button>
           <button className={'nav-link' + (page === 'faqs' ? ' on' : '')} onClick={() => go('faqs')}>FAQs</button>
           <button className={'nav-link' + (page.startsWith('subject') ? ' on' : '')} onClick={() => go('subjects')}>Subjects</button>
           <button className={'nav-link' + (page === 'doubts' ? ' on' : '')} onClick={() => go('doubts')}>Doubts</button>
@@ -2339,7 +2359,7 @@ export default function App() {
                   : 'Payments are tied to your Thapar account, so sign in and the page will come back.'}
               </p>
               {user
-                ? <button className="btn" style={{ marginTop: '1rem' }} onClick={() => go('mocks')}>Go to mock papers</button>
+                ? <button className="btn" style={{ marginTop: '1rem' }} onClick={() => go('mocks')}>Go to the final sheet</button>
                 : <button className="btn" style={{ marginTop: '1rem' }} onClick={startLogin}>Sign in with your Thapar email</button>}
             </div>
           )
