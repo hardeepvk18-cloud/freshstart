@@ -2232,7 +2232,11 @@ export default function App() {
 
   const go = (target, code) => {
     try {
-      const hash = ['pyq', 'solutions', 'mocks', 'unlock', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target) ? '#' + target : '';
+      const known = ['pyq', 'solutions', 'mocks', 'unlock', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'];
+      // the unlock page is meaningless without its code, so carry it in the hash
+      const hash = !known.includes(target) ? ''
+        : (target === 'unlock' && code) ? '#unlock=' + code
+        : '#' + target;
       window.history.replaceState({}, '', window.location.pathname + hash);
     } catch (e) {}
     setHistory(h => (target === page && (code || null) === subjectCode) ? h : [...h, { page, subjectCode }]);
@@ -2323,7 +2327,23 @@ export default function App() {
       {page === 'pyq' && <PyqGuides user={user} go={go} />}
       {page === 'solutions' && <PyqSolutions user={user} go={go} />}
       {page === 'mocks' && <MockPapers user={user} go={go} paid={paid} />}
-      {page === 'unlock' && user && subjectCode && <Unlock user={user} go={go} code={subjectCode} onPaid={c => setPaid(p => [...p, c])} />}
+      {page === 'unlock' && (
+        user && subjectCode
+          ? <Unlock user={user} go={go} code={subjectCode} onPaid={c => setPaid(p => [...p, c])} />
+          : (
+            <div className="wrap">
+              <h2>{user ? 'Which one did you want to open?' : 'Sign in first'}</h2>
+              <p className="sub">
+                {user
+                  ? 'That link did not carry the subject, so there is nothing to open here. Pick it from the list and try again.'
+                  : 'Payments are tied to your Thapar account, so sign in and the page will come back.'}
+              </p>
+              {user
+                ? <button className="btn" style={{ marginTop: '1rem' }} onClick={() => go('mocks')}>Go to mock papers</button>
+                : <button className="btn" style={{ marginTop: '1rem' }} onClick={startLogin}>Sign in with your Thapar email</button>}
+            </div>
+          )
+      )}
       {page === 'faqs' && <FAQs user={user} />}
       {page === 'subjects' && <Subjects user={user} go={go} />}
       {page === 'subject' && <SubjectDetail code={subjectCode} user={user} go={go} />}
