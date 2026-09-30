@@ -180,6 +180,20 @@ footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);
 .rec ol li::before{content:counter(rs);position:absolute;left:0;top:.16rem;width:1.45rem;height:1.45rem;border-radius:50%;background:var(--accent-bg);color:var(--teal);font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.74rem;font-weight:600;display:flex;align-items:center;justify-content:center}
 .rec ol li b{color:var(--ink);font-weight:600}
 @media(max-width:560px){.rec{padding:.95rem 1rem}.rec ol li{padding-left:1.9rem;font-size:.89rem}}
+.lock .how{margin:1.2rem 0 0;padding:1rem 1.1rem;background:var(--accent-bg);border-radius:11px}
+.lock .how b.hk{display:block;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:.6rem}
+.lock .how ol{list-style:none;padding:0;margin:0;counter-reset:hs}
+.lock .how ol li{display:block;counter-increment:hs;position:relative;padding:0 0 .6rem 1.9rem;font-size:.9rem;line-height:1.62;color:var(--ink2);border-bottom:0}
+.lock .how ol li:last-child{padding-bottom:0}
+.lock .how ol li::before{content:counter(hs);position:absolute;left:0;top:.14rem;width:1.35rem;height:1.35rem;border-radius:50%;background:var(--teal);color:#fff;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.72rem;font-weight:600;display:flex;align-items:center;justify-content:center}
+.lock .how p.hn{margin:.85rem 0 0;font-size:.83rem;line-height:1.6;color:var(--ink3)}
+.lock .gets{margin:1.3rem 0 1.3rem;padding-top:1.2rem;border-top:1px solid var(--line)}
+.lock .gets b.hk{display:block;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:.7rem}
+.lock ul.g{list-style:none;padding:0;margin:0}
+.lock ul.g li{display:block;padding:0 0 .55rem 1.1rem;position:relative;border-bottom:0;font-size:.9rem;line-height:1.62;color:var(--ink2)}
+.lock ul.g li:last-child{padding-bottom:0}
+.lock ul.g li::before{content:'';position:absolute;left:0;top:.62rem;width:5px;height:5px;border-radius:50%;background:var(--teal)}
+.lock ul.g li b{color:var(--ink);font-weight:600}
 @media(max-width:560px){.tname{flex:0 0 8.5rem;font-size:.82rem}.tnum{flex:0 0 4.4rem}.lock{padding:1.5rem 1.2rem}}
 
 </style>
@@ -346,7 +360,33 @@ for 70 mm of cut, 5 mm approach, f = 0.2 mm/rev, N = 800:
   These are the other seven &mdash; one for every remaining question type, each worked out the same way, with the
   same &quot;if it comes in a different form&quot; notes underneath.</p>
   <ul><li><span class="tick">&#10003;</span><span><b>Turning calculations</b> &mdash; <span class="d">velocity per pass, MRR, machining time, parts per hour</span></span></li><li><span class="tick">&#10003;</span><span><b>Rolling</b> &mdash; <span class="d">stands, draft schedule, exit velocities, forward slip</span></span></li><li><span class="tick">&#10003;</span><span><b>Forging</b> &mdash; <span class="d">classification, flash, component sequences, defects</span></span></li><li><span class="tick">&#10003;</span><span><b>Tool geometry</b> &mdash; <span class="d">signature, rake angle choice, nose radius</span></span></li><li><span class="tick">&#10003;</span><span><b>Chips and stress&ndash;strain</b> &mdash; <span class="d">chip types and the conditions behind each</span></span></li><li><span class="tick">&#10003;</span><span><b>Additive manufacturing</b> &mdash; <span class="d">FDM against SLS, and choosing for an application</span></span></li><li><span class="tick">&#10003;</span><span><b>Sheet metal and dies</b> &mdash; <span class="d">punch and die sizing, force, progressive dies</span></span></li></ul>
-  <a class="cta" href="https://freshstart-i39e.vercel.app/#unlock=UES102-MOCK">Open the full paper for &#8377;49</a>
+  <div class="gets">
+    <b class="hk">What opening the rest gives you</b>
+    <ul class="g">
+      <li><b>All eight questions solved in full</b> &mdash; the way you would write it in the answer
+          sheet, not just the final answer.</li>
+      <li><b>The method for each, written as numbered steps</b> &mdash; so it works on the question
+          you actually get, not only on the one printed here.</li>
+      <li><b>Every other form the question comes in</b> &mdash; under each one, what changes if the
+          same topic is asked a different way.</li>
+      <li><b>Diagrams where the question needs one</b> &mdash; drawn out, not described.</li>
+      <li><b>Built from all five past MST papers</b> &mdash; the marks counted by hand, then these
+          eight chosen to cover every type that repeats.</li>
+    </ul>
+  </div>
+  <a class="cta" href="https://freshstart-i39e.vercel.app/#unlock=MOK102">Open the full paper for &#8377;29</a>
+  <div class="how">
+    <b class="hk">How the payment works</b>
+    <ol>
+      <li><b>Send &#8377;29</b> by UPI &mdash; scan the QR on that page, or copy the UPI id if you are on your phone.</li>
+      <li><b>Copy the 12-digit reference number</b> your app shows after the payment. PhonePe calls it
+          <i>UTR</i>, Google Pay calls it <i>UPI transaction ID</i>, Paytm calls it <i>UPI Ref No.</i> &mdash;
+          tap the payment in your app&rsquo;s history and it is right there.</li>
+      <li><b>Paste it in the box</b> and the paper opens straight away. No waiting for anyone to approve it.</li>
+    </ol>
+    <p class="hn">One reference number opens one account, so it cannot be shared around. Sign in with your
+    Thapar mail first, otherwise there is no account to attach it to.</p>
+  </div>
   <p class="why"><b>Why this part costs something:</b> counting the marks in five papers by hand, grouping the
   questions into types and working out every variant took weeks. The analysis guides and the solved papers stay
   free for everyone, always &mdash; this one page is the part that is paid.</p>
