@@ -191,7 +191,176 @@ function NotOfficial({ withErrorNote }) {
   );
 }
 
-function Home({ go }) {
+/* ---- Asking people what the site still needs -------------------------------
+   Rides on the existing guide-feedback endpoint under the code REVIEW, so
+   nothing on the server had to change. The two answers are packed into the one
+   comment field the endpoint already stores.                                 */
+function ReviewForm({ user, onDone, compact }) {
+  const [helped, setHelped] = useState(null);
+  const [better, setBetter] = useState('');
+  const [wants, setWants] = useState('');
+  const [sent, setSent] = useState(false);
+  const [err, setErr] = useState('');
+
+  function send() {
+    if (helped === null) { setErr('Tap one of the two first.'); return; }
+    if (!better.trim() && !wants.trim()) {
+      setErr('Write something in either box — that is the part that actually helps.');
+      return;
+    }
+    const comment =
+      (better.trim() ? 'BETTER: ' + better.trim() : '') +
+      (better.trim() && wants.trim() ? '\n' : '') +
+      (wants.trim() ? 'WANTS: ' + wants.trim() : '');
+    fetch(API + '/api/guide-feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        code: 'REVIEW', helpful: helped, comment: comment.slice(0, 600),
+        visitorId: getVisitorId(), email: user ? user.email : undefined
+      })
+    }).catch(() => {});
+    try { localStorage.setItem('fs_review', '1'); } catch (e) {}
+    setSent(true);
+    if (onDone) setTimeout(onDone, 1800);
+  }
+
+  if (sent) {
+    return (
+      <div style={{ padding: compact ? '.4rem 0' : '.6rem 0' }}>
+        <b style={{ fontSize: '1.02rem' }}>Got it — thank you.</b>
+        <p style={{ margin: '.4rem 0 0', fontSize: '.92rem', color: '#4A5866', lineHeight: 1.6 }}>
+          I read every one of these myself. If it is something I can build, it usually shows up
+          within a week.
+        </p>
+      </div>
+    );
+  }
+
+  const pill = (on) => ({
+    padding: '.5rem .95rem', borderRadius: '999px', fontSize: '.88rem', cursor: 'pointer',
+    border: on ? '2px solid #0c7057' : '1px solid #D8DCF5',
+    background: on ? 'rgba(12,112,87,.09)' : '#fff',
+    fontWeight: on ? 600 : 400, color: on ? '#0c7057' : '#4A5866'
+  });
+  const box = {
+    width: '100%', marginTop: '.45rem', padding: '.65rem .75rem', borderRadius: '10px',
+    border: '1px solid #D8DCF5', fontSize: '.92rem', fontFamily: 'inherit',
+    lineHeight: 1.55, resize: 'vertical', boxSizing: 'border-box'
+  };
+
+  return (
+    <div>
+      <p style={{ margin: '0 0 .9rem', fontSize: '.93rem', lineHeight: 1.62, color: '#4A5866' }}>
+        This site is built for you, by one student, in his own time. Two minutes of your honest
+        opinion decides what gets built next.
+      </p>
+
+      <div style={{ fontSize: '.9rem', fontWeight: 600, marginBottom: '.45rem' }}>
+        Has it actually helped you?
+      </div>
+      <div style={{ display: 'flex', gap: '.5rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
+        <button style={pill(helped === true)} onClick={() => { setHelped(true); setErr(''); }}>
+          Yes, it helped
+        </button>
+        <button style={pill(helped === false)} onClick={() => { setHelped(false); setErr(''); }}>
+          Not really
+        </button>
+      </div>
+
+      <label style={{ display: 'block', marginBottom: '.9rem' }}>
+        <span style={{ fontSize: '.9rem', fontWeight: 600 }}>What would make it better?</span>
+        <textarea rows={compact ? 2 : 3} style={box} value={better}
+          onChange={e => { setBetter(e.target.value); setErr(''); }}
+          placeholder="Anything confusing, slow, missing or annoying. Be blunt." />
+      </label>
+
+      <label style={{ display: 'block' }}>
+        <span style={{ fontSize: '.9rem', fontWeight: 600 }}>What should I add next?</span>
+        <textarea rows={compact ? 2 : 3} style={box} value={wants}
+          onChange={e => { setWants(e.target.value); setErr(''); }}
+          placeholder="A subject, a feature, a kind of material you wish was here." />
+      </label>
+
+      {err && <p className="note" style={{ color: '#b91c1c', marginTop: '.5rem' }}>{err}</p>}
+
+      <button className="btn" style={{ marginTop: '.9rem' }} onClick={send}>Send it</button>
+      <p className="note" style={{ marginTop: '.6rem' }}>
+        {user ? 'Sent as ' + user.email + ' so I can reply if needed.' : 'Goes in anonymously.'}
+      </p>
+    </div>
+  );
+}
+
+/* The one on the home page, where everybody lands. */
+function ReviewCard({ user }) {
+  const [hidden, setHidden] = useState(true);
+  useEffect(() => {
+    try { setHidden(!!localStorage.getItem('fs_review')); } catch (e) { setHidden(false); }
+  }, []);
+  if (hidden) return null;
+  return (
+    <div style={{
+      margin: '0 0 1.2rem', padding: '1.15rem 1.25rem', borderRadius: '14px', textAlign: 'left',
+      background: '#fff', border: '2px solid #6c63ff', boxShadow: '0 10px 30px rgba(108,99,255,.14)'
+    }}>
+      <div style={{
+        fontSize: '.72rem', letterSpacing: '.1em', textTransform: 'uppercase',
+        color: '#6c63ff', fontWeight: 700, marginBottom: '.3rem'
+      }}>
+        One thing before you go
+      </div>
+      <b style={{ display: 'block', fontSize: '1.08rem', marginBottom: '.5rem' }}>
+        Tell me what this site still needs
+      </b>
+      <ReviewForm user={user} compact />
+    </div>
+  );
+}
+
+/* Always reachable, on every page, without sitting in anyone's way. */
+function ReviewFab({ user }) {
+  const [open, setOpen] = useState(false);
+  if (!open) {
+    return (
+      <button onClick={() => setOpen(true)} aria-label="Give feedback"
+        style={{
+          position: 'fixed', right: '1rem', bottom: '1rem', zIndex: 40,
+          padding: '.7rem 1.05rem', borderRadius: '999px', border: 0, cursor: 'pointer',
+          background: '#6c63ff', color: '#fff', fontWeight: 600, fontSize: '.9rem',
+          boxShadow: '0 8px 24px rgba(108,99,255,.42)'
+        }}>
+        &#128172; Feedback
+      </button>
+    );
+  }
+  return (
+    <div onClick={() => setOpen(false)}
+      style={{
+        position: 'fixed', inset: 0, zIndex: 50, background: 'rgba(20,20,35,.45)',
+        display: 'flex', alignItems: 'flex-end', justifyContent: 'center', padding: '1rem'
+      }}>
+      <div onClick={e => e.stopPropagation()}
+        style={{
+          background: '#fff', borderRadius: '16px', padding: '1.3rem 1.35rem',
+          width: '100%', maxWidth: '30rem', maxHeight: '86vh', overflowY: 'auto'
+        }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+          <b style={{ fontSize: '1.08rem' }}>Tell me what this site still needs</b>
+          <button onClick={() => setOpen(false)} aria-label="Close"
+            style={{ border: 0, background: 'none', fontSize: '1.4rem', cursor: 'pointer', color: '#8A8FA3', lineHeight: 1 }}>
+            &times;
+          </button>
+        </div>
+        <div style={{ marginTop: '.7rem' }}>
+          <ReviewForm user={user} onDone={() => setOpen(false)} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Home({ go, user }) {
   return (
     <div className="hero">
       <div className="hero-in">
@@ -208,6 +377,8 @@ function Home({ go }) {
           <div className="mini" onClick={() => go('pyq')}><i>📊</i><h4>PYQ Guides</h4><p>What repeats in MSTs</p></div>
           <div className="mini" onClick={() => go('solutions')}><i>✎</i><h4>Solved PYQs</h4><p>Past papers worked out</p></div>
         </div>
+
+        <ReviewCard user={user} />
 
         <NotOfficial />
 
@@ -567,10 +738,11 @@ const noteStyle = {
 };
 
 /* ---- unlock page: pay by UPI, then enter the transaction id ---- */
-function Unlock({ user, go, onPaid, code }) {
+function Unlock({ user, go, onPaid, code, paid }) {
   const mock = MOCKS.find(m => m.code === code);
   const subject = mock || SOLUTIONS.find(s => s.code === code);
   const price = priceFor(code);
+  const owned = (paid || []).includes(code);
   const [utr, setUtr] = useState('');
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState('');
@@ -604,6 +776,11 @@ function Unlock({ user, go, onPaid, code }) {
 
     if (res && res.ok) {
       onPaid(code);
+      if (res.d && res.d.alreadyOwned) {
+        setBusy(false);
+        setMsg(res.d.message || 'You already had this one — nothing extra has been taken.');
+        return;
+      }
       // Paid for a mock, so open the paper itself right away rather than
       // dropping the student on another page to go looking for it. Same-tab
       // navigation, so no popup blocker gets in the way.
@@ -620,6 +797,28 @@ function Unlock({ user, go, onPaid, code }) {
       ? res.d.message
       : 'Server tak request nahi pahunchi. Thodi der baad dobara try karo — paisa kata hai toh access pakka milega.');
     setBusy(false);
+  }
+
+  // Paid for already. Showing a QR here is how someone ends up paying twice.
+  if (owned) {
+    return (
+      <div className="wrap">
+        <h2>You already have this</h2>
+        <p className="sub">
+          This account paid for {subject ? subject.name : 'this one'} already, so there is nothing more
+          to pay. Open it straight from here.
+        </p>
+        <a className="btn" style={{ marginTop: '1rem', display: 'inline-block', textDecoration: 'none' }}
+          href={API + '/api/solutions/' + code + '?email=' + encodeURIComponent(user.email)}
+          target="_blank" rel="noopener noreferrer">
+          Open it now
+        </a>
+        <p className="note" style={{ marginTop: '1.4rem' }}>
+          If you just paid a second time by mistake, say so under Doubts with your reference number
+          and the money goes back.
+        </p>
+      </div>
+    );
   }
 
   return (
@@ -1553,7 +1752,7 @@ function Admin({ user }) {
           <div className="list">
             {feedback.summary.map(f => (
               <div className="card" key={f.code}>
-                <h4>{f.code === 'SECTION' ? 'PYQ section (overall)' : f.code}</h4>
+                <h4>{f.code === 'SECTION' ? 'PYQ section (overall)' : f.code === 'REVIEW' ? 'Site review' : f.code}</h4>
                 <div className="tags" style={{ marginTop: '.5rem' }}>
                   <span className="tag ok">&#128077; {f.up}</span>
                   <span className={'tag' + (f.down ? ' warn' : '')}>&#128078; {f.down}</span>
@@ -1569,7 +1768,7 @@ function Admin({ user }) {
               <div className="list">
                 {feedback.comments.map((c, i) => (
                   <div className="card" key={i}>
-                    <h4>{c.code === 'SECTION' ? 'PYQ section' : c.code} · {c.helpful ? '👍' : '👎'}</h4>
+                    <h4>{c.code === 'SECTION' ? 'PYQ section' : c.code === 'REVIEW' ? 'Site review' : c.code} · {c.helpful ? '👍' : '👎'}</h4>
                     <p style={{ marginTop: '.5rem' }}>{c.comment}</p>
                     <p className="note">{c.email || 'not signed in'} · {new Date(c.createdAt).toLocaleString()}</p>
                   </div>
@@ -2356,7 +2555,7 @@ export default function App() {
         </div>
       </nav>
 
-      {page === 'home' && <Home go={go} />}
+      {page === 'home' && <Home go={go} user={user} />}
       {page !== 'home' && (
         <div className="wrap" style={{ paddingBottom: 0 }}>
           <button className="back" onClick={back}>&larr; Back</button>
@@ -2368,7 +2567,7 @@ export default function App() {
       {page === 'mocks' && <MockPapers user={user} go={go} paid={paid} />}
       {page === 'unlock' && (
         user && subjectCode
-          ? <Unlock user={user} go={go} code={subjectCode} onPaid={c => setPaid(p => [...p, c])} />
+          ? <Unlock user={user} go={go} code={subjectCode} paid={paid} onPaid={c => setPaid(p => [...p, c])} />
           : (
             <div className="wrap">
               <h2>{user ? 'Which one did you want to open?' : 'Sign in first'}</h2>
@@ -2391,6 +2590,8 @@ export default function App() {
       {page === 'thread' && <ThreadView id={subjectCode} user={user} go={go} />}
       {page === 'archive' && <Archive />}
       {page === 'admin' && <Admin user={user} />}
+
+      {page !== 'admin' && <ReviewFab user={user} />}
     </>
   );
 }
