@@ -293,7 +293,7 @@ function ReviewForm({ user, onDone, compact }) {
 }
 
 /* The one on the home page, where everybody lands. */
-function ReviewCard({ user }) {
+function ReviewCard({ user, style }) {
   const [hidden, setHidden] = useState(true);
   useEffect(() => {
     try { setHidden(!!localStorage.getItem('fs_review')); } catch (e) { setHidden(false); }
@@ -302,7 +302,8 @@ function ReviewCard({ user }) {
   return (
     <div style={{
       margin: '0 0 1.2rem', padding: '1.15rem 1.25rem', borderRadius: '14px', textAlign: 'left',
-      background: '#fff', border: '2px solid #6c63ff', boxShadow: '0 10px 30px rgba(108,99,255,.14)'
+      background: '#fff', border: '2px solid #6c63ff', boxShadow: '0 10px 30px rgba(108,99,255,.14)',
+      ...(style || {})
     }}>
       <div style={{
         fontSize: '.72rem', letterSpacing: '.1em', textTransform: 'uppercase',
@@ -1112,6 +1113,8 @@ function PyqSolutions({ user, go }) {
         {SOLUTIONS.map((s, i) => <SolutionCard s={s} i={i} user={user} key={s.code} />)}
       </div>
 
+      <ReviewCard user={user} style={{ marginTop: '1.8rem' }} />
+
 
       <div className="sec-title" style={{ marginTop: '2.2rem' }}>Coming soon</div>
       <p className="note" style={{ marginTop: 0 }}>
@@ -1178,6 +1181,8 @@ function PyqGuides({ user, go }) {
         Each guide says which papers it was built from. Syllabus changes every now and then, so
         cross-check the topic list against your own MST syllabus before planning.
       </p>
+
+      <ReviewCard user={user} style={{ marginTop: '2rem' }} />
 
 
     </div>
