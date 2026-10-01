@@ -1098,6 +1098,8 @@ function PyqSolutions({ user, go }) {
 
       <FinalSheetBanner go={go} />
 
+      <ReviewCard user={user} style={{ marginTop: '1.1rem' }} />
+
       <div className="highlight" style={{ marginTop: '1.4rem' }}>
         <span>&#9998;</span>
         <div>
@@ -1112,8 +1114,6 @@ function PyqSolutions({ user, go }) {
       <div className="grid" style={{ marginTop: '1.4rem' }}>
         {SOLUTIONS.map((s, i) => <SolutionCard s={s} i={i} user={user} key={s.code} />)}
       </div>
-
-      <ReviewCard user={user} style={{ marginTop: '1.8rem' }} />
 
 
       <div className="sec-title" style={{ marginTop: '2.2rem' }}>Coming soon</div>
@@ -1145,6 +1145,8 @@ function PyqGuides({ user, go }) {
       </p>
 
       <FinalSheetBanner go={go} />
+
+      <ReviewCard user={user} style={{ marginTop: '1.1rem' }} />
 
       {!user && (
         <p className="note" style={{ marginBottom: '1.2rem' }}>
@@ -1181,8 +1183,6 @@ function PyqGuides({ user, go }) {
         Each guide says which papers it was built from. Syllabus changes every now and then, so
         cross-check the topic list against your own MST syllabus before planning.
       </p>
-
-      <ReviewCard user={user} style={{ marginTop: '2rem' }} />
 
 
     </div>
