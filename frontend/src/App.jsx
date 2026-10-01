@@ -212,6 +212,9 @@ function ReviewForm({ user, onDone, compact }) {
       (better.trim() ? 'BETTER: ' + better.trim() : '') +
       (better.trim() && wants.trim() ? '\n' : '') +
       (wants.trim() ? 'WANTS: ' + wants.trim() : '');
+    // Only say thank you once the server has actually taken it. Claiming
+    // success on a request that failed is how feedback silently disappears.
+    setErr('');
     fetch(API + '/api/guide-feedback', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -219,10 +222,16 @@ function ReviewForm({ user, onDone, compact }) {
         code: 'REVIEW', helpful: helped, comment: comment.slice(0, 600),
         visitorId: getVisitorId(), email: user ? user.email : undefined
       })
-    }).catch(() => {});
-    try { localStorage.setItem('fs_review', '1'); } catch (e) {}
-    setSent(true);
-    if (onDone) setTimeout(onDone, 1800);
+    })
+      .then(r => {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        try { localStorage.setItem('fs_review', '1'); } catch (e) {}
+        setSent(true);
+        if (onDone) setTimeout(onDone, 1800);
+      })
+      .catch(() => {
+        setErr('That did not send — the server did not take it. Please try once more.');
+      });
   }
 
   if (sent) {
@@ -1785,6 +1794,28 @@ function Admin({ user }) {
       )}
 
       <div className="sec-title">Logged-in users</div>
+      {logins.length > 0 && (() => {
+        /* The number worth quoting is the verified one. Anything that is not a
+           @thapar.edu address is counted separately rather than folded in. */
+        const BATCH = 3000;                       // first year intake, for the share
+        const thapar = logins.filter(l => /@thapar\.edu$/i.test(String(l.email || '').trim())).length;
+        const other = logins.length - thapar;
+        const pct = (thapar / BATCH) * 100;
+        return (
+          <div className="card" style={{ marginBottom: '1rem' }}>
+            <h4>Who these {logins.length} accounts are</h4>
+            <div className="tags" style={{ marginTop: '.6rem' }}>
+              <span className="tag ok"><b>{thapar}</b> verified @thapar.edu</span>
+              {other > 0 && <span className="tag warn"><b>{other}</b> other addresses</span>}
+              <span className="tag"><b>{pct.toFixed(1)}%</b> of the {BATCH.toLocaleString()} first years</span>
+            </div>
+            <p className="note" style={{ marginTop: '.6rem' }}>
+              Each row below is one distinct email, not one sign-in, so nobody is counted twice.
+              Quote the verified figure — it is the one that holds up when somebody asks how it was counted.
+            </p>
+          </div>
+        );
+      })()}
       {logins.length === 0 ? (
         <div className="empty">Nobody has signed in yet.</div>
       ) : (
