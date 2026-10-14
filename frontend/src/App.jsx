@@ -1,3 +1,4 @@
+import Crush from "./Crush";
 import React, { useState, useEffect, useCallback } from 'react';
 
 const API = process.env.REACT_APP_API_URL || (typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5000');
@@ -2458,7 +2459,7 @@ export default function App() {
       setPage('unlock');
       return;
     }
-    if (['pyq', 'solutions', 'mocks', 'unlock', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'].includes(target)) {
+    if (['pyq', 'solutions', 'mocks', 'unlock', 'faqs', 'subjects', 'doubts', 'guidance', 'archive', 'crush'].includes(target)) {
       setPage(target);
     }
   }, []);
@@ -2506,7 +2507,7 @@ export default function App() {
 
   const go = (target, code) => {
     try {
-      const known = ['pyq', 'solutions', 'mocks', 'unlock', 'faqs', 'subjects', 'doubts', 'guidance', 'archive'];
+      const known = ['pyq', 'solutions', 'mocks', 'unlock', 'faqs', 'subjects', 'doubts', 'guidance', 'archive', 'crush'];
       // the unlock page is meaningless without its code, so carry it in the hash
       const hash = !known.includes(target) ? ''
         : (target === 'unlock' && code) ? '#unlock=' + code
@@ -2572,6 +2573,7 @@ export default function App() {
           <button className={'nav-link' + (page === 'pyq' ? ' on' : '')} onClick={() => go('pyq')}>PYQ Guides</button>
           <button className={'nav-link' + (page === 'solutions' ? ' on' : '')} onClick={() => go('solutions')}>Solved PYQs</button>
           <button className={'nav-link' + (page === 'mocks' ? ' on' : '')} onClick={() => go('mocks')}>Final sheet</button>
+          <button className={'nav-link' + (page === 'crush' ? ' on' : '')} onClick={() => go('crush')}>Crush Radar</button>
           <button className={'nav-link' + (page === 'faqs' ? ' on' : '')} onClick={() => go('faqs')}>FAQs</button>
           <button className={'nav-link' + (page.startsWith('subject') ? ' on' : '')} onClick={() => go('subjects')}>Subjects</button>
           <button className={'nav-link' + (page === 'doubts' ? ' on' : '')} onClick={() => go('doubts')}>Doubts</button>
@@ -2601,6 +2603,7 @@ export default function App() {
       {page === 'pyq' && <PyqGuides user={user} go={go} />}
       {page === 'solutions' && <PyqSolutions user={user} go={go} />}
       {page === 'mocks' && <MockPapers user={user} go={go} paid={paid} />}
+      {page === 'crush' && <Crush user={user} go={go} />}
       {page === 'unlock' && (
         user && subjectCode
           ? <Unlock user={user} go={go} code={subjectCode} paid={paid} onPaid={c => setPaid(p => [...p, c])} />
