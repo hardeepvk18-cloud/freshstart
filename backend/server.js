@@ -1164,4 +1164,7 @@ app.post('/api/admin/payment-claims/:id/revoke', requireAdmin, async (req, res) 
 app.get('/', (req, res) => res.json({ status: 'FreshStart API is running' }));
 
 const PORT = process.env.PORT || 5000;
+const crushRoutes = require('./crush-routes');
+app.use(crushRoutes);
+
 app.listen(PORT, () => console.log('Server listening on port ' + PORT));
